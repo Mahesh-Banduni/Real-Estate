@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 
-// const propertyAddressSchema = new mongoose.Schema({
-//   city: { type: String, required: true },
-//   address: { type: String },
-//   pincode :{
-//     type: Number,
-//     require: true,
-//   }
-// });
+const addressSchema = new mongoose.Schema({
+  street: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  country: { type: String, required: true },
+  postalCode: { type: String, required: true },
+  latitude: { type: Number }, // Optional for geolocation
+  longitude: { type: Number }, // Optional for geolocation
+});
 
 const propertySchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -18,11 +19,7 @@ const propertySchema = new mongoose.Schema({
     required: true,
   },
   price: { type: Number, required: true },
-  location: {
-    city: { type: String, required: true },
-    address: { type: String },
-    pincode: { type: Number, require: true },
-  },
+  location: { type: addressSchema, required: true },
   images: [{ type: String }],
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   dateListed: { type: Date, default: Date.now },
