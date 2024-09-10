@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = React.memo(({ label, Icon, placeholder, type, className }) => {
+const Input = ({ label, icon, placeholder, type, className }) => {
   return (
     <div className="flex flex-col bg-transparent gap-2">
       {label && (
@@ -11,8 +11,8 @@ const Input = React.memo(({ label, Icon, placeholder, type, className }) => {
           {label}
         </label>
       )}
-      <div className="px-2 bg-[#F2F2F2] flex items-center gap-1">
-        {Icon && <Icon className="text-lg font-semibold" />}
+      <div className="px-3 bg-[#F2F2F2] flex items-center gap-1">
+        {icon && <img src={icon} alt="icon" />}
 
         <input
           id={label && label}
@@ -23,6 +23,6 @@ const Input = React.memo(({ label, Icon, placeholder, type, className }) => {
       </div>
     </div>
   );
-});
+};
 
 export default Input;

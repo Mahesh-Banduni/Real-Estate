@@ -1,10 +1,13 @@
 import React from "react";
+
 import NormalProperty from "./NormalProperty";
+import ExchangePropertyForm from "./ExchangePropertyForm";
 
 const PropertyType = ({ PropertyType }) => {
   return (
     <div>
-      <NormalProperty />
+      {/* <NormalProperty /> */}
+      <ExchangePropertyForm />
     </div>
   );
 };

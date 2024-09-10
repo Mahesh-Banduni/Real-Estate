@@ -3,13 +3,14 @@ import { CiLocationOn } from "react-icons/ci";
 
 import { Input, SelectInput } from "../index";
 import { searchButton } from "../../utils/icons";
+import { location } from "../../utils/icons";
 
 const NormalProperty = () => {
   return (
-    <div className="bg-[#ffffff] opacity-90 px-5 py-2 w-[75%] ">
+    <div className="bg-[#ffffff] opacity-0 px-5 py-2 inline-block">
       <form className="flex items-end justify-center gap-2" action="">
         <Input
-          Icon={CiLocationOn}
+          icon={location}
           label="location"
           placeholder="Search City"
           type="text"
