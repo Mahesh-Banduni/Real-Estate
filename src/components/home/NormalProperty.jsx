@@ -7,7 +7,7 @@ import { location } from "../../utils/icons";
 
 const NormalProperty = () => {
   return (
-    <div className="bg-[#ffffff] opacity-0 px-5 py-2 inline-block">
+    <div className="bg-[#ffffff] px-5 py-2 inline-block">
       <form className="flex items-end justify-center gap-2" action="">
         <Input
           icon={location}
@@ -18,8 +18,8 @@ const NormalProperty = () => {
         />
         <SelectInput label={"Property type"} className={"w-full"} />
         <SelectInput label={"price range"} className={"w-full"} />
-        <button className="bg-primary-color px-3">
-          <img className=" w-14 h-12 " src={searchButton} alt="search" />
+        <button className="bg-primary-color px-4">
+          <img className=" w-16 h-14 " src={searchButton} alt="search" />
         </button>
       </form>
     </div>

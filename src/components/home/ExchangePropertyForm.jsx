@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Input, SelectInput } from "../index";
-import { location, exchange } from "../../utils/icons";
+import { location, exchange, searchButton } from "../../utils/icons";
 
 const ExchangePropertyForm = () => {
   return (
     <div className="bg-[#ffffff]  px-5 py-2 inline-block">
-      <form className="flex items-center justify-center gap-2" action="">
+      <form className="flex items-end justify-center gap-2" action="">
         <div className="flex flex-col gap-2">
           <label
             className="capitalize font-medium text-xl text-[rgb(75,75,75)]"
@@ -32,6 +32,9 @@ const ExchangePropertyForm = () => {
         </div>
         <SelectInput label={"Property Type"} className={" py-0"} />
         <SelectInput label={"Price Range"} className={"py-0"} />
+        <button className="bg-primary-color px-4">
+          <img className=" w-16 h-14 " src={searchButton} alt="search" />
+        </button>
       </form>
     </div>
   );

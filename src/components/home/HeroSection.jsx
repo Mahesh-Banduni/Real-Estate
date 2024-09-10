@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 
 import { heroSectionBackground } from "../../utils/icons";
 import PropertyTypeList from "./PropertyTypeList";
 import PropertyType from "./PropertyType";
+import RecentSearch from "./RecentSearch";
 
 const HeroSection = () => {
   const [property, setProperty] = useState("buy");
   const handelChangePropertyType = (name) => {
     setProperty(name);
   };
+
+  let searchHistory = ["land in dehradun", "properties in delhi"];
   return (
     <div
       style={{ backgroundImage: `url(${heroSectionBackground})` }}
@@ -42,7 +44,13 @@ const HeroSection = () => {
             />
           </ul>
         </div>
-        <PropertyType />
+        <PropertyType property={property} />
+        <div className="flex items-center gap-5 mt-5 text-[#8F90A6] text-base ">
+          Resent Searches:
+          {searchHistory?.map((item, index) => {
+            return <RecentSearch key={index} text={item} />;
+          })}
+        </div>
       </div>
     </div>
   );
