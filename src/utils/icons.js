@@ -9,6 +9,11 @@ import exchange from "/images/exchange-icon.svg";
 import rightArrow from "/images/right-arrow-circle.svg";
 import discountBackground from "/images/discountBackground.svg";
 import discountGridImage from "/images/discountGridImage.svg";
+import cityImage from "/images/cityImage.svg";
+import delhi from "/images/delhi.svg";
+import dehradun from "/images/dehradun.svg";
+import kolkata from "/images/kolkata.svg";
+import partnershipPropertyImage from "/images/partnershipPropertyImage.svg";
 
 export {
   logo,
@@ -22,4 +27,9 @@ export {
   recommend,
   discountBackground,
   discountGridImage,
+  cityImage,
+  dehradun,
+  delhi,
+  kolkata,
+  partnershipPropertyImage,
 };

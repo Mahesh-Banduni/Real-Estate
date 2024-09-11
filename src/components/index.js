@@ -13,6 +13,10 @@ import SecondaryButton from "./SecondaryButton";
 import PrimaryCards from "./PrimaryCards";
 import Discount from "./home/Discount";
 import HandPicked from "./home/HandPicked";
+import SecondaryCard from "./SecondaryCard";
+import ChooseAcrossCity from "./home/ChooseAcrossCity";
+import TertiaryCard from "./TertiaryCard";
+import PartnershipProperty from "./home/PartnershipProperty";
 
 export {
   Button,
@@ -30,4 +34,8 @@ export {
   PrimaryCards,
   Discount,
   HandPicked,
+  SecondaryCard,
+  ChooseAcrossCity,
+  TertiaryCard,
+  PartnershipProperty,
 };

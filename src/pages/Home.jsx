@@ -5,6 +5,8 @@ import {
   HeroSection,
   RecommendationSection,
   HandPicked,
+  ChooseAcrossCity,
+  PartnershipProperty,
 } from "../components";
 
 const Home = () => {
@@ -15,6 +17,8 @@ const Home = () => {
       <RecommendationSection />
       <Discount />
       <HandPicked />
+      <ChooseAcrossCity />
+      <PartnershipProperty />
     </React.Fragment>
   );
 };
