@@ -6,6 +6,11 @@ import Dropdowns from "./home/Dropdowns";
 import HeroSection from "./home/HeroSection";
 import Input from "./Input";
 import SelectInput from "./SelectInput";
+import RecommendationSection from "./home/RecommendationSection";
+import Heading from "./Heading";
+import Paragraph from "./Paragraph";
+import SecondaryButton from "./SecondaryButton";
+import PrimaryCards from "./PrimaryCards";
 
 export {
   Button,
@@ -16,4 +21,9 @@ export {
   HeroSection,
   Input,
   SelectInput,
+  RecommendationSection,
+  Heading,
+  Paragraph,
+  SecondaryButton,
+  PrimaryCards,
 };
