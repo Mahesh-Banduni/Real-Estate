@@ -16,7 +16,7 @@ const propertySchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-});description, price, images, isAvailable
+});
 
 const Property = mongoose.model("Property", propertySchema);
 module.exports = Property;
