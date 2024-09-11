@@ -1,5 +1,10 @@
 import React from "react";
-import { Dropdowns, HeroSection, RecommendationSection } from "../components";
+import {
+  Discount,
+  Dropdowns,
+  HeroSection,
+  RecommendationSection,
+} from "../components";
 
 const Home = () => {
   return (
@@ -7,6 +12,7 @@ const Home = () => {
       <Dropdowns />
       <HeroSection />
       <RecommendationSection />
+      <Discount />
     </React.Fragment>
   );
 };

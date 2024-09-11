@@ -11,6 +11,7 @@ import Heading from "./Heading";
 import Paragraph from "./Paragraph";
 import SecondaryButton from "./SecondaryButton";
 import PrimaryCards from "./PrimaryCards";
+import Discount from "./home/Discount";
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   Paragraph,
   SecondaryButton,
   PrimaryCards,
+  Discount,
 };

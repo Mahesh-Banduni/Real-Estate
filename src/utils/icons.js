@@ -7,6 +7,8 @@ import location from "/images/location.svg";
 import recommend from "/images/recommend.svg";
 import exchange from "/images/exchange-icon.svg";
 import rightArrow from "/images/right-arrow-circle.svg";
+import discountBackground from "/images/discountBackground.svg";
+import discountGridImage from "/images/discountGridImage.svg";
 
 export {
   logo,
@@ -18,4 +20,6 @@ export {
   exchange,
   rightArrow,
   recommend,
+  discountBackground,
+  discountGridImage,
 };
