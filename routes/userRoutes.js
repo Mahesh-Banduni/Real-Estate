@@ -18,47 +18,25 @@ const userController = require('../controllers/userController');
  *             type: object
  *             required:
  *               - name
- *               - email
+ *               - phone
  *               - password
  *             properties:
  *               name:
  *                 type: string
  *                 description: User's name
- *               email:
+ *               phone:
  *                 type: string
- *                 description: User's email
+ *                 description: User's phone number
  *               password:
  *                 type: string
  *                 description: User's password
- *               phone:
- *                 type: number
- *                 description: User's phone number
- *               area:
- *                 type: string
- *                 description: User's area
- *               locality:
- *                 type: string
- *                 description: User's locality
- *               city:
- *                 type: string
- *                 description: User's city
- *               district:
- *                 type: string
- *                 description: User's district
- *               state:
- *                 type: string
- *                 description: User's state
- *               country:
- *                 type: string
- *                 description: User's country
- *               postalCode:
- *                 type: string
- *                 description: User's postal code
  *     responses:
  *       201:
  *         description: User created successfully
+ *       409:
+ *         description: Conflict error (phone number already exists)
  *       400:
- *         description: Validation error
+ *         description: Bad request
  */
 router.post('/register', userController.createUser);
 
@@ -109,9 +87,6 @@ router.get('/:id', userController.getUserById);
  *                   name:
  *                     type: string
  *                     description: User's name
- *                   email:
- *                     type: string
- *                     description: User's email
  *                   phone:
  *                     type: string
  *                     description: User's phone number
@@ -145,36 +120,11 @@ router.get('/', userController.getAllUsers);
  *               name:
  *                 type: string
  *                 description: Updated user's name
- *               email:
- *                 type: string
- *                 description: Updated user's email
- *               phone:
- *                 type: string
- *                 description: Updated user's phone number
- *               area:
- *                 type: string
- *                 description: Updated user's area
- *               locality:
- *                 type: string
- *                 description: Updated user's locality
- *               city:
- *                 type: string
- *                 description: Updated user's city
- *               district:
- *                 type: string
- *                 description: Updated user's district
- *               state:
- *                 type: string
- *                 description: Updated user's state
- *               country:
- *                 type: string
- *                 description: Updated user's country
- *               postalCode:
- *                 type: string
- *                 description: Updated user's postal code
  *     responses:
  *       200:
  *         description: User updated successfully
+ *       400:
+ *         description: Bad request (Name required)
  *       404:
  *         description: User not found
  */

@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const connectDb = require("./connection/connection");
 const userRoutes = require("./routes/userRoutes");
+const userProfileRoutes= require("./routes/userProfileRoutes");
+const propertyRoutes = require("./routes/propertyRoutes")
 const { errorHandler } = require("./middleware/errorHandler");
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
@@ -13,6 +15,8 @@ connectDb();
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/users", userRoutes); 
+app.use("/userProfiles", userProfileRoutes);
+app.use("/properties", propertyRoutes); 
 
 app.use(errorHandler);
 
