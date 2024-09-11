@@ -4,6 +4,7 @@ import {
   Dropdowns,
   HeroSection,
   RecommendationSection,
+  HandPicked,
 } from "../components";
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
       <HeroSection />
       <RecommendationSection />
       <Discount />
+      <HandPicked />
     </React.Fragment>
   );
 };

@@ -12,6 +12,7 @@ import Paragraph from "./Paragraph";
 import SecondaryButton from "./SecondaryButton";
 import PrimaryCards from "./PrimaryCards";
 import Discount from "./home/Discount";
+import HandPicked from "./home/HandPicked";
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   SecondaryButton,
   PrimaryCards,
   Discount,
+  HandPicked,
 };
