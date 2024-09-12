@@ -12,7 +12,7 @@ const PartnershipPropertyForm = () => {
           label="location"
           placeholder="Search City"
           type="text"
-          className="capitalize text-lg text-[#8F90A6] bg-transparent py-[0.63rem]"
+          className="capitalize text-lg text-[#4B4B4B] bg-transparent py-[0.63rem]"
         />
         <SelectInput label={"Property type"} className={"w-full"} />
         <SelectInput label={"Price range"} className={"w-full"} />

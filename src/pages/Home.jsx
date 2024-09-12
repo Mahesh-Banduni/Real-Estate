@@ -7,6 +7,7 @@ import {
   HandPicked,
   ChooseAcrossCity,
   PartnershipProperty,
+  ContactSection,
 } from "../components";
 
 const Home = () => {
@@ -19,6 +20,7 @@ const Home = () => {
       <HandPicked />
       <ChooseAcrossCity />
       <PartnershipProperty />
+      <ContactSection />
     </React.Fragment>
   );
 };

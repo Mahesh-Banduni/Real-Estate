@@ -14,6 +14,11 @@ import delhi from "/images/delhi.svg";
 import dehradun from "/images/dehradun.svg";
 import kolkata from "/images/kolkata.svg";
 import partnershipPropertyImage from "/images/partnershipPropertyImage.svg";
+import contactBg from "/images/contactBg.svg";
+import office from "/images/office.svg";
+import facebook from "/images/facebook.svg";
+import instagram from "/images/instagram.svg";
+import youtube from "/images/instagram.svg";
 
 export {
   logo,
@@ -32,4 +37,9 @@ export {
   delhi,
   kolkata,
   partnershipPropertyImage,
+  contactBg,
+  office,
+  facebook,
+  instagram,
+  youtube,
 };

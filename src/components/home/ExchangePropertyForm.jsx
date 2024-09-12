@@ -17,13 +17,13 @@ const ExchangePropertyForm = () => {
           <div className="relative w-full flex items-center justify-center gap-2 ">
             <Input
               icon={location}
-              className={"bg-transparent py-[0.7rem] w-36"}
+              className={"bg-transparent py-[0.7rem] w-36 text-[#4B4B4B]"}
               placeholder="From City"
               type="text"
             />
             <Input
               icon={location}
-              className={"bg-transparent py-[0.7rem] w-36"}
+              className={"bg-transparent py-[0.7rem] w-36 text-[#4B4B4B]"}
               placeholder="To City"
               type="text"
             />

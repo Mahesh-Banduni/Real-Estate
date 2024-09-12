@@ -29,7 +29,6 @@ const Dropdowns = () => {
       };
     });
   };
-  console.log(dropdown.buy);
 
   return (
     <React.Fragment>
