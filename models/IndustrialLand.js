@@ -1,17 +1,16 @@
 const mongoose= require("mongoose");
-const plotSchema = new mongoose.Schema({
+const industrialLandSchema = new mongoose.Schema({
   //Property Location
   city: {type: String, required: true},
   locality: {type: String, required: true},
-  projectSocietyName: {type: String},
   Address: {type: String, maxlength: 256},
 
   //Property Features
   floorsAllowed: {type: Number},
   openSides: {type: Number},
   facingRoadWidth: {type: Number},
-  boundaryWall: {type: Boolean},
-  gatedColony: {type: Boolean},
+  boundaryWallMade: {type: Boolean},
+  anyConstructionDone: {type: Boolean},
 
   //Property Area
   plotArea: { type: Number, required: true },
@@ -49,5 +48,5 @@ const plotSchema = new mongoose.Schema({
   roadAvailable: {type: Boolean},
   });
 
-const Plot = mongoose.model("Plot", plotSchema);
-module.exports = Plot;
+const IndustrialLand = mongoose.model("IndustrialLand", industrialLandSchema);
+module.exports = IndustrialLand;

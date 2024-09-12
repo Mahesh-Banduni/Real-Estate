@@ -12,7 +12,7 @@ const createUserProfile = async (userProfileData) => {
   }
 
   const userProfile = new UserProfile();
-  userProfile.userId=userProfileData.userId;
+  userProfile.user=userProfileData.user;
   userProfile.email= userProfileData.email;
   userProfile.bio= userProfileData.bio;
   userProfile.area= userProfileData.area;
@@ -28,11 +28,11 @@ const createUserProfile = async (userProfileData) => {
 };
 
 const getAllUserProfiles = async () => {
-  return await UserProfile.find().populate('propertiesOwned favoriteProperties');
+  return await UserProfile.find().populate('user propertiesOwned favoriteProperties', 'name phone');
 };
 
 const getUserProfileById = async (userProfileId) => {
-  const userProfile = await UserProfile.findById(userProfileId).populate('propertiesOwned favoriteProperties');
+  const userProfile = await UserProfile.findById(userProfileId).populate('user propertiesOwned favoriteProperties', 'name phone');
   if (!userProfile) {
     throw new NotFoundError('User Profile not found');
   }

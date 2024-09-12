@@ -5,13 +5,13 @@ const plotSchema = new mongoose.Schema({
   locality: {type: String, required: true},
   projectSocietyName: {type: String},
   Address: {type: String, maxlength: 256},
+  landZone: {type: String, enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]},
 
   //Property Features
   floorsAllowed: {type: Number},
   openSides: {type: Number},
   facingRoadWidth: {type: Number},
   boundaryWall: {type: Boolean},
-  gatedColony: {type: Boolean},
 
   //Property Area
   plotArea: { type: Number, required: true },
@@ -19,6 +19,9 @@ const plotSchema = new mongoose.Schema({
   lengthdimension: { type: Number, required: true },
   widthdimension: { type: Number, required: true },
   cornerPlot: {type: Boolean},
+
+  //Transaction Type & Property Avialability
+  currentlyLeasedOut: {type: Boolean},
 
   //Price Details
   expectedPrice: {type: Number, required: true},

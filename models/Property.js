@@ -11,7 +11,7 @@ const propertySchema = new mongoose.Schema({
   images: [{ type: String }],
   dateListed: { type: Date, default: Date.now },
   isAvailable: { type: Boolean, default: true },       
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true

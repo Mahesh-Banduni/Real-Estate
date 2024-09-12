@@ -20,7 +20,7 @@ const userProfileController = require('../controllers/userProfileController');
  *               - email
  *               - bio
  *             properties:
- *               userId:
+ *               user:
  *                 type: string
  *                 description: User's userId
  *               email:

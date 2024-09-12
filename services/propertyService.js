@@ -9,12 +9,12 @@ const createProperty = async (propertyData) => {
 
 // Get all properties
 const getAllProperties = async () => {
-  return await Property.find().populate('user', 'name email');
+  return await Property.find().populate('user', 'name phone');
 };
 
 // Get property by ID
 const getPropertyById = async (propertyId) => {
-  const property = await Property.findById(propertyId).populate('user', 'name email');
+  const property = await Property.findById(propertyId).populate('user', 'name phone');
   if (!property) {
     throw new NotFoundError('Property not found');
   }

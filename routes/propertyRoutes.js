@@ -34,7 +34,7 @@ const propertyController = require('../controllers/propertyController');
  *               price:
  *                 type: string
  *                 description: Property price
- *               userId:
+ *               user:
  *                 type: string
  *                 description: User ID associated with the property
  *               isAvailable:

@@ -1,7 +1,5 @@
 const mongoose= require("mongoose");
-const flatSchema = new mongoose.Schema({
-    //Property Details
-    numberOfFlatsInSociety: {type: String, enum:["<50","50-100",">100"]},
+const penthouseSchema = new mongoose.Schema({
     
     //Property Location
     city: {type: String, required: true},
@@ -28,7 +26,6 @@ const flatSchema = new mongoose.Schema({
     availableFromYear: {type: Number, enum:[]},
     constructionAge: {type: String, enum: ["New Construction","1 year", "2 years", "3 years", "4 years","5 years", "5 to 10 years","10 to 15 years","15 to 20 years","20 to 30 years","Above 30 years"]},
     
-    
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
@@ -47,5 +44,5 @@ const flatSchema = new mongoose.Schema({
 
 });
 
-const Flat = mongoose.model("Flat", flatSchema);
-module.exports = Flat;
+const Penthouse = mongoose.model("Penthouse", penthouseSchema);
+module.exports = Penthouse;
