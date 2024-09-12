@@ -17,6 +17,9 @@ import SecondaryCard from "./SecondaryCard";
 import ChooseAcrossCity from "./home/ChooseAcrossCity";
 import TertiaryCard from "./TertiaryCard";
 import PartnershipProperty from "./home/PartnershipProperty";
+import ContactSection from "./home/ContactSection";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export {
   Button,
@@ -38,4 +41,7 @@ export {
   ChooseAcrossCity,
   TertiaryCard,
   PartnershipProperty,
+  ContactSection,
+  Footer,
+  Header,
 };
