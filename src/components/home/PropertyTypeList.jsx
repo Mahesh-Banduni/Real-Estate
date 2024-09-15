@@ -8,7 +8,7 @@ const PropertyTypeList = React.memo(
           property === `${text}`
             ? "bg-primary-color text-white"
             : " text-[#8F90A6] "
-        } cursor-pointer transition-all overflow-hidden px-5 py-1`}
+        } cursor-pointer transition-all overflow-hidden px-5 py-1 tracking-wider`}
         onClick={() => {
           handelChangePropertyType(text);
         }}

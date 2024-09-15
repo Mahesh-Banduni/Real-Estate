@@ -9,6 +9,7 @@ export default {
         "tertiary-color": "#F8F9FE",
         "heading-color": "#054457",
         "border-color": "#DEDCDA",
+        "price-card": "#DFF6F9",
       },
       boxShadow: {
         "links-shadow": "2px 1px 0px 1px #69B99D",
@@ -30,6 +31,9 @@ export default {
         interRegular: ["InterRegular"],
         interSemiBold: ["InterSemiBold"],
         interRegular: ["InterRegular"],
+      },
+      gridTemplateColumns: {
+        "list-card": "0.7fr 1.6fr 0.7fr",
       },
     },
   },

@@ -20,6 +20,7 @@ import PartnershipProperty from "./home/PartnershipProperty";
 import ContactSection from "./home/ContactSection";
 import Footer from "./Footer";
 import Header from "./Header";
+import ListProperty from "./properties/ListProperty";
 
 export {
   Button,
@@ -44,4 +45,5 @@ export {
   ContactSection,
   Footer,
   Header,
+  ListProperty,
 };

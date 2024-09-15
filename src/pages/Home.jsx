@@ -13,7 +13,6 @@ import {
 const Home = () => {
   return (
     <React.Fragment>
-      <Dropdowns />
       <HeroSection />
       <RecommendationSection />
       <Discount />
