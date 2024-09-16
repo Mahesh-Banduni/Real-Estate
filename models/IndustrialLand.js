@@ -9,20 +9,20 @@ const industrialLandSchema = new mongoose.Schema({
   floorsAllowed: {type: Number},
   openSides: {type: Number},
   facingRoadWidth: {type: Number},
-  boundaryWallMade: {type: Boolean},
-  anyConstructionDone: {type: Boolean},
+  boundaryWallMade: {type: Boolean, default: false},
+  anyConstructionDone: {type: Boolean, default: false},
 
   //Property Area
   plotArea: { type: Number, required: true },
   areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
   lengthdimension: { type: Number, required: true },
   widthdimension: { type: Number, required: true },
-  cornerPlot: {type: Boolean},
+  cornerPlot: {type: Boolean, default: false},
 
   //Price Details
   expectedPrice: {type: Number, required: true},
   bookingAmount: {type: Number},
-  priceNegotiable: {type: Boolean},
+  priceNegotiable: {type: Boolean, default: false},
 
   //Other Details
   overlooking: {type: String, enum:["Pool","Garden/Park","Main Road"]},
@@ -35,17 +35,17 @@ const industrialLandSchema = new mongoose.Schema({
   features: {type: String},
 
   //legal Document Status
-  titleDeed: {type: Boolean},
-  previousOwnerTitleDeedAvailable: {type:Boolean},
-  revenueDocument: {type: Boolean},
-  encumberenceCertificate: {type: Boolean},
-  conversionCertificate: {type: Boolean},
+  titleDeed: {type: Boolean, default: false},
+  previousOwnerTitleDeedAvailable: {type:Boolean, default: false},
+  revenueDocument: {type: Boolean, default: false},
+  encumberenceCertificate: {type: Boolean, default: false},
+  conversionCertificate: {type: Boolean, default: false},
   
   //Civic Infrastructure Details
-  waterConnection: {type: Boolean},
-  electricityConnection: {type: Boolean},
-  sewageConnection: {type: Boolean},
-  roadAvailable: {type: Boolean},
+  waterConnection: {type: Boolean, default: false},
+  electricityConnection: {type: Boolean, default: false},
+  sewageConnection: {type: Boolean, default: false},
+  roadAvailable: {type: Boolean, default: false},
   });
 
 const IndustrialLand = mongoose.model("IndustrialLand", industrialLandSchema);

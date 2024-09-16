@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const flatSchema = new mongoose.Schema({
+const builderFloorApartmentSchema = new mongoose.Schema({
     
     //Property Location
     city: {type: String, required: true},
@@ -29,7 +29,7 @@ const flatSchema = new mongoose.Schema({
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean},
+    priceNegotiable: {type: Boolean,default: false},
 
     //Others
     transactionType: { type: String, enum: ["New Property","Resale"]},
@@ -44,5 +44,5 @@ const flatSchema = new mongoose.Schema({
 
 });
 
-const Flat = mongoose.model("Flat", flatSchema);
-module.exports = Flat;
+const BuilderFloorApartment = mongoose.model("BuilderFloorApartment", builderFloorApartmentSchema);
+module.exports = BuilderFloorApartment;

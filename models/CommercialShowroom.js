@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const commercialOfficeSpaceSchema = new mongoose.Schema({
+const commercialShowroomSchema = new mongoose.Schema({
     //Property Location
     city: {type: String, required: true},
     locality: {type: String, required: true},
@@ -296,9 +296,9 @@ const commercialOfficeSpaceSchema = new mongoose.Schema({
     totalFloor: {type: Number, maxlength: 150},
     furnished: {type: String, enum: ["Furnished", "Unfurnished"]},
     washrooms: {type: Number, maxlength:50},
-    cornerShowroom: {type: Boolean},
-    mainRoadFacing: {type: Boolean},
-    personalWashroom: {type: Boolean},
+    cornerShowroom: {type: Boolean, default: false},
+    mainRoadFacing: {type: Boolean, default: false},
+    personalWashroom: {type: Boolean, default: false},
     pantryCafeteria: {type: String, enum:["Dry","Wet","Not Available"]},
     
     //Property Area
@@ -314,14 +314,14 @@ const commercialOfficeSpaceSchema = new mongoose.Schema({
     availableFromMonth: {type: String, enum:[]},
     availableFromYear: {type: Number, enum:[]},
     constructionAge: {type: String, enum: ["New Construction","1 year", "2 years", "3 years", "4 years","5 years", "5 to 10 years","10 to 15 years","15 to 20 years","20 to 30 years","Above 30 years"]},
-    currentlyLeasedOut: {type: Boolean},
-    assuredReturns: {type: Boolean},
+    currentlyLeasedOut: {type: Boolean, default: false},
+    assuredReturns: {type: Boolean, default: false},
     rateOfReturn: {type: Number},
         
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean},
+    priceNegotiable: {type: Boolean, default: false},
     
     //Others
     subPropertyType: {type: String, enum:["Ready to Move Office Space","Bare Shell Office Space","Office in IT Park/ SEZ"]},
@@ -338,5 +338,5 @@ const commercialOfficeSpaceSchema = new mongoose.Schema({
     amenities: {type: [String], enum: ["Reserved Parking","Visitor Parking","Lift","Power Backup","Gas Pipeline","Park","Kids Play Area","Gymnasium","Swimming Pool","Club House","Air Conditioned","Vaastu Compliance","Internet/Wi-Fi","Security Personnel","CCTV Camera"], required: true},
 });
 
-const CommercialOfficeSpace = mongoose.model("CommercialOfficeSpace", commercialOfficeSpaceSchema);
-module.exports = CommercialOfficeSpace;
+const CommercialShowroom = mongoose.model("CommercialShowroom", commercialShowroomSchema);
+module.exports = CommercialShowroom;

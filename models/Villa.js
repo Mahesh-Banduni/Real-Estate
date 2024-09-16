@@ -24,7 +24,7 @@ const villaSchema = new mongoose.Schema({
     carpetArea: { type: Number, required: true },
     superArea: { type: Number, required: true },
     CSreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
-    cornerPlot: {type: Boolean},
+    cornerPlot: {type: Boolean,default: false},
 
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
@@ -35,7 +35,7 @@ const villaSchema = new mongoose.Schema({
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean},
+    priceNegotiable: {type: Boolean,default: false},
     
     
     //Others

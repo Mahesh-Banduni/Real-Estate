@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const flatSchema = new mongoose.Schema({
+const flatApartmentSchema = new mongoose.Schema({
     //Property Details
     numberOfFlatsInSociety: {type: String, enum:["<50","50-100",">100"]},
     
@@ -18,9 +18,9 @@ const flatSchema = new mongoose.Schema({
     bathrooms: {type: Number, maxlength: 20},
 
     //Property Area
-     superArea: { type: Number, required: true },
-     carpetArea: { type: Number, required: true },
-     areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
+    superArea: { type: Number, required: true },
+    carpetArea: { type: Number, required: true },
+    areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
    
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
@@ -28,16 +28,17 @@ const flatSchema = new mongoose.Schema({
     availableFromYear: {type: Number, enum:[]},
     constructionAge: {type: String, enum: ["New Construction","1 year", "2 years", "3 years", "4 years","5 years", "5 to 10 years","10 to 15 years","15 to 20 years","20 to 30 years","Above 30 years"]},
     
-    
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean},
+    priceNegotiable: {type: Boolean, default: false},
 
     //Others
     transactionType: { type: String, enum: ["New Property","Resale"]},
+    overlooking: {type: String, enum:["Pool","Garden/Park","Main Road","Club","Others","Hills","Lake","River","Open Land","Forest","City Skyline","Residential Area","Commercial Area","Farmland","Mountains"]},
+    facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
     flatType:  { type: String, enum: ["1 BHK","2 BHK","3 BHK","4 BHK","5 BHK",">5 BHK"]},
-    subPropertyType: {type: String, enum:["Builder Floor Apartment","Penthouse","Studio Apartment"]},
+    flooring: {type: String, enum: ["Ceramic Tiles","Wooden","Vitrified","Marble","Granite"]},
     developer: { type: String},
     ownership: { type: String, enum: ["Freehold","Leasehold", "Power Of Attorney", "Co-operative Society"], required: true},
     additionalRooms:{ type: String, enum:["Store Room","Puja Room","Servant Room"]},
@@ -47,5 +48,5 @@ const flatSchema = new mongoose.Schema({
 
 });
 
-const Flat = mongoose.model("Flat", flatSchema);
-module.exports = Flat;
+const FlatApartment = mongoose.model("FlatApartment", flatApartmentSchema);
+module.exports = FlatApartment;

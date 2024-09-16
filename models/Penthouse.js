@@ -29,7 +29,7 @@ const penthouseSchema = new mongoose.Schema({
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean},
+    priceNegotiable: {type: Boolean,default: false},
 
     //Others
     transactionType: { type: String, enum: ["New Property","Resale"]},

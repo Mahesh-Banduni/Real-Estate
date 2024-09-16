@@ -23,12 +23,12 @@ const warehouseSchema = new mongoose.Schema({
     availableFromMonth: {type: String, enum:[]},
     availableFromYear: {type: Number, enum:[]},
     constructionAge: {type: String, enum: ["New Construction","1 year", "2 years", "3 years", "4 years","5 years", "5 to 10 years","10 to 15 years","15 to 20 years","20 to 30 years","Above 30 years"]},
-    currentlyLeasedOut: {type: Boolean},
+    currentlyLeasedOut: {type: Boolean, default: false},
         
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean},
+    priceNegotiable: {type: Boolean, default: false},
     
     //Others
     subPropertyType: {type: String, enum:["Ready to Move Office Space","Bare Shell Office Space","Office in IT Park/ SEZ"]},
