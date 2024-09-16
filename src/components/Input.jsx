@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ label, icon, placeholder, type, className }) => {
+const Input = ({ label, icon, placeholder, type, className, inputMode }) => {
   return (
     <div className="flex flex-col bg-transparent gap-2 w-full">
       {label && (
@@ -13,7 +13,7 @@ const Input = ({ label, icon, placeholder, type, className }) => {
       )}
       <div className="px-3 bg-[#F2F2F2] flex items-center gap-1 w-full">
         {icon && <img src={icon} alt="icon" />}
-
+        {type === "number" && "+91 | "}
         <input
           id={label && label}
           className={`outline-none border-none ${className}`}

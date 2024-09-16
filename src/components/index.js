@@ -22,6 +22,11 @@ import Footer from "./Footer";
 import Header from "./Header";
 import ListProperty from "./properties/ListProperty";
 
+// contact page
+import SocialMediaLinks from "./SocialMediaLinks";
+import ContactForm from "./contact/ContactForm";
+import ContactInfo from "./contact/ContactInfo";
+
 export {
   Button,
   NavLinks,
@@ -46,4 +51,7 @@ export {
   Footer,
   Header,
   ListProperty,
+  SocialMediaLinks,
+  ContactForm,
+  ContactInfo,
 };

@@ -30,6 +30,10 @@ import share from "/images/share.svg";
 import status from "/images/status.svg";
 import superArea from "/images/superArea.svg";
 import transaction from "/images/transaction.svg";
+import twitter from "/images/twitter.svg";
+import contactOnFacebook from "/images/contactOnFacebook.svg";
+import contactOnInstagram from "/images/contactOnInstagram.svg";
+import arrowRight from "/images/arrow-right.svg";
 
 export {
   logo,
@@ -64,4 +68,8 @@ export {
   status,
   superArea,
   transaction,
+  contactOnFacebook,
+  contactOnInstagram,
+  twitter,
+  arrowRight,
 };

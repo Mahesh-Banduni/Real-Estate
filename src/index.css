@@ -20,3 +20,12 @@
     src: url("./assets/font-family/Inter_18pt-Regular.ttf") format("truetype");
   }
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
