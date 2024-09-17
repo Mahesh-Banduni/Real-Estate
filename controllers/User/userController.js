@@ -1,4 +1,4 @@
-const userService = require('../services/userService');
+const userService = require('../../services/User/userService');
 
 // Create a new user
 exports.createUser = async (req, res, next) => {

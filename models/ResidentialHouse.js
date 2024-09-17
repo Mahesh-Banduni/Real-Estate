@@ -34,7 +34,6 @@ const residentialHouse = new mongoose.Schema({
     bookingAmount: {type: Number},
     priceNegotiable: {type: Boolean,default: false},
     
-    
     //Others
     villaType:  { type: String, enum: ["1 BHK","2 BHK","3 BHK","4 BHK","5 BHK",">5 BHK"]},
     ownership: { type: String, enum: ["Freehold","Leasehold", "Power Of Attorney", "Co-operative Society"], required: true},

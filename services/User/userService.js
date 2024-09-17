@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors');
+const User = require('../../models/User');
+const { ConflictError, NotFoundError, BadRequestError } = require('../../errors/errors');
 
 // Create a new user
 const createUser = async (userData) => {

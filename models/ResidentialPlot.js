@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const plotSchema = new mongoose.Schema({
+const residentialPlotSchema = new mongoose.Schema({
   //Property Location
   city: {type: String, required: true},
   locality: {type: String, required: true},
@@ -88,5 +88,5 @@ const plotSchema = new mongoose.Schema({
   roadAvailable: {type: Boolean,default: false},
   });
 
-const Plot = mongoose.model("Plot", plotSchema);
-module.exports = Plot;
+const ResidentialPlot = mongoose.model("ResidentialPlot", residentialPlotSchema);
+module.exports = ResidentialPlot;

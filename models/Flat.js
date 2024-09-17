@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const flatApartmentSchema = new mongoose.Schema({
+const flatSchema = new mongoose.Schema({
     //Property Details
     numberOfFlatsInSociety: {type: String, enum:["<50","50-100",">100"]},
     
@@ -42,11 +42,11 @@ const flatApartmentSchema = new mongoose.Schema({
     developer: { type: String},
     ownership: { type: String, enum: ["Freehold","Leasehold", "Power Of Attorney", "Co-operative Society"], required: true},
     additionalRooms:{ type: String, enum:["Store Room","Puja Room","Servant Room"]},
-    amenities: {type: [String], enum: ["Parking","Lift","Power Backup","Gas Pipeline","Park","Kids Play Area","Gymnasium","Swimming Pool","Club House","Air Conditioned","Vaastu Compliance","Internet/Wi-Fi","Security Personnel"], required: true},
+    amenities: {type: [String], enum: ["Parking","Lift","Power Backup","Gas Pipeline","Park","Kids Play Area","Gymnasium","Swimming Pool","Club House","Air Conditioned","Vaastu Compliance","Internet/Wi-Fi","Security Personnel"]},
 
     //Renting Fields
 
 });
 
-const FlatApartment = mongoose.model("FlatApartment", flatApartmentSchema);
-module.exports = FlatApartment;
+const Flat = mongoose.model("Flat", flatSchema);
+module.exports = Flat;
