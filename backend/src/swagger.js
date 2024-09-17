@@ -10,7 +10,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:8000',  // Update this with your app's base URL
+      url: 'http://localhost:8080',  // Update this with your app's base URL
       //description: 'Local server',
     },
   ],
@@ -19,7 +19,7 @@ const swaggerDefinition = {
 // Options for the swagger docs
 const options = {
   swaggerDefinition,
-  apis: ['./routes/*.js','./routes/Agriculture/*.js','./routes/User/*.js','./routes/Residential/*.js','./routes/Commercial/*.js']
+  apis: ['src/routes/*.js','src/routes/Agriculture/*.js','src/routes/User/*.js','src/routes/Residential/*.js','src/routes/Commercial/*.js']
     // Path to the API docs
 };
 

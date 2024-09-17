@@ -6,13 +6,13 @@ const userProfileRoutes= require("./routes/User/userProfileRoutes");
 const propertyRoutes = require("./routes/propertyRoutes");
 const residentialPlotRoutes = require("./routes/Residential/residentialPlotRoutes");
 const flatRoutes= require("./routes/Residential/flatRoutes");
-const residentialHouseRoutes = require("./routes/Residential/residentialHouse");
+const residentialHouseRoutes = require("./routes/Residential/residentialHouseRoutes");
 const villaRoutes = require("./routes/Residential/villaRoutes");
 const builderFloorApartmentRoutes = require("./routes/Residential/builderFloorApartmentRoutes");
 const { errorHandler } = require("./middleware/errorHandler");
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 require('dotenv').config();
 
 connectDb();
