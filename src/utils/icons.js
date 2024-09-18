@@ -1,4 +1,4 @@
-import logo from "/images/logo.svg";
+// import logo from "/images/logo.svg";
 import arrow from "/images/dropdown-arrow.svg";
 import heroSectionBackground from "/images/heroSection.svg";
 import recent from "/images/recent.svg";
@@ -38,6 +38,7 @@ import home from "/images/Home.svg";
 import namaste from "/images/Namaste.svg";
 import google from "/images/Google.svg";
 import facebookLogin from "/images/loginThroughFacebook.svg";
+import logo from "/images/lo-gu.svg";
 
 export {
   logo,

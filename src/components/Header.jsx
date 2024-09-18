@@ -59,7 +59,7 @@ const Header = () => {
             </ul>
           </div>
           <Link to={"#"}>
-            <img className="max-md:hidden" src={logo} alt="logo" />
+            <img className="w-16 h-16" src={logo} alt="logo" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
