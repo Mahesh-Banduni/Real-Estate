@@ -7,8 +7,8 @@ import { Link, NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <React.Fragment>
-      <div className="navbar bg-base-100 w-11/12 m-auto h-[20vh] ">
-        <div className="navbar-start">
+      <div className="navbar bg-base-100 w-11/12 m-auto h-[20vh] max-sm:h-[10vh] flex items-center justify-between">
+        <div className="navbar-start w-fit">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
@@ -59,7 +59,7 @@ const Header = () => {
             </ul>
           </div>
           <Link to={"#"}>
-            <img src={logo} alt="logo" />
+            <img className="max-md:hidden" src={logo} alt="logo" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -112,13 +112,15 @@ const Header = () => {
                 List Property
               </NavLink>
             </li>
+            <li>
+              <AnimatedButton text="FREE" className="bg-free-btn-color" />
+            </li>
           </ul>
         </div>
-        <div className="navbar-end gap-8">
-          <AnimatedButton text="FREE" className="bg-free-btn-color" />
-          <div className=" flex items-center gap-3">
-            <NavLinks to="#" text="Register" />
-            <NavLinks to="#" text="Login" />
+        <div className="navbar-end gap-8 w-fit flex items-center justify-end max-sm:gap-2">
+          <div className=" flex items-center gap-3 max-[320px]:gap-[0.35rem] ">
+            <NavLinks to="/signup" text="Register" />
+            <NavLinks to="/signin" text="Login" />
           </div>
         </div>
       </div>
