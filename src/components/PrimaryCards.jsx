@@ -8,13 +8,16 @@ const PrimaryCards = ({ pic, heading, para, price }) => {
       <div>
         <img src={pic} alt="" />
       </div>
-      <h1 className="font-interSemiBold text-2xl">{heading}</h1>
-      <p className="font-interRegular text-lg text-[#A6A6A6]"> {para} </p>
+      <h1 className="font-interSemiBold text-2xl max-sm:text-xl">{heading}</h1>
+      <p className="font-interRegular text-lg text-[#A6A6A6] max-sm:text-sm">
+        {" "}
+        {para}{" "}
+      </p>
       <div className="flex items-center gap-10">
-        <h2 className="text-primary-color font-interSemiBold text-2xl ">
+        <h2 className="text-primary-color font-interSemiBold text-2xl max-sm:text-xl">
           {price}
         </h2>
-        <p className="font-interRegular text-[#A6A6A6] bg-[#F5F5F5] p-1 capitalize ">
+        <p className="font-interRegular text-[#A6A6A6] bg-[#F5F5F5] p-1 capitalize max-sm:text-sm">
           <span className="font-interRegular text-[#1F2744] mr-1 ">
             360m<sup>2</sup>
           </span>
@@ -23,7 +26,7 @@ const PrimaryCards = ({ pic, heading, para, price }) => {
       </div>
       <Button
         text="send inquiry"
-        className="w-full grid place-content-center py-2 capitalize border-2 border-primary-color text-primary-color hover:text-white hover:bg-primary-color transition-all  bg-transparent "
+        className="w-full grid place-content-center py-2 capitalize border-2 border-primary-color text-primary-color hover:text-white hover:bg-primary-color transition-all  bg-transparent text-lg max-sm:text-base"
       />
     </div>
   );

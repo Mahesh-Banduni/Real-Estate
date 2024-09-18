@@ -6,10 +6,10 @@ import { rightArrow } from "../utils/icons";
 const SecondaryButton = React.memo(({ text }) => {
   return (
     <React.Fragment>
-      <Link className="text-primary-color font-interMedium text-lg capitalize flex items-center gap-2">
+      <Link className="text-primary-color font-interMedium text-lg capitalize flex items-center gap-2 max-sm:text-sm">
         {text}
         <button>
-          <img src={rightArrow} alt="arrow" />
+          <img className="max-sm:h-3 max-sm:w-3" src={rightArrow} alt="arrow" />
         </button>
       </Link>
     </React.Fragment>
