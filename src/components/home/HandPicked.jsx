@@ -36,9 +36,22 @@ const HandPicked = () => {
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={30}
-          slidesPerView={3.5}
           loop={true}
           pagination={false}
+          breakpoints={{
+            1000: {
+              slidesPerView: 3.5,
+            },
+            700: {
+              slidesPerView: 2.5,
+            },
+            400: {
+              slidesPerView: 1.2,
+            },
+            280: {
+              slidesPerView: 1,
+            },
+          }}
         >
           <SwiperSlide>
             <PrimaryCards
