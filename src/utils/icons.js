@@ -34,6 +34,10 @@ import twitter from "/images/twitter.svg";
 import contactOnFacebook from "/images/contactOnFacebook.svg";
 import contactOnInstagram from "/images/contactOnInstagram.svg";
 import arrowRight from "/images/arrow-right.svg";
+import home from "/images/Home.svg";
+import namaste from "/images/Namaste.svg";
+import google from "/images/Google.svg";
+import facebookLogin from "/images/loginThroughFacebook.svg";
 
 export {
   logo,
@@ -72,4 +76,8 @@ export {
   contactOnInstagram,
   twitter,
   arrowRight,
+  home,
+  namaste,
+  facebookLogin,
+  google,
 };
