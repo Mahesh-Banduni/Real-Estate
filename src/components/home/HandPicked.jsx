@@ -20,7 +20,7 @@ const HandPicked = () => {
     <div className="mx-10 my-10 pt-10  flex flex-col gap-5">
       <Button
         text="spacial properties"
-        className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit"
+        className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]"
       />
       <Heading text="hand picked properties" />
       <div className="flex items-end justify-between">
