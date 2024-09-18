@@ -63,7 +63,10 @@ const Dropdowns = () => {
             dropdown={dropdown["exchange property"]}
             arrow={arrow}
           />
-          <AnimationButton className="bg-[#FFAB86]" text="NEW" />
+          <AnimationButton
+            className="bg-[#FFAB86] mx-1 max-[500px]:hidden "
+            text="NEW"
+          />
         </div>
       </div>
       <hr />

@@ -20,11 +20,13 @@ const DropdownButton = ({
       <div
         tabIndex={0}
         role="button"
-        className="btn m-1 uppercase bg-transparent border-none shadow-none hover:shadow hover:bg-transparent hover:outline-none hover:border-none"
+        className="btn max-md:px-[0.15rem] max-md:gap-0 max-md:text-xs uppercase bg-transparent border-none shadow-none hover:shadow hover:bg-transparent hover:outline-none hover:border-none"
       >
         {text}
         <img
-          className={`${dropdown ? "rotate-180" : ""} transition-all`}
+          className={`${
+            dropdown ? "rotate-180" : ""
+          } transition-all max-[500px]:hidden`}
           src={arrow}
           alt="arrow"
         />
