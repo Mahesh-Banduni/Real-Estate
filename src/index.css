@@ -29,3 +29,25 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+.login-or {
+  position: relative;
+  text-align: center;
+}
+.login-or::after {
+  content: " ";
+  position: absolute;
+  height: 1px;
+  background-color: black;
+  width: 45%;
+  top: 50%;
+  left: 55.3%;
+}
+.login-or::before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  height: 1px;
+  top: 50%;
+  background-color: black;
+  width: 45%;
+}
