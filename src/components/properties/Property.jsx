@@ -128,8 +128,7 @@ const Property = () => {
       <div className=" w-full bg-price-card flex flex-col justify-between p-2 ">
         <div className="text-center">
           <span className="text-2xl font-interSemiBold capitalize">
-            {" "}
-            Rs 1.95cr{" "}
+            Rs 1.95cr
           </span>
           <p className="text-[#8F90A6] font-interMedium">Rs 3,545 per sqft</p>
         </div>

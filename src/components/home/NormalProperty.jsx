@@ -22,8 +22,12 @@ const NormalProperty = () => {
         <SelectInput label={"Property type"} className={"w-full"} />
         <SelectInput label={"price range"} className={"w-full"} />
         <div className="w-full h-full flex max-[1120px]:items-start items-end justify-end">
-          <button className="bg-primary-color w-12 h-12 max-[1120px]:w-full max-[1120px]:mt-2 grid place-content-center">
-            <img className=" " src={searchButton} alt="search" />
+          <button className="bg-primary-color w-12 h-12 max-sm:h-8 max-[1120px]:w-full max-[1120px]:mt-2 grid place-content-center">
+            <img
+              className=" max-sm:w-4 max-sm:h-4 "
+              src={searchButton}
+              alt="search"
+            />
           </button>
         </div>
       </form>

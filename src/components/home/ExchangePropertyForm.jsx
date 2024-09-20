@@ -7,7 +7,7 @@ const ExchangePropertyForm = () => {
   return (
     <div className="bg-[#ffffff]  px-5 py-2 inline-block max-[1120px]:flex">
       <form
-        className="grid grid-rows-1 grid-cols-property-type-form gap-2 max-[1120px]:grid-cols-1 max-[1120px]:grid-rows-4 max-[1120px]:w-full"
+        className="grid grid-rows-1 grid-cols-property-type-form gap-2 max-[1120px]:grid-cols-1 max-[1120px]:grid-rows-4 max-[450px]:grid-rows-exchange-form-layout max-[1120px]:w-full"
         action=""
       >
         <div className="flex flex-col gap-2">
@@ -17,7 +17,7 @@ const ExchangePropertyForm = () => {
           >
             Location
           </label>
-          <div className="relative w-full flex items-center justify-center gap-2 ">
+          <div className="relative w-full flex items-center justify-center gap-2 max-[450px]:flex-col max-[450px]:gap-3 ">
             <Input
               icon={location}
               className={"bg-transparent py-[0.7rem] w-36 text-[#4B4B4B]"}
@@ -30,7 +30,11 @@ const ExchangePropertyForm = () => {
               placeholder="To City"
               type="text"
             />
-            <img className="absolute" src={exchange} alt="exchange" />
+            <img
+              className="absolute max-[450px]:rotate-90"
+              src={exchange}
+              alt="exchange"
+            />
           </div>
         </div>
         <SelectInput label={"Property Type"} className={" py-0"} />

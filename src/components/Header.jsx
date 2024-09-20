@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
-    <React.Fragment>
+    <div className="flex flex-col relative">
       <div className="navbar bg-base-100 w-11/12 m-auto h-[20vh] max-sm:h-[10vh] flex items-center justify-between">
         <div className="navbar-start w-fit">
           <div className="dropdown">
@@ -28,38 +28,64 @@ const Header = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow "
+              className="menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-[60vw] flex flex-col gap-2  p-2 shadow "
             >
               <li className="bg-transparent">
-                <NavLink className={"bg-white text-black uppercase"}>
+                <NavLink
+                  to={"/"}
+                  className={({ isActive }) =>
+                    isActive
+                      ? " border-b-2 text-xl border-none text-primary-color "
+                      : " text-black text-xl border-none hover:border-b-2 hover:text-primary-color "
+                  }
+                >
                   Home
                 </NavLink>
               </li>
               <li className="bg-transparent">
                 <NavLink
+                  to={"/properties"}
                   className={({ isActive }) =>
                     isActive
-                      ? " border-b-2 border-primary-color text-primary-color "
-                      : " text-black hover:border-b-2 hover:border-primary-color hover:text-primary-color "
+                      ? " border-b-2 text-xl border-none text-primary-color "
+                      : " text-black text-xl border-none hover:border-b-2 hover:text-primary-color "
                   }
                 >
                   Property
                 </NavLink>
               </li>
               <li className="bg-transparent">
-                <NavLink className="text-lg uppercase cursor-pointer">
+                <NavLink
+                  to={"/contact"}
+                  className={({ isActive }) =>
+                    isActive
+                      ? " border-b-2 text-xl border-none text-primary-color "
+                      : " text-black text-xl border-none hover:border-b-2 hover:text-primary-color "
+                  }
+                >
                   Contact Us
                 </NavLink>
               </li>
               <li className="bg-transparent">
-                <NavLink className="text-lg uppercase cursor-pointer">
+                <NavLink
+                  to={"/properties"}
+                  className={({ isActive }) =>
+                    isActive
+                      ? " border-b-2 text-xl text-primary-color border-none "
+                      : " text-black text-xl hover:border-b-2 hover:text-primary-color border-none "
+                  }
+                >
                   List Property
                 </NavLink>
               </li>
             </ul>
           </div>
           <Link to={"#"}>
-            <img className="w-16 h-16" src={logo} alt="logo" />
+            <img
+              className="w-16 h-16 max-sm:w-12 max-sm:h-12"
+              src={logo}
+              alt="logo"
+            />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -126,7 +152,7 @@ const Header = () => {
       </div>
       <hr />
       <Dropdowns />
-    </React.Fragment>
+    </div>
   );
 };
 

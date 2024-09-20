@@ -32,7 +32,7 @@ const Dropdowns = () => {
 
   return (
     <React.Fragment>
-      <div className=" w-11/12 m-auto flex items-center gap-2 justify-start h-[12vh] ">
+      <div className="relative w-11/12 m-auto flex items-center gap-2 justify-start h-[12vh] ">
         <DropdownButton
           handelOpenDropdown={handelOpenDropdown}
           handelCloseDropdown={handelCloseDropdown}

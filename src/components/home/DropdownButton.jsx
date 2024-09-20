@@ -20,7 +20,7 @@ const DropdownButton = ({
       <div
         tabIndex={0}
         role="button"
-        className="btn max-md:px-[0.15rem] max-md:gap-0 max-md:text-xs uppercase bg-transparent border-none shadow-none hover:shadow hover:bg-transparent hover:outline-none hover:border-none"
+        className="btn max-md:px-[0.15rem] max-md:gap-0 max-md:text-xs uppercase bg-transparent border-none shadow-none hover:shadow hover:bg-transparent hover:outline-none hover:border-none max-[350px]:text-[9px] "
       >
         {text}
         <img
@@ -33,7 +33,22 @@ const DropdownButton = ({
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+        className={`absolute dropdown-content menu bg-base-100 rounded-box z-[1] p-2 shadow 
+           ${text === "buy" && "left-0 w-[70vw] max-sm:w-[80vw]"}
+           ${
+             text === "sell" &&
+             "-left-[7vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[8vw]"
+           }
+           ${
+             text === "share property" &&
+             "-left-[15vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[15vw]"
+           }
+           ${
+             text === "exchange property" &&
+             "-left-[30vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[35vw] max-[400px]:-left-[45vw]"
+           }
+           
+           `}
       >
         <li>
           <a>Item 1</a>

@@ -5,7 +5,7 @@ const Input = ({ label, icon, placeholder, type, className, inputMode }) => {
     <div className="flex flex-col bg-transparent gap-2 w-full">
       {label && (
         <label
-          className="capitalize font-medium text-xl text-[#4B4B4B]"
+          className="capitalize font-medium text-xl text-[#4B4B4B] max-sm:text-base"
           htmlFor={label}
         >
           {label}
@@ -16,7 +16,7 @@ const Input = ({ label, icon, placeholder, type, className, inputMode }) => {
         {type === "number" && "+91 | "}
         <input
           id={label && label}
-          className={`outline-none border-none ${className}`}
+          className={`outline-none border-none max-sm:text-sm ${className}`}
           placeholder={placeholder}
           type={type}
         />

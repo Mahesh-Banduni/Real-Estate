@@ -36,6 +36,9 @@ export default {
         "list-card": "0.7fr 1.6fr 0.7fr",
         "property-type-form": "1fr 1fr 1fr 0.2fr",
       },
+      gridTemplateRows: {
+        "exchange-form-layout": "1fr 0.5fr 0.5fr 0.5fr",
+      },
     },
   },
   plugins: [require("daisyui")],

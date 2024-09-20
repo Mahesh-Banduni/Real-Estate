@@ -21,8 +21,8 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="flex items-center gap-3">
-            <NavLinks to="#" text="Register" />
-            <NavLinks to="#" text="Login" />
+            <NavLinks to="/signup" text="Register" />
+            <NavLinks to="/" text="Login" />
           </div>
         </div>
       </div>
