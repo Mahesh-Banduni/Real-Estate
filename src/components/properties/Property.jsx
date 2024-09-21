@@ -15,31 +15,37 @@ import { Button, Heading } from "../index";
 
 const Property = () => {
   return (
-    <div className=" border-2 border-primary-color grid grid-cols-list-card grid-rows-1 gap-5">
-      <div className="w-full m-2">
-        <div className="relative">
-          <img src={propertyImage} alt="" />
-          <span className="absolute text-xs top-[0.3rem] left-[0.3rem] bg-[#42423E] px-3 py-[0.4rem] text-white">
+    <div className=" border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-1 max-sm:grid-rows-property-card ">
+      <div className=" relative w-full p-2 h-full max-lg:row-span-2 max-sm:row-span-1">
+        <div className="w-full max-lg:h-full">
+          <img className="h-full w-full " src={propertyImage} alt="" />
+          <span className="absolute z-10 text-xs top-[0.8rem] left-[0.8rem] bg-[#42423E] px-3 py-[0.4rem] text-white max-lg:hidden">
             8+ Images
           </span>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-[0.15rem] max-lg:hidden text-[#8F90A6] font-interRegular">
           <span>Owner : Mahesh baduni</span>
-          <span>Updated 3 days ago.</span>
+          <span className="text-sm">Updated 3 days ago.</span>
         </div>
       </div>
-      <div className=" w-full m-2 flex flex-col justify-between">
-        <div className="flex items-center justify-between">
-          <Heading
-            text=" 4 BHK House for sale in Rajpura, Dehradun"
-            className="normal-case text-xl"
-          />
-          <div className="flex items-center justify-center gap-2">
-            <img src={heart} alt="wishlist" />
-            <img src={share} alt="share" />
+      <div className=" w-full h-[90%] my-auto flex flex-col gap-5 max-lg:justify-center max-sm:hidden max-xl:gap-1">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-between max-lg:justify-center max-lg:gap-2">
+            <Heading
+              text=" 4 BHK House for sale in Rajpura, Dehradun "
+              className="normal-case text-xl max-lg:w-3/5 max-md:text-base"
+            />
+            <div className="flex items-center justify-center gap-2">
+              <img src={heart} alt="wishlist" />
+              <img src={share} alt="share" />
+            </div>
           </div>
+          <p className="font-interRegular text-[#8F90A6] text-sm max-lg:hidden max-xl:text-xs">
+            4 BHK, Residential House is available for Sale in Mohkampur,
+            Dehradun for 1.9 Crore(s)
+          </p>
         </div>
-        <div className="grid grid-cols-3 grid-rows-2 bg-[#F5F5F5] gap-3 px-5 py-2">
+        <div className="grid grid-cols-3 grid-rows-2 bg-[#F5F5F5] gap-3 px-5 py-2 max-lg:hidden max-xl:gap-1">
           <div className="flex items-center gap-3 justify-start border-r border-border-color">
             <div>
               <img src={superArea} alt={"super area"} />
@@ -71,7 +77,7 @@ const Property = () => {
             <div>
               <img src={floor} alt={"super area"} />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
               <span className="uppercase text-sm text-[#8F90A6] font-interRegular">
                 floor
               </span>
@@ -120,12 +126,8 @@ const Property = () => {
             </div>
           </div>
         </div>
-        <p className="font-interRegular text-[#8F90A6] text-sm">
-          4 BHK, Residential House is available for Sale in Mohkampur, Dehradun
-          for 1.9 Crore(s)
-        </p>
       </div>
-      <div className=" w-full bg-price-card flex flex-col justify-between p-2 ">
+      <div className=" w-full bg-price-card flex flex-col justify-between p-2 max-xl:mb-2 box-border max-lg:justify-start max-lg:h-fit max-lg:gap-5 ">
         <div className="text-center">
           <span className="text-2xl font-interSemiBold capitalize">
             Rs 1.95cr
@@ -146,5 +148,4 @@ const Property = () => {
     </div>
   );
 };
-
 export default Property;

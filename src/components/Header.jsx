@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <div className="flex flex-col relative">
-      <div className="navbar bg-base-100 w-11/12 m-auto h-[20vh] max-sm:h-[10vh] flex items-center justify-between">
+      <div className="navbar bg-base-100 w-11/12 m-auto h-[12vh] max-sm:h-[8vh] flex items-center justify-between">
         <div className="navbar-start w-fit">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

@@ -37,15 +37,15 @@ const DropdownButton = ({
            ${text === "buy" && "left-0 w-[70vw] max-sm:w-[80vw]"}
            ${
              text === "sell" &&
-             "-left-[7vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[8vw]"
+             "-left-[6.8vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[8vw]"
            }
            ${
              text === "share property" &&
-             "-left-[15vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[15vw]"
+             "-left-[13.8vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[15vw]"
            }
            ${
              text === "exchange property" &&
-             "-left-[30vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[35vw] max-[400px]:-left-[45vw]"
+             "-left-[26.8vw] w-[70vw] max-sm:w-[80vw] max-sm:-left-[35vw] max-[400px]:-left-[45vw]"
            }
            
            `}
