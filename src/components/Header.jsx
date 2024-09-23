@@ -68,7 +68,7 @@ const Header = () => {
               </li>
               <li className="bg-transparent">
                 <NavLink
-                  to={"/properties"}
+                  to={"/list-property"}
                   className={({ isActive }) =>
                     isActive
                       ? " border-b-2 text-xl text-primary-color border-none "
@@ -151,7 +151,7 @@ const Header = () => {
         </div>
       </div>
       <hr />
-      <Dropdowns />
+      {/* <Dropdowns /> */}
     </div>
   );
 };

@@ -45,10 +45,10 @@ const Properties = () => {
                 type={"text"}
                 placeholder={"Please enter your location"}
               />
-              <Button
-                text="Search"
-                className="text-white font-interMedium bg-primary-color py-2 px-5 border border-border-color max-sm:px-2 max-sm:py-1 max-sm:text-xs "
-              />
+              <Button className="text-white font-interMedium bg-primary-color py-2 px-5 border border-border-color max-sm:px-2 max-sm:py-1 max-sm:text-xs ">
+                Search
+              </Button>
+              <Button text="Search" />
             </div>
             <div className="flex items-center gap-5 text-[#8F90A6] text-base max-sm:hidden ">
               Resent Searches:

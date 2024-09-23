@@ -13,7 +13,7 @@ const TertiaryCard = React.memo(
         />
 
         <div className="flex items-start flex-col gap-5 max-sm:gap-2">
-          <h1 className="capitalize font-interSemiBold text-2xl max-sm:text-xl max-[400px]:text-lg text-center ">
+          <h1 className="capitalize font-interSemiBold text-2xl max-sm:text-xl max-[400px]:text-lg max-sm:text-center ">
             {heading}
           </h1>
           <p className="w-full flex items-center justify-between font-interMedium text-[#8F90A6] max-sm:text-xs">
@@ -21,10 +21,9 @@ const TertiaryCard = React.memo(
             <span>{span2}</span>
             <span>{span3}</span>
           </p>
-          <Button
-            text={price}
-            className="bg-primary-color text-white w-fit px-5 py-2 max-sm:w-full max-sm:text-sm"
-          />
+          <Button className="bg-primary-color text-white w-fit px-5 py-2 max-sm:w-full max-sm:text-sm">
+            {price}
+          </Button>
         </div>
       </div>
     );

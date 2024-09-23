@@ -18,10 +18,10 @@ const PartnershipProperty = () => {
   return (
     <div className="w-11/12 mx-auto my-10 flex flex-col gap-5 max-sm:gap-2">
       <div className="flex flex-col gap-5 max-sm:items-center max-sm:gap-2">
-        <Button
-          text="Partnership Property"
-          className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]"
-        />
+        <Button text="Partnership Property" />
+        <Button className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]">
+          partnership property
+        </Button>
         <Heading className="max-sm:text-center" text="PARTNERSHIP PROPERTIES" />
         <div className="flex items-end justify-between max-sm:flex-col max-sm:items-center max-sm:gap-2 ">
           <Paragraph

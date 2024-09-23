@@ -1,7 +1,11 @@
 import React from "react";
 
-const Button = React.memo(({ className, text }) => {
-  return <button className={`${className} `}>{text}</button>;
-});
+const Button = ({ children, type, className, ...props }) => {
+  return (
+    <button {...props} type={type} className={`${className} `}>
+      {children}
+    </button>
+  );
+};
 
 export default Button;

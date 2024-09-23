@@ -1,11 +1,15 @@
 import React from "react";
 
-const SelectInput = ({ label, className, options }) => {
+const ListPropertySelectInput = ({ label, className, options }) => {
   return (
     <div className="flex flex-col gap-2 w-full">
       {label && (
         <label
-          className="capitalize font-medium text-xl text-[#4B4B4B] max-sm:text-base"
+          className={`${
+            label === "Possession Status:-"
+              ? "text-xl font-interSemiBold text-heading-color"
+              : "font-interRegular text-[#4B4B4B]"
+          } capitalize  text-base max-sm:text-base ${className}`}
           htmlFor={label}
         >
           {label}
@@ -26,4 +30,4 @@ const SelectInput = ({ label, className, options }) => {
   );
 };
 
-export default SelectInput;
+export default ListPropertySelectInput;

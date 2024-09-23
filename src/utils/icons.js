@@ -39,6 +39,8 @@ import namaste from "/images/Namaste.svg";
 import google from "/images/Google.svg";
 import facebookLogin from "/images/loginThroughFacebook.svg";
 import logo from "/images/lo-gu.svg";
+import listProperty from "/images/listProperty.svg";
+import computer from "/images/computer.svg";
 
 export {
   logo,
@@ -81,4 +83,6 @@ export {
   namaste,
   facebookLogin,
   google,
+  listProperty,
+  computer,
 };

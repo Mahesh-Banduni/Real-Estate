@@ -23,10 +23,9 @@ const PrimaryCards = ({ pic, heading, para, price }) => {
           Living area
         </p>
       </div>
-      <Button
-        text="send inquiry"
-        className="w-full grid place-content-center py-2 capitalize border-2 border-primary-color text-primary-color hover:text-white hover:bg-primary-color transition-all  bg-transparent text-lg max-sm:text-base max-sm:py-1 max-sm:px-0"
-      />
+      <Button className="w-full grid place-content-center py-2 capitalize border-2 border-primary-color text-primary-color hover:text-white hover:bg-primary-color transition-all  bg-transparent text-lg max-sm:text-base max-sm:py-1 max-sm:px-0">
+        send inquiry
+      </Button>
     </div>
   );
 };

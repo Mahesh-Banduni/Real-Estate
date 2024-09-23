@@ -1,6 +1,9 @@
 import React from "react";
 
-const Input = ({ label, icon, placeholder, type, className, inputMode }) => {
+const Input = React.forwardRef(function Input(
+  { label, icon, placeholder, type, name, className, ...props },
+  ref
+) {
   return (
     <div className="flex flex-col bg-transparent gap-2 w-full">
       {label && (
@@ -15,14 +18,17 @@ const Input = ({ label, icon, placeholder, type, className, inputMode }) => {
         {icon && <img src={icon} alt="icon" />}
         {type === "number" && "+91 | "}
         <input
+          name={name && name}
           id={label && label}
           className={`outline-none border-none max-sm:text-sm ${className}`}
           placeholder={placeholder}
           type={type}
+          ref={ref}
+          {...props}
         />
       </div>
     </div>
   );
-};
+});
 
 export default Input;

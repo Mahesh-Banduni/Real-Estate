@@ -6,10 +6,9 @@ import { discountBackground, discountGridImage } from "../../utils/icons";
 const Discount = () => {
   return (
     <div className="w-11/12 mx-auto my-10 flex flex-col gap-5 max-sm:items-center max-sm:gap-2">
-      <Button
-        text="offers and discounts"
-        className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]"
-      />
+      <Button className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]">
+        offers and discounts
+      </Button>
       <Heading className="max-sm:text-center" text="Best Discount Offers" />
       <div className="flex items-end justify-between max-sm:flex-col max-sm:items-center max-sm:gap-2 ">
         <Paragraph
@@ -35,10 +34,10 @@ const Discount = () => {
               <br />
               <span className="text-4xl max-md:text-xl"> your first buy</span>
             </h1>
-            <Button
-              text="get the offers"
-              className="uppercase font-interMedium bg-primary-color text-white px-10 py-[0.6rem] text-lg w-fit max-md:text-sm max-md:py-[0.4rem] max-md:px-0 max-md:w-full"
-            />
+            <Button className="uppercase font-interMedium bg-primary-color text-white px-10 py-[0.6rem] text-lg w-fit max-md:text-sm max-md:py-[0.4rem] max-md:px-0 max-md:w-full">
+              get the offers
+            </Button>
+            <Button text="get the offers" />
           </div>
         </div>
         <div className="w-[48%] grid grid-rows-2 grid-cols-3 place-content-center gap-2 max-md:w-full ">

@@ -135,14 +135,12 @@ const Property = () => {
           <p className="text-[#8F90A6] font-interMedium">Rs 3,545 per sqft</p>
         </div>
         <div className="flex flex-col gap-2">
-          <Button
-            text="send enquiry"
-            className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg"
-          />
-          <Button
-            text="contact us"
-            className="w-full py-1 bg-white text-primary-color capitalize border border-primary-color font-interMedium text-lg"
-          />
+          <Button className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg">
+            send enquiry
+          </Button>
+          <Button className="w-full py-1 bg-white text-primary-color capitalize border border-primary-color font-interMedium text-lg">
+            contact us
+          </Button>
         </div>
       </div>
     </div>

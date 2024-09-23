@@ -18,10 +18,9 @@ const ContactSection = () => {
             We provide a complete service for the sale, purchase or rental of
             real estate.
           </p>
-          <Button
-            text="contact us"
-            className="uppercase px-5 py-2 text-white bg-primary-color w-fit max-sm:w-full max-sm:text-sm"
-          />
+          <Button className="uppercase px-5 py-2 text-white bg-primary-color w-fit max-sm:w-full max-sm:text-sm">
+            contact us
+          </Button>
         </div>
         <div className=" w-1/2 max-sm:py-2 max-sm:px-0 max-sm:w-full flex justify-end  ">
           <img src={office} alt="office building" />
