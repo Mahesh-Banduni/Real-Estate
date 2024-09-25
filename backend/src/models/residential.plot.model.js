@@ -19,6 +19,7 @@ const residentialPlotSchema = new mongoose.Schema({
   areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
   lengthdimension: { type: Number, required: true },
   widthdimension: { type: Number, required: true },
+  dimensionUnit: {type: String, default:"yrd", required: true},
   cornerPlot: {type: Boolean,default: false},
 
   //Price Details

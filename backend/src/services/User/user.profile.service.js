@@ -1,5 +1,5 @@
 const UserProfile = require('../../models/user.profile.model');
-const Property = require('../../models/Property'); // Assuming Property model exists
+const Property = require('../../models/property.model'); // Assuming Property model exists
 const { ConflictError, NotFoundError, BadRequestError } = require('../../errors/errors');
 
 // Create a new userProfile

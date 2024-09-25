@@ -37,7 +37,7 @@ const residentialFlatSchema = new mongoose.Schema({
     transactionType: { type: String, enum: ["New Property","Resale"]},
     overlooking: {type: String, enum:["Pool","Garden/Park","Main Road","Club","Others","Hills","Lake","River","Open Land","Forest","City Skyline","Residential Area","Commercial Area","Farmland","Mountains"]},
     facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
-    flatType:  { type: String, enum: ["1 BHK","2 BHK","3 BHK","4 BHK","5 BHK",">5 BHK"]},
+    residentialFlatType:  { type: String, enum: ["1 BHK","2 BHK","3 BHK","4 BHK","5 BHK",">5 BHK"]},
     flooring: {type: String, enum: ["Ceramic Tiles","Wooden","Vitrified","Marble","Granite"]},
     developer: { type: String},
     ownership: { type: String, enum: ["Freehold","Leasehold", "Power Of Attorney", "Co-operative Society"], required: true},

@@ -42,7 +42,7 @@ const builderFloorApartmentSchema = new mongoose.Schema({
 
     //Renting Fields
 
-});
+},{timestamps: true});
 
 const BuilderFloorApartment = mongoose.model("BuilderFloorApartment", builderFloorApartmentSchema);
 module.exports = BuilderFloorApartment;

@@ -48,7 +48,7 @@ const agriculturePlotSchema = new mongoose.Schema({
   electricityConnection: {type: Boolean, default: false},
   sewageConnection: {type: Boolean, default: false},
   roadAvailable: {type: Boolean, default: false},
-  });
+  },{timestamps: true});
 
 const AgriculturePlot = mongoose.model("AgriculturePlot", agriculturePlotSchema);
 module.exports = AgriculturePlot;

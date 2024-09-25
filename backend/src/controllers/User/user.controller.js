@@ -4,6 +4,11 @@ const userService = require('../../services/User/user.service');
 exports.createUser = async (req, res, next) => {
   try {
     const user = await userService.createUser(req.body);
+    const token= await user.generateAuthToken();
+    res.cookie("jwt", token, {
+        expires: new Date(Date.now() + 600000),
+        httpOnly:true
+    });
     res.status(201).json(user);
   } catch (error) {
     next(error);

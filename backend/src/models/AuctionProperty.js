@@ -13,7 +13,7 @@ const auctionPropertySchema = new mongoose.Schema({
   EMD: {type: Number, required: true },
   auctionStartDate: { type: Date, default: Date.now },
   auctionEndDate: { type: Date, default: Date.now },
-});
+},{timestamps: true});
 
 const Property = mongoose.model("Property", propertySchema);
 module.exports = Property;

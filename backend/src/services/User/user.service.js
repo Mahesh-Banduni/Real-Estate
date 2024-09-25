@@ -1,5 +1,6 @@
 const User = require('../../models/user.model');
 const { ConflictError, NotFoundError, BadRequestError } = require('../../errors/errors');
+const auth = require("../../middleware/auth.js");
 
 // Create a new user
 const createUser = async (userData) => {
