@@ -36,6 +36,7 @@ import TotalFlats from "./list-property/TotalFlats";
 import AreaInputField from "./AreaInputField";
 import UploadPhotos from "./list-property/UploadPhotos";
 import ResidentialFlatForm from "./list-property/ResidentialFlatForm";
+import ResidentialLandForm from "./list-property/ResidentialLandForm";
 
 export {
   RadioInput,
@@ -72,4 +73,5 @@ export {
   AreaInputField,
   UploadPhotos,
   ResidentialFlatForm,
+  ResidentialLandForm,
 };

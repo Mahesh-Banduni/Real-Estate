@@ -36,7 +36,7 @@ const AreaInputField = ({ label, type, className }) => {
           name={label}
           type={type}
           placeholder={label}
-          className={`capitalize py-1 ${className}`}
+          className={`capitalize py-1 outline-none ${className}`}
         />
         <select name="" id="">
           {options.map((items) => {

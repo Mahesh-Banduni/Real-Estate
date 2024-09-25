@@ -14,6 +14,7 @@ import {
   TotalFlats,
   UploadPhotos,
   ResidentialFlatForm,
+  ResidentialLandForm,
 } from "../components";
 
 const ListProperty = () => {
@@ -62,8 +63,8 @@ const ListProperty = () => {
 
           <PropertyTypeForm />
           {/*-------------------------you can change the form from here------------------------- */}
-          <ResidentialFlatForm />
-
+          {/* <ResidentialFlatForm /> */}
+          <ResidentialLandForm />
           {/* upload photo */}
           <div className="flex flex-col gap-5 mt-5">
             <Heading
