@@ -1,5 +1,12 @@
 import React from "react";
 
+import {
+  AreaInputField,
+  Heading,
+  ListPropertyInput,
+  ListPropertySelectInput,
+} from "../index";
+
 const ResidentialHouseForm = () => {
   return (
     <React.Fragment>

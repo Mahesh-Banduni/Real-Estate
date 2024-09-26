@@ -1,4 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import Select from "react-select";
+
+import {
+  AreaInputField,
+  Heading,
+  ListPropertyInput,
+  ListPropertySelectInput,
+} from "../index";
 
 const CommercialPlotForm = () => {
   const [overLooking, setOverLooking] = useState([]);
@@ -89,10 +97,10 @@ const CommercialPlotForm = () => {
       {/* property features */}
       <div className="mt-5">
         <Heading className="text-xl " text="Property features" />
-        <div className="grid grid-cols-3 grid-rows-2 gap-3">
+        <div className="grid grid-cols-1 grid-rows-2 w-[20rem]">
           <ListPropertyInput
             type={"number"}
-            placeholder="Enter City"
+            placeholder="Enter Open Side"
             label={"Open Sides"}
             className={
               "rounded-md  border border-primary-color py-0 outline-none  "
@@ -167,13 +175,16 @@ const CommercialPlotForm = () => {
         </div>
       </div>
 
-      {/* construction status */}
-      <div>
-        <Heading className="text-xl " text="Property Availability" />
+      {/* property availability */}
+      <div className="flex flex-col gap-5 mt-5">
+        <ListPropertySelectInput
+          label={"Possession Status:-"}
+          options={["under construction", "ready to move"]}
+        />
         <div className="flex items-center gap-5">
           <h1>Currently Leased Out:-</h1>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center">
+          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-1">
               <label htmlFor="yes-Currently-Leased-Out">Yes</label>
               <input
                 id="yes-Currently-Leased-Out"
@@ -182,7 +193,7 @@ const CommercialPlotForm = () => {
                 className="radio radio-success"
               />
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center gap-1">
               <label htmlFor="No-Currently-Leased-Out">No</label>
               <input
                 id="No-Currently-Leased-Out"
@@ -240,8 +251,8 @@ const CommercialPlotForm = () => {
       {/* amenities */}
       <div className="mt-5">
         <Heading className="text-xl " text="Amenities" />
-        <div className="">
-          <div className="mt-1">
+        <div className=" flex flex-col gap-2">
+          <div className="mt-1 flex flex-col gap-1">
             <h2 className="capitalize font-interRegular">Overlooking:-</h2>
             <Select
               className="w-1/3"

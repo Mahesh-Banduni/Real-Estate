@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Select from "react-select";
 
 import {
   AreaInputField,
@@ -195,16 +196,16 @@ const CommercialOfficeSpaceForm = () => {
         </div>
       </div>
 
-      {/* construction status */}
-      <div>
+      {/* property availability */}
+      <div className="flex flex-col gap-5 ">
         <ListPropertySelectInput
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
         />
         <div className="flex items-center gap-5">
           <h1>Currently Leased Out:-</h1>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center">
+          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-1">
               <label htmlFor="yes-Currently-Leased-Out">Yes</label>
               <input
                 id="yes-Currently-Leased-Out"
@@ -213,7 +214,7 @@ const CommercialOfficeSpaceForm = () => {
                 className="radio radio-success"
               />
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center gap-1">
               <label htmlFor="No-Currently-Leased-Out">No</label>
               <input
                 id="No-Currently-Leased-Out"

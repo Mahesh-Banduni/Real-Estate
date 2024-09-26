@@ -13,7 +13,7 @@ const SelectInput = ({ label, className, options }) => {
       )}
 
       <select
-        className={`${className} rounded-none text-[#4B4B4B] py-0 text-lg bg-[#F2F2F2] select select-ghost max-[1120px]:w-full w-[20rem] outline-none border-none active:border-none hover:border-none active:outline-none hover:outline-none max-sm:text-sm `}
+        className={`${className} rounded-none text-[#4B4B4B] py-0 text-lg bg-[#F2F2F2] select select-ghost w-full outline-none border-none active:border-none hover:border-none active:outline-none hover:outline-none max-sm:text-sm `}
       >
         <option className="z-10" disabled selected>
           Select Options
