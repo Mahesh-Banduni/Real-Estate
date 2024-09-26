@@ -37,6 +37,11 @@ import AreaInputField from "./AreaInputField";
 import UploadPhotos from "./list-property/UploadPhotos";
 import ResidentialFlatForm from "./list-property/ResidentialFlatForm";
 import ResidentialLandForm from "./list-property/ResidentialLandForm";
+import ResidentialHouseForm from "./list-property/ResidentialHouseForm";
+import CommercialOfficeSpaceForm from "./list-property/CommercialOfficeSpaceForm";
+import CommercialPlotForm from "./list-property/CommercialPlotForm";
+import CommercialShopForm from "./list-property/CommercialShopForm";
+import CommercialShowroomForm from "./list-property/CommercialShowroomForm";
 
 export {
   RadioInput,
@@ -74,4 +79,9 @@ export {
   UploadPhotos,
   ResidentialFlatForm,
   ResidentialLandForm,
+  ResidentialHouseForm,
+  CommercialOfficeSpaceForm,
+  CommercialPlotForm,
+  CommercialShopForm,
+  CommercialShowroomForm,
 };
