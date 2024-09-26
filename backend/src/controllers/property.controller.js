@@ -40,30 +40,30 @@ const deleteProperty = async (req, res, next) => {
   }
 };
 
-const propertyForSellFilter = async (req, res, next) => {
+const searchProperty = async (req, res, next) => {
   try {
-    const filters = req.query; 
-    const filteredProperties = await propertyService.propertyForSellFilter(filters);
-    res.status(200).json(filteredProperties);
+    const { propertyPurpose } = req.params; // propertyPurpose from params
+    const filters = req.query; // Filters from query params
+    const properties = await propertyService.searchProperty(propertyPurpose, filters);
+    res.status(200).json(properties);
   } catch (error) {
     next(error);
   }
 };
 
-const exchangePropertyFilter = async (req, res, next) => {
+ const markHandpickedProperty= async (req, res, next) => {
   try {
-    const filters = req.query; 
-    const filteredProperties = await propertyService.exchangePropertyFilter(filters);
-    res.status(200).json(filteredProperties);
+    const property = await propertyController.markHandpickedProperty(req.params.id, req.user);
+    res.status(200).json(property);
   } catch (error) {
     next(error);
   }
 };
-const partnershipPropertyFilter = async (req, res, next) => {
+
+const unmarkHandpickedProperty= async (req, res, next) => {
   try {
-    const filters = req.query; 
-    const filteredProperties = await propertyService.partnershipPropertyFilter(filters);
-    res.status(200).json(filteredProperties);
+    const property = await propertyController.unmarkHandpickedProperty(req.params.id, req.user);
+    res.status(200).json(property);
   } catch (error) {
     next(error);
   }
@@ -74,7 +74,7 @@ module.exports = {
   getPropertyById,
   updateProperty,
   deleteProperty,
-  propertyForSellFilter,
-  exchangePropertyFilter,
-  partnershipPropertyFilter
+  searchProperty,
+  markHandpickedProperty,
+  unmarkHandpickedProperty
 };

@@ -4,6 +4,7 @@ const connectDb = require("./connection/connection");
 const userRoutes = require("./routes/User/user.route");
 const userProfileRoutes= require("./routes/User/user.profile.route");
 const propertyRoutes = require("./routes/property.route.js");
+const searchPropertyRoutes = require("./routes/search.property.route.js");
 const contactFormRoutes = require("./routes/contact.form.route");
 
 const { errorHandler } = require("./middleware/errorHandler");
@@ -18,10 +19,8 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/users', userRoutes); 
 app.use('/user-profiles', userProfileRoutes);
-app.use('/properties', propertyRoutes); 
-app.use("/property-for-sell",propertyRoutes);
-app.use("/exchange-property",propertyRoutes);
-app.use("/partnership-property",propertyRoutes);
+app.use('/properties', propertyRoutes);
+app.use('/search-properties',searchPropertyRoutes);
 app.use('/contact-forms',contactFormRoutes);
 
 app.use(errorHandler);

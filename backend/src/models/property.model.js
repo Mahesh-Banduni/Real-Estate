@@ -18,6 +18,10 @@ const propertySchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
+  isHandpicked: { 
+    type: Boolean, 
+    default: false 
+  },
 
   //Property Location & Uniqueness
   numberOfFlatsInSociety: {type: String, enum:["<50","50-100",">100"], default:"<50"},

@@ -1,5 +1,6 @@
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors');
 const Property = require('../models/property.model.js');
+const User = require('../models/user.model.js');
 
 // Create a new Property
 const createProperty = async (propertyData) => {
@@ -74,42 +75,22 @@ const createProperty = async (propertyData) => {
   return await property.save();
 };
 
-// Filter Properties for sell based on provided filters
-const propertyForSellFilter = async (filters) => {
-  const query = {};
-  if (filters.propertyPurpose) {
-    query.propertyPurpose = "Sell";
-  }
+const searchProperty = async (propertyPurpose, filters) => {
+  const query = { propertyPurpose: propertyPurpose };
 
   // Apply filters
-  if (filters.propertyType) {
-    query.propertyType = filters.propertyType;
-  }
-
-  if (filters.city) {
-    query.city = filters.city;
-  }
-
-  if (filters.locality) {
-    query.locality = filters.locality;
-  }
-  
-  if (filters.ownership) {
-    query.ownership = filters.ownership;
-  }
+  if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
+  if (filters.propertyType) query.propertyType = filters.propertyType;
+  if (filters.city) query.city = filters.city;
+  if (filters.locality) query.locality = filters.locality;
+  if (filters.ownership) query.ownership = filters.ownership;
 
   // Budget filter (minPrice and maxPrice)
   if (filters.minPrice || filters.maxPrice) {
     query.expectedPrice = {};
-    if (filters.minPrice) {
-      query.expectedPrice.$gte = filters.minPrice; // Greater than or equal to minPrice
-    }
-    if (filters.maxPrice) {
-      query.expectedPrice.$lte = filters.maxPrice; // Less than or equal to maxPrice
-    }
+    if (filters.minPrice) query.expectedPrice.$gte = filters.minPrice;
+    if (filters.maxPrice) query.expectedPrice.$lte = filters.maxPrice;
   }
-
-  // Add more filters as needed
 
   const filteredProperties = await Property.find(query).populate('user');
   if (!filteredProperties || filteredProperties.length === 0) {
@@ -117,95 +98,6 @@ const propertyForSellFilter = async (filters) => {
   }
   return filteredProperties;
 };
-
-// Filter Exchange Properties based on provided filters
-const exchangePropertyFilter = async (filters) => {
-  const query = {};
-  if (filters.propertyPurpose) {
-    query.propertyPurpose = "Exchange Property";
-  }
-
-  // Apply filters
-  if (filters.propertyType) {
-    query.propertyType = filters.propertyType;
-  }
-
-  if (filters.city) {
-    query.city = filters.city;
-  }
-
-  if (filters.locality) {
-    query.locality = filters.locality;
-  }
-  
-  if (filters.ownership) {
-    query.ownership = filters.ownership;
-  }
-
-  // Budget filter (minPrice and maxPrice)
-  if (filters.minPrice || filters.maxPrice) {
-    query.expectedPrice = {};
-    if (filters.minPrice) {
-      query.expectedPrice.$gte = filters.minPrice; // Greater than or equal to minPrice
-    }
-    if (filters.maxPrice) {
-      query.expectedPrice.$lte = filters.maxPrice; // Less than or equal to maxPrice
-    }
-  }
-
-  // Add more filters as needed
-
-  const filteredProperties = await Property.find(query).populate('user');
-  if (!filteredProperties || filteredProperties.length === 0) {
-    throw new NotFoundError('No properties found matching the criteria.');
-  }
-  return filteredProperties;
-};
-
-// Filter Partnership Properties based on provided filters
-const partnershipPropertyFilter = async (filters) => {
-  const query = {};
-  if (filters.propertyPurpose) {
-    query.propertyPurpose = "Partnership Property";
-  }
-
-  // Apply filters
-  if (filters.propertyType) {
-    query.propertyType = filters.propertyType;
-  }
-
-  if (filters.city) {
-    query.city = filters.city;
-  }
-
-  if (filters.locality) {
-    query.locality = filters.locality;
-  }
-  
-  if (filters.ownership) {
-    query.ownership = filters.ownership;
-  }
-
-  // Budget filter (minPrice and maxPrice)
-  if (filters.minPrice || filters.maxPrice) {
-    query.expectedPrice = {};
-    if (filters.minPrice) {
-      query.expectedPrice.$gte = filters.minPrice; // Greater than or equal to minPrice
-    }
-    if (filters.maxPrice) {
-      query.expectedPrice.$lte = filters.maxPrice; // Less than or equal to maxPrice
-    }
-  }
-
-  // Add more filters as needed
-
-  const filteredProperties = await Property.find(query).populate('user');
-  if (!filteredProperties || filteredProperties.length === 0) {
-    throw new NotFoundError('No properties found matching the criteria.');
-  }
-  return filteredProperties;
-};
-
 
 // Get Property by ID
 const getPropertyById = async (propertyId) => {
@@ -225,68 +117,16 @@ const updateProperty = async (propertyId, updateData) => {
 
   // Only allow updating specific fields
   const allowedUpdates = [
-    'title',
-    'description',
-    'propertyType',
-    'images',
-    'numberOfFlatsInSociety',
-    'city',
-    'locality',
-    'developer',
-    'projectSocietyName',
-    'Address',
-    'buildingComplexName',
-    'landZone',
-    'fromCity',
-    'toCity',
-    'idealForBusinesses',
-    'nearbyBusinesses',
-    'floorsAllowed',
-    'openSides',
-    'facingRoadWidth',
-    'boundaryWall',
-    'gatedColony',
-    'bedrooms',
-    'balconies',
-    'bathrooms',
-    'floorNumber',
-    'totalFloor',
-    'furnished',
-    'personalWashroom',
-    'pantryCafeteria',
-    'cornerShop',
-    'mainRoadFacing',
-    'anyConstructionDone',
-    'BHKType',
-    'flooring',
-    'plotArea',
-    'plotAreaUnit',
-    'lengthdimension',
-    'widthdimension',
-    'cornerPlot',
-    'coveredArea',
-    'carpetArea',
-    'superArea',
-    'carpetAreaUnit',
-    'superAreaUnit',
-    'entranceWidth',
-    'entranceWidthUnit',
-    'ownership',
-    'transactionType',
-    'possessionStatus',
-    'currentlyLeasedOut',
-    'expectedPrice',
-    'bookingAmount',
-    'priceNegotiable',
-    'taxAndGovtChargesExcluded',
-    'allInclusivePrice',
-    'additionalRooms',
-    'residentialAmenities',
-    'commercialAmenities',
-    'landAmenities',
-    'locationAdvantages',
-    'overlooking',
-    'facing',
+    'title', 'description', 'propertyType', 'images', 'numberOfFlatsInSociety', 'city', 'locality',
+    'developer', 'projectSocietyName', 'Address', 'buildingComplexName', 'landZone', 'fromCity', 'toCity',
+    'idealForBusinesses', 'nearbyBusinesses', 'floorsAllowed', 'openSides', 'facingRoadWidth', 'boundaryWall',
+    'gatedColony', 'bedrooms', 'balconies', 'bathrooms', 'floorNumber', 'totalFloor', 'furnished',
+    'personalWashroom', 'pantryCafeteria', 'cornerShop', 'mainRoadFacing', 'anyConstructionDone', 'BHKType',
+    'flooring', 'plotArea', 'plotAreaUnit', 'lengthdimension', 'widthdimension', 'cornerPlot', 'coveredArea',
+    'carpetArea', 'superArea', 'carpetAreaUnit', 'superAreaUnit', 'entranceWidth', 'entranceWidthUnit',
+    'ownership', 'transactionType', 'possessionStatus', 'currentlyLeasedOut', 'expectedPrice', 'bookingAmount',
+    'priceNegotiable', 'taxAndGovtChargesExcluded', 'allInclusivePrice', 'additionalRooms', 'residentialAmenities',
+    'commercialAmenities', 'landAmenities', 'locationAdvantages', 'overlooking', 'facing',
   ];
 
   allowedUpdates.forEach((field) => {
@@ -307,12 +147,45 @@ const deleteProperty = async (propertyId) => {
   return property;
 };
 
+// Mark Property by Admin
+const markHandpickedProperty = async (propertyId, userId) => {
+  const user = await User.findById(userId);
+  // Ensure the user has the 'admin' role
+  if (user.role !== 'Admin') {
+    throw new BadRequestError('Only admins can mark properties as handpicked.');
+  }
+
+  const property = await Property.findById(propertyId);
+  if (!property) {
+    throw new NotFoundError('Property not found');
+  }
+
+  property.isHandpicked = true;
+  return await property.save();
+};
+
+// Unmark Property by Admin
+const unmarkHandpickedProperty = async (propertyId, userId) => {
+  const user = await User.findById(userId);
+  if (user.role !== 'Admin') {
+    throw new BadRequestError('Only admins can unmark properties as handpicked.');
+  }
+
+  const property = await Property.findById(propertyId);
+  if (!property) {
+    throw new NotFoundError('Property not found');
+  }
+
+  property.isHandpicked = false;
+  return await property.save();
+};
+
 module.exports = {
   createProperty,
-  propertyForSellFilter,
-  exchangePropertyFilter,
-  partnershipPropertyFilter,
+  searchProperty,
   getPropertyById,
   updateProperty,
   deleteProperty,
+  markHandpickedProperty,
+  unmarkHandpickedProperty
 };

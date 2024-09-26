@@ -150,145 +150,25 @@ router.delete('/:id', propertyController.deleteProperty);
 
 /**
  * @swagger
- * /property-for-sell:
- *   get:
- *     summary: Filter properties based on criteria
- *     description: Retrieve properties based on filters like property type, city, locality, ownership, and price range.
+ * /properties/{id}/handpicked:
+ *   patch:
+ *     summary: Mark a property as handpicked
+ *     description: Mark a specific property as handpicked (admin only)
  *     tags:
  *       - Properties
  *     parameters:
- *       - in: query
- *         name: propertyType
+ *       - in: path
+ *         name: id
+ *         required: true
  *         schema:
  *           type: string
- *         description: Filter by property type (e.g., Plot, Apartment, etc.)
- *       - in: query
- *         name: city
- *         schema:
- *           type: string
- *         description: Filter by city
- *       - in: query
- *         name: locality
- *         schema:
- *           type: string
- *         description: Filter by locality
- *       - in: query
- *         name: ownership
- *         schema:
- *           type: string
- *         description: Filter by ownership type (e.g., Freehold, Leasehold, etc.)
- *       - in: query
- *         name: minPrice
- *         schema:
- *           type: number
- *         description: Minimum expected price
- *       - in: query
- *         name: maxPrice
- *         schema:
- *           type: number
- *         description: Maximum expected price
+ *         description: Property ID
  *     responses:
- *       200: 
- *         description: List of filtered properties retrieved successfully
+ *       200:
+ *         description: Property marked as handpicked
  *       400:
- *         description: Invalid filter parameters
+ *         description: Only admins can mark properties as handpicked
  */
-router.get('', propertyController.propertyForSellFilter);
-
-
-/**
- * @swagger
- * /exchange-property:
- *   get:
- *     summary: Filter properties based on criteria
- *     description: Retrieve properties based on filters like property type, city, locality, ownership, and price range.
- *     tags:
- *       - Properties
- *     parameters:
- *       - in: query
- *         name: propertyType
- *         schema:
- *           type: string
- *         description: Filter by property type (e.g., Plot, Apartment, etc.)
- *       - in: query
- *         name: city
- *         schema:
- *           type: string
- *         description: Filter by city
- *       - in: query
- *         name: locality
- *         schema:
- *           type: string
- *         description: Filter by locality
- *       - in: query
- *         name: ownership
- *         schema:
- *           type: string
- *         description: Filter by ownership type (e.g., Freehold, Leasehold, etc.)
- *       - in: query
- *         name: minPrice
- *         schema:
- *           type: number
- *         description: Minimum expected price
- *       - in: query
- *         name: maxPrice
- *         schema:
- *           type: number
- *         description: Maximum expected price
- *     responses:
- *       200: 
- *         description: List of filtered properties retrieved successfully
- *       400:
- *         description: Invalid filter parameters
- */
-router.get('', propertyController.exchangePropertyFilter);
-
-
-/**
- * @swagger
- * /partnership-property:
- *   get:
- *     summary: Filter properties based on criteria
- *     description: Retrieve properties based on filters like property type, city, locality, ownership, and price range.
- *     tags:
- *       - Properties
- *     parameters:
- *       - in: query
- *         name: propertyType
- *         schema:
- *           type: string
- *         description: Filter by property type (e.g., Plot, Apartment, etc.)
- *       - in: query
- *         name: city
- *         schema:
- *           type: string
- *         description: Filter by city
- *       - in: query
- *         name: locality
- *         schema:
- *           type: string
- *         description: Filter by locality
- *       - in: query
- *         name: ownership
- *         schema:
- *           type: string
- *         description: Filter by ownership type (e.g., Freehold, Leasehold, etc.)
- *       - in: query
- *         name: minPrice
- *         schema:
- *           type: number
- *         description: Minimum expected price
- *       - in: query
- *         name: maxPrice
- *         schema:
- *           type: number
- *         description: Maximum expected price
- *     responses:
- *       200: 
- *         description: List of filtered properties retrieved successfully
- *       400:
- *         description: Invalid filter parameters
- */
-router.get('', propertyController.partnershipPropertyFilter);
+router.patch('/:id/handpicked', propertyController.markHandpickedProperty);
 
 module.exports = router;
