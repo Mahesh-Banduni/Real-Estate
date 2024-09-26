@@ -272,7 +272,7 @@ const CommercialOfficeSpaceForm = () => {
       {/* amenities */}
       <div className="mt-5">
         <Heading className="text-xl " text="Amenities" />
-        <div className="">
+        <div className=" flex flex-col gap-3">
           <div className="mt-1">
             <h2 className="capitalize font-interRegular">Amenities:-</h2>
             <Select

@@ -2,7 +2,7 @@ import React from "react";
 
 import Heading from "../Heading";
 
-const PropertyTypeForm = ({ propertyTypeState, onPropertyTypeChange }) => {
+const SellPropertyTypeForm = ({ propertyTypeState, onPropertyTypeChange }) => {
   return (
     <div>
       <Heading className="text-xl" text="Property Type" />
@@ -32,4 +32,4 @@ const PropertyTypeForm = ({ propertyTypeState, onPropertyTypeChange }) => {
   );
 };
 
-export default PropertyTypeForm;
+export default SellPropertyTypeForm;

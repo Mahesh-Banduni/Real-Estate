@@ -31,7 +31,7 @@ import ContactForm from "./contact/ContactForm";
 import ContactInfo from "./contact/ContactInfo";
 
 // list Property
-import PropertyTypeForm from "./list-property/PropertyTypeForm";
+import PropertyTypeForm from "./list-property/SellPropertyTypeForm";
 import TotalFlats from "./list-property/TotalFlats";
 import AreaInputField from "./AreaInputField";
 import UploadPhotos from "./list-property/UploadPhotos";

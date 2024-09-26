@@ -1,9 +1,13 @@
 import React from "react";
 
-const RadioInput = React.forwardRef(function RadioInput(
-  { label, name, id, defaultChecked, ...props },
-  ref
-) {
+const RadioInput = ({
+  label,
+  name,
+  id,
+  defaultChecked,
+  handelChangePropertyDetail,
+  value,
+}) => {
   return (
     <div className="flex items-center gap-1">
       {label && (
@@ -12,16 +16,16 @@ const RadioInput = React.forwardRef(function RadioInput(
         </label>
       )}
       <input
-        ref={ref}
+        value={value}
+        onChange={handelChangePropertyDetail}
         className="radio radio-accent"
         name={name}
         id={id}
         type="radio"
-        {...props}
         defaultChecked={defaultChecked}
       />
     </div>
   );
-});
+};
 
 export default RadioInput;

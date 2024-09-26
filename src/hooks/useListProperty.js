@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const useListProperty = () => {
   const initialState = {
+    propertyDetail: "sell",
     propertyType: "Residential Flat/Apartment",
   };
   const [propertyTypeState, setPropertyTypeState] = useState(initialState);
 
   const onPropertyTypeChange = (e) => {
+    setPropertyTypeState((preValue) => {
+      return {
+        ...preValue,
+        propertyType: e.target.value,
+      };
+    });
+  };
+
+  const handelChangePropertyDetail = (e) => {
     setPropertyTypeState(() => {
       return {
         ...initialState,
-        propertyType: e.target.value,
+        propertyDetail: e.target.value,
       };
     });
   };
@@ -18,6 +28,7 @@ const useListProperty = () => {
   return {
     propertyTypeState,
     onPropertyTypeChange,
+    handelChangePropertyDetail,
   };
 };
 

@@ -19,7 +19,12 @@ import {
 import useListProperty from "../hooks/useListProperty";
 
 const ListProperty = () => {
-  const { propertyTypeState, onPropertyTypeChange } = useListProperty();
+  const {
+    propertyTypeState,
+    onPropertyTypeChange,
+    handelChangePropertyDetail,
+  } = useListProperty();
+  console.log(propertyTypeState.propertyDetail);
 
   return (
     <div className="w-11/12 mx-auto">
@@ -41,65 +46,93 @@ const ListProperty = () => {
             <Heading className="text-xl" text="property details" />
             <div className="flex items-center gap-2">
               <RadioInput
-                id="sell"
+                value="sell"
+                id="sellProperty"
                 label={"sell"}
                 name="propertyDetail"
                 defaultChecked="true"
+                handelChangePropertyDetail={handelChangePropertyDetail}
               />
               <RadioInput
+                value="exchange"
                 id="exchangeProperty"
                 label={"exchange Property"}
                 name="propertyDetail"
+                handelChangePropertyDetail={handelChangePropertyDetail}
               />
               <RadioInput
+                value="partnership"
                 id="partnershipProperty"
                 label={"Partnership Property"}
                 name="propertyDetail"
+                handelChangePropertyDetail={handelChangePropertyDetail}
               />
             </div>
           </div>
 
           {/* =====================you can change the form on the base of sell, exchange and partnership property========================*/}
-          <div className="w-[18rem] flex">
-            <PropertyTypeForm
-              propertyTypeState={propertyTypeState}
-              onPropertyTypeChange={onPropertyTypeChange}
-            />
-          </div>
+          {propertyTypeState?.propertyDetail === "sell" ||
+          propertyTypeState?.propertyDetail === "partnership" ? (
+            <div className="w-[18rem] flex">
+              <PropertyTypeForm
+                propertyTypeState={propertyTypeState}
+                onPropertyTypeChange={onPropertyTypeChange}
+              />
+            </div>
+          ) : (
+            " "
+          )}
+
+          {propertyTypeState?.propertyDetail === "exchange" ? " " : " "}
+
           {/*-------------------------you can change the form from here------------------------- */}
 
-          {propertyTypeState.propertyType === "Residential Flat/Apartment" ? (
+          {propertyTypeState.propertyType === "Residential Flat/Apartment" &&
+          (propertyTypeState.propertyDetail === "sell" ||
+            propertyTypeState.propertyDetail === "partnership") ? (
             <ResidentialFlatForm />
           ) : (
             ""
           )}
-          {propertyTypeState.propertyType === "Residential Land" ? (
+          {propertyTypeState.propertyType === "Residential Land" &&
+          (propertyTypeState.propertyDetail === "sell" ||
+            propertyTypeState.propertyDetail === "partnership") ? (
             <ResidentialLandForm />
           ) : (
             ""
           )}
-          {propertyTypeState.propertyType === "Residential House" ? (
+          {propertyTypeState.propertyType === "Residential House" &&
+          (propertyTypeState.propertyDetail === "sell" ||
+            propertyTypeState.propertyDetail === "partnership") ? (
             <ResidentialHouseForm />
           ) : (
             ""
           )}
 
-          {propertyTypeState?.propertyType === "Commercial Office Space" ? (
+          {propertyTypeState?.propertyType === "Commercial Office Space" &&
+          (propertyTypeState.propertyDetail === "sell" ||
+            propertyTypeState.propertyDetail === "partnership") ? (
             <CommercialOfficeSpaceForm />
           ) : (
             ""
           )}
-          {propertyTypeState?.propertyType === "Commercial Plot" ? (
+          {propertyTypeState?.propertyType === "Commercial Plot" &&
+          (propertyTypeState.propertyDetail === "sell" ||
+            propertyTypeState.propertyDetail === "partnership") ? (
             <CommercialPlotForm />
           ) : (
             ""
           )}
-          {propertyTypeState?.propertyType === "Commercial Shop" ? (
+          {propertyTypeState?.propertyType === "Commercial Shop" &&
+          (propertyTypeState.propertyDetail === "sell" ||
+            propertyTypeState.propertyDetail === "partnership") ? (
             <CommercialShopForm />
           ) : (
             ""
           )}
-          {propertyTypeState?.propertyType === "Commercial Showroom" ? (
+          {propertyTypeState?.propertyType === "Commercial Showroom" &&
+          (propertyTypeState.propertyDetail === "sell" ||
+            propertyTypeState.propertyDetail === "partnership") ? (
             <CommercialShowroomForm />
           ) : (
             ""
@@ -113,6 +146,7 @@ const ListProperty = () => {
             />
             <UploadPhotos />
           </div>
+
           {/* post property form */}
           <Button
             className={
