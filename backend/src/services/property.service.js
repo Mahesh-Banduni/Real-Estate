@@ -1,6 +1,6 @@
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors');
 const Property = require('../models/property.model.js');
-const User = require('../models/user.model.js');
+const userService = require('../services/User/user.service.js')
 
 // Create a new Property
 const createProperty = async (propertyData) => {
@@ -111,8 +111,8 @@ const searchProperty = async (propertyPurpose, filters) => {
   return filteredProperties;
 };
 
-const handpickedProperty = async (propertyPurpose, filters) => {
-  const query = { propertyPurpose: propertyPurpose };
+const handpickedProperty = async (filters) => {
+  const query = { isHandpickedProperty: true };
 
   // Apply filters
   if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
@@ -120,8 +120,6 @@ const handpickedProperty = async (propertyPurpose, filters) => {
   if (filters.city) query.city = filters.city;
   if (filters.locality) query.locality = filters.locality;
   if (filters.ownership) query.ownership = filters.ownership;
-  if (filters.isHandpickedProperty) query.isHandpickedProperty = 'true';
-
 
   // Budget filter (minPrice and maxPrice)
   if (filters.minPrice || filters.maxPrice) {
@@ -187,7 +185,8 @@ const deleteProperty = async (propertyId) => {
 
 // Mark Property by Admin
 const markHandpickedProperty = async (propertyId, userId) => {
-  const user = await User.findById(userId);
+  const user = await userService.getUserById(userId);
+  console.log(user);
   // Ensure the user has the 'admin' role
   if (user.role !== 'Admin') {
     throw new BadRequestError('Only admins can mark properties as handpicked.');
@@ -204,7 +203,7 @@ const markHandpickedProperty = async (propertyId, userId) => {
 
 // Unmark Property by Admin
 const unmarkHandpickedProperty = async (propertyId, userId) => {
-  const user = await User.findById(userId);
+  const user = await userService.getUserById(userId);
   if (user.role !== 'Admin') {
     throw new BadRequestError('Only admins can unmark properties as handpicked.');
   }

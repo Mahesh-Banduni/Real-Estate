@@ -80,7 +80,6 @@ router.post('/', propertyController.createProperty);
  */
 router.get('/:id', propertyController.getPropertyById);
 
-
 /**
  * @swagger
  * /properties/{id}:
@@ -154,6 +153,7 @@ router.put('/:id', propertyController.updateProperty);
  */
 router.delete('/:id', propertyController.deleteProperty);
 
+
 /**
  * @swagger
  * /properties/{id}/handpicked:
@@ -164,21 +164,18 @@ router.delete('/:id', propertyController.deleteProperty);
  *       - Properties
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: propertyId
  *         required: true
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User Id
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     responses:
  *       200:
  *         description: Property marked as handpicked
  *       400:

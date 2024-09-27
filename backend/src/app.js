@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const connectDb = require("./connection/connection");
 const userRoutes = require("./routes/User/user.route");
 const userProfileRoutes= require("./routes/User/user.profile.route");
@@ -15,6 +16,10 @@ const PORT = process.env.PORT || 8080;
 require('dotenv').config();
 
 connectDb();
+
+app.use(cors({
+      origin: 'http://localhost:5173'
+}));
 
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

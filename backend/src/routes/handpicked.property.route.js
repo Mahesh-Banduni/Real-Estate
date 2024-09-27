@@ -4,7 +4,7 @@ const propertyController = require('../controllers/property.controller');
 
 /**
  * @swagger
- * /handpicked-properties/{propertyPurpose}:
+ * /handpicked-properties:
  *   get:
  *     summary: Handpicked properties
  *     description: Retrieve a list of handpicked properties filtered by the purpose (e.g., Sale or Rent) and additional query parameters
@@ -13,7 +13,6 @@ const propertyController = require('../controllers/property.controller');
  *     parameters:
  *       - in: path
  *         name: propertyPurpose
- *         required: true
  *         schema:
  *           type: string
  *         description: Purpose of the property (e.g., Sale or Rent)
@@ -62,11 +61,6 @@ const propertyController = require('../controllers/property.controller');
  *         schema:
  *           type: number
  *         description: Maximum price to filter properties
- *       - in: query
- *         name: isHandpickedProperty
- *         schema:
- *           type: boolean
- *         description: To filter handpicked properties
  *     responses:
  *       200:
  *         description: List of properties retrieved successfully
@@ -113,6 +107,6 @@ const propertyController = require('../controllers/property.controller');
  *       404:
  *         description: No properties found matching the criteria
  */
-router.get('/:propertyPurpose', propertyController.handpickedProperty);
+router.get('', propertyController.handpickedProperty);
 
 module.exports = router;
