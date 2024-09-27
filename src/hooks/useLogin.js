@@ -18,25 +18,22 @@ const useLogin = () => {
   } = useForm();
 
   const submitForm = async (data) => {
-    console.log(data);
-    setMessage("");
-    // try {
-    //   const response = await axios.post(
-    //     "put the api",
-    //     data
-    //   );
-    //   if (response.data?.isSuccess) {
-    //     dispatch(registerForm(response?.data?.data));
-    //     localStorage.setItem("token", JSON.stringify(response?.data?.data));
-    //     navigate("/");
-    //   } else if (!response.data?.isSuccess) {
-    //     alert(`${response.data?.message}`);
-    //     navigate("/login");
-    //   }
-    // } catch (message) {
-    //   setMessage(message.message);
-    //   reset();
-    // }
+    try {
+      const response = await axios.post("", data);
+      console.log(response);
+
+      // if (response.data.isSuccess) {
+      //   alert(`${response.data?.message}`);
+      //   localStorage.setItem("token", JSON.stringify(response?.data?.data));
+      //   dispatch(login(response?.data?.data));
+      //   navigate("/");
+      // } else if (!response.data?.isSuccess) {
+      //   setError(response.data?.message);
+      //   reset();
+      // }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const minUppercasePattern = /[A-Z]+/;

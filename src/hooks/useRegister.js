@@ -18,7 +18,7 @@ const useRegister = () => {
     setMessage("");
     try {
       const response = await axios.post(
-        "http://192.168.0.130/questions/api/Auth/Register",
+        "http://localhost:8080/users/register'",
         data
       );
       console.log(response);
