@@ -15,6 +15,7 @@ import {
   CommercialPlotForm,
   CommercialShopForm,
   CommercialShowroomForm,
+  ExchangePropertyTypesDropDown,
 } from "../components";
 import useListProperty from "../hooks/useListProperty";
 
@@ -24,7 +25,6 @@ const ListProperty = () => {
     onPropertyTypeChange,
     handelChangePropertyDetail,
   } = useListProperty();
-  console.log(propertyTypeState.propertyDetail);
 
   return (
     <div className="w-11/12 mx-auto">
@@ -69,7 +69,6 @@ const ListProperty = () => {
               />
             </div>
           </div>
-
           {/* =====================you can change the form on the base of sell, exchange and partnership property========================*/}
           {propertyTypeState?.propertyDetail === "sell" ||
           propertyTypeState?.propertyDetail === "partnership" ? (
@@ -79,6 +78,12 @@ const ListProperty = () => {
                 onPropertyTypeChange={onPropertyTypeChange}
               />
             </div>
+          ) : (
+            " "
+          )}
+
+          {propertyTypeState?.propertyDetail === "exchange" ? (
+            <ExchangePropertyTypesDropDown />
           ) : (
             " "
           )}

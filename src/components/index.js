@@ -42,6 +42,7 @@ import CommercialOfficeSpaceForm from "./list-property/CommercialOfficeSpaceForm
 import CommercialPlotForm from "./list-property/CommercialPlotForm";
 import CommercialShopForm from "./list-property/CommercialShopForm";
 import CommercialShowroomForm from "./list-property/CommercialShowroomForm";
+import ExchangePropertyTypesDropDown from "./list-property/ExchangePropertyTypesDropDown";
 
 export {
   RadioInput,
@@ -84,4 +85,5 @@ export {
   CommercialPlotForm,
   CommercialShopForm,
   CommercialShowroomForm,
+  ExchangePropertyTypesDropDown,
 };

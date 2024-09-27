@@ -1,10 +1,16 @@
 import React from "react";
 
+import {
+  AreaInputField,
+  Heading,
+  ListPropertyInput,
+  ListPropertySelectInput,
+  Paragraph,
+} from "../index";
+
 const ExchangeFlatForm = () => {
   return (
     <div className="flex flex-col gap-2">
-      <TotalFlats />
-      <div></div>
       {/*  From City */}
       <div className="mt-5">
         <Heading className="text-xl" text="Property location" />
