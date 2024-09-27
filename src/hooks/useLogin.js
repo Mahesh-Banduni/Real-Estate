@@ -22,15 +22,15 @@ const useLogin = () => {
       const response = await axios.post("", data);
       console.log(response);
 
-      // if (response.data.isSuccess) {
-      //   alert(`${response.data?.message}`);
-      //   localStorage.setItem("token", JSON.stringify(response?.data?.data));
-      //   dispatch(login(response?.data?.data));
-      //   navigate("/");
-      // } else if (!response.data?.isSuccess) {
-      //   setError(response.data?.message);
-      //   reset();
-      // }
+      if (response.data.isSuccess) {
+        alert(`${response.data?.message}`);
+        localStorage.setItem("token", JSON.stringify(response?.data?.data));
+        dispatch(login(response?.data?.data));
+        navigate("/");
+      } else if (!response.data?.isSuccess) {
+        setError(response.data?.message);
+        reset();
+      }
     } catch (error) {
       console.log(error);
     }

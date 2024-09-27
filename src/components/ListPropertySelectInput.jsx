@@ -23,7 +23,11 @@ const ListPropertySelectInput = ({ label, className, options }) => {
           Select Options
         </option>
         {options?.map((option, index) => {
-          return <option className="capitalize">{option}</option>;
+          return (
+            <option key={index} className="capitalize">
+              {option}
+            </option>
+          );
         })}
       </select>
     </div>

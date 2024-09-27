@@ -5,14 +5,12 @@ import PropertyTypeList from "../components/home/PropertyTypeList";
 import { ListProperty } from "../components/index";
 import { Button, Input } from "../components";
 import { location, filter, upDownArrow } from "../utils/icons";
+import useProperties from "../hooks/useProperties";
 
 const Properties = () => {
   let searchHistory = ["land in dehradun", "properties in delhi"];
-  const [propertyType, setPropertyType] = useState("properties");
-  const [property, setProperty] = useState("buy");
-  const handelChangePropertyType = (name) => {
-    setProperty(name);
-  };
+
+  const { handelChangePropertyType, property } = useProperties();
 
   return (
     <div className="w-11/12 mx-auto">
@@ -22,7 +20,7 @@ const Properties = () => {
             <PropertyTypeList
               handelChangePropertyType={handelChangePropertyType}
               property={property}
-              text="buy"
+              text="Buy"
             />
             <PropertyTypeList
               handelChangePropertyType={handelChangePropertyType}
@@ -72,19 +70,12 @@ const Properties = () => {
       <hr />
       <div className=" pt-2 flex items-center justify-between max-[450px]:justify-center max-[450px]:gap-[0.15rem] ">
         <div className=" flex items-center gap-5 tracking-wider max-sm:tracking-normal max-sm:gap-2 max-[450px]:gap-1 ">
-          <div
-            onClick={() => {
-              setPropertyType("properties");
-            }}
-            className={`${
-              propertyType === "properties"
-                ? "text-white bg-primary-color  "
-                : " text-[#8F90A6] bg-transparent "
-            } px-5 py-2 uppercase transition-all cursor-pointer max-sm:text-sm max-sm:px-2 max-sm:py-1 max-[450px]:text-xs max-[350px]:text-[0.65rem] max-[450px]:px-1`}
+          <button
+            className={`text-white bg-primary-color px-5 py-2 uppercase transition-all cursor-pointer max-sm:text-sm max-sm:px-2 max-sm:py-1 max-[450px]:text-xs max-[350px]:text-[0.65rem] max-[450px]:px-1`}
           >
             properties
-          </div>
-          <div
+          </button>
+          {/* <div
             onClick={() => {
               setPropertyType("new projects");
             }}
@@ -95,7 +86,7 @@ const Properties = () => {
             } px-5 py-2 uppercase transition-all cursor-pointer max-sm:text-sm max-sm:px-2 max-sm:py-1 max-[450px]:text-xs max-[350px]:text-[0.65rem] max-[450px]:px-1`}
           >
             new projects
-          </div>
+          </div> */}
         </div>
         <div className="dropdown dropdown-hover bg-transparent hover:bg-transparent m-0">
           <div

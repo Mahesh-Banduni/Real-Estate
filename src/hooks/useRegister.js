@@ -1,17 +1,14 @@
 import { useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 const useRegister = () => {
-  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const {
     handleSubmit,
     register,
     formState: { errors },
     reset,
-    watch,
   } = useForm();
 
   const submitForm = async (data) => {
@@ -53,7 +50,6 @@ const useRegister = () => {
     minNumberPattern,
     minSpecialCharPattern,
     errors,
-    watch,
   };
 };
 
