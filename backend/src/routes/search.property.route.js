@@ -62,6 +62,11 @@ const propertyController = require('../controllers/property.controller');
  *         schema:
  *           type: number
  *         description: Maximum price to filter properties
+ *       - in: query
+ *         name: isHandpickedProperty
+ *         schema:
+ *           type: boolean
+ *         description: To filter handpicked properties
  *     responses:
  *       200:
  *         description: List of properties retrieved successfully

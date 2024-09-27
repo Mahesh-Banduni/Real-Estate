@@ -14,6 +14,7 @@ const createUser = async (userData) => {
   const user = new User();
   user.name = userData.name;
   user.phone = userData.phone;
+  user.role= userData.role;
   user.password = userData.password;
 
   return await user.save();
@@ -56,10 +57,24 @@ const deleteUser = async (userId) => {
   return user;
 };
 
+// Add favorite property to user
+const addFavoriteProperty = async (userId, propertyId) => {
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new NotFoundError('User not found');
+  }
+
+  const property = await Property.findById(propertyId);
+  if (!property) {
+    throw new NotFoundError('Property not found');
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   updateUser,
   deleteUser,
+  addFavoriteProperty
 };

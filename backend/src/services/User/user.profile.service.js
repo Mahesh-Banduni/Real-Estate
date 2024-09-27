@@ -16,7 +16,6 @@ const createUserProfile = async (userProfileData) => {
   userProfile.email= userProfileData.email;
   userProfile.bio= userProfileData.bio;
   userProfile.area= userProfileData.area;
-  userProfile.role= userProfileData.role;
   userProfile.locality= userProfileData.locality;
   userProfile.city= userProfileData.city;
   userProfile.district= userProfileData.district;

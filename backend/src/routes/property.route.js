@@ -140,6 +140,12 @@ router.put('/:id', propertyController.updateProperty);
  *         schema:
  *           type: string
  *         description: Property ID
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
  *     responses:
  *       200:
  *         description: Property deleted successfully
@@ -151,7 +157,7 @@ router.delete('/:id', propertyController.deleteProperty);
 /**
  * @swagger
  * /properties/{id}/handpicked:
- *   patch:
+ *   put:
  *     summary: Mark a property as handpicked
  *     description: Mark a specific property as handpicked (admin only)
  *     tags:
@@ -163,12 +169,21 @@ router.delete('/:id', propertyController.deleteProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *     responses:
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User Id
  *       200:
  *         description: Property marked as handpicked
  *       400:
  *         description: Only admins can mark properties as handpicked
  */
-router.patch('/:id/handpicked', propertyController.markHandpickedProperty);
+router.put('/:id/handpicked', propertyController.markHandpickedProperty);
 
 module.exports = router;

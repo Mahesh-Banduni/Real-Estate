@@ -18,7 +18,7 @@ const UserProfileSchema = new mongoose.Schema({
   favoriteProperties: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Property" },
   ],
-  address: { type: String, required: true },
+  address: { type: String},
   locality: { type: String, required: true },
   city: { type: String, required: true },
   district: { type: String, required: true },

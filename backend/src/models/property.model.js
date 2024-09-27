@@ -4,10 +4,11 @@ const propertySchema = new mongoose.Schema({
   //Property Details
   title: { type: String},
   description: { type: String},
+  productID: {type: Number, required: true},
   propertyPurpose: {type: String, enum:["Sell","Exchange Property","Partnership Property"], required: true},
   propertyType: {
     type: String,
-    enum: ["Residential Plot/Land", "Residential Flat/Appartment", "Residential House","Residential Villa","Builder Floor Apartment","Penthouse","Studio Apartment","Commercial Office Space","IT Park/SEZ office","Commercial Shop","Commercial Land","Warehouse/ Godown","Industrial Land","Industrial Building","Industrial Shed", "Agricultural Land","Farm House"],
+    enum: ["Residential Plot/Land", "Residential Flat/Appartment", "Residential House","Residential Villa","Builder Floor Apartment","Penthouse","Studio Apartment","Commercial Office Space","IT Park/SEZ office","Commercial Shop","Commercial Showroom","Commercial Land","Warehouse/ Godown","Industrial Land","Industrial Building","Industrial Shed", "Agricultural Land","Farm House"],
     required: true,
   },
   images: [{ type: String }],
@@ -18,7 +19,7 @@ const propertySchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-  isHandpicked: { 
+  isHandpickedProperty: { 
     type: Boolean, 
     default: false 
   },

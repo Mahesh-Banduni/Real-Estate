@@ -8,12 +8,18 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6,
   },
+  role: {type: String, enum: ["User","Agent","Admin"], default: "User"},
   phone: { type: String, required: true, minlength: 10, maxlength: 10 },
   tokens:[{
     token:{
         type:String,
         //required:true
     }
+  }],
+  favoriteProperties: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Property",
+    required: true
   }],
 },{timestamps: true});
 
@@ -40,5 +46,3 @@ userSchema.methods.generateAuthToken = async function() {
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
-
-

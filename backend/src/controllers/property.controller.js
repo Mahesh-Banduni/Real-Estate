@@ -51,9 +51,20 @@ const searchProperty = async (req, res, next) => {
   }
 };
 
+const handpickedProperty = async (req, res, next) => {
+  try {
+    const { propertyPurpose } = req.params; // propertyPurpose from params
+    const filters = req.query; // Filters from query params
+    const properties = await propertyService.handpickedProperty(propertyPurpose, filters);
+    res.status(200).json(properties);
+  } catch (error) {
+    next(error);
+  }
+};
+
  const markHandpickedProperty= async (req, res, next) => {
   try {
-    const property = await propertyController.markHandpickedProperty(req.params.id, req.user);
+    const property = await propertyService.markHandpickedProperty(req.params.id, req.userId);
     res.status(200).json(property);
   } catch (error) {
     next(error);
@@ -62,7 +73,7 @@ const searchProperty = async (req, res, next) => {
 
 const unmarkHandpickedProperty= async (req, res, next) => {
   try {
-    const property = await propertyController.unmarkHandpickedProperty(req.params.id, req.user);
+    const property = await propertyService.unmarkHandpickedProperty(req.params.id, req.userId);
     res.status(200).json(property);
   } catch (error) {
     next(error);
@@ -75,6 +86,7 @@ module.exports = {
   updateProperty,
   deleteProperty,
   searchProperty,
+  handpickedProperty,
   markHandpickedProperty,
   unmarkHandpickedProperty
 };

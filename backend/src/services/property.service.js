@@ -4,9 +4,19 @@ const User = require('../models/user.model.js');
 
 // Create a new Property
 const createProperty = async (propertyData) => {
+  function generatePropertyId() {
+    let id;
+    do {
+      id = Math.floor(100000000 + Math.random() * 900000000);
+    } while (id % 10 === 0);
+    return id;
+  }  
+  const propertyId = generatePropertyId();
+
   const property = new Property();
 
   // Assigning data to property fields
+  property.productID = propertyId;
   property.title = propertyData.title;
   property.description = propertyData.description;
   property.propertyPurpose = propertyData.propertyPurpose;
@@ -84,6 +94,34 @@ const searchProperty = async (propertyPurpose, filters) => {
   if (filters.city) query.city = filters.city;
   if (filters.locality) query.locality = filters.locality;
   if (filters.ownership) query.ownership = filters.ownership;
+  if (filters.isHandpickedProperty) query.isHandpickedProperty = filters.isHandpickedProperty;
+
+
+  // Budget filter (minPrice and maxPrice)
+  if (filters.minPrice || filters.maxPrice) {
+    query.expectedPrice = {};
+    if (filters.minPrice) query.expectedPrice.$gte = filters.minPrice;
+    if (filters.maxPrice) query.expectedPrice.$lte = filters.maxPrice;
+  }
+
+  const filteredProperties = await Property.find(query).populate('user');
+  if (!filteredProperties || filteredProperties.length === 0) {
+    throw new NotFoundError('No properties found matching the criteria.');
+  }
+  return filteredProperties;
+};
+
+const handpickedProperty = async (propertyPurpose, filters) => {
+  const query = { propertyPurpose: propertyPurpose };
+
+  // Apply filters
+  if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
+  if (filters.propertyType) query.propertyType = filters.propertyType;
+  if (filters.city) query.city = filters.city;
+  if (filters.locality) query.locality = filters.locality;
+  if (filters.ownership) query.ownership = filters.ownership;
+  if (filters.isHandpickedProperty) query.isHandpickedProperty = 'true';
+
 
   // Budget filter (minPrice and maxPrice)
   if (filters.minPrice || filters.maxPrice) {
@@ -160,7 +198,7 @@ const markHandpickedProperty = async (propertyId, userId) => {
     throw new NotFoundError('Property not found');
   }
 
-  property.isHandpicked = true;
+  property.isHandpickedProperty = true;
   return await property.save();
 };
 
@@ -176,13 +214,14 @@ const unmarkHandpickedProperty = async (propertyId, userId) => {
     throw new NotFoundError('Property not found');
   }
 
-  property.isHandpicked = false;
+  property.isHandpickedProperty = false;
   return await property.save();
 };
 
 module.exports = {
   createProperty,
   searchProperty,
+  handpickedProperty,
   getPropertyById,
   updateProperty,
   deleteProperty,
