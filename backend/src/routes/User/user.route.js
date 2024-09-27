@@ -153,4 +153,113 @@ router.put('/:id', userController.updateUser);
  */
 router.delete('/:id', userController.deleteUser);
 
+/**
+ * @swagger
+ * /users/{userId}/favorites/{propertyId}:
+ *   post:
+ *     summary: Add a property to user's favorites
+ *     description: Adds a property to the user's favorite properties list
+ *     tags:
+ *       - Users
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *       - in: path
+ *         name: propertyId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *     responses:
+ *       200:
+ *         description: Property added to favorites successfully
+ *       404:
+ *         description: User or property not found
+ *       500:
+ *         description: Internal server error
+ */
+router.post('/:userId/favorites/:propertyId', userController.addFavoriteProperty);
+
+/**
+ * @swagger
+ * /users/{userId}/favorites/{propertyId}:
+ *   delete:
+ *     summary: Remove a property from user's favorites
+ *     description: Removes a property from the user's favorite properties list
+ *     tags:
+ *       - Users
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *       - in: path
+ *         name: propertyId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *     responses:
+ *       200:
+ *         description: Property removed from favorites successfully
+ *       404:
+ *         description: User or property not found
+ *       500:
+ *         description: Internal server error
+ */
+router.delete('/:userId/favorites/:propertyId', userController.removeFavoriteProperty);
+
+/**
+ * @swagger
+ * /users/{userId}/owned-properties:
+ *   get:
+ *     summary: Get user's owned properties
+ *     description: Retrieve a list of properties owned by the user
+ *     tags:
+ *       - Users
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     responses:
+ *       200:
+ *         description: List of owned properties retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: Property ID
+ *                   title:
+ *                     type: string
+ *                     description: Property title
+ *                   address:
+ *                     type: string
+ *                     description: Property address
+ *                   price:
+ *                     type: number
+ *                     description: Property price
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/:userId/owned-properties', userController.getOwnedProperties);
+
 module.exports = router;

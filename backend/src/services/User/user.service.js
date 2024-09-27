@@ -1,4 +1,5 @@
 const User = require('../../models/user.model');
+const Property = require('../../models/property.model.js');
 const { ConflictError, NotFoundError, BadRequestError } = require('../../errors/errors');
 const auth = require("../../middleware/auth.js");
 
@@ -57,18 +58,40 @@ const deleteUser = async (userId) => {
   return user;
 };
 
-// Add favorite property to user
+// Add a property to favorites
 const addFavoriteProperty = async (userId, propertyId) => {
   const user = await User.findById(userId);
   if (!user) {
     throw new NotFoundError('User not found');
   }
 
-  const property = await Property.findById(propertyId);
-  if (!property) {
-    throw new NotFoundError('Property not found');
+  if (user.favoriteProperties.includes(propertyId)) {
+    throw new ConflictError('Property is already in favorites');
   }
+
+  user.favoriteProperties.push(propertyId);
+  return await user.save();
 };
+
+// Remove a property from favorites
+const removeFavoriteProperty = async (userId, propertyId) => {
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new NotFoundError('User not found');
+  }
+
+  user.favoriteProperties = user.favoriteProperties.filter(fav => fav.toString() !== propertyId);
+  return await user.save();
+};
+
+const getOwnedProperties = async (userId) => {
+  const user = await User.findById(userId).populate('ownedProperties');
+  if (!user) {
+    throw new NotFoundError('User not found');
+  }
+  return user.ownedProperties;
+};
+
 
 module.exports = {
   createUser,
@@ -76,5 +99,7 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
-  addFavoriteProperty
+  addFavoriteProperty,
+  removeFavoriteProperty,
+  getOwnedProperties
 };

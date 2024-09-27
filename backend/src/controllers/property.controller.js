@@ -64,7 +64,7 @@ const handpickedProperty = async (req, res, next) => {
 
  const markHandpickedProperty= async (req, res, next) => {
   try {
-    const property = await propertyService.markHandpickedProperty(req.params.id, req.userId);
+    const property = await propertyService.markHandpickedProperty(req.params.id, req.params.id);
     res.status(200).json(property);
   } catch (error) {
     next(error);

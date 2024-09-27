@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     ref: "Property",
     required: true
   }],
+  ownedProperties: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Property' 
+  }]
 },{timestamps: true});
 
 // Method to generate JWT auth token
