@@ -1,4 +1,4 @@
-const userProfileService = require('../../services/User/user.profile.service');
+const userProfileService = require('../services/user.profile.service.js');
 
 // Create a new user
 exports.createUserProfile = async (req, res, next) => {

@@ -1,5 +1,5 @@
 const ContactForm = require('../models/contact.form.model.js');
-const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors');
+const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 
 // Create a new contact form
 const createContactForm = async (formData) => {

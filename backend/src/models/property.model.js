@@ -2,18 +2,21 @@ const mongoose = require("mongoose");
 const propertySchema = new mongoose.Schema({
 
   //Property Details
-  title: { type: String},
   description: { type: String},
   productID: {type: Number, required: true},
-  propertyPurpose: {type: String, enum:["Sell","Exchange Property","Partnership Property"], required: true},
+  propertyPurpose: {type: String, enum:["Sale","Exchange Property","Partnership Property"], required: true},
   propertyType: {
     type: String,
     enum: ["Residential Plot/Land", "Residential Flat/Appartment", "Residential House","Residential Villa","Builder Floor Apartment","Penthouse","Studio Apartment","Commercial Office Space","IT Park/SEZ office","Commercial Shop","Commercial Showroom","Commercial Land","Warehouse/ Godown","Industrial Land","Industrial Building","Industrial Shed", "Agricultural Land","Farm House"],
     required: true,
   },
-  images: [{ type: String }],
+  images: {
+    type: [String], // Array of URLs from Cloudinary
+    validate: [arrayLimit, 'Property must have at least 5 photos'],
+  },
   dateListed: { type: Date, default: Date.now },
-  isAvailable: { type: Boolean, default: true },       
+  isAvailable: { type: Boolean, default: true },
+  propertyStatus: {type: String, enum:["Approval Pending","Approved"], default: "Approval Pending"},
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -23,7 +26,11 @@ const propertySchema = new mongoose.Schema({
     type: Boolean, 
     default: false 
   },
-
+  isRecommendedProperty: { 
+    type: Boolean, 
+    default: false 
+  },
+  
   //Property Location & Uniqueness
   numberOfFlatsInSociety: {type: String, enum:["<50","50-100",">100"], default:"<50"},
   city: {type: String, enum:["Dehradun","Udaipur","Delhi","Haridwar","Rishikesh","Haldwani"], default:"Dehradun"},
@@ -231,10 +238,10 @@ const propertySchema = new mongoose.Schema({
     ],
     default: "Rajpur"
 },
-  developer: { type: String},
   projectSocietyName: {type: String},
-  Address: {type: String, maxlength: 256},
+  address: {type: String, maxlength: 256},
   buildingComplexName: {type: String},
+  projectMarketName: {type: String},
   landZone: {type: String, enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]},  
   fromCity: {type: String, enum:["Dehradun","Udaipur","Delhi","Haridwar","Rishikesh","Haldwani"], default:"Dehradun"},
   toCity: {type: String, enum:["Dehradun","Udaipur","Delhi","Haridwar","Rishikesh","Haldwani"], default:"Delhi"},
@@ -646,7 +653,7 @@ const propertySchema = new mongoose.Schema({
     ],
     default: "Sahastradhara Road"
 },
-  idealForBusinesses: {type: [String], enum:[
+idealForBusinesses: {type: [String], enum:[
     "Private Company",
     "Individual Business",
     "Self Employed Business",
@@ -1024,10 +1031,10 @@ const propertySchema = new mongoose.Schema({
   floorsAllowed: {type: Number, minlength:1, maxlength: 250},
   openSides: {type: Number, minlength:1, maxlength:4},
   facingRoadWidth: {type: Number},
+  facingRoadWidthUnit: {type: String, enum:["Meters"], default: "Meters"},
   boundaryWall: {type: Boolean, default: false},
   gatedColony: {type: Boolean, default: false},
   
-  //approvedBy: {type: String, enum: ["Local Authority"]},
 
   bedrooms:{ type: Number, minlength:1, maxlength: 20},
   balconies:{ type: Number, minlength:1, maxlength: 20},
@@ -1046,8 +1053,6 @@ const propertySchema = new mongoose.Schema({
   anyConstructionDone: {type: Boolean, default: false},
 
   BHKType:  { type: String, enum: ["1 BHK","2 BHK","3 BHK","4 BHK","5 BHK",">5 BHK"]},
-  flooring: {type: String, enum: ["Ceramic Tiles","Wooden","Vitrified","Marble","Granite"]},
-
 
   //Property Area
 
@@ -1055,10 +1060,12 @@ const propertySchema = new mongoose.Schema({
   plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
   lengthdimension: { type: Number},
   widthdimension: { type: Number},
+  dimensionUnit: {type: String, enum:["ft"], default:"ft"},
   cornerPlot: {type: Boolean,default: false},
 
   coveredArea: { type: Number},
-
+  coveredAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
+  
   carpetArea: { type: Number},
   superArea: { type: Number},
   carpetAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
@@ -1082,7 +1089,7 @@ const propertySchema = new mongoose.Schema({
   allInclusivePrice: {type: Boolean,default: false},
 
   //Amenities/Unique Features
-  additionalRooms:{ type: String, enum:["Store Room","Puja Room","Servant Room"]},
+
   residentialAmenities: {
     type: [String],
     enum: [
@@ -1169,6 +1176,11 @@ const propertySchema = new mongoose.Schema({
   overlooking: {type: String, enum:["Pool","Garden/Park","Main Road","Club","Others","Hills","Lake","River","Open Land","Forest","City Skyline","Residential Area","Commercial Area","Farmland","Mountains"]},
   facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
 });
+
+// Custom validator to ensure at least 5 photos
+function arrayLimit(val) {
+  return val.length >= 5;
+}
 
 const Property = mongoose.model("Property", propertySchema);
 module.exports = Property;

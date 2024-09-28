@@ -1,15 +1,11 @@
-const userService = require('../../services/User/user.service');
+const userService = require('../services/user.service.js');
+const auth = require("../middleware/auth.js");
 
 // Create a new user
-const createUser = async (req, res, next) => {
+const createUser = async(req, res, next) => {
   try {
-    const user = await userService.createUser(req.body);
-    const token= await user.generateAuthToken();
-    res.cookie("jwt", token, {
-        expires: new Date(Date.now() + 600000),
-        httpOnly:true
-    });
-    res.status(201).json(user);
+    const { user, token } = await userService.createUser(req.body);
+    res.status(201).json({user, token});
   } catch (error) {
     next(error);
   }
@@ -28,7 +24,7 @@ const getAllUsers = async (req, res, next) => {
 // Get user by ID
 const getUserById = async (req, res, next) => {
   try {
-    const user = await userService.getUserById(req.params.id);
+    const user = await userService.getUserById(req.params.id,);
     res.status(200).json(user);
   } catch (error) {
     next(error);

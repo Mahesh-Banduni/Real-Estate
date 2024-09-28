@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const propertyController = require('../controllers/property.controller');
+const propertyController = require('../controllers/property.controller.js');
 
 /**
  * @swagger
@@ -156,7 +156,7 @@ router.delete('/:id', propertyController.deleteProperty);
 
 /**
  * @swagger
- * /properties/{id}/handpicked:
+ * /properties/{id}/mark-handpicked:
  *   put:
  *     summary: Mark a property as handpicked
  *     description: Mark a specific property as handpicked (admin only)
@@ -164,23 +164,128 @@ router.delete('/:id', propertyController.deleteProperty);
  *       - Properties
  *     parameters:
  *       - in: path
- *         name: propertyId
+ *         name: id
  *         required: true
  *         schema:
  *           type: string
  *         description: Property ID
- *       - in: path
- *         name: userId
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User ID
  *     responses:
  *       200:
  *         description: Property marked as handpicked
  *       400:
  *         description: Only admins can mark properties as handpicked
  */
-router.put('/:id/handpicked', propertyController.markHandpickedProperty);
+router.put('/:id/mark-handpicked', propertyController.markHandpickedProperty);
+
+
+/**
+ * @swagger
+ * /properties/{id}/unmark-handpicked:
+ *   put:
+ *     summary: Unmark a property as handpicked
+ *     description: Unmark a specific property as handpicked (admin only)
+ *     tags:
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User ID
+ *     responses:
+ *       200:
+ *         description: Property Unmarked as handpicked
+ *       400:
+ *         description: Only admins can Unmark properties as handpicked
+ */
+router.put('/:id/unmark-handpicked', propertyController.unmarkHandpickedProperty);
+
+/**
+ * @swagger
+ * /properties/{id}/approved:
+ *   put:
+ *     summary: Mark a property as approved
+ *     description: Mark a specific property as approved (admin only)
+ *     tags:
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User ID
+ *     responses:
+ *       200:
+ *         description: Property marked as approved
+ *       400:
+ *         description: Only admins can mark properties as approved
+ */
+router.put('/:id/approved', propertyController.markApprovedProperty);
+
+
+/**
+ * @swagger
+ * /properties/{id}/recommended:
+ *   put:
+ *     summary: Mark a property as recommended
+ *     description: Mark a specific property as recommended (admin only)
+ *     tags:
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User ID
+ *     responses:
+ *       200:
+ *         description: Property marked as recommended
+ *       400:
+ *         description: Only admins can mark properties as recommended
+ */
+router.put('/:id/recommended', propertyController.markRecommendedProperty);
 
 module.exports = router;

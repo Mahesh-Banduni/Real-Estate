@@ -63,7 +63,7 @@ const handpickedProperty = async (req, res, next) => {
 
  const markHandpickedProperty= async (req, res, next) => {
   try {
-    const property = await propertyService.markHandpickedProperty(req.params.propertyId, req.params.userId);
+    const property = await propertyService.markHandpickedProperty(req.params.id, req.body.userId);
     res.status(200).json(property);
   } catch (error) {
     next(error);
@@ -72,12 +72,49 @@ const handpickedProperty = async (req, res, next) => {
 
 const unmarkHandpickedProperty= async (req, res, next) => {
   try {
-    const property = await propertyService.unmarkHandpickedProperty(req.params.propertyId, req.params.userId);
+    const property = await propertyService.unmarkHandpickedProperty(req.params.propertyId, req.body.userId);
     res.status(200).json(property);
   } catch (error) {
     next(error);
   }
 };
+
+const markApprovedProperty= async (req, res, next) => {
+  try {
+    const property = await propertyService.markApprovedProperty(req.params.id, req.body.userId);
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const unmarkApprovedProperty= async (req, res, next) => {
+  try {
+    const property = await propertyService.unmarkApprovedProperty(req.params.propertyId, req.body.userId);
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const markRecommendedProperty= async (req, res, next) => {
+  try {
+    const property = await propertyService.markRecommendedProperty(req.params.id, req.body.userId);
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const unmarkRecommendedProperty= async (req, res, next) => {
+  try {
+    const property = await propertyService.unmarkRecommendedProperty(req.params.propertyId, req.body.userId);
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 module.exports = {
   createProperty,
@@ -87,5 +124,9 @@ module.exports = {
   searchProperty,
   handpickedProperty,
   markHandpickedProperty,
-  unmarkHandpickedProperty
+  unmarkHandpickedProperty,
+  markApprovedProperty,
+  unmarkApprovedProperty,
+  markRecommendedProperty,
+  unmarkRecommendedProperty
 };

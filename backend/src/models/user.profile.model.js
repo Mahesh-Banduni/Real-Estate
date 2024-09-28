@@ -1,4 +1,5 @@
 const mongoose= require("mongoose");
+
 const UserProfileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -11,7 +12,6 @@ const UserProfileSchema = new mongoose.Schema({
     unique: true,
     match: /^\S+@\S+\.\S+$/,
   },
-  role: {type: String, enum: ["User","Agent","Admin"], default: "User"},
   profilePicture: { type: String },
   bio: { type: String },
   propertiesOwned: [{ type: mongoose.Schema.Types.ObjectId, ref: "Property" }],
@@ -25,8 +25,6 @@ const UserProfileSchema = new mongoose.Schema({
   state: { type: String, required: true },
   country: { type: String, required: true },
   postalCode: { type: String, required: true },
-  latitude: { type: Number },
-  longitude: { type: Number },
   });
 
 const UserProfile = mongoose.model("UserProfile", UserProfileSchema);

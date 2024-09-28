@@ -1,4 +1,4 @@
-const contactFormService = require('../services/contact.form.service');
+const contactFormService = require('../services/contact.form.service.js');
 
 // Create a new contact form
 exports.createContactForm = async (req, res, next) => {

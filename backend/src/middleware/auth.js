@@ -1,20 +1,22 @@
-const jwt = require("jsonwebtoken");
-const User= require("../models/user.model");
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
-const auth = async(req, res, next) => {
-    try {
-       const token = req.cookies.jwt;
-       const verifyUser = jwt.verify(token, process.env.SECRET_KEY);
-       
-       const user = await User.findOne({_id:verifyUser._id});
+// Load environment variables
+dotenv.config();
 
-       req.token = token;
-       req.user= user;
+// JWT authentication middleware
+const auth = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Extract token from 'Bearer <token>'
 
-       next();
-    } catch (error) {
-        res.status(401).send("To access the requested page, you need to login first");
-    }
-}
+  if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: 'Invalid token.' });
+    
+    req.user = user; // Attach the decoded token payload to request
+    next(); // Proceed to the next middleware or route handler
+  });
+};
 
 module.exports = auth;

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../../controllers/User/user.controller');
+const userController = require('../controllers/user.controller.js');
+const userLoginController = require('../controllers/user.login.controller.js');
+const auth = require("../middleware/auth.js");
 
 /**
  * @swagger
@@ -42,6 +44,52 @@ router.post('/register', userController.createUser);
 
 /**
  * @swagger
+ * /users/login:
+ *   post:
+ *     summary: User login
+ *     description: API for user login
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - phone
+ *               - password
+ *             properties:
+ *               phone:
+ *                 type: string
+ *                 description: User's phone number
+ *               password:
+ *                 type: string
+ *                 description: User's password
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Unauthorized (Invalid credentials)
+ */
+router.post('/login', userLoginController.loginUser);
+
+/**
+ * @swagger
+ * /users/logout:
+ *   post:
+ *     summary: User logout
+ *     description: API for user logout
+ *     tags:
+ *       - Users
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ */
+router.post('/logout', userLoginController.logoutUser);
+
+/**
+ * @swagger
  * /users/{id}:
  *   get:
  *     summary: Get user by ID
@@ -51,7 +99,6 @@ router.post('/register', userController.createUser);
  *     parameters:
  *       - in: path
  *         name: id
- *         required: true
  *         schema:
  *           type: string
  *         description: User ID
@@ -219,7 +266,7 @@ router.delete('/:userId/favorites/:propertyId', userController.removeFavoritePro
 
 /**
  * @swagger
- * /users/{userId}/owned-properties:
+ * /users/{id}/owned-properties:
  *   get:
  *     summary: Get user's owned properties
  *     description: Retrieve a list of properties owned by the user
@@ -228,7 +275,7 @@ router.delete('/:userId/favorites/:propertyId', userController.removeFavoritePro
  *       - Properties
  *     parameters:
  *       - in: path
- *         name: userId
+ *         name: id
  *         required: true
  *         schema:
  *           type: string
@@ -260,6 +307,6 @@ router.delete('/:userId/favorites/:propertyId', userController.removeFavoritePro
  *       500:
  *         description: Internal server error
  */
-router.get('/:userId/owned-properties', userController.getOwnedProperties);
+router.get('/:id/owned-properties', userController.getOwnedProperties);
 
 module.exports = router;

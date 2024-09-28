@@ -4,7 +4,7 @@ const residentialPlotSchema = new mongoose.Schema({
   city: {type: String, required: true},
   locality: {type: String, required: true},
   projectSocietyName: {type: String},
-  Address: {type: String, maxlength: 256},
+  address: {type: String, maxlength: 256},
 
   //Property Features
   floorsAllowed: {type: Number},

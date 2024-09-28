@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userProfileController = require('../../controllers/User/user.profile.controller.js');
+const userProfileController = require('../controllers/user.profile.controller.js');
 
 /**
  * @swagger

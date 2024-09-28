@@ -1,6 +1,6 @@
-const UserProfile = require('../../models/user.profile.model');
-const Property = require('../../models/property.model'); // Assuming Property model exists
-const { ConflictError, NotFoundError, BadRequestError } = require('../../errors/errors');
+const UserProfile = require('../models/user.profile.model.js');
+const Property = require('../models/property.model.js'); // Assuming Property model exists
+const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 
 // Create a new userProfile
 const createUserProfile = async (userProfileData) => {

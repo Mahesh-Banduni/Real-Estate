@@ -1,7 +1,11 @@
-const User = require('../../models/user.model');
-const Property = require('../../models/property.model.js');
-const { ConflictError, NotFoundError, BadRequestError } = require('../../errors/errors');
-const auth = require("../../middleware/auth.js");
+const User = require('../models/user.model.js');
+const Property = require('../models/property.model.js');
+const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
+const JWTToken = require("./token.generation.service.js");
+const crypto = require('crypto');
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 // Create a new user
 const createUser = async (userData) => {
@@ -12,13 +16,20 @@ const createUser = async (userData) => {
     throw new ConflictError('User with this phone number already exists');
   }
 
+  const hashPassword=crypto.createHash('sha256', process.env.JWT_SECRET).update(userData.password).digest('hex');
+  
   const user = new User();
   user.name = userData.name;
   user.phone = userData.phone;
   user.role= userData.role;
-  user.password = userData.password;
+  user.password = hashPassword;
 
-  return await user.save();
+  await user.save();
+
+  // Generate JWT token after user creation
+  const token = JWTToken.generateToken(user);
+
+  return { user, token }; // Return both user and token
 };
 
 const getAllUsers = async () => {
@@ -30,6 +41,7 @@ const getUserById = async (userId) => {
   if (!user) {
     throw new NotFoundError('User not found');
   }
+  console.log(user);
   return user;
 };
 

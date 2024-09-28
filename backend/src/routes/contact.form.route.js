@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const contactFormController = require('../controllers/contact.form.controller');
+const contactFormController = require('../controllers/contact.form.controller.js');
 
 /**
  * @swagger

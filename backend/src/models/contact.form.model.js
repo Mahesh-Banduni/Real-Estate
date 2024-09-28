@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const contactFormSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   phone: { type: String, required: true },
