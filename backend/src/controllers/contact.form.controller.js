@@ -4,7 +4,10 @@ const contactFormService = require('../services/contact.form.service.js');
 exports.createContactForm = async (req, res, next) => {
   try {
     const contactForm = await contactFormService.createContactForm(req.body);
-    res.status(201).json(contactForm);
+    res.status(201).json({
+      success: true,
+      data: contactForm,
+    });
   } catch (error) {
     next(error);
   }
@@ -14,7 +17,10 @@ exports.createContactForm = async (req, res, next) => {
 exports.getAllContactForms = async (req, res, next) => {
   try {
     const contactForms = await contactFormService.getAllContactForms();
-    res.status(200).json(contactForms);
+    res.status(200).json({
+      success: true,
+      data: contactForms,
+    });
   } catch (error) {
     next(error);
   }
@@ -24,7 +30,10 @@ exports.getAllContactForms = async (req, res, next) => {
 exports.getContactFormByFullName = async (req, res, next) => {
   try {
     const contactForm = await contactFormService.getContactFormByFullName(req.params.fullName);
-    res.status(200).json(contactForm);
+    res.status(200).json({
+      success: true,
+      data: contactForm,
+    });
   } catch (error) {
     next(error);
   }

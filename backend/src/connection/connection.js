@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
-const { DB_NAME } = require("../constant");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const connectDb = async () => {
   try {
-   const connection =  await mongoose.connect(`mongodb://localhost:27017/Real-Estate`);
+   const connection =  await mongoose.connect(process.env.DATABASE_URL);
     console.log("MongoDB connected successfully.");
   } catch (error) {
     console.error(`MongoDB connection error: ${error.message}`);
@@ -22,3 +24,4 @@ const connectDb = async () => {
 };
 
 module.exports = connectDb;
+//`mongodb://localhost:27017/Real-Estate`

@@ -7,12 +7,11 @@ const propertySchema = new mongoose.Schema({
   propertyPurpose: {type: String, enum:["Sale","Exchange Property","Partnership Property"], required: true},
   propertyType: {
     type: String,
-    enum: ["Residential Plot/Land", "Residential Flat/Appartment", "Residential House","Residential Villa","Builder Floor Apartment","Penthouse","Studio Apartment","Commercial Office Space","IT Park/SEZ office","Commercial Shop","Commercial Showroom","Commercial Land","Warehouse/ Godown","Industrial Land","Industrial Building","Industrial Shed", "Agricultural Land","Farm House"],
+    enum: ["Residential Plot/Land", "Residential Flat/Apartment", "Residential House","Residential Villa","Builder Floor Apartment","Penthouse","Studio Apartment","Commercial Office Space","IT Park/SEZ office","Commercial Shop","Commercial Showroom","Commercial Plot/Land","Warehouse/ Godown","Industrial Plot/Land","Industrial Building","Industrial Shed", "Agricultural Plot/Land","Farm House"],
     required: true,
   },
   images: {
     type: [String], // Array of URLs from Cloudinary
-    validate: [arrayLimit, 'Property must have at least 5 photos'],
   },
   dateListed: { type: Date, default: Date.now },
   isAvailable: { type: Boolean, default: true },
@@ -27,7 +26,7 @@ const propertySchema = new mongoose.Schema({
     default: false 
   },
   isRecommendedProperty: { 
-    type: Boolean, 
+    type: Boolean,
     default: false 
   },
   
@@ -1176,11 +1175,6 @@ idealForBusinesses: {type: [String], enum:[
   overlooking: {type: String, enum:["Pool","Garden/Park","Main Road","Club","Others","Hills","Lake","River","Open Land","Forest","City Skyline","Residential Area","Commercial Area","Farmland","Mountains"]},
   facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
 });
-
-// Custom validator to ensure at least 5 photos
-function arrayLimit(val) {
-  return val.length >= 5;
-}
 
 const Property = mongoose.model("Property", propertySchema);
 module.exports = Property;

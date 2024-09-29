@@ -4,10 +4,10 @@ const propertyController = require('../controllers/property.controller.js');
 
 /**
  * @swagger
- * /handpicked-properties:
+ * /recommended-properties:
  *   get:
- *     summary: Handpicked properties
- *     description: Retrieve a list of handpicked properties filtered by the purpose (e.g., Sale or Rent) and additional query parameters
+ *     summary: Recommended properties
+ *     description: Retrieve a list of recommended properties filtered by the purpose (e.g., Sale or Rent) and additional query parameters
  *     tags:
  *       - Properties
  *     parameters:
@@ -144,6 +144,6 @@ const propertyController = require('../controllers/property.controller.js');
  *       404:
  *         description: No properties found matching the criteria
  */
-router.get('', propertyController.handpickedProperty);
+router.get('', propertyController.recommendedProperty);
 
 module.exports = router;

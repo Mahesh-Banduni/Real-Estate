@@ -5,7 +5,10 @@ const auth = require("../middleware/auth.js");
 const createUser = async(req, res, next) => {
   try {
     const { user, token } = await userService.createUser(req.body);
-    res.status(201).json({user, token});
+    res.status(201).json({
+        success: true,
+        data: {user, token}
+    });
   } catch (error) {
     next(error);
   }
@@ -15,7 +18,10 @@ const createUser = async(req, res, next) => {
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await userService.getAllUsers();
-    res.status(200).json(users);
+    res.status(200).json({
+      success: true,
+      data: users,
+    });
   } catch (error) {
     next(error);
   }
@@ -25,7 +31,10 @@ const getAllUsers = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
   try {
     const user = await userService.getUserById(req.params.id,);
-    res.status(200).json(user);
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
   } catch (error) {
     next(error);
   }
@@ -35,7 +44,10 @@ const getUserById = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const updatedUser = await userService.updateUser(req.params.id, req.body);
-    res.status(200).json(updatedUser);
+    res.status(200).json({
+      success: true,
+      data: updatedUser,
+    });
   } catch (error) {
     next(error);
   }
@@ -55,7 +67,10 @@ const deleteUser = async (req, res, next) => {
 const addFavoriteProperty = async (req, res, next) => {
   try {
     const user = await userService.addFavoriteProperty(req.params.userId, req.params.propertyId);
-    res.status(200).json(user);
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
   } catch (error) {
     next(error);
   }
@@ -65,7 +80,10 @@ const addFavoriteProperty = async (req, res, next) => {
 const removeFavoriteProperty = async (req, res, next) => {
   try {
     const user = await userService.removeFavoriteProperty(req.params.userId, req.params.propertyId);
-    res.status(200).json(user);
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
   } catch (error) {
     next(error);
   }
@@ -74,7 +92,10 @@ const removeFavoriteProperty = async (req, res, next) => {
 const getOwnedProperties = async (req, res, next) => {
   try {
     const ownedProperties = await userService.getOwnedProperties(req.params.userId);
-    res.status(200).json(ownedProperties);
+    res.status(200).json({
+      success: true,
+      data: ownedProperties,
+    });
   } catch (error) {
     next(error);
   }

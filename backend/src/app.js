@@ -7,6 +7,7 @@ const userProfileRoutes= require("./routes/user.profile.route");
 const propertyRoutes = require("./routes/property.route.js");
 const searchPropertyRoutes = require("./routes/search.property.route.js");
 const handpickedPropertyRoutes = require("./routes/handpicked.property.route.js");
+const recommendedPropertyRoutes = require("./routes/recommended.property.route.js")
 const contactFormRoutes = require("./routes/contact.form.route");
 
 const { errorHandler } = require("./middleware/errorHandler");
@@ -28,6 +29,7 @@ app.use('/user-profiles', userProfileRoutes);
 app.use('/properties', propertyRoutes);
 app.use('/search-properties',searchPropertyRoutes);
 app.use('/handpicked-properties',handpickedPropertyRoutes);
+app.use('/recommended-properties',recommendedPropertyRoutes);
 app.use('/contact-forms',contactFormRoutes);
 
 app.use(errorHandler);

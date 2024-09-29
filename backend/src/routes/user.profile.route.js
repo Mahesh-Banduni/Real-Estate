@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userProfileController = require('../controllers/user.profile.controller.js');
+const {upload} =require('../middleware/multer.js');
 
 /**
  * @swagger
@@ -13,7 +14,7 @@ const userProfileController = require('../controllers/user.profile.controller.js
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
@@ -53,13 +54,19 @@ const userProfileController = require('../controllers/user.profile.controller.js
  *               postalCode:
  *                 type: string
  *                 description: User's postal code
+ *               profilePicture:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: User's profile picture
  *     responses:
  *       201:
  *         description: User profile created successfully
  *       400:
  *         description: Validation error
  */
-router.post('/register', userProfileController.createUserProfile);
+router.post('/register',upload, userProfileController.createUserProfile);
 
 /**
  * @swagger

@@ -7,7 +7,10 @@ const loginUser = async (req, res, next) => {
       const { user, token } = await userLoginService.loginUser(phone, password);
       
       // Send back the user data and the token
-      res.status(200).json({user, token});
+      res.status(200).json({
+          success: true,
+          data: {user, token}
+        });
     } catch (error) {
       next(error);
     }

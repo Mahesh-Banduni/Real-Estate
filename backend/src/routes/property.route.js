@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const propertyController = require('../controllers/property.controller.js');
+const {upload} = require('../middleware/multer.js');
 
 /**
  * @swagger
@@ -13,49 +14,52 @@ const propertyController = require('../controllers/property.controller.js');
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
- *             required:
- *               - title
- *               - propertyType
- *               - expectedPrice
- *               - user
  *             properties:
- *               title:
- *                 type: string
- *                 description: Property title
- *               description:
- *                 type: string
- *                 description: Property description
- *               propertyType:
- *                 type: string
- *                 description: Property type (e.g., Plot/Land, Flat/Appartment)
- *               expectedPrice:
- *                 type: string
- *                 description: Property price
  *               user:
  *                 type: string
- *                 description: User ID associated with the property
+ *                 description: Owner of the property.
  *               propertyPurpose:
  *                 type: string
- *                 description: Purpose of the property
+ *                 description: Purpose of the property.
+ *               propertyType:
+ *                 type: string
+ *                 description: Type of the property.
  *               city:
  *                 type: string
- *                 description: City of the property
+ *                 description: City of the property.
  *               locality:
  *                 type: string
- *                 description: Locality of the property
- *               isAvailable:
- *                 type: boolean
- *                 description: Availability status of the property
+ *                 description: Locality of the property.
+ *               fromCity:
+ *                 type: string
+ *                 description: From City of the property.
+ *               toCity:
+ *                 type: string
+ *                 description: To City of the property.
+ *               expectedPrice:
+ *                 type: number
+ *                 description: Expected price of the property.
+ *               description:
+ *                 type: string
+ *                 description: Description of the property.
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: Images of the property (up to 10 images).
  *     responses:
  *       201:
  *         description: Property created successfully
  *       400:
- *         description: Validation error
+ *         description: Bad Request
+ *       500:
+ *         description: Internal server error
  */
-router.post('/', propertyController.createProperty);
+router.post('/', upload , propertyController.createProperty);
 
 /**
  * @swagger
@@ -223,7 +227,7 @@ router.put('/:id/unmark-handpicked', propertyController.unmarkHandpickedProperty
 
 /**
  * @swagger
- * /properties/{id}/approved:
+ * /properties/{id}/mark-approved:
  *   put:
  *     summary: Mark a property as approved
  *     description: Mark a specific property as approved (admin only)
@@ -252,12 +256,46 @@ router.put('/:id/unmark-handpicked', propertyController.unmarkHandpickedProperty
  *       400:
  *         description: Only admins can mark properties as approved
  */
-router.put('/:id/approved', propertyController.markApprovedProperty);
+router.put('/:id/mark-approved', propertyController.markApprovedProperty);
 
 
 /**
  * @swagger
- * /properties/{id}/recommended:
+ * /properties/{id}/unmark-approved:
+ *   put:
+ *     summary: Mark a property as approval pending
+ *     description: Mark a specific property as approval pending (admin only)
+ *     tags:
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User ID
+ *     responses:
+ *       200:
+ *         description: Property marked as approval pending
+ *       400:
+ *         description: Only admins can mark properties as approval pending
+ */
+router.put('/:id/unmark-approved', propertyController.unmarkApprovedProperty);
+
+
+/**
+ * @swagger
+ * /properties/{id}/mark-recommended:
  *   put:
  *     summary: Mark a property as recommended
  *     description: Mark a specific property as recommended (admin only)
@@ -286,6 +324,39 @@ router.put('/:id/approved', propertyController.markApprovedProperty);
  *       400:
  *         description: Only admins can mark properties as recommended
  */
-router.put('/:id/recommended', propertyController.markRecommendedProperty);
+router.put('/:id/mark-recommended', propertyController.markRecommendedProperty);
+
+/**
+ * @swagger
+ * /properties/{id}/unmark-recommended:
+ *   put:
+ *     summary: Mark a property as not recommended
+ *     description: Mark a specific property as not recommended (admin only)
+ *     tags:
+ *       - Properties
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User ID
+ *     responses:
+ *       200:
+ *         description: Property marked as not recommended
+ *       400:
+ *         description: Only admins can mark properties as not recommended
+ */
+router.put('/:id/unmark-recommended', propertyController.unmarkRecommendedProperty);
 
 module.exports = router;
