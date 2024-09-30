@@ -25,7 +25,7 @@ import propertyImage from "/images/propertyImage.svg";
 import facing from "/images/facing.svg";
 import floor from "/images/floor.svg";
 import furnishing from "/images/furnishing.svg";
-import heart from "/images/heart.svg";
+
 import share from "/images/share.svg";
 import status from "/images/status.svg";
 import superArea from "/images/superArea.svg";
@@ -41,6 +41,8 @@ import facebookLogin from "/images/loginThroughFacebook.svg";
 import logo from "/images/lo-gu.svg";
 import listProperty from "/images/listProperty.svg";
 import computer from "/images/computer.svg";
+import heart from "/images/heart_outline.svg";
+import profile from "/images/user.svg";
 
 export {
   logo,
@@ -85,4 +87,5 @@ export {
   google,
   listProperty,
   computer,
+  profile,
 };

@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import ListPropertySelectInput from "./ListPropertySelectInput";
 
-const AreaInputField = ({ label, type, className }) => {
+const AreaInputField = ({
+  label,
+  type,
+  className,
+  formInputValue,
+  handelChangeFormInputFields,
+  areaName,
+  unitName,
+}) => {
   let options = [
     "Sq-ft",
     "Sq-yrd",
@@ -28,20 +36,28 @@ const AreaInputField = ({ label, type, className }) => {
     "Gaj",
     "Killa",
   ];
+
   return (
     <div className=" border-b border-border-color w-fit flex flex-col gap-[0.15rem]">
       {label && <label htmlFor={label}>{label}</label>}
       <div>
         <input
-          name={label}
+          onChange={handelChangeFormInputFields}
+          value={formInputValue[areaName]}
+          name={areaName}
           type={type}
           placeholder={label}
           className={`capitalize py-1 outline-none ${className}`}
         />
-        <select name="" id="">
-          {options.map((items) => {
+        <select
+          onChange={handelChangeFormInputFields}
+          name={unitName}
+          value={formInputValue[unitName]}
+          id=""
+        >
+          {options.map((items, index) => {
             return (
-              <option key={items} value={items}>
+              <option key={index} value={items}>
                 {items}
               </option>
             );

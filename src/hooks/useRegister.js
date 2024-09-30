@@ -1,8 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { handelSetToken } from "../store/slice";
 
 const useRegister = () => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const {
     handleSubmit,
@@ -13,24 +16,24 @@ const useRegister = () => {
 
   const submitForm = async (data) => {
     setMessage("");
+    console.log(data);
+
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/register'",
+        "http://localhost:8080/users/register",
         data
       );
       console.log(response);
 
-      //  if (response.data?.isSuccess) {
-
-      //    localStorage.setItem("token", JSON.stringify(response?.data?.data));
-      //    navigate("/");
-      //  } else if (!response.data?.isSuccess) {
-      //    alert(`${response.data?.message}`);
-      //    navigate("/login");
-      //  }
+      if (response?.statusText === "Created") {
+        dispatch(handelSetToken(response?.data?.token));
+        alert("User Register successfully");
+        navigate("/");
+      }
     } catch (message) {
       console.log(`register form error ${message.message}`);
       setMessage(message.message);
+      alert(message.message);
       reset();
     }
   };

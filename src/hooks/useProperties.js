@@ -1,45 +1,64 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { handelFetchAllProperties } from "../store/slice";
+import { useDispatch } from "react-redux";
 
 const useProperties = () => {
+  const dispatch = useDispatch();
   const [property, setProperty] = useState("Buy");
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const handelChangePropertyType = (name) => {
+    console.log(name);
+
     setProperty(name);
   };
 
-  console.log(property);
-
-  useEffect(() => {
-    const fetchProperty = async () => {
-      setMessage("");
-      try {
-        let response;
-        if (property === "Buy") {
-          response = await axios.get(
-            `http://localhost:8080/search-properties/Sell`
-          );
-          console.log(response);
+  const fetchProperty = async () => {
+    setMessage("");
+    try {
+      setIsLoading(true);
+      let response;
+      if (property === "Buy") {
+        response = await axios.get(
+          `http://localhost:8080/search-properties/Sale`
+        );
+        if (response.statusText === "Created") {
+          dispatch(handelFetchAllProperties(response?.data));
         }
-
-        // if (response.data?.isSuccess) {
-        //   localStorage.setItem("token", JSON.stringify(response?.data?.data));
-        //   navigate("/");
-        // } else if (!response.data?.isSuccess) {
-        //   alert(`${response.data?.message}`);
-        //   navigate("/login");
-        // }
-      } catch (message) {
-        console.log(`fetch properties error ${message.message}`);
-        setMessage(message.message);
+        setIsLoading(false);
       }
-    };
+      if (property === "exchange property") {
+        response = await axios.get(
+          `http://localhost:8080/search-properties/Exchange%20Property`
+        );
+        if (response.statusText === "Created") {
+          dispatch(handelFetchAllProperties(response?.data));
+        }
+        setIsLoading(false);
+      }
+      if (property === "partnership property") {
+        response = await axios.get(
+          `http://localhost:8080/search-properties/Partnership%20Property`
+        );
+        if (response.statusText === "Created") {
+          dispatch(handelFetchAllProperties(response?.data));
+        }
+        setIsLoading(false);
+      }
+      console.log(response);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  useEffect(() => {
     fetchProperty();
   }, [property]);
   return {
     handelChangePropertyType,
     property,
+    isLoading,
   };
 };
 

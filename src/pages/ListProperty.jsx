@@ -1,11 +1,12 @@
 import React from "react";
 
 import { listProperty } from "../utils/icons";
+import usePostProperty from "../hooks/usePostProperty";
 import {
   Button,
   Heading,
   Paragraph,
-  PropertyTypeForm,
+  SellPropertyTypeForm,
   RadioInput,
   UploadPhotos,
   ResidentialLandForm,
@@ -17,14 +18,9 @@ import {
   CommercialShowroomForm,
   ExchangePropertyTypesDropDown,
 } from "../components";
-import useListProperty from "../hooks/useListProperty";
 
 const ListProperty = () => {
-  const {
-    propertyTypeState,
-    onPropertyTypeChange,
-    handelChangePropertyDetail,
-  } = useListProperty();
+  const { handelChangeFormInputFields, formInputValue } = usePostProperty();
 
   return (
     <div className="w-11/12 mx-auto">
@@ -46,102 +42,146 @@ const ListProperty = () => {
             <Heading className="text-xl" text="property details" />
             <div className="flex items-center gap-2">
               <RadioInput
-                value="sell"
+                value="sale"
                 id="sellProperty"
                 label={"sell"}
                 name="propertyDetail"
                 defaultChecked="true"
-                handelChangePropertyDetail={handelChangePropertyDetail}
+                handelChangePropertyDetail={handelChangeFormInputFields}
               />
               <RadioInput
                 value="exchange"
                 id="exchangeProperty"
                 label={"exchange Property"}
                 name="propertyDetail"
-                handelChangePropertyDetail={handelChangePropertyDetail}
+                handelChangePropertyDetail={handelChangeFormInputFields}
               />
               <RadioInput
                 value="partnership"
                 id="partnershipProperty"
                 label={"Partnership Property"}
                 name="propertyDetail"
-                handelChangePropertyDetail={handelChangePropertyDetail}
+                handelChangePropertyDetail={handelChangeFormInputFields}
               />
             </div>
           </div>
           {/* =====================you can change the form on the base of sell, exchange and partnership property========================*/}
-          {propertyTypeState?.propertyDetail === "sell" ||
-          propertyTypeState?.propertyDetail === "partnership" ? (
+          {formInputValue?.propertyDetail === "sale" ||
+          formInputValue?.propertyDetail === "partnership" ? (
             <div className="w-[18rem] flex">
-              <PropertyTypeForm
-                propertyTypeState={propertyTypeState}
-                onPropertyTypeChange={onPropertyTypeChange}
+              <SellPropertyTypeForm
+                formInputValue={formInputValue}
+                onPropertyTypeChange={handelChangeFormInputFields}
               />
             </div>
           ) : (
             " "
           )}
-
-          {propertyTypeState?.propertyDetail === "exchange" ? (
+          {/*==================== exchange property form ============= */}
+          {formInputValue?.propertyDetail === "exchange" ? (
             <ExchangePropertyTypesDropDown />
           ) : (
             " "
           )}
 
-          {propertyTypeState?.propertyDetail === "exchange" ? " " : " "}
+          {formInputValue?.propertyDetail === "exchange" ? " " : " "}
 
           {/*-------------------------you can change the form from here------------------------- */}
 
-          {propertyTypeState.propertyType === "Residential Flat/Apartment" &&
-          (propertyTypeState.propertyDetail === "sell" ||
-            propertyTypeState.propertyDetail === "partnership") ? (
-            <ResidentialFlatForm />
+          {formInputValue.propertyType === "Residential Flat/Apartment" &&
+          (formInputValue.propertyDetail === "sale" ||
+            formInputValue.propertyDetail === "partnership") ? (
+            <ResidentialFlatForm
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           ) : (
             ""
           )}
-          {propertyTypeState.propertyType === "Residential Land" &&
-          (propertyTypeState.propertyDetail === "sell" ||
-            propertyTypeState.propertyDetail === "partnership") ? (
-            <ResidentialLandForm />
+          {formInputValue.propertyType === "Residential Land" &&
+          (formInputValue.propertyDetail === "sale" ||
+            formInputValue.propertyDetail === "partnership") ? (
+            <ResidentialLandForm
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           ) : (
             ""
           )}
-          {propertyTypeState.propertyType === "Residential House" &&
-          (propertyTypeState.propertyDetail === "sell" ||
-            propertyTypeState.propertyDetail === "partnership") ? (
-            <ResidentialHouseForm />
+          {formInputValue.propertyType === "Residential House" &&
+          (formInputValue.propertyDetail === "sale" ||
+            formInputValue.propertyDetail === "partnership") ? (
+            <ResidentialHouseForm
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           ) : (
             ""
           )}
 
-          {propertyTypeState?.propertyType === "Commercial Office Space" &&
-          (propertyTypeState.propertyDetail === "sell" ||
-            propertyTypeState.propertyDetail === "partnership") ? (
-            <CommercialOfficeSpaceForm />
+          {formInputValue?.propertyType === "Commercial Office Space" &&
+          (formInputValue.propertyDetail === "sale" ||
+            formInputValue.propertyDetail === "partnership") ? (
+            <CommercialOfficeSpaceForm
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           ) : (
             ""
           )}
-          {propertyTypeState?.propertyType === "Commercial Plot" &&
-          (propertyTypeState.propertyDetail === "sell" ||
-            propertyTypeState.propertyDetail === "partnership") ? (
-            <CommercialPlotForm />
+          {formInputValue?.propertyType === "Commercial Plot" &&
+          (formInputValue.propertyDetail === "sale" ||
+            formInputValue.propertyDetail === "partnership") ? (
+            <CommercialPlotForm
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           ) : (
             ""
           )}
-          {propertyTypeState?.propertyType === "Commercial Shop" &&
-          (propertyTypeState.propertyDetail === "sell" ||
-            propertyTypeState.propertyDetail === "partnership") ? (
-            <CommercialShopForm />
+          {formInputValue?.propertyType === "Commercial Shop" &&
+          (formInputValue.propertyDetail === "sale" ||
+            formInputValue.propertyDetail === "partnership") ? (
+            <CommercialShopForm
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           ) : (
             ""
           )}
-          {propertyTypeState?.propertyType === "Commercial Showroom" &&
-          (propertyTypeState.propertyDetail === "sell" ||
-            propertyTypeState.propertyDetail === "partnership") ? (
-            <CommercialShowroomForm />
+          {formInputValue?.propertyType === "Commercial Showroom" &&
+          (formInputValue.propertyDetail === "sale" ||
+            formInputValue.propertyDetail === "partnership") ? (
+            <CommercialShowroomForm
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           ) : (
             ""
           )}
+
+          {/* property description */}
+
+          <div className="mt-5">
+            <Heading
+              text="What makes your property unique"
+              className="text-xl font-interRegular  "
+            />
+            <Paragraph
+              text={"Adding details will increase your listing visibility"}
+              className={"text-[1rem]"}
+            />
+            <textarea
+              onChange={handelChangeFormInputFields}
+              className="border-2 rounded-md border-border-color p-2 w-2/5 outline-primary-color"
+              placeholder="Write your properties unique features like garden etc"
+              name="description"
+              value={formInputValue?.description}
+              id=""
+              cols="30"
+              rows="6"
+            ></textarea>
+          </div>
 
           {/* upload photo */}
           <div className="flex flex-col gap-5 mt-5">
@@ -149,7 +189,9 @@ const ListProperty = () => {
               className={"text-[2.25rem]"}
               text="Add photos of your property"
             />
-            <UploadPhotos />
+            <UploadPhotos
+              handelChangeFormInputFields={handelChangeFormInputFields}
+            />
           </div>
 
           {/* post property form */}

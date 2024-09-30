@@ -12,8 +12,6 @@ const useContact = () => {
   } = useForm();
 
   const submitForm = async (data) => {
-    console.log(data);
-
     setMessage("");
     try {
       const response = await axios.post(

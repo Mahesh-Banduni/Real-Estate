@@ -1,13 +1,14 @@
 import { useState } from "react";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-// import { useNavigate } from "react-router-dom";
-// import { registerForm } from "../store/slice";
-// import { useDispatch } from "react-redux";
+import axios from "axios";
+
+import { handelSetToken } from "../store/slice";
 
 const useLogin = () => {
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const {
     handleSubmit,
@@ -18,21 +19,25 @@ const useLogin = () => {
   } = useForm();
 
   const submitForm = async (data) => {
+    console.log(data);
+
     try {
-      const response = await axios.post("", data);
+      const response = await axios.post(
+        "http://localhost:8080/users/login",
+        data
+      );
       console.log(response);
 
-      if (response.data.isSuccess) {
-        alert(`${response.data?.message}`);
-        localStorage.setItem("token", JSON.stringify(response?.data?.data));
-        dispatch(login(response?.data?.data));
+      if (response?.statusText === "OK") {
+        dispatch(handelSetToken(response?.data?.token));
+        localStorage.setItem("token", response?.data?.token);
+        alert("User login successfully");
         navigate("/");
-      } else if (!response.data?.isSuccess) {
-        setError(response.data?.message);
-        reset();
       }
     } catch (error) {
-      console.log(error);
+      console.log(`login form error ${message.message}`);
+      alert(error.message);
+      reset();
     }
   };
 

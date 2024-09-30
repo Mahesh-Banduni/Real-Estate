@@ -39,7 +39,7 @@ const SignIn = () => {
             placeholder={"1234567890"}
             type={"number"}
             className={"bg-transparent py-2 px-2 capitalize"}
-            {...register("mobileNumber", {
+            {...register("phone", {
               required: true,
               validate: {
                 minLength: (value) =>

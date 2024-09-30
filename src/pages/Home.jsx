@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Discount,
-  Dropdowns,
   HeroSection,
   RecommendationSection,
   HandPicked,
@@ -9,6 +8,7 @@ import {
   PartnershipProperty,
   ContactSection,
 } from "../components";
+import axios from "axios";
 
 const Home = () => {
   return (

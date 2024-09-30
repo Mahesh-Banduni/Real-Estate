@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { logo } from "../utils/icons";
+import { logo, heart, profile } from "../utils/icons";
 import { NavLinks, AnimatedButton, Dropdowns } from "./index";
 import { Link, NavLink } from "react-router-dom";
+import { handelRemoveToken, handelSetToken } from "../store/slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((store) => store?.authReducer?.token);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    dispatch(handelSetToken(token ? token : ""));
+  }, []);
   return (
     <div className="flex flex-col relative">
       <div className="navbar bg-base-100 w-11/12 m-auto h-[12vh] max-sm:h-[8vh] flex items-center justify-between">
@@ -143,11 +152,43 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end gap-8 w-fit flex items-center justify-end max-sm:gap-2">
-          <div className=" flex items-center gap-3 max-[320px]:gap-[0.35rem] ">
-            <NavLinks to="/signup" text="Register" />
-            <NavLinks to="/signin" text="Login" />
-          </div>
+        <div className="navbar-end w-fit flex items-center justify-end">
+          {!token ? (
+            <div className="flex items-center gap-3 max-[320px]:gap-[0.35rem] ">
+              <NavLinks to="/signup" text="Register" />
+              <NavLinks to="/signin" text="Login" />
+            </div>
+          ) : (
+            <div className="flex gap-5 items-center">
+              <div className="flex flex-col items-center">
+                <img className="w-5" src={heart} alt="" />
+              </div>
+              <div className="dropdown dropdown-hover">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn m-1 flex flex-col items-center bg-transparent border-none shadow-none"
+                >
+                  <img src={profile} alt="" />
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 -left-20 p-2 shadow"
+                >
+                  <li>
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("token");
+                        dispatch(handelRemoveToken());
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <hr />

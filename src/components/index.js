@@ -31,7 +31,7 @@ import ContactForm from "./contact/ContactForm";
 import ContactInfo from "./contact/ContactInfo";
 
 // list Property
-import PropertyTypeForm from "./list-property/SellPropertyTypeForm";
+import SellPropertyTypeForm from "./list-property/SellPropertyTypeForm";
 import TotalFlats from "./list-property/TotalFlats";
 import AreaInputField from "./AreaInputField";
 import UploadPhotos from "./list-property/UploadPhotos";
@@ -43,6 +43,7 @@ import CommercialPlotForm from "./list-property/CommercialPlotForm";
 import CommercialShopForm from "./list-property/CommercialShopForm";
 import CommercialShowroomForm from "./list-property/CommercialShowroomForm";
 import ExchangePropertyTypesDropDown from "./list-property/ExchangePropertyTypesDropDown";
+import Loader from "./Loader";
 
 export {
   RadioInput,
@@ -72,7 +73,8 @@ export {
   SocialMediaLinks,
   ContactForm,
   ContactInfo,
-  PropertyTypeForm,
+  //=================== change the name=================
+  SellPropertyTypeForm,
   TotalFlats,
   ListPropertySelectInput,
   ListPropertyInput,
@@ -86,4 +88,5 @@ export {
   CommercialShopForm,
   CommercialShowroomForm,
   ExchangePropertyTypesDropDown,
+  Loader,
 };

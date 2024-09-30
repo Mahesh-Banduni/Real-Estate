@@ -6,6 +6,8 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Loader from "./components/Loader.jsx";
 import { SinglePropertyPage } from "./pages/index.js";
+import { Provider } from "react-redux";
+import store from "./store/Store.js";
 
 const Home = lazy(() => import("./pages/Home.jsx"));
 const Properties = lazy(() => import("./pages/Properties.jsx"));
@@ -77,6 +79,8 @@ const routes = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={routes} />
+    <Provider store={store}>
+      <RouterProvider router={routes} />
+    </Provider>
   </StrictMode>
 );
