@@ -1,4 +1,4 @@
-const cloudinary = require('../cloudinary.config.js'); // Ensure cloudinary is configured
+const cloudinary = require('../utils/cloudinary.config.js'); // Ensure cloudinary is configured
 
 
 // Upload images function for Cloudinary

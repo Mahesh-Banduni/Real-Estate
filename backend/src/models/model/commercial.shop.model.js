@@ -292,35 +292,27 @@ const commercialShopSchema = new mongoose.Schema({
   ]},
     
     //Property Features
-    floorNumber: {type: String, enum:["Lower Basement","Upper Basement","Ground","1", "2", "3","4"]},
-    totalFloor: {type: Number, maxlength: 150},
-    furnished: {type: String, enum: ["Furnished", "Unfurnished"]},
+    floorNumber: {type: String, enum:["Lower Basement","Upper Basement","Ground","1", "2", "3","4","5","6","7","8","9","10","11","12","13","14","15","16",]},
+    totalFloor: {type: Number, minlength:1, maxlength: 250},
+    furnished: {type: String, enum: ["Semi-Furnished","Furnished", "Unfurnished"]},
+    personalWashroom: {type: Boolean, default:"false"},
+    pantryCafeteria: {type: String, enum:["Dry","Wet","Not Available"]},
     cornerShop: {type: Boolean, default: false},
     mainRoadFacing: {type: Boolean, default: false},
-    personalWashroom: {type: Boolean, default: false},
-    pantryCafeteria: {type: String, enum:["Dry","Wet","Not Available"]},
     
     //Property Area
-    coveredArea: { type: Number, required: true },
-    plotArea: {type: Number},
-    carpetArea: { type: Number, required: true },
-    areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
+    plotArea: { type: Number},
+    plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
+    coveredArea: { type: Number},
+    coveredAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
+    carpetArea: { type: Number},
+    carpetAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
     entranceWidth: { type: Number},
-    widthEntranceUnit: {type:String, enum:["ft","meters"]},
+    entranceWidthUnit: {type:String, enum:["ft","meters"]},
        
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
-    availableFromMonth: {type: String, enum:[]},
-    availableFromYear: {type: Number, enum:[]},
-    constructionAge: {type: String, enum: ["New Construction","1 year", "2 years", "3 years", "4 years","5 years", "5 to 10 years","10 to 15 years","15 to 20 years","20 to 30 years","Above 30 years"]},
     currentlyLeasedOut: {type: Boolean, default: false},
-    assuredReturns: {type: Boolean, default: false},
-    rateOfReturn: {type: Number},
-        
-    //Price Details
-    expectedPrice: {type: Number, required: true},
-    bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean, default: false},
     
     //Others
     subPropertyType: {type: String, enum:["Ready to Move Office Space","Bare Shell Office Space","Office in IT Park/ SEZ"]},

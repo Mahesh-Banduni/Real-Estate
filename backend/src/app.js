@@ -9,10 +9,12 @@ const searchPropertyRoutes = require("./routes/search.property.route.js");
 const handpickedPropertyRoutes = require("./routes/handpicked.property.route.js");
 const recommendedPropertyRoutes = require("./routes/recommended.property.route.js")
 const contactFormRoutes = require("./routes/contact.form.route");
+const citySearchRoutes = require("./routes/city.route.js");
 
 const { errorHandler } = require("./middleware/errorHandler");
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
+const { searchCities } = require("./services/city.service.js");
 const PORT = process.env.PORT || 8080;
 require('dotenv').config();
 
@@ -31,6 +33,7 @@ app.use('/search-properties',searchPropertyRoutes);
 app.use('/handpicked-properties',handpickedPropertyRoutes);
 app.use('/recommended-properties',recommendedPropertyRoutes);
 app.use('/contact-forms',contactFormRoutes);
+app.use('/cities',citySearchRoutes);
 
 app.use(errorHandler);
 
