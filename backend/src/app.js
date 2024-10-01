@@ -35,7 +35,7 @@ app.use('/handpicked-properties',handpickedPropertyRoutes);
 app.use('/recommended-properties',recommendedPropertyRoutes);
 app.use('/contact-forms',contactFormRoutes);
 app.use('/cities-localities',citySearchRoutes);
-app.use('/property-new',propertyNewRoutes);
+app.use('/properties-new',propertyNewRoutes);
 
 app.use(errorHandler);
 

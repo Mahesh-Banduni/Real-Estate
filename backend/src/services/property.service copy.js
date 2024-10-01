@@ -79,7 +79,7 @@ const createProperty = async (propertyData, files) => {
       propertyNew = new residentialPlot(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
       propertyNew.images=imageUrls;
-      propertyNew.propertyID = propertyId;
+      //propertyNew.propertyID = propertyId;
       break;
     case 'Commercial Office Space':
       propertyNew = new commercialOfficeSpace(propertyData);

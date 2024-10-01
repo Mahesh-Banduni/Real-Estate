@@ -15,7 +15,7 @@ const propertyNewSchema = new mongoose.Schema({
   },
   dateListed: { type: Date, default: Date.now },
   isAvailable: { type: Boolean, default: true },
-  propertyStatus: {type: String, enum:["Pending","Approved"], default: "Approval Pending", set: (propertyStatus) => propertyStatus.charAt(0).toUpperCase() + propertyStatus.slice(1).toLowerCase()},
+  propertyStatus: {type: String, enum:["Approval Pending","Approved"], default: "Approval Pending", set: (propertyStatus) => propertyStatus.charAt(0).toUpperCase() + propertyStatus.slice(1).toLowerCase()},
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
