@@ -19,8 +19,6 @@ const useLogin = () => {
   } = useForm();
 
   const submitForm = async (data) => {
-    console.log(data);
-
     try {
       const response = await axios.post(
         "http://localhost:8080/users/login",

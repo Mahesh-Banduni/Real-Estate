@@ -15,6 +15,7 @@ const Contact = lazy(() => import("./pages/Contact.jsx"));
 const SignUp = lazy(() => import("./pages/SignUp.jsx"));
 const SignIn = lazy(() => import("./pages/SignIn.jsx"));
 const ListProperty = lazy(() => import("./pages/ListProperty.jsx"));
+const Wishlist = lazy(() => import("./pages/Wishlist.jsx"));
 
 const routes = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const routes = createBrowserRouter([
       {
         path: "/singleProperty",
         element: <SinglePropertyPage />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
       },
     ],
   },

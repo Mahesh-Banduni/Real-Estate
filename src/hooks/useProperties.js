@@ -10,8 +10,6 @@ const useProperties = () => {
   const [message, setMessage] = useState("");
 
   const handelChangePropertyType = (name) => {
-    console.log(name);
-
     setProperty(name);
   };
 
@@ -22,27 +20,27 @@ const useProperties = () => {
       let response;
       if (property === "Buy") {
         response = await axios.get(
-          `http://localhost:8080/search-properties/Sale`
+          `http://localhost:8080/search-properties?propertyPurpose=Sale`
         );
-        if (response.statusText === "Created") {
+        if (response.statusText === "OK") {
           dispatch(handelFetchAllProperties(response?.data));
         }
         setIsLoading(false);
       }
       if (property === "exchange property") {
         response = await axios.get(
-          `http://localhost:8080/search-properties/Exchange%20Property`
+          `http://localhost:8080/search-properties?propertyPurpose=Exchange`
         );
-        if (response.statusText === "Created") {
+        if (response.statusText === "OK") {
           dispatch(handelFetchAllProperties(response?.data));
         }
         setIsLoading(false);
       }
       if (property === "partnership property") {
         response = await axios.get(
-          `http://localhost:8080/search-properties/Partnership%20Property`
+          `http://localhost:8080/search-properties?propertyPurpose=Partnership`
         );
-        if (response.statusText === "Created") {
+        if (response.statusText === "Ok") {
           dispatch(handelFetchAllProperties(response?.data));
         }
         setIsLoading(false);

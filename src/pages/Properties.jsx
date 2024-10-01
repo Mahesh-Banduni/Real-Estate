@@ -44,18 +44,35 @@ const Properties = () => {
             </div>
             <div className="w-3/5 flex items-baseline max-md:w-full">
               <div className="flex flex-col gap-5">
-                <div className="flex items-center">
-                  <Input
-                    className={"bg-transparent p-2 w-full max-sm:py-1"}
-                    icon={location}
-                    type={"text"}
-                    placeholder={"Please enter your location"}
-                  />
+                <form className="flex items-center">
+                  {property === "exchange property" ? (
+                    <div className="flex items-center gap-2">
+                      <Input
+                        className={"bg-transparent p-2 w-full max-sm:py-1"}
+                        icon={location}
+                        type={"text"}
+                        placeholder={"From City"}
+                      />
+                      <Input
+                        className={"bg-transparent p-2 w-full max-sm:py-1"}
+                        icon={location}
+                        type={"text"}
+                        placeholder={"To City"}
+                      />
+                    </div>
+                  ) : (
+                    <Input
+                      className={"bg-transparent p-2 w-full max-sm:py-1"}
+                      icon={location}
+                      type={"text"}
+                      placeholder={"Please enter your location"}
+                    />
+                  )}
+
                   <Button className="text-white font-interMedium bg-primary-color py-2 px-5 border border-border-color max-sm:px-2 max-sm:py-1 max-sm:text-xs ">
                     Search
                   </Button>
-                  <Button text="Search" />
-                </div>
+                </form>
                 <div className="flex items-center gap-5 text-[#8F90A6] text-base max-sm:hidden ">
                   Resent Searches:
                   {searchHistory?.map((item, index) => {

@@ -3,8 +3,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { handelSetToken } from "../store/slice";
+import { useDispatch } from "react-redux";
 
 const useRegister = () => {
+  const dispatch = useDispatch;
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const {
