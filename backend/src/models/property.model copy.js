@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const propertySchema = new mongoose.Schema({
+const propertyNewSchema = new mongoose.Schema({
 
   //Property Details
   description: { type: String},
@@ -41,7 +41,6 @@ const propertySchema = new mongoose.Schema({
   priceNegotiable: {type: Boolean,default: false},
 
   //Amenities/Unique Features
-
   locationAdvantages: {
     type: String,
     enum: [
@@ -68,5 +67,5 @@ const propertySchema = new mongoose.Schema({
   facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
 });
 
-const Property = mongoose.model("Property", propertySchema);
-module.exports = Property;
+const PropertyNew = mongoose.model("PropertyNew", propertyNewSchema);
+module.exports = PropertyNew;

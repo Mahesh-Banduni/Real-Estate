@@ -1,56 +1,51 @@
 const mongoose= require("mongoose");
+const PropertyNew= require("../property.model copy.js");
+
 const commercialPlotSchema = new mongoose.Schema({
   //Property Location
-  city: {type: String, required: true},
-  locality: {type: String, required: true},
-  projectSocietyName: {type: String},
+  city: {
+    type: String,
+    set: (city) => city.charAt(0).toUpperCase() + city.slice(1).toLowerCase()
+  },
+  locality: {
+    type: String,
+    set: (locality) => locality.charAt(0).toUpperCase() + locality.slice(1).toLowerCase()
+  },
+  projectMarketName: {type: String},
   Address: {type: String, maxlength: 256},
   landZone: {type: String, enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]},
-
+  
   //Property Features
   floorsAllowed: {type: Number},
   openSides: {type: Number},
   facingRoadWidth: {type: Number},
+  facingRoadWidthUnit: {type: String, enum:["Meters"], default: "Meters"},
   boundaryWall: {type: Boolean, default: false},
 
   //Property Area
-  plotArea: { type: Number, required: true },
-  areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
-  lengthdimension: { type: Number, required: true },
-  widthdimension: { type: Number, required: true },
-  cornerPlot: {type: Boolean, default: false},
+  plotArea: { type: Number},
+  plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
+  lengthdimension: { type: Number},
+  widthdimension: { type: Number},
+  dimensionUnit: {type: String, enum:["ft"], default:"ft"},
+  cornerPlot: {type: Boolean,default: false},
 
   //Transaction Type & Property Avialability
   currentlyLeasedOut: {type: Boolean, default: false},
+  possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
 
   //Price Details
   expectedPrice: {type: Number, required: true},
   bookingAmount: {type: Number},
   priceNegotiable: {type: Boolean, default: false},
-
-  //Other Details
-  overlooking: {type: String, enum:["Pool","Garden/Park","Main Road"]},
-  facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
-  approvedBy: {type: String, enum: ["MDDA"]},
-  plotType:  { type: String, enum: ["Commercial","Residential","Agriculture","Industrial"], required: true },
-  status: {type: String, enum: ["Ready To Move", "Under Construction"], required: true},
-  ownership: { type: String, enum: ["Freehold","Leasehold", "Power Of Attorney", "Co-operative Society"], required: true},
-  transactionType: { type: String, enum: ["New Property","Resale"], required: true},
-  features: {type: String},
-
-  //legal Document Status
-  titleDeed: {type: Boolean, default: false},
-  previousOwnerTitleDeedAvailable: {type:Boolean, default: false},
-  revenueDocument: {type: Boolean, default: false},
-  encumberenceCertificate: {type: Boolean, default: false},
-  conversionCertificate: {type: Boolean, default: false},
   
-  //Civic Infrastructure Details
-  waterConnection: {type: Boolean, default: false},
-  electricityConnection: {type: Boolean, default: false},
-  sewageConnection: {type: Boolean, default: false},
-  roadAvailable: {type: Boolean, default: false},
-  });
+  //Amenities/Unique Features
+  landAmenities: {
+    type: String, 
+    enum: ["Maintenance Staff","Water Storage","Rain Water Harvesting","Feng Shui / Vaastu Compliant",]
+  },
 
-const CommercialPlot = mongoose.model("CommercialPlot", commercialPlotSchema);
+});
+
+const CommercialPlot = PropertyNew.discriminator("CommercialPlot", commercialPlotSchema);
 module.exports = CommercialPlot;

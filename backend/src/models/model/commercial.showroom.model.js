@@ -1,12 +1,20 @@
 const mongoose= require("mongoose");
+const PropertyNew= require("../property.model copy.js");
+
 const commercialShowroomSchema = new mongoose.Schema({
     //Property Location
-    city: {type: String, required: true},
-    locality: {type: String, required: true},
-    projectMarketName: {type: String},
+    city: {
+      type: String,
+      set: (city) => city.charAt(0).toUpperCase() + city.slice(1).toLowerCase()
+    },
+    locality: {
+      type: String,
+      set: (locality) => locality.charAt(0).toUpperCase() + locality.slice(1).toLowerCase()
+    },
     Address: {type: String, maxlength: 256},
-    landZone: {type: String, enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]},
-    nearbyBusinesses: {type: String, enum:[
+    projectMarketName: {type: String, maxlength: 60},
+    landZone: {type: String, enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]},  
+    nearbyBusinesses: {type: [String], enum:[
       "Agriculture Related",
       "Pets Store",
       "Bouquet",
@@ -292,46 +300,55 @@ const commercialShowroomSchema = new mongoose.Schema({
   ]},
     
     //Property Features
-    floorNumber: {type: String, enum:["Lower Basement","Upper Basement","Ground","1", "2", "3","4"]},
-    totalFloor: {type: Number, maxlength: 150},
-    furnished: {type: String, enum: ["Furnished", "Unfurnished"]},
-    washrooms: {type: Number, maxlength:50},
-    cornerShowroom: {type: Boolean, default: false},
-    mainRoadFacing: {type: Boolean, default: false},
-    personalWashroom: {type: Boolean, default: false},
+    floorNumber: {type: String, enum:["Lower Basement","Upper Basement","Ground","1", "2", "3","4","5","6","7","8","9","10","11","12","13","14","15","16",]},
+    totalFloor: {type: Number, minlength:1, maxlength: 250},
+    furnished: {type: String, enum: ["Semi-Furnished","Furnished", "Unfurnished"]},
+    personalWashroom: {type: Boolean, default:"false"},
     pantryCafeteria: {type: String, enum:["Dry","Wet","Not Available"]},
+    cornerShop: {type: Boolean, default: false},
+    mainRoadFacing: {type: Boolean, default: false},
     
     //Property Area
-    coveredArea: { type: Number, required: true },
-    plotArea: {type: Number},
-    carpetArea: { type: Number, required: true },
-    areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
+    plotArea: { type: Number},
+    plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
+    coveredArea: { type: Number},
+    coveredAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
+    carpetArea: { type: Number},
+    carpetAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
     entranceWidth: { type: Number},
-    widthEntranceUnit: {type:String, enum:["ft","meters"]},
+    entranceWidthUnit: {type:String, enum:["ft","meters"]},
        
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
-    availableFromMonth: {type: String, enum:[]},
-    availableFromYear: {type: Number, enum:[]},
-    constructionAge: {type: String, enum: ["New Construction","1 year", "2 years", "3 years", "4 years","5 years", "5 to 10 years","10 to 15 years","15 to 20 years","20 to 30 years","Above 30 years"]},
     currentlyLeasedOut: {type: Boolean, default: false},
-    assuredReturns: {type: Boolean, default: false},
-    rateOfReturn: {type: Number},
-        
-    //Price Details
-    expectedPrice: {type: Number, required: true},
-    bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean, default: false},
     
-    //Others
-    subPropertyType: {type: String, enum:["Ready to Move Office Space","Bare Shell Office Space","Office in IT Park/ SEZ"]},
-    ownership: { type: String, enum: ["Freehold","Leasehold", "Power Of Attorney", "Co-operative Society"], required: true},
-    transactionType: { type: String, enum: ["New Property","Resale"]},
-    overlooking: {type: String, enum:["Pool","Garden/Park","Main Road"]},
-    facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
-    additionalRooms:{ type: String, enum:["Store Room","Puja Room","Servant Room"]},
-    amenities: {type: [String], enum: ["Reserved Parking","Visitor Parking","Lift","Power Backup","Gas Pipeline","Park","Kids Play Area","Gymnasium","Swimming Pool","Club House","Air Conditioned","Vaastu Compliance","Internet/Wi-Fi","Security Personnel","CCTV Camera"], required: true},
-});
+    //Amenities/Unique Features
+     commercialAmenities: {
+      type: [String],
+      enum: [
+        "Reserved Parking",
+        "Visitor Parking",
+        "Lift",
+        "Power Backup",
+        "Internet/Wi-Fi",
+        "Security Personnel",
+        "CCTV Camera",
+        "Air Conditioned",
+        "Conference Room",
+        "Cafeteria",
+        "Business Lounge",
+        "24/7 Security",
+        "Fire Safety",
+        "High-Speed Internet",
+        "Reception/Waiting Area",
+        "ATM",
+        "Escalators",
+        "Retail Outlets",
+        "Co-working Spaces",
+        "Electric Vehicle Charging Stations"
+      ]},  
 
-const CommercialShowroom = mongoose.model("CommercialShowroom", commercialShowroomSchema);
+  });
+
+const CommercialShowroom = PropertyNew.discriminator("CommercialShowroom", commercialShowroomSchema);
 module.exports = CommercialShowroom;

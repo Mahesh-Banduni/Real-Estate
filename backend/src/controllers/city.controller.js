@@ -16,9 +16,9 @@ exports.createCityWithLocalities = async (req, res, next) => {
   }
 };
 
-exports.searchCities = async (req, res, next) => {
+exports.searchCitiesLocalities = async (req, res, next) => {
     try {
-      const cityLocality = await cityService.searchCities(req.query.search);
+      const cityLocality = await cityService.searchCitiesLocalities(req.query.city, req.query.locality);
       res.status(201).json({
         success: true,
         data: cityLocality,

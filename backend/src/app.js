@@ -10,6 +10,7 @@ const handpickedPropertyRoutes = require("./routes/handpicked.property.route.js"
 const recommendedPropertyRoutes = require("./routes/recommended.property.route.js")
 const contactFormRoutes = require("./routes/contact.form.route");
 const citySearchRoutes = require("./routes/city.route.js");
+const propertyNewRoutes = require("./routes/property.route copy.js");
 
 const { errorHandler } = require("./middleware/errorHandler");
 const swaggerUi = require('swagger-ui-express');
@@ -33,7 +34,8 @@ app.use('/search-properties',searchPropertyRoutes);
 app.use('/handpicked-properties',handpickedPropertyRoutes);
 app.use('/recommended-properties',recommendedPropertyRoutes);
 app.use('/contact-forms',contactFormRoutes);
-app.use('/cities',citySearchRoutes);
+app.use('/cities-localities',citySearchRoutes);
+app.use('/property-new',propertyNewRoutes);
 
 app.use(errorHandler);
 

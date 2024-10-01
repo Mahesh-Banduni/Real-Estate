@@ -32,23 +32,33 @@ const createCityWithLocalities = async(cityName, stateName, localities)=> {
   };
 }
 
-const searchCities = async (search) => {
-  
-      // Search for cities that match the partial input
-      const cities = await City.find({
-        name: { $regex: search, $options: 'i' } // Case-insensitive partial search
-      }).limit(10).populate({
-        path: 'localities', // This assumes the `City` model has a `localities` field that's an array of ObjectId references
-        model: 'Locality',   // Populate with the Locality model
-        select: 'name',      // Only select the name field of the localities
-      }); // Limit the results to ensure performance
-  
-      // If no cities found, return empty array
-      if (cities.length === 0) {
-        throw new NotFoundError('No cities found');
-      }
-      return{cities
-      }
-    }
+const searchCitiesLocalities = async (city,locality) => {
 
-module.exports = {createCityWithLocalities,searchCities};
+  if (typeof city !== 'string' || typeof locality !== 'string') {
+    throw new BadRequestError('City name and locality search term must be strings');
+  }
+  
+  // Search for cities that match the partial input
+  const cities = await City.find({
+        name: { $regex: city, $options: 'i' } // Case-insensitive partial search
+  }).limit(10).populate({
+    path: 'localities', // This assumes the `City` model has a `localities` field that's an array of ObjectId references
+    model: 'Locality',   // Populate with the Locality model
+    match: { name: { $regex: locality, $options: 'i' } }, // Search for matching localities within the city
+    select: 'name'      // Only select the name field of the localities
+    }); // Limit the results to ensure performance
+  
+  // If no cities found, return empty array
+  if (cities.length === 0) {
+      throw new NotFoundError('No cities found');
+  }
+      
+  // // If no localities are found for the city
+  // if (!cities.localities || cities.localities.length === 0) {
+  //  throw new NotFoundError('No localities found for this city');
+  // }
+  
+  return cities;
+  }
+
+module.exports = {createCityWithLocalities,searchCitiesLocalities};

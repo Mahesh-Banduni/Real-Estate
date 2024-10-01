@@ -4,7 +4,7 @@ const cityController = require('../controllers/city.controller.js');
 
 /**
  * @swagger
- * /cities:
+ * /cities-localities:
  *   post:
  *     summary: Create a new city with localities
  *     tags: [Cities]
@@ -53,23 +53,27 @@ router.post('/', cityController.createCityWithLocalities);
 
 /**
  * @swagger
- * /cities:
+ * /cities-localities:
  *   get:
  *     summary: Search for cities
  *     tags: [Cities]
  *     parameters:
  *       - in: query
- *         name: search
+ *         name: city
  *         schema:
  *           type: string
  *         description: The search term for city names
+ *       - in: query
+ *         name: locality
+ *         schema:
+ *           type: string
+ *         description: The search term for localities names
  *     responses:
  *       200:
  *         description: The search results
  *       500:
  *         description: Server error
  */
-router.get('', cityController.searchCities);
-
+router.get('', cityController.searchCitiesLocalities);
 
 module.exports = router;

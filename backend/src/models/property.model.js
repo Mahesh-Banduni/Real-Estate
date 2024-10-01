@@ -39,7 +39,7 @@ const propertySchema = new mongoose.Schema({
   locality: {
     type: String,
     set: (locality) => locality.charAt(0).toUpperCase() + locality.slice(1).toLowerCase()
-},
+  },
   projectSocietyName: {type: String, maxlength: 60},
   address: {type: String, maxlength: 256},
   buildingComplexName: {type: String, maxlength: 60},
@@ -50,12 +50,12 @@ const propertySchema = new mongoose.Schema({
   fromCityLocality: {
     type: String,
     set: (fromCityLocality) => fromCityLocality.charAt(0).toUpperCase() + fromCityLocality.slice(1).toLowerCase() // Capitalize before storing
-},
-  toCityLocality: {
+    },
+    toCityLocality: {
     type: String,
     set: (toCityLocality) => toCityLocality.charAt(0).toUpperCase() + toCityLocality.slice(1).toLowerCase() // Capitalize before storing
-},
-idealForBusinesses: {type: [String], enum:[
+    },
+    idealForBusinesses: {type: [String], enum:[
     "Private Company",
     "Individual Business",
     "Self Employed Business",
@@ -482,7 +482,6 @@ idealForBusinesses: {type: [String], enum:[
   currentlyLeasedOut: {type: Boolean, default: false},
 
   //Property Price
-
   expectedPrice: {type: Number},
   bookingAmount: {type: Number},
   priceNegotiable: {type: Boolean,default: false},

@@ -1,8 +1,16 @@
 const mongoose= require("mongoose");
+const PropertyNew=require("../property.model copy.js");
+
 const commercialShopSchema = new mongoose.Schema({
     //Property Location
-    city: {type: String, required: true},
-    locality: {type: String, required: true},
+    city: {
+      type: String,
+      set: (city) => city.charAt(0).toUpperCase() + city.slice(1).toLowerCase()
+    },
+    locality: {
+      type: String,
+      set: (locality) => locality.charAt(0).toUpperCase() + locality.slice(1).toLowerCase()
+    },
     projectMarketName: {type: String},
     Address: {type: String, maxlength: 256},
     landZone: {type: String, enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]},
@@ -313,20 +321,34 @@ const commercialShopSchema = new mongoose.Schema({
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
     currentlyLeasedOut: {type: Boolean, default: false},
+
+    //Amenities/Unique Features
+    commercialAmenities: {
+        type: [String],
+        enum: [
+          "Reserved Parking",
+          "Visitor Parking",
+          "Lift",
+          "Power Backup",
+          "Internet/Wi-Fi",
+          "Security Personnel",
+          "CCTV Camera",
+          "Air Conditioned",
+          "Conference Room",
+          "Cafeteria",
+          "Business Lounge",
+          "24/7 Security",
+          "Fire Safety",
+          "High-Speed Internet",
+          "Reception/Waiting Area",
+          "ATM",
+          "Escalators",
+          "Retail Outlets",
+          "Co-working Spaces",
+          "Electric Vehicle Charging Stations"
+      ]},
     
-    //Others
-    subPropertyType: {type: String, enum:["Ready to Move Office Space","Bare Shell Office Space","Office in IT Park/ SEZ"]},
-    ownership: { type: String, enum: ["Freehold","Leasehold", "Power Of Attorney", "Co-operative Society"], required: true},
-    floors: {type: Number},
-    unitsPerFloor: {type: Number},
-    transactionType: { type: String, enum: ["New Property","Resale"]},
-    overlooking: {type: String, enum:["Pool","Garden/Park","Main Road"]},
-    status: {type: String, enum: ["Ready To Move", "Under Construction"]},
-    facing: {type: String, enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"]},
-    propertyAge: {type: String, enum: ["New Construction","Under Construction","1 year", "2 years", "3 years", "4 years","5 years", "5 to 10 years","10 to 20 years","20 to 30 years","30+ years"]},
-    additionalRooms:{ type: String, enum:["Store Room","Puja Room","Servant Room"]},
-    amenities: {type: [String], enum: ["Reserved Parking","Visitor Parking","Lift","Power Backup","Gas Pipeline","Park","Kids Play Area","Gymnasium","Swimming Pool","Club House","Air Conditioned","Vaastu Compliance","Internet/Wi-Fi","Security Personnel","CCTV Camera"], required: true},
 });
 
-const CommercialShop = mongoose.model("CommercialShop", commercialShopSchema);
+const CommercialShop = PropertyNew.discriminator("CommercialShop", commercialShopSchema);
 module.exports = CommercialShop;
