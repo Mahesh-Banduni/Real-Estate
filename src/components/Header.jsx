@@ -160,9 +160,9 @@ const Header = () => {
             </div>
           ) : (
             <div className="flex gap-5 items-center">
-              <div className="flex flex-col items-center">
+              <Link to="/wishlist" className="flex flex-col items-center">
                 <img className="w-5" src={heart} alt="" />
-              </div>
+              </Link>
               <div className="dropdown dropdown-hover">
                 <div
                   tabIndex={0}
@@ -173,7 +173,7 @@ const Header = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 -left-20 p-2 shadow"
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-40 -left-20 p-2 shadow"
                 >
                   <li>
                     <button
