@@ -1,6 +1,5 @@
 const cloudinary = require('../utils/cloudinary.config.js'); // Ensure cloudinary is configured
 
-
 // Upload images function for Cloudinary
 const uploadImages = async (files) => {
 

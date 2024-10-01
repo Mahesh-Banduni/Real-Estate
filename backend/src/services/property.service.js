@@ -1,45 +1,135 @@
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 const Property = require('../models/property.model.js');
-const cloudinary = require('../utils/cloudinary.config.js'); // Ensure cloudinary is configured
 const userService = require('../services/user.service.js');
+const residentialFlat = require('../models/model/residential.flat.model.js');
+const residentialHouse = require('../models/model/residential.house.model.js');
+const residentialPlot = require('../models/model/residential.plot.model.js');
+const commercialOfficeSpace = require('../models/model/commercial.office.space.model.js');
+const commercialShop = require('../models/model/commercial.shop.model.js');
+const commercialShowroom = require('../models/model/commercial.showroom.model.js');
+const commercialPlot = require('../models/model/commercial.plot.model.js');
+const uploadImages= require('../services/upload.image.service.js');
 
-// Upload images function for Cloudinary
-const uploadImages = async (files) => {
+// // Upload images function for Cloudinary
+// const uploadImages = async (files) => {
 
-  const uploadedImages = [];
-  for (const file of files) {
-    if (!file.buffer) {
-      console.error('File is empty or missing buffer:', file);
-      uploadedImages.push(null);
-      continue;
-    }
+//   const uploadedImages = [];
+//   for (const file of files) {
+//     if (!file.buffer) {
+//       console.error('File is empty or missing buffer:', file);
+//       uploadedImages.push(null);
+//       continue;
+//     }
 
-    try {
-      const result = await new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-          { resource_type: 'image',upload_preset: 'righttimeproperty'}, 
-          (error, result) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(result.secure_url);
-            }
-          }
-        );
+//     try {
+//       const result = await new Promise((resolve, reject) => {
+//         const uploadStream = cloudinary.uploader.upload_stream(
+//           { resource_type: 'image',upload_preset: 'righttimeproperty'}, 
+//           (error, result) => {
+//             if (error) {
+//               reject(error);
+//             } else {
+//               resolve(result.secure_url);
+//             }
+//           }
+//         );
 
-        // Pipe the buffer into Cloudinary
-        uploadStream.end(file.buffer);
-      });
+//         // Pipe the buffer into Cloudinary
+//         uploadStream.end(file.buffer);
+//       });
 
-      uploadedImages.push(result);
-    } catch (error) {
-      console.error('Image upload failed:', error);
-      uploadedImages.push(null);
-    }
-  }
+//       uploadedImages.push(result);
+//     } catch (error) {
+//       console.error('Image upload failed:', error);
+//       uploadedImages.push(null);
+//     }
+//   }
 
-  return uploadedImages;
-};
+//   return uploadedImages;
+// };
+
+// // Create a new Property
+// const createProperty = async (propertyData, files) => {
+//   function generatePropertyId() {
+//     let id;
+//     do {
+//       id = Math.floor(100000000 + Math.random() * 900000000);
+//     } while (id % 10 === 0);
+//     return id;
+//   }  
+//   const propertyId = generatePropertyId();
+//   const imageUrls = await uploadImages(files);
+//   const property = new Property();
+
+//   // Assigning data to property fields
+//   property.productID = propertyId;
+//   property.description = propertyData.description;
+//   property.propertyPurpose = propertyData.propertyPurpose;
+//   property.propertyType = propertyData.propertyType;
+//   property.user = propertyData.user;
+//   property.numberOfFlatsInSociety = propertyData.numberOfFlatsInSociety;
+//   property.city = propertyData.city;
+//   property.locality = propertyData.locality;
+//   property.projectSocietyName = propertyData.projectSocietyName;
+//   property.address = propertyData.address;
+//   property.buildingComplexName = propertyData.buildingComplexName;
+//   property.projectMarketName= propertyData.projectMarketName;
+//   property.landZone = propertyData.landZone;
+//   property.fromCity = propertyData.fromCity;
+//   property.toCity = propertyData.toCity;
+//   property.idealForBusinesses = propertyData.idealForBusinesses;
+//   property.nearbyBusinesses = propertyData.nearbyBusinesses;
+//   property.floorsAllowed = propertyData.floorsAllowed;
+//   property.openSides = propertyData.openSides;
+//   property.facingRoadWidth = propertyData.facingRoadWidth;
+//   property.facingRoadWidthUnit = propertyData.facingRoadWidthUnit;
+//   property.boundaryWall = propertyData.boundaryWall;
+//   property.gatedColony = propertyData.gatedColony;
+//   property.bedrooms = propertyData.bedrooms;
+//   property.balconies = propertyData.balconies;
+//   property.bathrooms = propertyData.bathrooms;
+//   property.floorNumber = propertyData.floorNumber;
+//   property.totalFloor = propertyData.totalFloor;
+//   property.furnished = propertyData.furnished;
+//   property.personalWashroom = propertyData.personalWashroom;
+//   property.pantryCafeteria = propertyData.pantryCafeteria;
+//   property.cornerShop = propertyData.cornerShop;
+//   property.mainRoadFacing = propertyData.mainRoadFacing;
+//   property.anyConstructionDone = propertyData.anyConstructionDone;
+//   property.BHKType = propertyData.BHKType;
+//   property.flooring = propertyData.flooring;
+//   property.plotArea = propertyData.plotArea;
+//   property.plotAreaUnit = propertyData.plotAreaUnit;
+//   property.lengthdimension = propertyData.lengthdimension;
+//   property.widthdimension = propertyData.widthdimension;
+//   property.dimensionUnit = propertyData.dimensionUnit;
+//   property.cornerPlot = propertyData.cornerPlot;
+//   property.coveredArea = propertyData.coveredArea;
+//   property.carpetArea = propertyData.carpetArea;
+//   property.superArea = propertyData.superArea;
+//   property.carpetAreaUnit = propertyData.carpetAreaUnit;
+//   property.superAreaUnit = propertyData.superAreaUnit;
+//   property.coveredAreaUnit= propertyData.coveredAreaUnit;
+//   property.entranceWidth = propertyData.entranceWidth;
+//   property.entranceWidthUnit = propertyData.entranceWidthUnit;
+//   property.ownership = propertyData.ownership;
+//   property.transactionType = propertyData.transactionType;
+//   property.possessionStatus = propertyData.possessionStatus;
+//   property.currentlyLeasedOut = propertyData.currentlyLeasedOut;
+//   property.expectedPrice = propertyData.expectedPrice;
+//   property.bookingAmount = propertyData.bookingAmount;
+//   property.priceNegotiable = propertyData.priceNegotiable;
+//   property.residentialAmenities = propertyData.residentialAmenities;
+//   property.commercialAmenities = propertyData.commercialAmenities;
+//   property.landAmenities = propertyData.landAmenities;
+//   property.locationAdvantages = propertyData.locationAdvantages;
+//   property.overlooking = propertyData.overlooking;
+//   property.facing = propertyData.facing;
+//   property.images = imageUrls;
+
+//   return await property.save();
+// };
+
 
 // Create a new Property
 const createProperty = async (propertyData, files) => {
@@ -50,80 +140,65 @@ const createProperty = async (propertyData, files) => {
     } while (id % 10 === 0);
     return id;
   }  
-  const propertyId = generatePropertyId();
-  const imageUrls = await uploadImages(files);
-  const property = new Property();
 
-  // Assigning data to property fields
-  property.productID = propertyId;
-  property.description = propertyData.description;
-  property.propertyPurpose = propertyData.propertyPurpose;
-  property.propertyType = propertyData.propertyType;
-  property.user = propertyData.user;
-  property.numberOfFlatsInSociety = propertyData.numberOfFlatsInSociety;
-  property.city = propertyData.city;
-  property.locality = propertyData.locality;
-  property.projectSocietyName = propertyData.projectSocietyName;
-  property.address = propertyData.address;
-  property.buildingComplexName = propertyData.buildingComplexName;
-  property.projectMarketName= propertyData.projectMarketName;
-  property.landZone = propertyData.landZone;
-  property.fromCity = propertyData.fromCity;
-  property.toCity = propertyData.toCity;
-  property.idealForBusinesses = propertyData.idealForBusinesses;
-  property.nearbyBusinesses = propertyData.nearbyBusinesses;
-  property.floorsAllowed = propertyData.floorsAllowed;
-  property.openSides = propertyData.openSides;
-  property.facingRoadWidth = propertyData.facingRoadWidth;
-  property.facingRoadWidthUnit = propertyData.facingRoadWidthUnit;
-  property.boundaryWall = propertyData.boundaryWall;
-  property.gatedColony = propertyData.gatedColony;
-  property.bedrooms = propertyData.bedrooms;
-  property.balconies = propertyData.balconies;
-  property.bathrooms = propertyData.bathrooms;
-  property.floorNumber = propertyData.floorNumber;
-  property.totalFloor = propertyData.totalFloor;
-  property.furnished = propertyData.furnished;
-  property.personalWashroom = propertyData.personalWashroom;
-  property.pantryCafeteria = propertyData.pantryCafeteria;
-  property.cornerShop = propertyData.cornerShop;
-  property.mainRoadFacing = propertyData.mainRoadFacing;
-  property.anyConstructionDone = propertyData.anyConstructionDone;
-  property.BHKType = propertyData.BHKType;
-  property.flooring = propertyData.flooring;
-  property.plotArea = propertyData.plotArea;
-  property.plotAreaUnit = propertyData.plotAreaUnit;
-  property.lengthdimension = propertyData.lengthdimension;
-  property.widthdimension = propertyData.widthdimension;
-  property.dimensionUnit = propertyData.dimensionUnit;
-  property.cornerPlot = propertyData.cornerPlot;
-  property.coveredArea = propertyData.coveredArea;
-  property.carpetArea = propertyData.carpetArea;
-  property.superArea = propertyData.superArea;
-  property.carpetAreaUnit = propertyData.carpetAreaUnit;
-  property.superAreaUnit = propertyData.superAreaUnit;
-  property.coveredAreaUnit= propertyData.coveredAreaUnit;
-  property.entranceWidth = propertyData.entranceWidth;
-  property.entranceWidthUnit = propertyData.entranceWidthUnit;
-  property.ownership = propertyData.ownership;
-  property.transactionType = propertyData.transactionType;
-  property.possessionStatus = propertyData.possessionStatus;
-  property.currentlyLeasedOut = propertyData.currentlyLeasedOut;
-  property.expectedPrice = propertyData.expectedPrice;
-  property.bookingAmount = propertyData.bookingAmount;
-  property.priceNegotiable = propertyData.priceNegotiable;
-  property.residentialAmenities = propertyData.residentialAmenities;
-  property.commercialAmenities = propertyData.commercialAmenities;
-  property.landAmenities = propertyData.landAmenities;
-  property.locationAdvantages = propertyData.locationAdvantages;
-  property.overlooking = propertyData.overlooking;
-  property.facing = propertyData.facing;
-  property.images = imageUrls;
+  let propertyNew;
 
-  return await property.save();
+  switch (propertyData.propertyType) {
+    case 'Residential Flat/Appartment':
+      propertyNew = new residentialFlat(propertyData);
+      propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
+      break;
+    case 'Residential House':
+      propertyNew = new residentialHouse(propertyData);
+      propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
+      break;
+    case 'Residential Plot/Land':
+      propertyNew = new residentialPlot(propertyData);
+      propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
+      break;
+    case 'Commercial Office Space':
+      propertyNew = new commercialOfficeSpace(propertyData);
+      propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
+      break;
+    case 'Commercial Shop':
+      propertyNew = new commercialShop(propertyData);
+      propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
+      break;
+    case 'Commercial Showroom':
+      propertyNew = new commercialShowroom(propertyData);
+      propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
+      break;
+    case 'Commercial Plot/Land':
+      propertyNew = new commercialPlot(propertyData);
+      propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
+      break;         
+    default:
+      throw new Error('Invalid property type');
+  }
+
+  await propertyNew.save();
+  return propertyNew;
 };
 
 const searchProperty = async (filters, sortBy, sortOrder) => {
+  // Validate the 'city' parameter
+  if (!filters === '') {
+    throw new BadRequestError('Filters parameter is required');
+  }
   const query = {};
 
   // Apply filters
@@ -377,7 +452,7 @@ const exchangeProperty = async (filters, sortBy, sortOrder) => {
 
 // Get Property by ID
 const getPropertyById = async (propertyId) => {
-  const property = await Property.findById(propertyId).populate('user');
+  const property = await Property.findById(propertyId).populate('user', '_id name phone');
   if (!property) {
     throw new NotFoundError('Property not found');
   }

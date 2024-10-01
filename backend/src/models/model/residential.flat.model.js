@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const PropertyNew = require("../property.model copy.js")
+const Property = require("../property.model.js")
 const residentialFlatSchema = new mongoose.Schema({
     //Property Details
     numberOfFlatsInSociety: {type: String, enum:["<50","50-100",">100"]},
@@ -83,5 +83,5 @@ const residentialFlatSchema = new mongoose.Schema({
   },
 });
 
-const ResidentialFlat = PropertyNew.discriminator("ResidentialFlat", residentialFlatSchema);
+const ResidentialFlat = Property.discriminator("ResidentialFlat", residentialFlatSchema);
 module.exports = ResidentialFlat;

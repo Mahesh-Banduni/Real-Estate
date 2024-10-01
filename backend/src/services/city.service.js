@@ -34,11 +34,10 @@ const createCityWithLocalities = async(cityName, stateName, localities)=> {
 
 const searchCitiesLocalities = async (city,locality) => {
 
-  if(locality=="")
-  {
-    locality="a";
-    console.log("Value is:"+locality);
-  }
+     // Validate the 'city' parameter
+     if (!city || city.trim() === '') {
+      throw new BadRequestError('City parameter is required');
+    }
   
   // Search for cities that match the partial input
   const cities = await City.find({

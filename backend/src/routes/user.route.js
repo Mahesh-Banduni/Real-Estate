@@ -264,49 +264,4 @@ router.post('/:userId/favorites/:propertyId', userController.addFavoriteProperty
  */
 router.delete('/:userId/favorites/:propertyId', userController.removeFavoriteProperty);
 
-/**
- * @swagger
- * /users/{id}/owned-properties:
- *   get:
- *     summary: Get user's owned properties
- *     description: Retrieve a list of properties owned by the user
- *     tags:
- *       - Users
- *       - Properties
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
- *     responses:
- *       200:
- *         description: List of owned properties retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   _id:
- *                     type: string
- *                     description: Property ID
- *                   title:
- *                     type: string
- *                     description: Property title
- *                   address:
- *                     type: string
- *                     description: Property address
- *                   price:
- *                     type: number
- *                     description: Property price
- *       404:
- *         description: User not found
- *       500:
- *         description: Internal server error
- */
-router.get('/:id/owned-properties', userController.getOwnedProperties);
-
 module.exports = router;

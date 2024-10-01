@@ -1,5 +1,5 @@
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
-const PropertyNew = require('../models/property.model copy.js');
+const PropertyNew = require('../models/property.model copy1.js');
 const cloudinary = require('../utils/cloudinary.config.js'); // Ensure cloudinary is configured
 const userService = require('../services/user.service.js');
 const residentialFlat = require('../models/model/residential.flat.model.js');
@@ -9,44 +9,7 @@ const commercialOfficeSpace = require('../models/model/commercial.office.space.m
 const commercialShop = require('../models/model/commercial.shop.model.js');
 const commercialShowroom = require('../models/model/commercial.showroom.model.js');
 const commercialPlot = require('../models/model/commercial.plot.model.js');
-
-// Upload images function for Cloudinary
-const uploadImages = async (files) => {
-
-  const uploadedImages = [];
-  for (const file of files) {
-    if (!file.buffer) {
-      console.error('File is empty or missing buffer:', file);
-      uploadedImages.push(null);
-      continue;
-    }
-
-    try {
-      const result = await new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-          { resource_type: 'image',upload_preset: 'righttimeproperty'}, 
-          (error, result) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(result.secure_url);
-            }
-          }
-        );
-
-        // Pipe the buffer into Cloudinary
-        uploadStream.end(file.buffer);
-      });
-
-      uploadedImages.push(result);
-    } catch (error) {
-      console.error('Image upload failed:', error);
-      uploadedImages.push(null);
-    }
-  }
-
-  return uploadedImages;
-};
+const uploadImages= require('../services/upload.image.service.js');
 
 // Create a new Property
 const createProperty = async (propertyData, files) => {
@@ -57,8 +20,6 @@ const createProperty = async (propertyData, files) => {
     } while (id % 10 === 0);
     return id;
   }  
-  const propertyId = generatePropertyId();
-  const imageUrls = await uploadImages(files);
 
   let propertyNew;
 
@@ -66,44 +27,44 @@ const createProperty = async (propertyData, files) => {
     case 'Residential Flat/Appartment':
       propertyNew = new residentialFlat(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
-      propertyNew.images=imageUrls;
-      propertyNew.propertyID = propertyId;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Residential House':
       propertyNew = new residentialHouse(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
-      propertyNew.images=imageUrls;
-      propertyNew.propertyID = propertyId;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Residential Plot/Land':
       propertyNew = new residentialPlot(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
-      propertyNew.images=imageUrls;
-      //propertyNew.propertyID = propertyId;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Office Space':
       propertyNew = new commercialOfficeSpace(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
-      propertyNew.images=imageUrls;
-      propertyNew.propertyID = propertyId;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Shop':
       propertyNew = new commercialShop(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
-      propertyNew.images=imageUrls;
-      propertyNew.propertyID = propertyId;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Showroom':
       propertyNew = new commercialShowroom(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
-      propertyNew.images=imageUrls;
-      propertyNew.propertyID = propertyId;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Plot/Land':
       propertyNew = new commercialPlot(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
-      propertyNew.images=imageUrls;
-      propertyNew.propertyID = propertyId;
+      propertyNew.images=await uploadImages(files);
+      propertyNew.propertyID = generatePropertyId();;
       break;         
     default:
       throw new Error('Invalid property type');

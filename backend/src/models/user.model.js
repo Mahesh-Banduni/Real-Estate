@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
   favoriteProperties: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Property",
-    required: true
   }],
   ownedProperties: [{ 
     type: mongoose.Schema.Types.ObjectId, 

@@ -89,17 +89,6 @@ const removeFavoriteProperty = async (req, res, next) => {
   }
 };
 
-const getOwnedProperties = async (req, res, next) => {
-  try {
-    const ownedProperties = await userService.getOwnedProperties(req.params.userId);
-    res.status(200).json({
-      success: true,
-      data: ownedProperties,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
 
 module.exports = {
   createUser,
@@ -108,6 +97,5 @@ module.exports = {
   updateUser,
   deleteUser,
   addFavoriteProperty,
-  removeFavoriteProperty,
-  getOwnedProperties,
+  removeFavoriteProperty
 };

@@ -37,7 +37,9 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (userId) => {
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).populate({
+    path: 'ownedProperties',
+    model: 'Property'});
   if (!user) {
     throw new NotFoundError('User not found');
   }
@@ -96,15 +98,6 @@ const removeFavoriteProperty = async (userId, propertyId) => {
   return await user.save();
 };
 
-const getOwnedProperties = async (userId) => {
-  const user = await User.findById(userId).populate('ownedProperties');
-  if (!user) {
-    throw new NotFoundError('User not found');
-  }
-  return user.ownedProperties;
-};
-
-
 module.exports = {
   createUser,
   getAllUsers,
@@ -112,6 +105,5 @@ module.exports = {
   updateUser,
   deleteUser,
   addFavoriteProperty,
-  removeFavoriteProperty,
-  getOwnedProperties
+  removeFavoriteProperty
 };

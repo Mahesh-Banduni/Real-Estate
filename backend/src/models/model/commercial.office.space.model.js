@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const PropertyNew= require("../property.model copy.js");
+const Property= require("../property.model.js");
 
 const commercialOfficeSpaceSchema = new mongoose.Schema({
     
@@ -145,5 +145,5 @@ const commercialOfficeSpaceSchema = new mongoose.Schema({
     
 });
 
-const CommercialOfficeSpace = PropertyNew.discriminator("CommercialOfficeSpace", commercialOfficeSpaceSchema);
+const CommercialOfficeSpace = Property.discriminator("CommercialOfficeSpace", commercialOfficeSpaceSchema);
 module.exports = CommercialOfficeSpace;

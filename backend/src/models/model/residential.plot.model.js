@@ -1,5 +1,5 @@
 const mongoose= require("mongoose");
-const PropertyNew = require("../property.model copy.js");
+const Property = require("../property.model.js");
 const residentialPlotSchema = new mongoose.Schema({
 
   //Property Location
@@ -47,5 +47,5 @@ const residentialPlotSchema = new mongoose.Schema({
   },
   });
 
-const ResidentialPlot = PropertyNew.discriminator("ResidentialPlot", residentialPlotSchema);
+const ResidentialPlot = Property.discriminator("ResidentialPlot", residentialPlotSchema);
 module.exports = ResidentialPlot;
