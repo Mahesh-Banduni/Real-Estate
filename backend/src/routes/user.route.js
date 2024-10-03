@@ -202,7 +202,7 @@ router.delete('/:id', userController.deleteUser);
 
 /**
  * @swagger
- * /users/{userId}/favorites/{propertyId}:
+ * /users/favorite-properties:
  *   post:
  *     summary: Add a property to user's favorites
  *     description: Adds a property to the user's favorite properties list
@@ -230,11 +230,11 @@ router.delete('/:id', userController.deleteUser);
  *       500:
  *         description: Internal server error
  */
-router.post('/:userId/favorites/:propertyId', userController.addFavoriteProperty);
+router.post('', userController.addFavoriteProperty);
 
 /**
  * @swagger
- * /users/{userId}/favorites/{propertyId}:
+ * /users/favorite-properties:
  *   delete:
  *     summary: Remove a property from user's favorites
  *     description: Removes a property from the user's favorite properties list

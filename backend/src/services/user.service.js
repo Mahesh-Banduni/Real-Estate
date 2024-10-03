@@ -39,11 +39,11 @@ const getAllUsers = async () => {
 const getUserById = async (userId) => {
   const user = await User.findById(userId).populate({
     path: 'ownedProperties',
-    model: 'Property'});
+    model: 'Property'
+  });
   if (!user) {
     throw new NotFoundError('User not found');
   }
-  console.log(user);
   return user;
 };
 
@@ -68,34 +68,7 @@ const deleteUser = async (userId) => {
   if (!user) {
     throw new NotFoundError('User not found');
   }
-
   return user;
-};
-
-// Add a property to favorites
-const addFavoriteProperty = async (userId, propertyId) => {
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new NotFoundError('User not found');
-  }
-
-  if (user.favoriteProperties.includes(propertyId)) {
-    throw new ConflictError('Property is already in favorites');
-  }
-
-  user.favoriteProperties.push(propertyId);
-  return await user.save();
-};
-
-// Remove a property from favorites
-const removeFavoriteProperty = async (userId, propertyId) => {
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new NotFoundError('User not found');
-  }
-
-  user.favoriteProperties = user.favoriteProperties.filter(fav => fav.toString() !== propertyId);
-  return await user.save();
 };
 
 module.exports = {
@@ -103,7 +76,5 @@ module.exports = {
   getAllUsers,
   getUserById,
   updateUser,
-  deleteUser,
-  addFavoriteProperty,
-  removeFavoriteProperty
+  deleteUser
 };

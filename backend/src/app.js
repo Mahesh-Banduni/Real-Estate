@@ -15,7 +15,6 @@ const propertyNewRoutes = require("./routes/property.route copy.js");
 const { errorHandler } = require("./middleware/errorHandler");
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
-const { searchCities } = require("./services/city.service.js");
 const PORT = process.env.PORT || 8080;
 require('dotenv').config();
 

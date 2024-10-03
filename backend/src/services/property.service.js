@@ -1,4 +1,5 @@
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
+const User = require('../models/user.model.js');
 const Property = require('../models/property.model.js');
 const userService = require('../services/user.service.js');
 const residentialFlat = require('../models/model/residential.flat.model.js');
@@ -191,14 +192,16 @@ const createProperty = async (propertyData, files) => {
   }
 
   await propertyNew.save();
+
+  await User.findByIdAndUpdate(
+    propertyData.user, 
+    { $push: { ownedProperties: propertyNew._id } } // Add the property ID to ownedProperties
+  );
+
   return propertyNew;
 };
 
 const searchProperty = async (filters, sortBy, sortOrder) => {
-  // Validate the 'city' parameter
-  if (!filters === '') {
-    throw new BadRequestError('Filters parameter is required');
-  }
   const query = {};
 
   // Apply filters
@@ -597,6 +600,38 @@ const unmarkRecommendedProperty = async (propertyId, userId) => {
   return await property.save();
 };
 
+// Add a property to favorites
+const addFavoriteProperty = async (userId, propertyId) => {
+  const property = await Property.findById(propertyId);
+  if (!property) {
+    throw new NotFoundError('Property not found');
+  }
+
+  const user = await User.findById(userId);
+  if (!property) {
+    throw new NotFoundError('User not found');
+  }
+
+  user.favoriteProperties.push(propertyId);
+  return await user.save();
+};
+
+// Remove a property from favorites
+const removeFavoriteProperty = async (userId, propertyId) => {
+  const property = await Property.findById(propertyId);
+  if (!property) {
+    throw new NotFoundError('Property not found');
+  }
+
+  const user = await User.findById(userId);
+  if (!property) {
+    throw new NotFoundError('User not found');
+  }
+
+  user.favoriteProperties = user.favoriteProperties.filter(fav => fav.toString() !== propertyId);
+  return await user.save();
+};
+
 module.exports = {
   createProperty,
   searchProperty,
@@ -613,5 +648,7 @@ module.exports = {
   markApprovedProperty,
   unmarkApprovedProperty,
   markRecommendedProperty,
-  unmarkRecommendedProperty
+  unmarkRecommendedProperty,
+  addFavoriteProperty,
+  removeFavoriteProperty
 };

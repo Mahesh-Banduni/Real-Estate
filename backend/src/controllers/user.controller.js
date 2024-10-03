@@ -66,7 +66,7 @@ const deleteUser = async (req, res, next) => {
 // Add a property to favorites
 const addFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await userService.addFavoriteProperty(req.params.userId, req.params.propertyId);
+    const user = await userService.addFavoriteProperty(req.body.userId, req.body.propertyId);
     res.status(200).json({
       success: true,
       data: user,
@@ -79,7 +79,7 @@ const addFavoriteProperty = async (req, res, next) => {
 // Remove a property from favorites
 const removeFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await userService.removeFavoriteProperty(req.params.userId, req.params.propertyId);
+    const user = await userService.removeFavoriteProperty(req.body.userId, req.body.propertyId);
     res.status(200).json({
       success: true,
       data: user,

@@ -258,7 +258,6 @@ router.put('/:id/unmark-handpicked', propertyController.unmarkHandpickedProperty
  */
 router.put('/:id/mark-approved', propertyController.markApprovedProperty);
 
-
 /**
  * @swagger
  * /properties/{id}/unmark-approved:
@@ -291,7 +290,6 @@ router.put('/:id/mark-approved', propertyController.markApprovedProperty);
  *         description: Only admins can mark properties as approval pending
  */
 router.put('/:id/unmark-approved', propertyController.unmarkApprovedProperty);
-
 
 /**
  * @swagger

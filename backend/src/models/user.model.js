@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
   }],
   ownedProperties: [{ 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Property' 
+    ref: "Property" 
   }]
 },{timestamps: true});
 
