@@ -133,7 +133,7 @@ const uploadImages= require('../services/upload.image.service.js');
 
 
 // Create a new Property
-const createProperty = async (propertyData, files) => {
+const createProperty = async (userId,propertyData, files) => {
   function generatePropertyId() {
     let id;
     do {
@@ -148,42 +148,49 @@ const createProperty = async (propertyData, files) => {
     case 'Residential Flat/Appartment':
       propertyNew = new residentialFlat(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.user= userId;
       propertyNew.images=await uploadImages(files);
       propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Residential House':
       propertyNew = new residentialHouse(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.user= userId;
       propertyNew.images=await uploadImages(files);
       propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Residential Plot/Land':
       propertyNew = new residentialPlot(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.user= userId;
       propertyNew.images=await uploadImages(files);
       propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Office Space':
       propertyNew = new commercialOfficeSpace(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.user= userId;
       propertyNew.images=await uploadImages(files);
       propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Shop':
       propertyNew = new commercialShop(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.user= userId;
       propertyNew.images=await uploadImages(files);
       propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Showroom':
       propertyNew = new commercialShowroom(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.user= userId;
       propertyNew.images=await uploadImages(files);
       propertyNew.propertyID = generatePropertyId();;
       break;
     case 'Commercial Plot/Land':
       propertyNew = new commercialPlot(propertyData);
       propertyNew.propertyType=propertyData.propertyType;
+      propertyNew.user= userId;
       propertyNew.images=await uploadImages(files);
       propertyNew.propertyID = generatePropertyId();;
       break;         
