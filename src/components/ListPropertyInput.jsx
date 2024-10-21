@@ -9,9 +9,15 @@ const ListPropertyInput = React.memo(
     formInputValue,
     name,
     placeholder,
+    handelToggleDropdown,
   }) => {
     return (
-      <div className="flex flex-col gap-2">
+      <div
+        onClick={() => {
+          name === "city" || name === "locality" ? handelToggleDropdown() : "";
+        }}
+        className="flex flex-col gap-2"
+      >
         {label && (
           <label className="font-interRegular text-base" htmlFor={label}>
             {label}:-

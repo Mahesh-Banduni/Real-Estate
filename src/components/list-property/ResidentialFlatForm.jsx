@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
+import usePostProperty from "../../hooks/usePostProperty";
 import {
   locationAdvantage,
   facingValue,
@@ -9,6 +10,7 @@ import {
 } from "../../utils/constant";
 import {
   AreaInputField,
+  Dropdown,
   Heading,
   ListPropertyInput,
   ListPropertySelectInput,
@@ -19,7 +21,17 @@ import {
 const ResidentialFlatForm = ({
   handelChangeFormInputFields,
   formInputValue,
+  cities,
+  localities,
+  setFormInputValue,
 }) => {
+  const {
+    showCities,
+    showLocalities,
+    handelToggleCityDropdown,
+    handelToggleLocalityDropdown,
+  } = usePostProperty();
+
   return (
     <div className="flex flex-col gap-2">
       <TotalFlats
@@ -31,17 +43,33 @@ const ResidentialFlatForm = ({
       <div className="mt-5">
         <Heading className="text-xl" text="Property location" />
         <div className="flex flex-col gap-5 w-2/5">
-          <ListPropertyInput
-            formInputValue={formInputValue}
-            handelChangeFormInputFields={handelChangeFormInputFields}
-            type={"text"}
-            placeholder="Enter City"
-            label={"City"}
-            name="city"
-            className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
-            }
-          />
+          <div className="relative">
+            <ListPropertyInput
+              handelToggleDropdown={handelToggleCityDropdown}
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+              type={"text"}
+              placeholder="Enter City"
+              label={"City"}
+              name="city"
+              className={
+                " rounded-md border border-primary-color py-0 outline-none  "
+              }
+            />
+
+            {showCities ? (
+              <Dropdown
+                showCities={showCities}
+                handelToggleCityDropdown={handelToggleCityDropdown}
+                className={"absolute -bottom-[11.5rem] rounded-md"}
+                name={"city"}
+                array={cities}
+                method={setFormInputValue}
+              />
+            ) : (
+              ""
+            )}
+          </div>
 
           <ListPropertyInput
             formInputValue={formInputValue}
@@ -55,17 +83,29 @@ const ResidentialFlatForm = ({
             }
           />
 
-          <ListPropertyInput
-            formInputValue={formInputValue}
-            handelChangeFormInputFields={handelChangeFormInputFields}
-            type={"text"}
-            placeholder="Enter Locality"
-            label={"Locality"}
-            name={"locality"}
-            className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
-            }
-          />
+          <div className="relative">
+            <ListPropertyInput
+              handelToggleDropdown={handelToggleLocalityDropdown}
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+              type={"text"}
+              placeholder="Enter Locality"
+              label={"Locality"}
+              name={"locality"}
+              className={
+                " rounded-md  border border-primary-color py-0 outline-none  "
+              }
+            />
+            {showLocalities && (
+              <Dropdown
+                handelToggleCityDropdown={handelToggleLocalityDropdown}
+                className={"absolute -bottom-[11.5rem] rounded-md"}
+                name={"locality"}
+                array={localities}
+                method={setFormInputValue}
+              />
+            )}
+          </div>
 
           <ListPropertyInput
             formInputValue={formInputValue}

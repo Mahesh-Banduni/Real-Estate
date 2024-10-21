@@ -27,15 +27,15 @@ const useLogin = () => {
       console.log(response);
 
       if (response?.statusText === "OK") {
-        dispatch(handelSetToken(response?.data?.token));
-        localStorage.setItem("token", response?.data?.token);
+        dispatch(handelSetToken(response?.data?.data?.token));
+        localStorage.setItem("token", response?.data?.data?.token);
         alert("User login successfully");
         navigate("/");
       }
     } catch (error) {
-      console.log(`login form error ${message.message}`);
-      alert(error.message);
-      reset();
+      console.log(` ${error}`);
+      // alert(error.message);
+      // reset();
     }
   };
 

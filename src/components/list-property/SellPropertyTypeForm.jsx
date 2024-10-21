@@ -14,15 +14,15 @@ const SellPropertyTypeForm = ({ propertyTypeState, onPropertyTypeChange }) => {
       >
         <optgroup label="ALL RESIDENTIAL">
           <option value="Residential Flat/Apartment">
-            Residential Flat/Apartment
+            Residential Flat/Appartment
           </option>
-          <option value="Residential Land">Residential Land</option>
+          <option value="Residential Plot/Land">Residential Plot/Land</option>
           <option value="Residential House">Residential House</option>
         </optgroup>
         <optgroup className="text-" label="ALL COMMERCIAL">
           <option value="Commercial Shop">Commercial Shop</option>
           <option value="Commercial Showroom">Commercial Showroom</option>
-          <option value="Commercial Plot">Commercial Plot</option>
+          <option value="Commercial Plot">Commercial Plot/Land</option>
           <option value="Commercial Office Space">
             Commercial Office Space
           </option>
