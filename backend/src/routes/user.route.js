@@ -264,4 +264,45 @@ router.post('', userController.addFavoriteProperty);
  */
 router.delete('/:userId/favorites/:propertyId', userController.removeFavoriteProperty);
 
+/**
+ * @swagger
+ * /users/{id}/change-password:
+ *   put:
+ *     summary: Update User Password by ID
+ *     description: Update a user's password by their ID
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               oldPassword:
+ *                 type: string
+ *                 description: Updated user's old password
+ *               newPassword:
+ *                 type: string
+ *                 description: Updated user's new password
+ *               confirmNewPassword:
+ *                 type: string
+ *                 description: Updated user's confirm new password
+ *     responses:
+ *       200:
+ *         description: User password updated successfully
+ *       400:
+ *         description: Bad request (Password required)
+ *       404:
+ *         description: User not found
+ */
+router.put('/:id/change-password', userController.changePassword);
+
 module.exports = router;

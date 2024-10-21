@@ -16,7 +16,7 @@ const createUser = async (userData) => {
     throw new ConflictError('User with this phone number already exists');
   }
 
-  const hashPassword=crypto.createHash('sha256', process.env.JWT_SECRET).update(userData.password).digest('hex');
+  const hashPassword=hashPassword(userData.password);
   
   const user = new User();
   user.name = userData.name;
@@ -71,10 +71,50 @@ const deleteUser = async (userId) => {
   return user;
 };
 
+const hashPassword = (password) => {
+  return crypto.createHash('sha256', process.env.JWT_SECRET)
+    .update(password)
+    .digest('hex');
+};
+
+// Change password function using sha256 hash
+const changePassword = async (userId, passwordData) => {
+  // Fetch the user by userId
+  const user = await User.findById(userId);
+  
+  if (!user) {
+    throw new NotFoundError('User not found');
+  }
+
+  // Hash the provided old password and compare it with the stored hashed password
+  const hashedOldPassword = hashPassword(passwordData.oldPassword);
+  if (hashedOldPassword !== user.password) {
+    throw new BadRequestError('Old password is incorrect');
+  }
+
+  // Check if newPassword and confirmNewPassword are the same
+  if (passwordData.newPassword !== user.password) {
+    throw new BadRequestError('Old  passwords do not match');
+  }
+
+  // Check if newPassword and confirmNewPassword are the same
+  if (passwordData.newPassword !== passwordData.confirmNewPassword) {
+    throw new BadRequestError('New passwords do not match');
+  }
+
+  // Hash the new password before saving it
+  user.password = hashPassword(passwordData.newPassword);
+
+  // Save the updated user
+  return await user.save();
+};
+
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   updateUser,
-  deleteUser
+  deleteUser,
+  changePassword
 };

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const propertyController = require('../controllers/property.controller.js');
 const {upload} = require('../middleware/multer.js');
+const auth = require('../middleware/auth.js');
 
 /**
  * @swagger
@@ -59,7 +60,7 @@ const {upload} = require('../middleware/multer.js');
  *       500:
  *         description: Internal server error
  */
-router.post('/', upload , propertyController.createProperty);
+router.post('/', upload ,auth, propertyController.createProperty);
 
 /**
  * @swagger

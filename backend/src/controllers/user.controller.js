@@ -89,6 +89,19 @@ const removeFavoriteProperty = async (req, res, next) => {
   }
 };
 
+const changePassword = async (req, res, next) => {
+  try {
+    const updatedUser = await userService.changePassword(req.params.id, req.body);
+    res.status(200).json({
+      success: true,
+      data: updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 
 module.exports = {
   createUser,
@@ -97,5 +110,6 @@ module.exports = {
   updateUser,
   deleteUser,
   addFavoriteProperty,
-  removeFavoriteProperty
+  removeFavoriteProperty,
+  changePassword
 };
