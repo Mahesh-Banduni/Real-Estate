@@ -68,11 +68,45 @@ router.post('/register', userController.createUser);
  *                 description: User's password
  *     responses:
  *       200:
- *         description: Login successful
+ *         description: Login done and verify otp in next step
  *       401:
  *         description: Unauthorized (Invalid credentials)
  */
 router.post('/login', userLoginController.loginUser);
+
+/**
+ * @swagger
+ * /users/{id}/verify-otp:
+ *   post:
+ *     summary: OTP Verification
+ *     description: API for OTP Verification
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - otp
+ *             properties:
+ *               otp:
+ *                 type: string
+ *                 description: OTP Verification
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Unauthorized (Invalid OTP)
+ */
+router.post('/:id/verify-otp', userLoginController.verifyLoginOTP);
 
 /**
  * @swagger

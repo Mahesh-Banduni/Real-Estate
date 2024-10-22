@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require('cors');
-const connectDb = require("./connection/connection");
+const connectDb = require("./utils/mongodb.connection.config.js");
+const {redisClient}= require("./utils/redis.connection.config.js");
 const userRoutes = require("./routes/user.route");
 const userProfileRoutes= require("./routes/user.profile.route");
 const propertyRoutes = require("./routes/property.route.js");
@@ -19,6 +20,12 @@ const PORT = process.env.PORT || 8080;
 require('dotenv').config();
 
 connectDb();
+//connectRedis();
+// Connect to Redis and store the client instance
+//const redis = connectRedis();
+
+// Make redis client available throughout the application
+app.locals.redis = redisClient;
 
 app.use(cors({
       origin: 'http://localhost:5173'

@@ -1,5 +1,6 @@
 const User = require('../models/user.model.js');
 const JWTToken= require("./token.generation.service.js");
+const { sendAndStoreOTP, verifyOTP }= require("./otp.service.js");
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 const crypto = require('crypto');
 
@@ -21,7 +22,25 @@ const loginUser = async (phone, password) => {
   // Generate JWT token
   const token = JWTToken.generateToken(user);
 
-  return { user, token }; // Return user and token
+  // Send OTP and store it in Redis
+  await sendAndStoreOTP(user._id, phone);
+
+  return { message: 'OTP sent to phone. Please verify to log in', userId: user._id, user, token };
+
+  //return { user, token }; // Return user and token
+};
+
+const verifyLoginOTP = async (userId, otp) => {
+  const isValid = await verifyOTP(userId, otp);
+
+  if (!isValid) {
+    throw new Error('Invalid OTP or OTP has expired');
+  }
+
+  // Return user details after successful verification
+  const user = await User.findById(userId);
+
+  return { message: 'Login successful', user };
 };
 
 // Logout the user (just a placeholder, JWT is stateless)
@@ -33,5 +52,6 @@ const logoutUser = async (req) => {
 
 module.exports = {
   loginUser,
+  verifyLoginOTP,
   logoutUser
 };

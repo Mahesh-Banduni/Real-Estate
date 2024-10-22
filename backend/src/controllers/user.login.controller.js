@@ -15,6 +15,16 @@ const loginUser = async (req, res, next) => {
       next(error);
     }
 };
+
+const verifyLoginOTP = async (req, res, next) => {
+  try {
+    const { userId, otp } = req.body;
+    const response = await userLoginService.verifyLoginOTP(userId, otp);
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
   
 // Logout a user
 const logoutUser = async (req, res, next) => {
@@ -28,5 +38,6 @@ const logoutUser = async (req, res, next) => {
   
 module.exports = {
     loginUser,
+    verifyLoginOTP,
     logoutUser
 }

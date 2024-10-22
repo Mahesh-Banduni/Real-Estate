@@ -1,23 +1,40 @@
-const redis = require('redis');
+//const { redisClient } = require('../connection/redisConnection.js');
 
-// Create a Redis client
-const client = redis.createClient({
-  host: '127.0.0.1', 
-  port: 6379
-});
+//const connectRedis= require("../connection/redisConnection.js");
 
-client.connect();
+// //const redisClient = connectRedis();
+// const Redis = require("redis");
+
+// const setOTP = async (key, otp, expirationTime = 300) => {
+//   await Redis.setEx(key, expirationTime, otp);
+// };
+
+// const getOTP = async (key) => {
+//   return await Redis.get(key);
+// };
+
+// const deleteOTP = async (key) => {
+//   await Redis.del(key);
+// };
+
+// module.exports = { setOTP, getOTP, deleteOTP };
+
+const { redisClient } = require('../utils/redis.connection.config.js'); // Update the path
 
 const setOTP = async (key, otp, expirationTime = 300) => {
-  await client.setEx(key, expirationTime, otp);
+    if (!redisClient.isOpen) await redisClient.connect(); // Ensure client is connected
+    await redisClient.setEx(key, expirationTime, otp);
 };
 
 const getOTP = async (key) => {
-  return await client.get(key);
+    if (!redisClient.isOpen) await redisClient.connect(); // Ensure client is connected
+    return await redisClient.get(key);
 };
 
 const deleteOTP = async (key) => {
-  await client.del(key);
+    if (!redisClient.isOpen) await redisClient.connect(); // Ensure client is connected
+    await redisClient.del(key);
 };
 
 module.exports = { setOTP, getOTP, deleteOTP };
+

@@ -13,7 +13,9 @@ const commercialPlotSchema = new mongoose.Schema({
   },
   projectMarketName: {type: String},
   Address: {type: String, maxlength: 256},
-  landZone: {type: String, enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]},
+  landZone: {type: String, //enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]
+
+  },
   
   //Property Features
   floorsAllowed: {type: Number},
@@ -32,7 +34,9 @@ const commercialPlotSchema = new mongoose.Schema({
 
   //Transaction Type & Property Avialability
   currentlyLeasedOut: {type: Boolean, default: false},
-  possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
+  possessionStatus: {type: String, //enum: ["Ready To Move", "Under Construction"]
+
+  },
 
   //Price Details
   expectedPrice: {type: Number, required: true},
@@ -41,8 +45,8 @@ const commercialPlotSchema = new mongoose.Schema({
   
   //Amenities/Unique Features
   landAmenities: {
-    type: String, 
-    enum: ["Maintenance Staff","Water Storage","Rain Water Harvesting","Feng Shui / Vaastu Compliant",]
+    type: [Object], 
+    //enum: ["Maintenance Staff","Water Storage","Rain Water Harvesting","Feng Shui / Vaastu Compliant",]
   },
 
 });

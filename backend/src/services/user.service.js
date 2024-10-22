@@ -77,7 +77,6 @@ const hashPassword = (password) => {
     .digest('hex');
 };
 
-// Change password function using sha256 hash
 const changePassword = async (userId, passwordData) => {
   // Fetch the user by userId
   const user = await User.findById(userId);
@@ -94,7 +93,7 @@ const changePassword = async (userId, passwordData) => {
 
   // Check if newPassword and confirmNewPassword are the same
   if (passwordData.newPassword !== user.password) {
-    throw new BadRequestError('Old  passwords do not match');
+    throw new BadRequestError('New password should not match old password');
   }
 
   // Check if newPassword and confirmNewPassword are the same

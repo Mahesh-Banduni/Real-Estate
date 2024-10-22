@@ -1,15 +1,19 @@
 const twilio = require('twilio');
+const dotenv = require("dotenv");
 
-const accountSid = 'your_account_sid';  // Get from Twilio Dashboard
-const authToken = 'your_auth_token';    // Get from Twilio Dashboard
-const client = new twilio(accountSid, authToken);
+dotenv.config();
+
+
+// const accountSid = 'your_account_sid';  // Get from Twilio Dashboard
+// const authToken = 'your_auth_token';    // Get from Twilio Dashboard
+const client = new twilio(process.env.accountSid, process.env.authToken);
 
 const sendOTP = async (phone, otp) => {
   try {
     await client.messages.create({
-      body: `Your OTP code is ${otp}`,
+      body: `Your Right Time Property verrification code is: ${otp}`,
       to: phone,    // User's phone number
-      from: 'your_twilio_phone_number' // Your Twilio number
+      from: process.env.twilioNumber // Your Twilio number
     });
     return { success: true, message: 'OTP sent successfully' };
   } catch (error) {

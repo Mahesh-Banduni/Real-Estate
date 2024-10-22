@@ -43,7 +43,7 @@ const residentialPlotSchema = new mongoose.Schema({
   //Amenities/Unique Features
   landAmenities: {
     type: String, 
-    enum: ["Maintenance Staff","Water Storage","Rain Water Harvesting","Feng Shui / Vaastu Compliant",]
+    //enum: ["Maintenance Staff","Water Storage","Rain Water Harvesting","Feng Shui / Vaastu Compliant",]
   },
   });
 
