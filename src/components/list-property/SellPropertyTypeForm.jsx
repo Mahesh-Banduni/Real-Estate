@@ -2,28 +2,32 @@ import React from "react";
 
 import Heading from "../Heading";
 
-const SellPropertyTypeForm = ({ propertyTypeState, onPropertyTypeChange }) => {
+const SellPropertyTypeForm = ({ formInputValue, onPropertyTypeChange }) => {
   return (
-    <div>
+    <div className="w-full">
       <Heading className="text-xl" text="Property Type" />
-
       <select
+        name="propertyType"
         onChange={onPropertyTypeChange}
-        value={propertyTypeState?.propertyType}
-        className={`mt-2 rounded-none text-[#4B4B4B] py-0 text-lg bg-[#F2F2F2] select select-ghost max-[1120px]:w-full w-[20rem] outline-none border-none active:border-none hover:border-none active:outline-none hover:outline-none max-sm:text-sm `}
+        value={formInputValue?.propertyType}
+        className={`mt-2 rounded-md text-[#4B4B4B] py-0 text-lg bg-[#F2F2F2] select select-ghost max-[1120px]:w-full w-full outline-none border-none active:border-none hover:border-none active:outline-none hover:outline-none max-sm:text-sm `}
       >
         <optgroup label="ALL RESIDENTIAL">
-          <option value="Residential Flat/Apartment">
-            Residential Flat/Appartment
+          <option defaultValue="Residential Flat/Apartment">
+            Residential Flat/Apartment
           </option>
-          <option value="Residential Plot/Land">Residential Plot/Land</option>
-          <option value="Residential House">Residential House</option>
+          <option defaultValue="Residential Plot/Land">
+            Residential Plot/Land
+          </option>
+          <option defaultValue="Residential House">Residential House</option>
         </optgroup>
         <optgroup className="text-" label="ALL COMMERCIAL">
-          <option value="Commercial Shop">Commercial Shop</option>
-          <option value="Commercial Showroom">Commercial Showroom</option>
-          <option value="Commercial Plot">Commercial Plot/Land</option>
-          <option value="Commercial Office Space">
+          <option defaultValue="Commercial Shop">Commercial Shop</option>
+          <option defaultValue="Commercial Showroom">
+            Commercial Showroom
+          </option>
+          <option defaultValue="Commercial Plot">Commercial Plot/Land</option>
+          <option defaultValue="Commercial Office Space">
             Commercial Office Space
           </option>
         </optgroup>

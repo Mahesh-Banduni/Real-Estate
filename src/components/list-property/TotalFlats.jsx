@@ -5,7 +5,7 @@ import { NumberOfFlat } from "../../utils/constant";
 
 const TotalFlats = ({ handelChangeFormInputFields, formInputValue, name }) => {
   return (
-    <React.Fragment>
+    <div className="w-1/3">
       <ListPropertySelectInput
         handelChangeFormInputFields={handelChangeFormInputFields}
         formInputValue={formInputValue}
@@ -13,7 +13,7 @@ const TotalFlats = ({ handelChangeFormInputFields, formInputValue, name }) => {
         label={"Total No. of Flats in Your Society:-"}
         options={NumberOfFlat}
       />
-    </React.Fragment>
+    </div>
   );
 };
 

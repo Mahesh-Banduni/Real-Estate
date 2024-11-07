@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 const useProperties = () => {
   const dispatch = useDispatch();
   const [property, setProperty] = useState("Buy");
+  const [allProperty, setAllProperty] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -23,7 +24,7 @@ const useProperties = () => {
           `http://localhost:8080/search-properties?propertyPurpose=Sale`
         );
         if (response.statusText === "OK") {
-          dispatch(handelFetchAllProperties(response?.data));
+          setAllProperty(response?.data?.data);
         }
         setIsLoading(false);
       }
@@ -32,7 +33,7 @@ const useProperties = () => {
           `http://localhost:8080/search-properties?propertyPurpose=Exchange`
         );
         if (response.statusText === "OK") {
-          dispatch(handelFetchAllProperties(response?.data));
+          setAllProperty(response?.data?.data);
         }
         setIsLoading(false);
       }
@@ -41,11 +42,12 @@ const useProperties = () => {
           `http://localhost:8080/search-properties?propertyPurpose=Partnership`
         );
         if (response.statusText === "Ok") {
-          dispatch(handelFetchAllProperties(response?.data));
+          setAllProperty(response?.data?.data);
         }
         setIsLoading(false);
       }
       console.log(response);
+      console.log(response?.data?.data);
     } catch (error) {
       alert(error.message);
     }
@@ -57,6 +59,7 @@ const useProperties = () => {
     handelChangePropertyType,
     property,
     isLoading,
+    allProperty,
   };
 };
 

@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import { handelRemoveToken } from "../store/slice";
 
 const usePostProperty = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const initialState = {
     propertyPurpose: "sale",
-    propertyType: "Residential Flat/Appartment",
+    propertyType: "Residential Flat/Apartment",
     numberOfFlatsInSociety: "",
     city: "",
     projectSocietyName: "",
@@ -19,10 +25,10 @@ const usePostProperty = () => {
     floorsAllowed: "",
     facingRoadWidth: "",
     facingRoadWidthUnit: "Meters",
-    personalWashroom: false,
+    personalWashroom: "",
     pantryCafeteria: "",
     cornerShop: false,
-    mainRoadFacing: false,
+    mainRoadFacing: "",
     anyConstructionDone: false,
     BHKType: "",
     bedrooms: "",
@@ -33,13 +39,13 @@ const usePostProperty = () => {
     bathrooms: "",
     openSides: "",
     plotArea: "",
-    plotAreaUnit: "",
+    plotAreaUnit: "Sq-ft",
     carpetArea: "",
-    carpetAreaUnit: "",
+    carpetAreaUnit: "Sq-ft",
     superArea: "",
-    superAreaUnit: "",
+    superAreaUnit: "Sq-ft",
     coveredArea: "",
-    coveredAreaUnit: "",
+    coveredAreaUnit: "Sq-ft",
     lengthDimension: "",
     widthDimension: "",
     dimensionUnit: "ft",
@@ -52,28 +58,27 @@ const usePostProperty = () => {
     currentlyLeasedOut: false,
     bookingAmount: "",
     priceNegotiable: false,
-    boundaryWall: false,
-    gatedColony: false,
+    boundaryWall: "",
+    gatedColony: "",
     expectedPrice: "",
-    residentialAmenities: [],
+    residentialAmenities: "",
     commercialAmenities: [],
     landAmenities: [],
-    locationAdvantages: [],
-    overlooking: [],
+    locationAdvantages: "",
+    overlooking: "",
     facing: "",
     description: "",
     images: [],
   };
+
   //  ======================stats========================
-  const [throttling, setThrottling] = useState({
-    city: "",
-    locality: "",
-  });
   const [cities, setCities] = useState([]);
   const [localities, setLocalities] = useState([]);
   const [showCities, setShowCities] = useState(false);
   const [showLocalities, setShowLocalities] = useState(false);
   const [formInputValue, setFormInputValue] = useState(initialState);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   //==================filled the form input field handler ==================
 
@@ -101,6 +106,7 @@ const usePostProperty = () => {
 
   const handelPostProperty = async (e) => {
     e.preventDefault();
+
     const {
       address,
       balconies,
@@ -115,51 +121,81 @@ const usePostProperty = () => {
       locality,
       possessionStatus,
       superArea,
+      BHKType,
+      anyConstructionDone,
+      boundaryWall,
+      buildingComplexName,
+      carpetAreaUnit,
+      commercialAmenities,
+      cornerPlot,
+      cornerShop,
+      coveredArea,
+      coveredAreaUnit,
+      currentlyLeasedOut,
+      description,
+      dimensionUnit,
+      entranceWidth,
+      entranceWidthUnit,
+      facing,
+      facingRoadWidth,
+      facingRoadWidthUnit,
+      floorsAllowed,
+      gatedColony,
+      idealForBusinesses,
+      images,
+      landAmenities,
+      landZone,
+      lengthDimension,
+      locationAdvantages,
+      mainRoadFacing,
+      nearbyBusinesses,
+      numberOfFlatsInSociety,
+      openSides,
+      overlooking,
+      ownership,
+      pantryCafeteria,
+      personalWashroom,
+      plotArea,
+      plotAreaUnit,
+      priceNegotiable,
+      projectMarketName,
+      projectSocietyName,
+      propertyPurpose,
+      propertyType,
+      residentialAmenities,
+      superAreaUnit,
+      totalFloor,
+      transactionType,
+      widthDimension,
     } = formInputValue;
+    // Create FormData object
+    const formData = new FormData();
 
-    if (formInputValue?.propertyPurpose === "sale") {
-      // Basic field validation
-      if (
-        !address ||
-        !balconies ||
-        !bathrooms ||
-        !bedrooms ||
-        !bookingAmount ||
-        !carpetArea ||
-        !city ||
-        !expectedPrice ||
-        !floorNumber ||
-        !furnished ||
-        !locality ||
-        !superArea ||
-        !possessionStatus
-      ) {
-        alert("Please enter all the required fields.");
-        return;
+    // Append each field to the FormData object
+    for (const key in formInputValue) {
+      if (key === "images") {
+        // If the field is images, append each file separately
+        formInputValue?.images?.forEach((file) => {
+          formData.append("images", file);
+        });
+      } else if (Array.isArray(formInputValue[key])) {
+        // For array fields, handle them appropriately (e.g., 'locality' and 'amenities')
+        formInputValue[key].forEach((item) => {
+          formData.append(`${key}[]`, item.value); // Append each array item separately
+        });
+      } else {
+        // For regular fields, just append the value
+        formData.append(key, formInputValue[key]);
       }
+    }
 
+    //=================get the token from localStorage=====================
+
+    let token = localStorage.getItem("token");
+
+    const postPropertyHandler = async () => {
+      setLoading(true);
       try {
-        // Create FormData object
-        const formData = new FormData();
-
-        // Append each field to the FormData object
-        for (const key in formInputValue) {
-          if (key === "images") {
-            // If the field is images, append each file separately
-            formInputValue?.images?.forEach((file) => {
-              formData.append("images", file);
-            });
-          } else if (Array.isArray(formInputValue[key])) {
-            // For array fields, handle them appropriately (e.g., 'locality' and 'amenities')
-            formData.append(key, JSON.stringify(formInputValue[key]));
-          } else {
-            // For regular fields, just append the value
-            formData.append(key, formInputValue[key]);
-          }
-        }
-
-        // Send FormData using Axios
-        let token = localStorage.getItem("token");
         const response = await axios.post(
           "http://localhost:8080/properties",
           formData,
@@ -170,27 +206,199 @@ const usePostProperty = () => {
             },
           }
         );
-
         console.log(response);
+        if (response.statusText === "Created") {
+          setMessage("Property is posted successfully");
+          setFormInputValue(initialState);
+        }
       } catch (error) {
-        console.log(error);
-
+        if (error.status === 401) {
+          alert(`Token Is Invalid Or Expired`);
+          dispatch(handelRemoveToken());
+          localStorage.removeItem("token");
+          navigate("/signin");
+        }
+        setMessage("Property is not Posted something error occurs");
         console.log(`Error on posting property: ${error.message}`);
       }
+      setLoading(false);
+    };
+    //========================switch statement======================
+    switch (true) {
+      case formInputValue?.propertyPurpose === "sale" &&
+        formInputValue.propertyType === "Residential Flat/Apartment":
+        if (
+          !address ||
+          !balconies ||
+          !bathrooms ||
+          !bedrooms ||
+          !bookingAmount ||
+          !carpetArea ||
+          !city ||
+          !expectedPrice ||
+          !floorNumber ||
+          !furnished ||
+          !locality ||
+          !superArea ||
+          !possessionStatus
+        ) {
+          alert("Please enter all the required fields.");
+          return;
+        } else {
+          postPropertyHandler();
+        }
+        break;
+      case formInputValue?.propertyPurpose === "sale" &&
+        formInputValue.propertyType === "Residential Plot/Land":
+        if (
+          !address ||
+          !projectSocietyName ||
+          !openSides ||
+          !bookingAmount ||
+          !facingRoadWidth ||
+          !boundaryWall ||
+          !gatedColony ||
+          !plotArea ||
+          !lengthDimension ||
+          !widthDimension ||
+          !city ||
+          !locality ||
+          !expectedPrice ||
+          !possessionStatus
+        ) {
+          console.log(`Residential Plot/Land => entered`);
+          alert(`Please filled all the fields`);
+        } else {
+          postPropertyHandler();
+        }
+        break;
+      case formInputValue?.propertyPurpose === "sale" &&
+        formInputValue.propertyType === "Residential House":
+        if (
+          !address ||
+          !balconies ||
+          !bathrooms ||
+          !bedrooms ||
+          !bookingAmount ||
+          !carpetArea ||
+          !city ||
+          !expectedPrice ||
+          !floorNumber ||
+          !furnished ||
+          !locality ||
+          !plotArea ||
+          !superArea ||
+          !possessionStatus
+        ) {
+          alert(`Please filled all the fields`);
+        } else {
+          postPropertyHandler();
+        }
+        break;
+      case formInputValue?.propertyPurpose === "sale" &&
+        formInputValue.propertyType === "Commercial Office Space":
+        if (
+          !city ||
+          !locality ||
+          !address ||
+          !buildingComplexName ||
+          !idealForBusinesses ||
+          !floorNumber ||
+          !furnished ||
+          !personalWashroom ||
+          !bookingAmount ||
+          !carpetArea ||
+          !superArea ||
+          !expectedPrice ||
+          !possessionStatus
+        ) {
+          alert(`Please filled all the fields`);
+        } else {
+          postPropertyHandler();
+        }
+        break;
+      case formInputValue?.propertyPurpose === "sale" &&
+        formInputValue.propertyType === "Commercial Shop":
+        console.log(formInputValue);
+
+        if (
+          !city ||
+          !address ||
+          !projectMarketName ||
+          !floorNumber ||
+          !totalFloor ||
+          !furnished ||
+          !mainRoadFacing ||
+          !personalWashroom ||
+          !coveredArea ||
+          !carpetArea ||
+          !possessionStatus ||
+          !expectedPrice ||
+          !bookingAmount
+        ) {
+          alert(`Please filled all the fields`);
+        } else {
+          postPropertyHandler();
+        }
+        break;
+      case formInputValue?.propertyPurpose === "sale" &&
+        formInputValue.propertyType === "Commercial Showroom":
+        if (
+          !city ||
+          !locality ||
+          !projectMarketName ||
+          !address ||
+          !floorNumber ||
+          !totalFloor ||
+          !furnished ||
+          !mainRoadFacing ||
+          !personalWashroom ||
+          !possessionStatus ||
+          !expectedPrice ||
+          !bookingAmount
+        ) {
+          alert(`Please filled all the fields`);
+        } else {
+          postPropertyHandler();
+        }
+        break;
+      case formInputValue?.propertyPurpose === "sale" &&
+        formInputValue.propertyType === "Commercial Plot/Land":
+        if (
+          !city ||
+          !locality ||
+          !projectSocietyName ||
+          !address ||
+          !openSides ||
+          !facingRoadWidth ||
+          !boundaryWall ||
+          !plotArea ||
+          !lengthDimension ||
+          !widthDimension ||
+          !expectedPrice ||
+          !bookingAmount
+        ) {
+          alert(`Please filled all the fields`);
+        } else {
+          postPropertyHandler();
+        }
+        break;
+      default:
+        break;
     }
   };
 
   //================throttling functionality on cites search============================
 
   const handelSearchCity = async () => {
+    console.log(formInputValue?.city);
+
     try {
       const response = await axios.get(
         `http://localhost:8080/cities-localities?city=${formInputValue?.city}`
       );
-      console.log(response);
-
       if (response?.statusText === "Created") {
-        let cities = response?.data?.data.map((item) => {
+        let cities = response?.data?.data?.map((item) => {
           return item.name;
         });
         setCities(cities);
@@ -261,6 +469,8 @@ const usePostProperty = () => {
     handelToggleCityDropdown,
     handelToggleLocalityDropdown,
     handelPostProperty,
+    loading,
+    message,
   };
 };
 

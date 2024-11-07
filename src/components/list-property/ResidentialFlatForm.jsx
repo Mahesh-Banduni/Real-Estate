@@ -7,6 +7,7 @@ import {
   facingValue,
   overLookingValue,
   residentialAmenities,
+  customStyles,
 } from "../../utils/constant";
 import {
   AreaInputField,
@@ -14,7 +15,6 @@ import {
   Heading,
   ListPropertyInput,
   ListPropertySelectInput,
-  Paragraph,
   TotalFlats,
 } from "../index";
 
@@ -42,7 +42,7 @@ const ResidentialFlatForm = ({
       {/* property location */}
       <div className="mt-5">
         <Heading className="text-xl" text="Property location" />
-        <div className="flex flex-col gap-5 w-2/5">
+        <div className="flex flex-col gap-5 w-1/3">
           <div className="relative">
             <ListPropertyInput
               handelToggleDropdown={handelToggleCityDropdown}
@@ -120,6 +120,7 @@ const ResidentialFlatForm = ({
           />
         </div>
       </div>
+
       {/* property features */}
       <div className="mt-5">
         <Heading className="text-xl " text="Property features" />
@@ -189,13 +190,15 @@ const ResidentialFlatForm = ({
           />
         </div>
       </div>
+
       {/* Area */}
       <div className="mt-5">
         <Heading className="text-xl " text="Area" />
-        <div className="flex flex-col gap-2 mt-1">
+        <div className="flex flex-col justify-between w-1/3">
           <AreaInputField
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
+            className={"w-full"}
             areaName="carpetArea"
             unitName="carpetAreaUnit"
             label={"Carpet Area"}
@@ -204,6 +207,7 @@ const ResidentialFlatForm = ({
           <AreaInputField
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
+            className={"w-full"}
             areaName="superArea"
             unitName="superAreaUnit"
             label={"Super Area"}
@@ -211,25 +215,26 @@ const ResidentialFlatForm = ({
           />
         </div>
       </div>
+
       {/* construction status */}
-      <div>
+      <div className="w-1/3">
         <ListPropertySelectInput
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
+          name="possessionStatus"
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
-          name="possessionStatus"
         />
       </div>
 
       {/* price details */}
       <div className="mt-5">
         <Heading className="text-xl pb-1 " text="Price Details" />
-        <div className="w-fit capitalize flex flex-col gap-2">
+        <div className="w-1/3  capitalize flex flex-col gap-2">
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"border w-fit"}
+            className={" w-full border-primary-color rounded-md border"}
             placeholder={"Enter Total Price"}
             type={"number"}
             label={"expected price"}
@@ -238,7 +243,7 @@ const ResidentialFlatForm = ({
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"border w-fit"}
+            className={" w-full border-primary-color rounded-md border"}
             placeholder={"Enter booking amount"}
             type={"number"}
             label={"booking amount"}
@@ -247,70 +252,71 @@ const ResidentialFlatForm = ({
         </div>
       </div>
 
+      {/*=======================amenities===================*/}
       <div className="mt-5">
         <Heading className="text-xl " text="Amenities" />
-        <div className="">
-          <div className="mt-1">
-            <h2 className="capitalize font-interRegular">
-              Residential Amenities:-
-            </h2>
-            <Select
-              name="residentialAmenities"
-              className="w-1/3"
-              options={residentialAmenities}
-              onChange={(value) => {
-                let event = {
-                  target: {
-                    name: "residentialAmenities",
-                    value: value,
-                  },
-                };
-                handelChangeFormInputFields(event);
-              }}
-              value={formInputValue.residentialAmenities}
-              isMulti
-            />
-          </div>
-          <div className="mt-1">
-            <h2 className="capitalize font-interRegular">
-              Location advantage:-
-            </h2>
-            <Select
-              name="locationAdvantages"
-              className="w-1/3"
-              options={locationAdvantage}
-              onChange={(value) => {
-                let event = {
-                  target: {
-                    name: "locationAdvantages",
-                    value: value,
-                  },
-                };
-                handelChangeFormInputFields(event);
-              }}
-              value={formInputValue.locationAdvantages}
-              isMulti
-            />
-          </div>
-          <div className="mt-1">
-            <h2 className="capitalize font-interRegular">Overlooking:-</h2>
-            <Select
-              name="overlooking"
-              className="w-1/3"
-              options={overLookingValue}
-              onChange={(value) => {
-                let event = {
-                  target: {
-                    name: "overlooking",
-                    value: value,
-                  },
-                };
-                handelChangeFormInputFields(event);
-              }}
-              value={formInputValue.overlooking}
-              isMulti
-            />
-          </div>
+
+        <div className="mt-1">
+          <h2 className="capitalize font-interRegular">
+            Residential Amenities:-
+          </h2>
+          <Select
+            styles={customStyles}
+            name="residentialAmenities"
+            className="w-1/3 border-primary-color"
+            options={residentialAmenities}
+            onChange={(value) => {
+              let event = {
+                target: {
+                  name: "residentialAmenities",
+                  value: value,
+                },
+              };
+              handelChangeFormInputFields(event);
+            }}
+            value={formInputValue.residentialAmenities}
+            isMulti
+          />
+        </div>
+        <div className="mt-1">
+          <h2 className="capitalize font-interRegular">Location advantage:-</h2>
+          <Select
+            styles={customStyles}
+            name="locationAdvantages"
+            className="w-1/3"
+            options={locationAdvantage}
+            onChange={(value) => {
+              let event = {
+                target: {
+                  name: "locationAdvantages",
+                  value: value,
+                },
+              };
+              handelChangeFormInputFields(event);
+            }}
+            value={formInputValue.locationAdvantages}
+            isMulti
+          />
+        </div>
+        <div className="mt-1">
+          <h2 className="capitalize font-interRegular">Overlooking:-</h2>
+          <Select
+            styles={customStyles}
+            name="overlooking"
+            className="w-1/3"
+            options={overLookingValue}
+            onChange={(value) => {
+              let event = {
+                target: {
+                  name: "overlooking",
+                  value: value,
+                },
+              };
+              handelChangeFormInputFields(event);
+            }}
+            value={formInputValue.overlooking}
+            isMulti
+          />
         </div>
       </div>
     </div>

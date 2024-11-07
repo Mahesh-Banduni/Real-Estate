@@ -20,7 +20,7 @@ const SelectInput = React.forwardRef(function SelectInput(
         {...props}
         className={`${className} rounded-none text-[#4B4B4B] py-0 text-lg bg-[#F2F2F2] select select-ghost w-full outline-none border-none active:border-none hover:border-none active:outline-none hover:outline-none max-sm:text-sm `}
       >
-        <option className="z-10" disabled selected>
+        <option className="z-10" defaultValue={""}>
           Select Options
         </option>
         {options?.map((option, index) => {

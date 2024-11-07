@@ -38,16 +38,18 @@ const AreaInputField = ({
   ];
 
   return (
-    <div className=" border-b border-border-color w-fit flex flex-col gap-[0.15rem]">
+    <div
+      className={`${className} border-b border-primary-color w-full flex flex-col gap-[0.15rem]`}
+    >
       {label && <label htmlFor={label}>{label}</label>}
-      <div>
+      <div className="flex items-center justify-between">
         <input
           onChange={handelChangeFormInputFields}
           value={formInputValue[areaName]}
           name={areaName}
           type={type}
           placeholder={label}
-          className={`capitalize py-1 outline-none ${className}`}
+          className={`capitalize py-1 outline-none `}
         />
         <select
           onChange={handelChangeFormInputFields}
@@ -57,7 +59,7 @@ const AreaInputField = ({
         >
           {options.map((items, index) => {
             return (
-              <option key={index} value={items}>
+              <option key={index} defaultValue={items}>
                 {items}
               </option>
             );

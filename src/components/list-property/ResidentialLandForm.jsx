@@ -4,104 +4,102 @@ import Select from "react-select";
 import {
   AreaInputField,
   Heading,
+  Dropdown,
   ListPropertyInput,
   ListPropertySelectInput,
 } from "../index";
+import {
+  customStyles,
+  facingValue,
+  locationAdvantage,
+  overLookingValue,
+} from "../../utils/constant";
+import usePostProperty from "../../hooks/usePostProperty";
 
-const ResidentialLandForm = () => {
-  const overLookingValue = [
-    { value: "Pool", label: "Pool" },
-    { value: "Garden", label: "Garden" },
-    { value: "Main Road", label: "Main Road" },
-    { value: "Club", label: "Club" },
-    { value: "Others", label: "Others" },
-    { value: "Hills", label: "Hills" },
-    { value: "Lake", label: "Lake" },
-    { value: "River", label: "River" },
-    { value: "Open Land", label: "Open Land" },
-    { value: "Forest", label: "Forest" },
-    { value: "City", label: "City" },
-  ];
-
-  const facingValue = [
-    "North",
-    "South",
-    "West",
-    "East",
-    "North-East",
-    "North-West",
-    "South-West",
-    "South-East",
-  ];
-  const locationAdvantage = [
-    { value: "Close To Metro Station", label: "Close To Metro Station" },
-    { value: "Close To School", label: "Close To School" },
-    { value: "Close To Hospital", label: "Close To Hospital" },
-    { value: "Close To Markit", label: "Close To Markit" },
-    { value: "Close To Railway Station", label: "Close To Railway Station" },
-    { value: "Close To Airport", label: "Close To Airport" },
-    { value: "Close To Mall", label: "Close To Mall" },
-    { value: "Close To Highway", label: "Close To Highway" },
-    { value: "Close To Bus Stop", label: "Close To Bus Stop" },
-    { value: "Close To IT Park", label: "Close To IT Park" },
-    { value: "Close To Industrial Area", label: "Close To Industrial Area" },
-    { value: "Close To University", label: "Close To University" },
-    { value: "Close To Park", label: "Close To Park" },
-    {
-      value: "Close To Government Office",
-      label: "Close To Government Office",
-    },
-    { value: "Close To Sport Complex", label: "Close To Sport Complex" },
-    { value: "Close To Commercial Hub", label: "Close To Commercial Hub" },
-    {
-      value: "Close To Entertainment Zone",
-      label: "Close To Entertainment Zone",
-    },
-  ];
-  const [localAdvantage, setLocalAdvantage] = useState([]);
-  const [overLooking, setOverLooking] = useState([]);
-
-  const handleChange = (localAdvantage) => {
-    setLocalAdvantage(localAdvantage || []);
-  };
-  const handleOverlookingChange = (localAdvantage) => {
-    setOverLooking(localAdvantage || []);
-  };
-
+const ResidentialLandForm = ({
+  handelChangeFormInputFields,
+  formInputValue,
+  cities,
+  localities,
+  setFormInputValue,
+}) => {
+  const {
+    showCities,
+    showLocalities,
+    handelToggleCityDropdown,
+    handelToggleLocalityDropdown,
+  } = usePostProperty();
   return (
     <React.Fragment>
       {/* property location */}
       <div className="mt-5">
         <Heading className="text-xl" text="Property location" />
-        <div className="flex flex-col gap-5 w-2/5">
+        <div className="flex flex-col gap-5 w-1/3">
+          <div className="relative">
+            <ListPropertyInput
+              handelToggleDropdown={handelToggleCityDropdown}
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+              type={"text"}
+              placeholder="Enter City"
+              label={"City"}
+              name="city"
+              className={
+                "rounded-md  border border-primary-color py-0 outline-none  "
+              }
+            />
+            {showCities && (
+              <Dropdown
+                showCities={showCities}
+                handelToggleCityDropdown={handelToggleCityDropdown}
+                className={"absolute -bottom-[11.5rem] rounded-md"}
+                name={"city"}
+                array={cities}
+                method={setFormInputValue}
+              />
+            )}
+          </div>
           <ListPropertyInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             type={"text"}
-            placeholder="Enter City"
-            label={"City"}
-            className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
-            }
-          />
-          <ListPropertyInput
-            type={"text"}
+            name="projectSocietyName"
             placeholder="Name of Project/Society"
             label={"Name of Project/Society"}
             className={
               " rounded-md  border border-primary-color py-0 outline-none  "
             }
           />
+          <div className="relative">
+            <ListPropertyInput
+              handelToggleDropdown={handelToggleLocalityDropdown}
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+              type={"text"}
+              placeholder="Enter Locality"
+              label={"Locality"}
+              name={"locality"}
+              className={
+                " rounded-md  border border-primary-color py-0 outline-none  "
+              }
+            />
+            {showLocalities && (
+              <Dropdown
+                handelToggleCityDropdown={handelToggleLocalityDropdown}
+                className={"absolute -bottom-[11.5rem] rounded-md"}
+                name={"locality"}
+                array={localities}
+                method={setFormInputValue}
+              />
+            )}
+          </div>
           <ListPropertyInput
-            type={"text"}
-            placeholder="Enter Locality"
-            label={"Locality"}
-            className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
-            }
-          />
-          <ListPropertyInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             type={"text"}
             placeholder="Enter House No/Flat No"
             label={"Address"}
+            name={"address"}
             className={
               " rounded-md  border border-primary-color py-0 outline-none  "
             }
@@ -114,69 +112,95 @@ const ResidentialLandForm = () => {
         <Heading className="text-xl " text="Property features" />
         <div className="grid grid-cols-3 grid-rows-2 gap-3">
           <ListPropertyInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             type={"number"}
             placeholder="Enter open sides"
             label={"Open Sides"}
+            name="openSides"
             className={
               "rounded-md  border border-primary-color py-0 outline-none  "
             }
           />
           <ListPropertyInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             type={"number"}
-            placeholder="Enter facing road width"
-            label={"Facing Road Width"}
+            placeholder="Enter facing road width in Metre"
+            label={"Facing Road Width in Metre"}
+            name="facingRoadWidth"
             className={
               "rounded-md  border border-primary-color py-0 outline-none  "
             }
           />
           <ListPropertySelectInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             label={"boundary wall:-"}
             className={"capitalize"}
+            name="boundaryWall"
             options={["true", "false"]}
           />
           <ListPropertySelectInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             label={"gated colony :-"}
             className={"capitalize"}
+            name="gatedColony"
             options={["true", "false"]}
           />
         </div>
       </div>
 
       {/* Area */}
-      <div className="mt-5">
+      <div className="mt-5 w-full ">
         <Heading className="text-xl " text="Area" />
-        <div className="flex flex-col gap-2 mt-1">
-          <AreaInputField type={"number"} label={"Plot Area"} />
-          <div className=" border-b border-border-color w-fit flex flex-col gap-[0.15rem]">
+        <div className="flex flex-col gap-2 mt-1 w-1/3">
+          <AreaInputField
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            type={"number"}
+            areaName="plotArea"
+            unitName="plotAreaUnit"
+            label={"Plot Area"}
+            className={"w-full"}
+          />
+          <div className="w-full border-b border-primary-color flex flex-col gap-[0.15rem]">
             <label htmlFor={""}>Length:-</label>
-            <div className="flex items-center gap-5">
+            <div className="flex items-center justify-between">
               <input
+                value={formInputValue.lengthDimension}
+                onChange={handelChangeFormInputFields}
                 type={"number"}
                 placeholder={"Enter length dimension"}
                 className={`capitalize py-1 outline-none`}
+                name="lengthDimension"
               />
               <input
-                defaultValue={"Yard"}
+                defaultValue={"ft"}
                 type={"text"}
-                placeholder={"Yard"}
+                placeholder={"ft"}
                 disabled
                 className={`capitalize py-1 w-10 outline-none border-none `}
               />
             </div>
           </div>
-          <div className=" border-b border-border-color w-fit flex flex-col gap-[0.15rem]">
+          <div className="w-full border-b border-primary-color flex flex-col gap-[0.15rem]">
             <label>Width:-</label>
-            <div className="flex items-center gap-5">
+            <div className="flex items-center justify-between">
               <input
+                value={formInputValue.widthDimension}
+                onChange={handelChangeFormInputFields}
+                name="widthDimension"
                 type={"number"}
                 placeholder={"Enter Width dimension"}
                 className={`capitalize py-1 outline-none`}
               />
 
               <input
-                defaultValue={"Yard"}
+                defaultValue={"ft"}
                 type={"text"}
-                placeholder={"Yard"}
+                placeholder={"ft"}
                 disabled
                 className={`capitalize py-1 w-10 outline-none border-none `}
               />
@@ -186,8 +210,11 @@ const ResidentialLandForm = () => {
       </div>
 
       {/* construction status */}
-      <div>
+      <div className="w-1/3 max-lg:w-2/5 max-md:w-2/3">
         <ListPropertySelectInput
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          name="possessionStatus"
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
         />
@@ -196,18 +223,24 @@ const ResidentialLandForm = () => {
       {/* price details */}
       <div className="mt-5">
         <Heading className="text-xl pb-1 " text="Price Details" />
-        <div className="w-fit capitalize flex flex-col gap-2">
+        <div className="w-1/3 max-lg:w-2/5 max-md:w-2/3 capitalize flex flex-col gap-2">
           <ListPropertyInput
-            className={"border w-fit"}
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            className={"border rounded-md w-fit border-primary-color "}
             placeholder={"Enter Total Price"}
             type={"number"}
             label={"expected price"}
+            name="expectedPrice"
           />
           <ListPropertyInput
-            className={"border w-fit"}
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            className={"border rounded-md w-fit border-primary-color"}
             placeholder={"Enter booking amount"}
             type={"number"}
             label={"booking amount"}
+            name="bookingAmount"
           />
           <div className="flex items-center gap-2 mt-2">
             <p>Price Negotiable:-</p>
@@ -215,18 +248,22 @@ const ResidentialLandForm = () => {
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="yesNegotiable">yes</label>
                 <input
+                  formInputValue={formInputValue}
+                  handelChangeFormInputFields={handelChangeFormInputFields}
                   type="radio"
                   id="yesNegotiable"
-                  name="negotiablePrice"
+                  name="priceNegotiable"
                   className="radio radio-accent"
                 />
               </div>
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="noNegotiable">No</label>
                 <input
+                  formInputValue={formInputValue}
+                  handelChangeFormInputFields={handelChangeFormInputFields}
                   id="noNegotiable "
                   type="radio"
-                  name="negotiablePrice"
+                  name="priceNegotiable"
                   className="radio radio-accent"
                 />
               </div>
@@ -235,41 +272,58 @@ const ResidentialLandForm = () => {
         </div>
       </div>
 
-      {/* construction status */}
-      <div className="mt-5">
-        <ListPropertySelectInput
-          label={"Possession Status:-"}
-          options={["under construction", "ready to move"]}
-        />
-      </div>
-
       {/* amenities */}
       <div className="mt-5">
         <Heading className="text-xl " text="Amenities" />
-        <div className="">
-          <div className="mt-1">
-            <h2 className="capitalize font-interRegular">
-              Location advantage:-
-            </h2>
-            <Select
-              className="w-1/3"
-              options={locationAdvantage}
-              onChange={handleChange}
-              value={localAdvantage}
-              isMulti
-            />
-          </div>
-          <div className="mt-1">
-            <h2 className="capitalize font-interRegular">Overlooking:-</h2>
-            <Select
-              className="w-1/3"
-              options={overLookingValue}
-              onChange={handleOverlookingChange}
-              value={overLooking}
-              isMulti
-            />
-          </div>
-          <ListPropertySelectInput label={"facing:-"} options={facingValue} />
+
+        <div className="mt-1 flex flex-col gap-2">
+          <h2 className="capitalize font-interRegular">Location advantage:-</h2>
+          <Select
+            styles={customStyles}
+            name="locationAdvantages"
+            className="w-1/3"
+            options={locationAdvantage}
+            onChange={(value) => {
+              let event = {
+                target: {
+                  name: "locationAdvantages",
+                  value: value,
+                },
+              };
+              handelChangeFormInputFields(event);
+            }}
+            value={formInputValue.locationAdvantages}
+            isMulti
+          />
+        </div>
+        <div className="mt-2 flex flex-col gap-2">
+          <h2 className="capitalize font-interRegular">Overlooking:-</h2>
+          <Select
+            styles={customStyles}
+            name="overlooking"
+            className="w-1/3"
+            options={overLookingValue}
+            onChange={(value) => {
+              let event = {
+                target: {
+                  name: "overlooking",
+                  value: value,
+                },
+              };
+              handelChangeFormInputFields(event);
+            }}
+            value={formInputValue.overlooking}
+            isMulti
+          />
+        </div>
+        <div className="w-1/3 mt-2">
+          <ListPropertySelectInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            label={"facing:-"}
+            name="facing"
+            options={facingValue}
+          />
         </div>
       </div>
     </React.Fragment>

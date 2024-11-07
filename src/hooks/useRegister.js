@@ -25,7 +25,6 @@ const useRegister = () => {
         "http://localhost:8080/users/register",
         data
       );
-      console.log(response);
 
       if (response?.statusText === "Created") {
         dispatch(handelSetToken(response?.data?.token));

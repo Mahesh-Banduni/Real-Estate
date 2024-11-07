@@ -43,6 +43,7 @@ import listProperty from "/images/listProperty.svg";
 import computer from "/images/computer.svg";
 import heart from "/images/heart_outline.svg";
 import profile from "/images/user.svg";
+import carpet from "/images/prayer.png";
 
 export {
   logo,
@@ -88,4 +89,5 @@ export {
   listProperty,
   computer,
   profile,
+  carpet,
 };

@@ -33,8 +33,10 @@ const useLogin = () => {
         navigate("/");
       }
     } catch (error) {
-      console.log(` ${error}`);
-      // alert(error.message);
+      console.log(error);
+      if (error?.status === 400) {
+        alert(error?.response?.data?.error);
+      }
       // reset();
     }
   };

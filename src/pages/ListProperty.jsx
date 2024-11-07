@@ -17,6 +17,7 @@ import {
   CommercialShopForm,
   CommercialShowroomForm,
   ExchangePropertyTypesDropDown,
+  Loader,
 } from "../components";
 
 const ListProperty = () => {
@@ -27,7 +28,10 @@ const ListProperty = () => {
     localities,
     setFormInputValue,
     handelPostProperty,
+    loading,
   } = usePostProperty();
+
+  console.log(loading);
 
   return (
     <div className="w-11/12 mx-auto">
@@ -81,7 +85,7 @@ const ListProperty = () => {
 
           {formInputValue?.propertyPurpose === "sale" ||
           formInputValue?.propertyPurpose === "partnership" ? (
-            <div className="w-[18rem] flex">
+            <div className="w-1/3 flex">
               <SellPropertyTypeForm
                 formInputValue={formInputValue}
                 onPropertyTypeChange={handelChangeFormInputFields}
@@ -101,7 +105,7 @@ const ListProperty = () => {
 
           {/*-------------------------you can change the form from here------------------------- */}
 
-          {formInputValue.propertyType === "Residential Flat/Appartment" &&
+          {formInputValue.propertyType === "Residential Flat/Apartment" &&
           (formInputValue?.propertyPurpose === "sale" ||
             formInputValue.propertyPurpose === "partnership") ? (
             <ResidentialFlatForm
@@ -114,12 +118,15 @@ const ListProperty = () => {
           ) : (
             ""
           )}
-          {formInputValue.propertyType === "Residential Land" &&
+          {formInputValue.propertyType === "Residential Plot/Land" &&
           (formInputValue.propertyPurpose === "sale" ||
             formInputValue.propertyPurpose === "partnership") ? (
             <ResidentialLandForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
+              cities={cities}
+              localities={localities}
+              setFormInputValue={setFormInputValue}
             />
           ) : (
             ""
@@ -130,6 +137,9 @@ const ListProperty = () => {
             <ResidentialHouseForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
+              cities={cities}
+              localities={localities}
+              setFormInputValue={setFormInputValue}
             />
           ) : (
             ""
@@ -141,16 +151,22 @@ const ListProperty = () => {
             <CommercialOfficeSpaceForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
+              cities={cities}
+              localities={localities}
+              setFormInputValue={setFormInputValue}
             />
           ) : (
             ""
           )}
-          {formInputValue?.propertyType === "Commercial Plot" &&
+          {formInputValue?.propertyType === "Commercial Plot/Land" &&
           (formInputValue.propertyPurpose === "sale" ||
             formInputValue.propertyPurpose === "partnership") ? (
             <CommercialPlotForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
+              cities={cities}
+              localities={localities}
+              setFormInputValue={setFormInputValue}
             />
           ) : (
             ""
@@ -161,6 +177,9 @@ const ListProperty = () => {
             <CommercialShopForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
+              cities={cities}
+              localities={localities}
+              setFormInputValue={setFormInputValue}
             />
           ) : (
             ""
@@ -171,13 +190,15 @@ const ListProperty = () => {
             <CommercialShowroomForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
+              cities={cities}
+              localities={localities}
+              setFormInputValue={setFormInputValue}
             />
           ) : (
             ""
           )}
 
           {/* property description */}
-
           <div className="mt-5">
             <Heading
               text="What makes your property unique"
@@ -189,7 +210,7 @@ const ListProperty = () => {
             />
             <textarea
               onChange={handelChangeFormInputFields}
-              className="border-2 rounded-md border-border-color p-2 w-2/5 outline-primary-color"
+              className="border-2 rounded-md p-2 w-1/3 outline-primary-color border-primary-color"
               placeholder="Write your properties unique features like garden etc"
               name="description"
               value={formInputValue?.description}
@@ -213,14 +234,19 @@ const ListProperty = () => {
           </div>
 
           {/* post property form */}
-          <Button
-            type={"submit"}
-            className={
-              "flex gap-1 items-center px-28 py-5 bg-green-btn text-white font-interMedium w-fit capitalize rounded "
-            }
-          >
-            post your property {"->"}
-          </Button>
+
+          {loading ? (
+            <h1>Property is posting...</h1>
+          ) : (
+            <Button
+              type={"submit"}
+              className={
+                "flex gap-1 items-center px-28 py-5 bg-green-btn text-white font-interMedium w-fit capitalize rounded "
+              }
+            >
+              post your property {"->"}
+            </Button>
+          )}
         </form>
       </div>
     </div>

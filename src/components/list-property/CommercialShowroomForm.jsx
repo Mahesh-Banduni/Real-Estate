@@ -1,89 +1,107 @@
 import React, { useState } from "react";
 import Select from "react-select";
 
-import { Heading, ListPropertyInput, ListPropertySelectInput } from "../index";
+import {
+  AreaInputField,
+  Dropdown,
+  Heading,
+  ListPropertyInput,
+  ListPropertySelectInput,
+} from "../index";
+import {
+  commercialLocationAdvantage,
+  commercialOverLookingValue,
+  customStyles,
+  facingValue,
+} from "../../utils/constant";
+import usePostProperty from "../../hooks/usePostProperty";
 
-const CommercialShowroomForm = () => {
-  const [localAdvantage, setLocalAdvantage] = useState([]);
-  const [overLooking, setOverLooking] = useState([]);
-  const locationAdvantage = [
-    { value: "Reserved Parking", label: "Reserved Parking" },
-    { value: "Visitor Parking", label: "Visitor Parking" },
-    { value: "Lift", label: "Lift" },
-    { value: "Power Backup", label: "Power Backup" },
-    { value: "Gas Pipeline", label: "Gas Pipeline" },
-    { value: "Park", label: "Park" },
-    { value: "Kids Play Area", label: "Kids Play Area" },
-    { value: "Gymnasium", label: "Gymnasium" },
-    { value: "Swimming Pool", label: "Swimming Pool" },
-    { value: "Club House", label: "Club House" },
-    { value: "Air Conditioned", label: "Air Conditioned" },
-    { value: "Vaastu Compliance", label: "Vaastu Compliance" },
-    { value: "Internet/Wi-Fi", label: "Internet/Wi-Fi" },
-    {
-      value: "Security Personnel",
-      label: "Security Personnel",
-    },
-    { value: "CCTV Camera", label: "CCTV Camera" },
-  ];
-  const facingValue = [
-    "North",
-    "South",
-    "West",
-    "East",
-    "North-East",
-    "North-West",
-    "South-West",
-    "South-East",
-  ];
-  const overLookingValue = [
-    { value: "Pool", label: "Pool" },
-    { value: "Garden", label: "Garden" },
-    { value: "Main Road", label: "Main Road" },
-  ];
+const CommercialShowroomForm = ({
+  handelChangeFormInputFields,
+  formInputValue,
+  cities,
+  localities,
+  setFormInputValue,
+}) => {
+  const {
+    showCities,
+    handelToggleCityDropdown,
+    handelToggleLocalityDropdown,
+    showLocalities,
+  } = usePostProperty();
 
-  const handleChange = (localAdvantage) => {
-    setLocalAdvantage(localAdvantage || []);
-  };
-
-  const handleOverlookingChange = (localAdvantage) => {
-    setOverLooking(localAdvantage || []);
-  };
   return (
     <React.Fragment>
       {/* property location */}
       <div className="mt-5">
         <Heading className="text-xl" text="Property location" />
-        <div className="flex flex-col gap-5 w-2/5">
-          <ListPropertyInput
-            type={"text"}
-            placeholder="Enter City"
-            label={"City"}
-            className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
-            }
-          />
+        <div className="flex flex-col gap-5 w-1/3">
+          <div className="relative">
+            <ListPropertyInput
+              handelToggleDropdown={handelToggleCityDropdown}
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+              type={"text"}
+              placeholder="Enter City"
+              label={"City"}
+              name="city"
+              className={
+                "rounded-md  border border-primary-color py-0 outline-none  "
+              }
+            />
+            {showCities && (
+              <Dropdown
+                showCities={showCities}
+                handelToggleCityDropdown={handelToggleCityDropdown}
+                className={"absolute -bottom-[15rem] rounded-md"}
+                name={"city"}
+                array={cities}
+                method={setFormInputValue}
+              />
+            )}
+          </div>
 
+          <div className="relative">
+            <ListPropertyInput
+              handelToggleDropdown={handelToggleLocalityDropdown}
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+              type={"text"}
+              placeholder="Enter Locality"
+              label={"Locality"}
+              name={"locality"}
+              className={
+                " rounded-md  border border-primary-color py-0 outline-none  "
+              }
+            />
+            {showLocalities && (
+              <Dropdown
+                handelToggleCityDropdown={handelToggleLocalityDropdown}
+                className={"absolute -bottom-[15rem] rounded-md"}
+                name={"locality"}
+                array={localities}
+                method={setFormInputValue}
+              />
+            )}
+          </div>
           <ListPropertyInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             type={"text"}
-            placeholder="Enter Locality"
-            label={"Locality"}
-            className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
-            }
-          />
-          <ListPropertyInput
-            type={"text"}
+            name="projectMarketName"
             placeholder="Enter Market Name"
-            label={"market Name"}
+            label={"Market Name"}
             className={
               "rounded-md  border border-primary-color py-0 outline-none  "
             }
           />
           <ListPropertyInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             type={"text"}
-            placeholder="Enter shope address"
+            placeholder="Enter Showroom address"
             label={"Address"}
+            name={"address"}
             className={
               "rounded-md  border border-primary-color py-0 outline-none  "
             }
@@ -96,6 +114,9 @@ const CommercialShowroomForm = () => {
         <Heading className="text-xl " text="Property features" />
         <div className="grid grid-cols-3 grid-rows-2 gap-3">
           <ListPropertySelectInput
+            name="floorNumber"
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             label={"Floor no. :-"}
             className={"capitalize"}
             options={[
@@ -118,6 +139,9 @@ const CommercialShowroomForm = () => {
             ]}
           />
           <ListPropertyInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            name="totalFloor"
             type={"number"}
             placeholder="enter total floors:-"
             label={"Total Floors"}
@@ -126,6 +150,9 @@ const CommercialShowroomForm = () => {
             }
           />
           <ListPropertySelectInput
+            name="furnished"
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             label={"furnished status:-"}
             className={"capitalize"}
             options={["furnished", "unfurnished", "semi-furnished"]}
@@ -136,18 +163,22 @@ const CommercialShowroomForm = () => {
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="yesFacing">Yes</label>
                 <input
+                  defaultValue={"yes"}
+                  onChange={handelChangeFormInputFields}
                   type="radio"
                   id="yesFacing"
-                  name="MainRoadFacing"
+                  name="mainRoadFacing"
                   className="radio radio-accent"
                 />
               </div>
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="noFacing">No</label>
                 <input
+                  defaultValue={"no"}
+                  onChange={handelChangeFormInputFields}
                   id="noFacing "
                   type="radio"
-                  name="MainRoadFacing"
+                  name="mainRoadFacing"
                   className="radio radio-accent"
                 />
               </div>
@@ -159,18 +190,22 @@ const CommercialShowroomForm = () => {
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="yesPersonalBathroom">Yes</label>
                 <input
+                  defaultValue={"yes"}
+                  onChange={handelChangeFormInputFields}
                   type="radio"
                   id="yesPersonalBathroom"
-                  name="PersonalBathroom"
+                  name="personalWashroom"
                   className="radio radio-accent"
                 />
               </div>
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="noPersonalBathroom">No</label>
                 <input
-                  id="noPersonalBathroom "
+                  defaultValue={"no"}
+                  onChange={handelChangeFormInputFields}
                   type="radio"
-                  name="PersonalBathroom"
+                  id="yesPersonalBathroom"
+                  name="personalWashroom"
                   className="radio radio-accent"
                 />
               </div>
@@ -179,20 +214,50 @@ const CommercialShowroomForm = () => {
         </div>
       </div>
 
+      {/* Property Area */}
+      <div className="mt-5">
+        <Heading className="text-xl " text="Area" />
+        <div className="flex flex-col justify-between w-1/3 mt-1 ">
+          <AreaInputField
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            areaName="carpetArea"
+            unitName="carpetAreaUnit"
+            label={"Carpet Area"}
+            type={"number"}
+            className={"w-full"}
+          />
+          <AreaInputField
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            areaName="coveredArea"
+            unitName="coveredAreaUnit"
+            label={"covered Area"}
+            type={"number"}
+            className={"w-full"}
+          />
+        </div>
+      </div>
+
       {/* property availability */}
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 w-1/3">
         <ListPropertySelectInput
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          name="possessionStatus"
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
         />
-        <div className="flex items-center gap-5 mb-4">
+        <div className="flex items-center gap-5 mb-3">
           <h1>Currently Leased Out:-</h1>
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-1">
               <label htmlFor="yes-Currently-Leased-Out">Yes</label>
               <input
+                defaultValue={"yes"}
+                onChange={handelChangeFormInputFields}
                 id="yes-Currently-Leased-Out"
-                name="Currently-Leased-Out"
+                name="currentlyLeasedOut"
                 type="radio"
                 className="radio radio-success"
               />
@@ -200,8 +265,10 @@ const CommercialShowroomForm = () => {
             <div className="flex items-center gap-1">
               <label htmlFor="No-Currently-Leased-Out">No</label>
               <input
+                defaultValue={"no"}
+                onChange={handelChangeFormInputFields}
                 id="No-Currently-Leased-Out"
-                name="Currently-Leased-Out"
+                name="currentlyLeasedOut"
                 type="radio"
                 className="radio radio-success"
               />
@@ -213,37 +280,47 @@ const CommercialShowroomForm = () => {
       {/* price details */}
       <div className="mt-5">
         <Heading className="text-xl pb-1 " text="Price Details" />
-        <div className="w-fit capitalize flex flex-col gap-2">
+        <div className="w-1/3 capitalize flex flex-col gap-2">
           <ListPropertyInput
-            className={"border w-fit"}
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            className={"border w-fit border-primary-color rounded-md"}
             placeholder={"Enter Total Price"}
             type={"number"}
             label={"expected price"}
+            name="expectedPrice"
           />
           <ListPropertyInput
-            className={"border w-fit"}
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            className={"border w-fit border-primary-color rounded-md"}
             placeholder={"Enter booking amount"}
             type={"number"}
             label={"booking amount"}
+            name="bookingAmount"
           />
           <div className="flex items-center gap-2 mt-2">
             <p>Price Negotiable:-</p>
             <div className="flex items-center gap-5">
               <div className="flex items-center justify-center gap-1">
-                <label htmlFor="yesNegotiable">Yes</label>
+                <label htmlFor="yesNegotiable">yes</label>
                 <input
+                  defaultValue={"yes"}
+                  onChange={handelChangeFormInputFields}
                   type="radio"
                   id="yesNegotiable"
-                  name="negotiablePrice"
+                  name="priceNegotiable"
                   className="radio radio-accent"
                 />
               </div>
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="noNegotiable">No</label>
                 <input
+                  defaultValue={"no"}
+                  onChange={handelChangeFormInputFields}
                   id="noNegotiable "
                   type="radio"
-                  name="negotiablePrice"
+                  name="priceNegotiable"
                   className="radio radio-accent"
                 />
               </div>
@@ -255,28 +332,55 @@ const CommercialShowroomForm = () => {
       {/* amenities */}
       <div className="mt-5">
         <Heading className="text-xl " text="Amenities" />
-        <div className="">
-          <div className="mt-1">
-            <h2 className="capitalize font-interRegular">Amenities:-</h2>
-            <Select
-              className="w-1/3"
-              options={locationAdvantage}
-              onChange={handleChange}
-              value={localAdvantage}
-              isMulti
-            />
-          </div>
-          <div className="mt-1">
-            <h2 className="capitalize font-interRegular">Overlooking:-</h2>
-            <Select
-              className="w-1/3"
-              options={overLookingValue}
-              onChange={handleOverlookingChange}
-              value={overLooking}
-              isMulti
-            />
-          </div>
-          <ListPropertySelectInput label={"facing:-"} options={facingValue} />
+        <div className="mt-1">
+          <h2 className="capitalize font-interRegular">Amenities:-</h2>
+          <Select
+            styles={customStyles}
+            name="locationAdvantages"
+            className="w-1/3"
+            options={commercialLocationAdvantage}
+            onChange={(value) => {
+              let event = {
+                target: {
+                  name: "locationAdvantages",
+                  value: value,
+                },
+              };
+              handelChangeFormInputFields(event);
+            }}
+            value={formInputValue.locationAdvantages}
+            isMulti
+          />
+        </div>
+        <div className="mt-1">
+          <h2 className="capitalize font-interRegular">Overlooking:-</h2>
+          <Select
+            styles={customStyles}
+            name="overlooking"
+            className="w-1/3"
+            options={commercialOverLookingValue}
+            onChange={(value) => {
+              let event = {
+                target: {
+                  name: "overlooking",
+                  value: value,
+                },
+              };
+              handelChangeFormInputFields(event);
+            }}
+            value={formInputValue.overlooking}
+            isMulti
+          />
+        </div>
+        <div className="w-1/3">
+          <ListPropertySelectInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            label={"facing:-"}
+            name="facing"
+            className
+            options={facingValue}
+          />
         </div>
       </div>
     </React.Fragment>

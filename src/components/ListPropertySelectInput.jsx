@@ -10,7 +10,7 @@ const ListPropertySelectInput = React.memo(
     name,
   }) => {
     return (
-      <div className="flex flex-col gap-2 w-fit">
+      <div className="flex flex-col gap-2 w-full">
         {label && (
           <label
             className={`${
@@ -28,9 +28,9 @@ const ListPropertySelectInput = React.memo(
           onChange={handelChangeFormInputFields}
           value={formInputValue[name]}
           name={name}
-          className={`${className} rounded-md text-[#4B4B4B] py-0 text-lg bg-[#F2F2F2] select select-ghost max-[1120px]:w-full w-[20rem] outline-none border-none active:border-none hover:border-none active:outline-none hover:outline-none max-sm:text-sm `}
+          className={`${className} mt-0 rounded-md text-[#4B4B4B] py-0 text-lg bg-[#F2F2F2] select select-ghost max-[1120px]:w-full w-full outline-none border-none active:border-none hover:border-none active:outline-none hover:outline-none max-sm:text-sm `}
         >
-          <option defaultValue={""} className="z-10" selected>
+          <option defaultValue={""} className="z-10">
             Select Options
           </option>
           {options?.map((option, index) => {

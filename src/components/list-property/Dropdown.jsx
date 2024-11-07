@@ -9,6 +9,8 @@ const Dropdown = ({
   className,
   handelToggleCityDropdown,
 }) => {
+  console.log(array);
+
   return (
     <div
       className={`h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color ${className} outline-none`}
@@ -16,7 +18,7 @@ const Dropdown = ({
       <ul
         className={`w-full bg-white font-interRegular text-sm flex flex-col h-full`}
       >
-        {array.map((item, index) => {
+        {array?.map((item, index) => {
           return (
             <li
               className="w-full cursor-pointer border-b-2 p-3 border-primary-color transition-all text-slate-800 hover:bg-gray-200"
