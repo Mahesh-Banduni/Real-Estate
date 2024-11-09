@@ -133,22 +133,62 @@ const ResidentialLandForm = ({
               "rounded-md  border border-primary-color py-0 outline-none  "
             }
           />
-          <ListPropertySelectInput
-            formInputValue={formInputValue}
-            handelChangeFormInputFields={handelChangeFormInputFields}
-            label={"boundary wall:-"}
-            className={"capitalize"}
-            name="boundaryWall"
-            options={["true", "false"]}
-          />
-          <ListPropertySelectInput
-            formInputValue={formInputValue}
-            handelChangeFormInputFields={handelChangeFormInputFields}
-            label={"gated colony :-"}
-            className={"capitalize"}
-            name="gatedColony"
-            options={["true", "false"]}
-          />
+
+          <div className="flex items-center gap-2 ">
+            <p>Boundary Wall:-</p>
+            <div className="flex items-center gap-5">
+              <div className="flex items-center justify-center gap-1">
+                <label htmlFor="yesNegotiable">yes</label>
+                <input
+                  defaultValue={"yes"}
+                  onChange={handelChangeFormInputFields}
+                  type="radio"
+                  id="yesNegotiable"
+                  name="boundaryWall"
+                  className="radio radio-accent"
+                />
+              </div>
+              <div className="flex items-center justify-center gap-1">
+                <label htmlFor="noNegotiable">No</label>
+                <input
+                  defaultValue={"no"}
+                  onChange={handelChangeFormInputFields}
+                  id="noNegotiable "
+                  type="radio"
+                  name="boundaryWall"
+                  className="radio radio-accent"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 ">
+            <p>Gated Colony:-</p>
+            <div className="flex items-center gap-5">
+              <div className="flex items-center justify-center gap-1">
+                <label htmlFor="yesNegotiable">yes</label>
+                <input
+                  defaultValue={"yes"}
+                  onChange={handelChangeFormInputFields}
+                  type="radio"
+                  id="yesNegotiable"
+                  name="gatedColony"
+                  className="radio radio-accent"
+                />
+              </div>
+              <div className="flex items-center justify-center gap-1">
+                <label htmlFor="noNegotiable">No</label>
+                <input
+                  defaultValue={"no"}
+                  onChange={handelChangeFormInputFields}
+                  id="noNegotiable "
+                  type="radio"
+                  name="gatedColony"
+                  className="radio radio-accent"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -212,11 +252,17 @@ const ResidentialLandForm = ({
       {/* construction status */}
       <div className="w-1/3 max-lg:w-2/5 max-md:w-2/3">
         <ListPropertySelectInput
+          name="ownership"
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
-          name="possessionStatus"
-          label={"Possession Status:-"}
-          options={["under construction", "ready to move"]}
+          label={"Ownership Status :-"}
+          className={"capitalize"}
+          options={[
+            "Freehold",
+            "Leasehold",
+            "Power Of Attorney",
+            "Co-operative Society",
+          ]}
         />
       </div>
 

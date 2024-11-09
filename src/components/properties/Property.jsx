@@ -22,7 +22,7 @@ const Property = ({ item }) => {
     <div className=" border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-1 max-sm:grid-rows-property-card ">
       <div className=" relative w-full p-2 h-full max-lg:row-span-2 max-sm:row-span-1">
         <div className="w-full max-lg:h-full">
-          <img className="h-full w-full " src={propertyImage} alt="" />
+          <img className="h-full w-full " src={item?.images[0]} alt="" />
           <span className="absolute z-10 text-xs top-[0.8rem] left-[0.8rem] bg-[#42423E] px-3 py-[0.4rem] text-white max-lg:hidden">
             {item?.images?.length}+ Images
           </span>
@@ -32,8 +32,9 @@ const Property = ({ item }) => {
           <span className="text-sm">Updated 3 days ago.</span>
         </div> */}
       </div>
-      <>
-        {item.propertyType === "Residential Flat/Appartment" && (
+      <div>
+        {(item.propertyType === "Residential Flat/Appartment" ||
+          item.propertyType === "Commercial Office Space") && (
           <ResidentialFlatProperties item={item} />
         )}
         {(item.propertyType === "Residential Plot/Land" ||
@@ -43,10 +44,11 @@ const Property = ({ item }) => {
         {item.propertyType === "Residential House" && (
           <ResidentialHouseProperties item={item} />
         )}
-        {item.propertyType === "Commercial Showroom" && (
+        {(item.propertyType === "Commercial Showroom" ||
+          item.propertyType === "Commercial Shop") && (
           <CommercialShowroomProperties item={item} />
         )}
-      </>
+      </div>
 
       <div className=" w-full bg-price-card flex flex-col justify-between p-2 max-xl:mb-2 box-border max-lg:justify-start max-lg:h-fit max-lg:gap-5 ">
         <div className="text-center">

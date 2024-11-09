@@ -20,10 +20,16 @@ const CommercialShopForm = ({
   handelChangeFormInputFields,
   formInputValue,
   cities,
+  localities,
   setFormInputValue,
 }) => {
-  const { showCities, handelToggleCityDropdown } = usePostProperty();
-
+  const {
+    showCities,
+    showLocalities,
+    handelToggleCityDropdown,
+    handelToggleLocalityDropdown,
+  } = usePostProperty();
+  const totalFloors = Array.from({ length: 250 }, (_, i) => i + 1);
   return (
     <React.Fragment>
       {/* property location */}
@@ -56,17 +62,31 @@ const CommercialShopForm = ({
               ""
             )}
           </div>
-          <ListPropertyInput
-            formInputValue={formInputValue}
-            handelChangeFormInputFields={handelChangeFormInputFields}
-            type={"text"}
-            name="projectSocietyName"
-            placeholder="Name of Project/Society"
-            label={"Name of Project/Society"}
-            className={
-              " rounded-md border border-primary-color py-0 outline-none  "
-            }
-          />
+
+          <div className="relative">
+            <ListPropertyInput
+              handelToggleDropdown={handelToggleLocalityDropdown}
+              formInputValue={formInputValue}
+              handelChangeFormInputFields={handelChangeFormInputFields}
+              type={"text"}
+              placeholder="Enter Locality"
+              label={"Locality"}
+              name={"locality"}
+              className={
+                " rounded-md  border border-primary-color py-0 outline-none  "
+              }
+            />
+            {showLocalities && (
+              <Dropdown
+                handelToggleCityDropdown={handelToggleLocalityDropdown}
+                className={"absolute -bottom-[15rem] rounded-md"}
+                name={"locality"}
+                array={localities}
+                method={setFormInputValue}
+              />
+            )}
+          </div>
+
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
@@ -97,40 +117,26 @@ const CommercialShopForm = ({
         <Heading className="text-xl " text="Property features" />
         <div className="grid grid-cols-3 grid-rows-2 gap-3">
           <ListPropertySelectInput
+            name="floorNumber"
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            name="floorNumber"
             label={"Floor no. :-"}
             className={"capitalize"}
             options={[
               "lower basement",
               "upper basement",
               "ground",
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              "12<",
+              ...totalFloors,
+              "<250",
             ]}
           />
-          <ListPropertyInput
+          <ListPropertySelectInput
+            name="totalFloor"
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            name="totalFloor"
-            type={"number"}
-            placeholder="enter total floors"
-            label={"Total Floors"}
-            className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
-            }
+            label={"Total Floors:-"}
+            className={"capitalize"}
+            options={totalFloors}
           />
           <ListPropertySelectInput
             formInputValue={formInputValue}
@@ -223,8 +229,9 @@ const CommercialShopForm = ({
       </div>
 
       {/* property availability */}
-      <div className="flex items-end gap-5 w-full">
-        <div className="w-1/3">
+      <div className="flex flex-col gap-5 w-1/3">
+        <Heading className="text-xl pb-1 " text="property availability" />
+        <div className="w-full">
           <ListPropertySelectInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
@@ -234,7 +241,7 @@ const CommercialShopForm = ({
             className="w-full"
           />
         </div>
-        <div className="flex items-center gap-5 mb-3">
+        <div className="flex items-center gap-5 w-full">
           <h1>Currently Leased Out:-</h1>
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-1">
@@ -261,6 +268,19 @@ const CommercialShopForm = ({
             </div>
           </div>
         </div>
+        <ListPropertySelectInput
+          name="ownership"
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          label={"Ownership Status :-"}
+          className={"capitalize"}
+          options={[
+            "Freehold",
+            "Leasehold",
+            "Power Of Attorney",
+            "Co-operative Society",
+          ]}
+        />
       </div>
 
       {/* price details */}

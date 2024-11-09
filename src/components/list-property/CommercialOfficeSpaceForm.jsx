@@ -31,6 +31,8 @@ const CommercialOfficeSpaceForm = ({
     showLocalities,
   } = usePostProperty();
 
+  const totalFloors = Array.from({ length: 250 }, (_, i) => i + 1);
+
   return (
     <div>
       {/* property location */}
@@ -61,18 +63,6 @@ const CommercialOfficeSpaceForm = ({
               />
             )}
           </div>
-
-          <ListPropertyInput
-            formInputValue={formInputValue}
-            handelChangeFormInputFields={handelChangeFormInputFields}
-            type={"text"}
-            name="projectSocietyName"
-            placeholder="Name of Project/Society"
-            label={"Name of Project/Society"}
-            className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
-            }
-          />
 
           <div className="relative">
             <ListPropertyInput
@@ -161,19 +151,17 @@ const CommercialOfficeSpaceForm = ({
               "lower basement",
               "upper basement",
               "ground",
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
+              ...totalFloors,
+              "<250",
             ]}
+          />
+          <ListPropertySelectInput
+            name="totalFloor"
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            label={"Total Floors:-"}
+            className={"capitalize"}
+            options={totalFloors}
           />
           <ListPropertySelectInput
             formInputValue={formInputValue}
@@ -245,13 +233,27 @@ const CommercialOfficeSpaceForm = ({
       </div>
 
       {/* property availability */}
-      <div className="flex flex-col gap-5 w-1/3 ">
+      <div className="flex flex-col w-1/3 mt-5 gap-2 ">
+        <Heading className="text-xl pb-1 " text="property availability" />
         <ListPropertySelectInput
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
           name="possessionStatus"
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
+        />
+        <ListPropertySelectInput
+          name="ownership"
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          label={"Ownership Status :-"}
+          className={"capitalize"}
+          options={[
+            "Freehold",
+            "Leasehold",
+            "Power Of Attorney",
+            "Co-operative Society",
+          ]}
         />
         <div className="flex items-center gap-5">
           <h1>Currently Leased Out:-</h1>

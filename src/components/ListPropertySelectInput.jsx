@@ -13,11 +13,7 @@ const ListPropertySelectInput = React.memo(
       <div className="flex flex-col gap-2 w-full">
         {label && (
           <label
-            className={`${
-              label === "Possession Status:-"
-                ? "text-xl font-interSemiBold text-heading-color"
-                : "font-interRegular text-[#4B4B4B]"
-            } capitalize text-base max-sm:text-base ${className}`}
+            className={`font-interRegular text-[#4B4B4B] capitalize text-base max-sm:text-base ${className}`}
             htmlFor={label}
           >
             {label}

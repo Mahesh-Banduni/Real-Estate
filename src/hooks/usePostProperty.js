@@ -49,7 +49,7 @@ const usePostProperty = () => {
     lengthDimension: "",
     widthDimension: "",
     dimensionUnit: "ft",
-    cornerPlot: false,
+    cornerPlot: "",
     entranceWidth: "",
     entranceWidthUnit: "",
     ownership: "",

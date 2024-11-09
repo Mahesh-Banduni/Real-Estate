@@ -179,6 +179,33 @@ const CommercialPlotForm = ({
               </div>
             </div>
           </div>
+          <div className="flex items-center gap-2 mt-2">
+            <p>Corner Plot:-</p>
+            <div className="flex items-center gap-5">
+              <div className="flex items-center justify-center gap-1">
+                <label htmlFor="yesNegotiable">yes</label>
+                <input
+                  defaultValue={"yes"}
+                  onChange={handelChangeFormInputFields}
+                  type="radio"
+                  id="yesNegotiable"
+                  name="cornerPlot"
+                  className="radio radio-accent"
+                />
+              </div>
+              <div className="flex items-center justify-center gap-1">
+                <label htmlFor="noNegotiable">No</label>
+                <input
+                  defaultValue={"no"}
+                  onChange={handelChangeFormInputFields}
+                  id="noNegotiable "
+                  type="radio"
+                  name="cornerPlot"
+                  className="radio radio-accent"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

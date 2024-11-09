@@ -214,14 +214,28 @@ const ResidentialHouseForm = ({
         </div>
       </div>
 
-      {/* construction status */}
-      <div className="w-1/3">
+      {/* property availability */}
+      <div className="w-1/3 max-lg:w-2/5 max-md:w-2/3">
+        <Heading className="text-xl pb-1 " text="property availability" />
         <ListPropertySelectInput
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
           name="possessionStatus"
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
+        />
+        <ListPropertySelectInput
+          name="ownership"
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          label={"Ownership Status :-"}
+          className={"capitalize"}
+          options={[
+            "Freehold",
+            "Leasehold",
+            "Power Of Attorney",
+            "Co-operative Society",
+          ]}
         />
       </div>
 
@@ -253,8 +267,8 @@ const ResidentialHouseForm = ({
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="yesNegotiable">yes</label>
                 <input
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
+                  defaultValue={"yes"}
+                  onChange={handelChangeFormInputFields}
                   type="radio"
                   id="yesNegotiable"
                   name="priceNegotiable"
@@ -264,8 +278,8 @@ const ResidentialHouseForm = ({
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="noNegotiable">No</label>
                 <input
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
+                  defaultValue={"no"}
+                  onChange={handelChangeFormInputFields}
                   id="noNegotiable "
                   type="radio"
                   name="priceNegotiable"

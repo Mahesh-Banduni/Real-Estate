@@ -30,6 +30,8 @@ const CommercialShowroomForm = ({
     showLocalities,
   } = usePostProperty();
 
+  const totalFloors = Array.from({ length: 250 }, (_, i) => i + 1);
+
   return (
     <React.Fragment>
       {/* property location */}
@@ -106,6 +108,25 @@ const CommercialShowroomForm = ({
               "rounded-md  border border-primary-color py-0 outline-none  "
             }
           />
+          <ListPropertySelectInput
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            label={"Land Zone"}
+            name="landZone"
+            options={[
+              "Industrial",
+              "Commercial",
+              "Residential",
+              "Transport and Communication",
+              "Public Utilities",
+              "Public and Semi Public Use",
+              "Open Spaces",
+              "Agriculture Zone",
+              "Special Economic Zone",
+              "Natural Conservation Zone",
+              "Government Use",
+            ]}
+          />
         </div>
       </div>
 
@@ -123,31 +144,17 @@ const CommercialShowroomForm = ({
               "lower basement",
               "upper basement",
               "ground",
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
-              "12<",
+              ...totalFloors,
+              "<250",
             ]}
           />
-          <ListPropertyInput
+          <ListPropertySelectInput
+            name="totalFloor"
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            name="totalFloor"
-            type={"number"}
-            placeholder="enter total floors:-"
-            label={"Total Floors"}
-            className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
-            }
+            label={"Total Floors:-"}
+            className={"capitalize"}
+            options={totalFloors}
           />
           <ListPropertySelectInput
             name="furnished"
@@ -230,6 +237,15 @@ const CommercialShowroomForm = ({
           <AreaInputField
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
+            type={"number"}
+            areaName="plotArea"
+            unitName="plotAreaUnit"
+            label={"Plot Area"}
+            className={"w-full"}
+          />
+          <AreaInputField
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
             areaName="coveredArea"
             unitName="coveredAreaUnit"
             label={"covered Area"}
@@ -240,7 +256,8 @@ const CommercialShowroomForm = ({
       </div>
 
       {/* property availability */}
-      <div className="flex flex-col gap-5 w-1/3">
+      <div className="flex flex-col gap-2 w-1/3">
+        <Heading className="text-xl pb-1 " text="property availability" />
         <ListPropertySelectInput
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
@@ -275,6 +292,20 @@ const CommercialShowroomForm = ({
             </div>
           </div>
         </div>
+
+        <ListPropertySelectInput
+          name="ownership"
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          label={"Ownership Status :-"}
+          className={"capitalize"}
+          options={[
+            "Freehold",
+            "Leasehold",
+            "Power Of Attorney",
+            "Co-operative Society",
+          ]}
+        />
       </div>
 
       {/* price details */}

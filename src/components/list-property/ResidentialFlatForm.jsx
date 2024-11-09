@@ -32,6 +32,8 @@ const ResidentialFlatForm = ({
     handelToggleLocalityDropdown,
   } = usePostProperty();
 
+  const totalFloors = Array.from({ length: 250 }, (_, i) => i + 1);
+
   return (
     <div className="flex flex-col gap-2">
       <TotalFlats
@@ -151,19 +153,17 @@ const ResidentialFlatForm = ({
               "lower basement",
               "upper basement",
               "ground",
-              1,
-              2,
-              3,
-              4,
-              5,
-              6,
-              7,
-              8,
-              9,
-              10,
-              11,
-              12,
+              ...totalFloors,
+              "<250",
             ]}
+          />
+          <ListPropertySelectInput
+            name="totalFloor"
+            formInputValue={formInputValue}
+            handelChangeFormInputFields={handelChangeFormInputFields}
+            label={"Total Floors:-"}
+            className={"capitalize"}
+            options={totalFloors}
           />
           <ListPropertySelectInput
             name="furnished"
@@ -180,13 +180,6 @@ const ResidentialFlatForm = ({
             className={"capitalize"}
             name="bathrooms"
             options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-          />
-          <ListPropertySelectInput
-            formInputValue={formInputValue}
-            handelChangeFormInputFields={handelChangeFormInputFields}
-            label={"facing:-"}
-            name="facing"
-            options={facingValue}
           />
         </div>
       </div>
@@ -217,13 +210,27 @@ const ResidentialFlatForm = ({
       </div>
 
       {/* construction status */}
-      <div className="w-1/3">
+      <div className="w-1/3 mt-5 flex flex-col">
+        <Heading className="text-xl pb-1 " text="property availability" />
         <ListPropertySelectInput
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
           name="possessionStatus"
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
+        />
+        <ListPropertySelectInput
+          name="ownership"
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          label={"Ownership Status :-"}
+          className={"capitalize"}
+          options={[
+            "Freehold",
+            "Leasehold",
+            "Power Of Attorney",
+            "Co-operative Society",
+          ]}
         />
       </div>
 
@@ -253,17 +260,17 @@ const ResidentialFlatForm = ({
       </div>
 
       {/*=======================amenities===================*/}
-      <div className="mt-5">
+      <div className="mt-5 w-1/3">
         <Heading className="text-xl " text="Amenities" />
 
-        <div className="mt-1">
+        <div className="mt-1 w-full">
           <h2 className="capitalize font-interRegular">
             Residential Amenities:-
           </h2>
           <Select
             styles={customStyles}
             name="residentialAmenities"
-            className="w-1/3 border-primary-color"
+            className=" border-primary-color"
             options={residentialAmenities}
             onChange={(value) => {
               let event = {
@@ -278,12 +285,12 @@ const ResidentialFlatForm = ({
             isMulti
           />
         </div>
-        <div className="mt-1">
+        <div className="mt-1 w-full">
           <h2 className="capitalize font-interRegular">Location advantage:-</h2>
           <Select
             styles={customStyles}
             name="locationAdvantages"
-            className="w-1/3"
+            className="border-primary-color"
             options={locationAdvantage}
             onChange={(value) => {
               let event = {
@@ -298,12 +305,12 @@ const ResidentialFlatForm = ({
             isMulti
           />
         </div>
-        <div className="mt-1">
+        <div className="mt-1 w-full ">
           <h2 className="capitalize font-interRegular">Overlooking:-</h2>
           <Select
             styles={customStyles}
             name="overlooking"
-            className="w-1/3"
+            className="border-primary-color"
             options={overLookingValue}
             onChange={(value) => {
               let event = {
@@ -318,6 +325,13 @@ const ResidentialFlatForm = ({
             isMulti
           />
         </div>
+        <ListPropertySelectInput
+          formInputValue={formInputValue}
+          handelChangeFormInputFields={handelChangeFormInputFields}
+          label={"facing:-"}
+          name="facing"
+          options={facingValue}
+        />
       </div>
     </div>
   );
