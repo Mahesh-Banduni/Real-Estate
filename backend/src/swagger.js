@@ -10,16 +10,28 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:8080',  // Update this with your app's base URL
+      url: `http://${process.env.SOURCE}:${process.env.SOURCE_PORT}`,  // Update this with your app's base URL
       //description: 'Local server',
     },
   ],
+  components: {
+    securitySchemes: {
+        bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          }
+        }
+      },
+  security: [{
+    bearerAuth: []
+  }]
 };
 
 // Options for the swagger docs
 const options = {
   swaggerDefinition,
-  apis: ['src/routes/*.js','src/routes/Agriculture/*.js','src/routes/User/*.js','src/routes/Residential/*.js','src/routes/Commercial/*.js']
+  apis: ['src/routes/*.js']
     // Path to the API docs
 };
 

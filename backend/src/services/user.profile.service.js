@@ -1,6 +1,6 @@
 const UserProfile = require('../models/user.profile.model.js');
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
-const uploadImages = require('../services/upload.image.service.js');
+const {uploadImages, uploadImage} = require('../utils/upload.image.service.js');
 
 // Create a new userProfile
 const createUserProfile = async (userProfileData, file) => {
@@ -10,7 +10,7 @@ const createUserProfile = async (userProfileData, file) => {
   if (existingUserProfile) {
     throw new ConflictError('User with this email already exists');
   }
-  const imageURL = await uploadImages(file);
+  const imageURL = await uploadImage(file);
 
   const userProfile = new UserProfile();
   userProfile.user=userProfileData.user;

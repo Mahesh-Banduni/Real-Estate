@@ -1,35 +1,36 @@
 const User = require('../models/user.model.js');
 const Property = require('../models/property.model.js');
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
-const JWTToken = require("./token.generation.service.js");
-const crypto = require('crypto');
+const { sendOTP, verifyOTP }= require("../utils/otp.service.js");
+const JWTToken = require("../utils/token.generation.service.js");
+const hashValue = require("../utils/hashing.service.js");
 const dotenv = require("dotenv");
 
 dotenv.config();
 
 // Create a new user
 const createUser = async (userData) => {
-  const { phone } = userData;
+
+  const ccode='91';
+  const phone=ccode.concat(userData.phone);
 
   const existingUser = await User.findOne({ phone });
   if (existingUser) {
     throw new ConflictError('User with this phone number already exists');
   }
 
-  const hashPassword=hashPassword(userData.password);
+  const password= hash(userData.password);
   
   const user = new User();
   user.name = userData.name;
-  user.phone = userData.phone;
+  user.phone = phone;
   user.role= userData.role;
-  user.password = hashPassword;
+  user.password = password;
 
-  await user.save();
+  await user.save();  
+  const response = await sendOTP(user.phone);
 
-  // Generate JWT token after user creation
-  const token = JWTToken.generateToken(user);
-
-  return { user, token }; // Return both user and token
+  return { response, user}; // Return both user and token
 };
 
 const getAllUsers = async () => {
@@ -71,12 +72,6 @@ const deleteUser = async (userId) => {
   return user;
 };
 
-const hashPassword = (password) => {
-  return crypto.createHash('sha256', process.env.JWT_SECRET)
-    .update(password)
-    .digest('hex');
-};
-
 const changePassword = async (userId, passwordData) => {
   // Fetch the user by userId
   const user = await User.findById(userId);
@@ -86,7 +81,7 @@ const changePassword = async (userId, passwordData) => {
   }
 
   // Hash the provided old password and compare it with the stored hashed password
-  const hashedOldPassword = hashPassword(passwordData.oldPassword);
+  const hashedOldPassword = hash(passwordData.oldPassword);
   if (hashedOldPassword !== user.password) {
     throw new BadRequestError('Old password is incorrect');
   }
@@ -102,12 +97,33 @@ const changePassword = async (userId, passwordData) => {
   }
 
   // Hash the new password before saving it
-  user.password = hashPassword(passwordData.newPassword);
+  user.password = hash(passwordData.newPassword);
 
   // Save the updated user
   return await user.save();
 };
 
+const resetPassword = async (userId, newPassword, confirmNewPassword) => {
+  // Fetch the user by userId
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new NotFoundError('User not found');
+  }
+  // newPassword= hash.newPassword;
+  // console.log(hash(newPassword));
+  // confirmNewPassword= hash.confirmNewPassword;
+
+  if(newPassword == confirmNewPassword){
+    user.password = hashValue.hash(newPassword);
+    await user.save();
+  }
+  else{
+    throw new ConflictError('New password and confirm new password should be same');
+  }
+
+  const response = "Password has been reset successfully";
+  return response;
+}
 
 module.exports = {
   createUser,
@@ -115,5 +131,6 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
-  changePassword
+  changePassword,
+  resetPassword
 };

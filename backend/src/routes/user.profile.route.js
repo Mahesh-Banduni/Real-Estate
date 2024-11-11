@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userProfileController = require('../controllers/user.profile.controller.js');
-const {upload} =require('../middleware/multer.js');
+const {upload, uploadPic} =require('../middleware/multer.js');
 
 /**
  * @swagger
@@ -66,7 +66,7 @@ const {upload} =require('../middleware/multer.js');
  *       400:
  *         description: Validation error
  */
-router.post('/register',upload, userProfileController.createUserProfile);
+router.post('/register',uploadPic, userProfileController.createUserProfile);
 
 /**
  * @swagger

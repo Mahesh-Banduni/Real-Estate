@@ -10,7 +10,7 @@ const commercialOfficeSpaceSchema = new mongoose.Schema({
     Address: {type: String, maxlength: 256},
     landZone: {type: String, //enum:["Industrial","Commercial","Residential","Transport and Communication","Public Utilities","Public and Semi Public Use","Open Spaces","Agriculture Zone","Special Economic Zone","Natural Conservation Zone","Government Use"]
     },  
-    idealForBusinesses: {type: [Object], 
+    idealForBusinesses: {type: [String], 
       // enum:[
       //   "Private Company",
       //   "Individual Business",
@@ -109,7 +109,7 @@ const commercialOfficeSpaceSchema = new mongoose.Schema({
     totalFloor: {type: Number, minlength:1, maxlength: 250},
     furnished: {type: String,// enum: ["Semi-Furnished","Furnished", "Unfurnished"]
     },
-    personalWashroom: {type: Boolean, default:"false"},
+    personalWashroom: {type: String, default: "No"},
     pantryCafeteria: {type: String, //enum:["Dry","Wet","Not Available"]
     },
     
@@ -122,11 +122,11 @@ const commercialOfficeSpaceSchema = new mongoose.Schema({
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, //enum: ["Ready To Move", "Under Construction"]
     },
-    currentlyLeasedOut: {type: Boolean, default: false},
+    currentlyLeasedOut: {type: String, default: "No"},
         
     //Amenities/Unique Features
     commercialAmenities: {
-    type: [Object],
+    type: [String],
     // enum: [
     //   "Reserved Parking",
     //   "Visitor Parking",

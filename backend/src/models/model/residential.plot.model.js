@@ -28,17 +28,17 @@ const residentialPlotSchema = new mongoose.Schema({
   openSides: {type: Number, minlength:1, maxlength:4},
   facingRoadWidth: {type: Number},
   facingRoadWidthUnit: {type: String, enum:["Meters"], default: "Meters"},
-  boundaryWall: {type: Boolean, default: false},
-  gatedColony: {type: Boolean, default: false},
-  anyConstructionDone: {type: Boolean, default: false},
+  boundaryWall: {type: String, default: "No"},
+  gatedColony: {type: String, default: "No"},
+  anyConstructionDone: {type: String, default: "No"},
 
   //Property Area
   plotArea: { type: Number},
   plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
-  lengthdimension: { type: Number},
-  widthdimension: { type: Number},
-  dimensionUnit: {type: String, enum:["ft"], default:"ft"},
-  cornerPlot: {type: Boolean,default: false},
+  lengthDimension: { type: Number},
+  widthDimension: { type: Number},
+  dimensionUnit: {type: String, default:"ft"},
+  cornerPlot: {type: String, default: "No"},
 
   //Amenities/Unique Features
   landAmenities: {

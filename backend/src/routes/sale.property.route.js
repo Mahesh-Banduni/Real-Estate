@@ -15,7 +15,7 @@ const propertyController = require('../controllers/property.controller.js');
  *         name: propertyPurpose
  *         schema:
  *           type: string
- *           enum: ["Sale","Exchange Property","Partnership Property"]
+ *           enum: ["Sale","Exchange","Partnership"]
  *         description: Purpose of the property (e.g., Sale or Rent)
  *       - in: query
  *         name: propertyType

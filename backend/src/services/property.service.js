@@ -9,7 +9,7 @@ const commercialOfficeSpace = require('../models/model/commercial.office.space.m
 const commercialShop = require('../models/model/commercial.shop.model.js');
 const commercialShowroom = require('../models/model/commercial.showroom.model.js');
 const commercialPlot = require('../models/model/commercial.plot.model.js');
-const uploadImages= require('../services/upload.image.service.js');
+const uploadImages= require('../utils/upload.image.service.js');
 
 // // Upload images function for Cloudinary
 // const uploadImages = async (files) => {
@@ -384,7 +384,7 @@ const saleProperty = async (filters, sortBy, sortOrder) => {
 };
 
 const partnershipProperty = async (filters, sortBy, sortOrder) => {
-  const query = { propertyPurpose: 'Partnership Property' };
+  const query = { propertyPurpose: 'Partnership' };
 
   // Apply filters
   if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
@@ -426,7 +426,7 @@ const partnershipProperty = async (filters, sortBy, sortOrder) => {
 };
 
 const exchangeProperty = async (filters, sortBy, sortOrder) => {
-  const query = { propertyPurpose: 'Exchange Property' };
+  const query = { propertyPurpose: 'Exchange' };
 
   // Apply filters
   if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;

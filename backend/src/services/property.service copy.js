@@ -1,6 +1,6 @@
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 const PropertyNew = require('../models/property.model copy1.js');
-const cloudinary = require('../utils/cloudinary.config.js'); // Ensure cloudinary is configured
+const cloudinary = require('../configs/cloudinary.config.js'); // Ensure cloudinary is configured
 const userService = require('../services/user.service.js');
 const residentialFlat = require('../models/model/residential.flat.model.js');
 const residentialHouse = require('../models/model/residential.house.model.js');
@@ -9,7 +9,7 @@ const commercialOfficeSpace = require('../models/model/commercial.office.space.m
 const commercialShop = require('../models/model/commercial.shop.model.js');
 const commercialShowroom = require('../models/model/commercial.showroom.model.js');
 const commercialPlot = require('../models/model/commercial.plot.model.js');
-const uploadImages= require('../services/upload.image.service.js');
+const uploadImages= require('../utils/upload.image.service.js');
 
 // Create a new Property
 const createProperty = async (propertyData, files) => {

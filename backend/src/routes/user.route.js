@@ -44,98 +44,12 @@ router.post('/register', userController.createUser);
 
 /**
  * @swagger
- * /users/login:
- *   post:
- *     summary: User login
- *     description: API for user login
- *     tags:
- *       - Users
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - phone
- *               - password
- *             properties:
- *               phone:
- *                 type: string
- *                 description: User's phone number
- *               password:
- *                 type: string
- *                 description: User's password
- *     responses:
- *       200:
- *         description: Login done and verify otp in next step
- *       401:
- *         description: Unauthorized (Invalid credentials)
- */
-router.post('/login', userLoginController.loginUser);
-
-/**
- * @swagger
- * /users/{id}/verify-otp:
- *   post:
- *     summary: OTP Verification
- *     description: API for OTP Verification
- *     tags:
- *       - Users
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         description: User ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - otp
- *             properties:
- *               otp:
- *                 type: string
- *                 description: OTP Verification
- *     responses:
- *       200:
- *         description: Login successful
- *       401:
- *         description: Unauthorized (Invalid OTP)
- */
-router.post('/:id/verify-otp', userLoginController.verifyLoginOTP);
-
-/**
- * @swagger
- * /users/logout:
- *   post:
- *     summary: User logout
- *     description: API for user logout
- *     tags:
- *       - Users
- *     responses:
- *       200:
- *         description: Logout successful
- */
-router.post('/logout', userLoginController.logoutUser);
-
-/**
- * @swagger
  * /users/{id}:
  *   get:
  *     summary: Get user by ID
  *     description: Retrieve a user by their ID
  *     tags:
  *       - Users
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         description: User ID
  *     responses:
  *       200:
  *         description: User retrieved successfully
@@ -236,7 +150,7 @@ router.delete('/:id', userController.deleteUser);
 
 /**
  * @swagger
- * /users/favorite-properties:
+ * /users/{id}/favorite-properties:
  *   post:
  *     summary: Add a property to user's favorites
  *     description: Adds a property to the user's favorite properties list
@@ -264,11 +178,11 @@ router.delete('/:id', userController.deleteUser);
  *       500:
  *         description: Internal server error
  */
-router.post('', userController.addFavoriteProperty);
+router.post('/:id/favorite-properties', userController.addFavoriteProperty);
 
 /**
  * @swagger
- * /users/favorite-properties:
+ * /users/favorites-properties:
  *   delete:
  *     summary: Remove a property from user's favorites
  *     description: Removes a property from the user's favorite properties list
@@ -338,5 +252,43 @@ router.delete('/:userId/favorites/:propertyId', userController.removeFavoritePro
  *         description: User not found
  */
 router.put('/:id/change-password', userController.changePassword);
+
+/**
+ * @swagger
+ * /users/{id}/reset-password:
+ *   put:
+ *     summary: Reset User Password
+ *     description: Reset user's password
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *                 description: Reset user's new password
+ *               confirmNewPassword:
+ *                 type: string
+ *                 description: Reset user's confirm new password
+ *     responses:
+ *       200:
+ *         description: User password has been reset successfully
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: User not found
+ */
+router.put('/:id/reset-password', userController.resetPassword);
 
 module.exports = router;

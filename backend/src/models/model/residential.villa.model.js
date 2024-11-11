@@ -19,12 +19,12 @@ const residentVillaSchema = new mongoose.Schema({
     //Property Area
     plotArea: { type: Number, required: true },
     plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
-    lengthdimension: { type: Number, required: true },
-    widthdimension: { type: Number, required: true },
+    lengthDimension: { type: Number, required: true },
+    widthDimension: { type: Number, required: true },
     carpetArea: { type: Number, required: true },
     superArea: { type: Number, required: true },
     csAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
-    cornerPlot: {type: Boolean,default: false},
+    cornerPlot: {type: String, default: "No"},
 
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, enum: ["Ready To Move", "Under Construction"]},
@@ -35,8 +35,7 @@ const residentVillaSchema = new mongoose.Schema({
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean,default: false},
-    
+    priceNegotiable: {type: String, default: "No"},
     
     //Others
     villaType:  { type: String, enum: ["1 BHK","2 BHK","3 BHK","4 BHK","5 BHK",">5 BHK"]},

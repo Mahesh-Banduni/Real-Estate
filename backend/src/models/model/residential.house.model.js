@@ -43,10 +43,10 @@ const residentialHouseSchema = new mongoose.Schema({
     //Property Area
     plotArea: { type: Number},
     plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
-    lengthdimension: { type: Number},
-    widthdimension: { type: Number},
+    lengthDimension: { type: Number},
+    widthDimension: { type: Number},
     dimensionUnit: {type: String, enum:["ft"], default:"ft"},
-    cornerPlot: {type: Boolean,default: false},
+    cornerPlot: {type: String, default: "No"},
     carpetArea: { type: Number},
     superArea: { type: Number},
     carpetAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
@@ -60,10 +60,10 @@ const residentialHouseSchema = new mongoose.Schema({
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean, default: false},
+    priceNegotiable: {type: String, default: "No"},
     
     residentialAmenities: {
-    type: [Object],
+    type: [String],
     // enum: [
     //   "Reserved Parking",
     //   "Visitor Parking",

@@ -311,12 +311,12 @@ const commercialShopSchema = new mongoose.Schema({
     furnished: {type: String, 
      // enum: ["Semi-Furnished","Furnished", "Unfurnished"]
     },
-    personalWashroom: {type: Boolean, default:"false"},
+    personalWashroom: {type: String, default: "No"},
     pantryCafeteria: {type: String,// enum:["Dry","Wet","Not Available"]
 
     },
-    cornerShop: {type: Boolean, default: false},
-    mainRoadFacing: {type: Boolean, default: false},
+    cornerShop: {type: String, default: "No"},
+    mainRoadFacing: {type: String, default: "No"},
     
     //Property Area
     plotArea: { type: Number},
@@ -331,11 +331,11 @@ const commercialShopSchema = new mongoose.Schema({
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, //enum: ["Ready To Move", "Under Construction"]
     },
-    currentlyLeasedOut: {type: Boolean, default: false},
+    currentlyLeasedOut: {type: String, default: "No"},
 
     //Amenities/Unique Features
     commercialAmenities: {
-        type: [Object],
+        type: [String],
       //   enum: [
       //     "Reserved Parking",
       //     "Visitor Parking",

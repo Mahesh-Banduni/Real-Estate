@@ -15,21 +15,15 @@ const propertySchema = new mongoose.Schema({
     type: [String], // Array of URLs from Cloudinary
   },
   dateListed: { type: Date, default: Date.now },
-  isAvailable: { type: Boolean, default: true },
-  propertyStatus: {type: String, enum:["Approval Pending","Approved"], default: "Approval Pending"}, set: (propertyStatus) => propertyStatus.charAt(0).toUpperCase() + propertyStatus.slice(1).toLowerCase(),
+  isAvailable: {type: String, default: "No"},
+  propertyStatus: {type: String, enum:["Approval Pending","Approved"], default: "Approval Pending", set: (propertyStatus) => propertyStatus.charAt(0).toUpperCase() + propertyStatus.slice(1).toLowerCase()},
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true
   },
-  isHandpickedProperty: { 
-    type: Boolean, 
-    default: false 
-  },
-  isRecommendedProperty: { 
-    type: Boolean,
-    default: false 
-  },
+  isHandpickedProperty: {type: String, default: "No"},
+  isRecommendedProperty: {type: String, default: "No"},
   
   //Transaction Type & Property Availability & Ownership
   ownership: { type: String,
@@ -41,11 +35,11 @@ const propertySchema = new mongoose.Schema({
 
   expectedPrice: {type: Number},
   bookingAmount: {type: Number},
-  priceNegotiable: {type: Boolean,default: false},
+  priceNegotiable: {type: String, default: "No"},
 
   //Amenities/Unique Features
   locationAdvantages: {
-    type: [Object],
+    type: [String],
     // enum: [
     //   "Close to Metro Station",
     //   "Close to School",
@@ -68,7 +62,7 @@ const propertySchema = new mongoose.Schema({
     set: (locationAdvantages) => locationAdvantages.charAt(0).toUpperCase() + locationAdvantages.slice(1).toLowerCase()
   },
   overlooking: {
-    type: [Object], //enum:["Pool","Garden/Park","Main Road","Club","Others","Hills","Lake","River","Open Land","Forest","City Skyline","Residential Area","Commercial Area","Farmland","Mountains"],
+    type: [String], //enum:["Pool","Garden/Park","Main Road","Club","Others","Hills","Lake","River","Open Land","Forest","City Skyline","Residential Area","Commercial Area","Farmland","Mountains"],
     set: (overlooking) => overlooking.charAt(0).toUpperCase() + overlooking.slice(1).toLowerCase()
   },
   facing: {type: String, //enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"],
