@@ -24,12 +24,13 @@ const ResidentialFlatProperties = ({ item }) => {
           </div>
         </div>
         <p className="font-interRegular text-[#8F90A6] text-sm max-lg:hidden max-xl:text-xs">
-          {item?.propertyType} is available for Sale in {item?.locality},{" "}
-          {item?.city}
-          for Rs. {item?.expectedPrice}
+          {` ${item?.propertyType} is available for ${
+            item?.propertyPurpose
+          } in ${item?.locality},
+          ${item?.city} for Rs. ${item?.expectedPrice.toLocaleString("en-IN")}`}
         </p>
       </div>
-      <div className="grid grid-cols-3 grid-rows-2 bg-[#F5F5F5] gap-1 px-5 py-2 max-lg:hidden">
+      <div className="grid grid-cols-3 grid-rows-2 bg-[#F5F5F5] gap-1 p-5 max-lg:hidden">
         <div className="flex items-center gap-2 justify-start border-r border-border-color">
           <div>
             <img src={superArea} alt={"super area"} />
@@ -69,19 +70,6 @@ const ResidentialFlatProperties = ({ item }) => {
             </span>
           </div>
         </div>
-        {/* <div className="flex items-center gap-3 justify-start border-r border-border-color">
-            <div>
-              <img src={transaction} alt={"super area"} />
-            </div>
-            <div className="flex flex-col">
-              <span className="uppercase text-sm text-[#8F90A6] font-interRegular">
-                transaction
-              </span>
-              <span className="text-sm capitalize text-[#110229] font-interMedium">
-                resale
-              </span>
-            </div>
-          </div> */}
         <div className="flex items-center gap-3 justify-start border-r border-border-color">
           <div>
             <img src={furnishing} alt={"super area"} />

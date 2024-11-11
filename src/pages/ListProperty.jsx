@@ -53,6 +53,7 @@ const ListProperty = () => {
           className="mt-5 flex flex-col gap-5 "
           action=""
         >
+          {/* ============= property detail ============== */}
           <div className="flex flex-col gap-2">
             <Heading className="text-xl" text="property details" />
             <div className="flex items-center gap-2">
@@ -83,31 +84,16 @@ const ListProperty = () => {
 
           {/* =====================you can change the form on the base of sell, exchange and partnership property========================*/}
 
-          {formInputValue?.propertyPurpose === "sale" ||
-          formInputValue?.propertyPurpose === "partnership" ? (
-            <div className="w-1/3 flex">
-              <SellPropertyTypeForm
-                formInputValue={formInputValue}
-                onPropertyTypeChange={handelChangeFormInputFields}
-              />
-            </div>
-          ) : (
-            " "
-          )}
-          {/*==================== exchange property form ============= */}
-          {formInputValue?.propertyPurpose === "exchange" ? (
-            <ExchangePropertyTypesDropDown />
-          ) : (
-            " "
-          )}
-
-          {formInputValue?.propertyPurpose === "exchange" ? " " : " "}
+          <div className="w-1/3 flex">
+            <SellPropertyTypeForm
+              formInputValue={formInputValue}
+              onPropertyTypeChange={handelChangeFormInputFields}
+            />
+          </div>
 
           {/*-------------------------you can change the form from here------------------------- */}
 
-          {formInputValue.propertyType === "Residential Flat/Apartment" &&
-          (formInputValue?.propertyPurpose === "sale" ||
-            formInputValue.propertyPurpose === "partnership") ? (
+          {formInputValue.propertyType === "Residential Flat/Apartment" && (
             <ResidentialFlatForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
@@ -115,12 +101,8 @@ const ListProperty = () => {
               localities={localities}
               setFormInputValue={setFormInputValue}
             />
-          ) : (
-            ""
           )}
-          {formInputValue.propertyType === "Residential Plot/Land" &&
-          (formInputValue.propertyPurpose === "sale" ||
-            formInputValue.propertyPurpose === "partnership") ? (
+          {formInputValue.propertyType === "Residential Plot/Land" && (
             <ResidentialLandForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
@@ -128,12 +110,8 @@ const ListProperty = () => {
               localities={localities}
               setFormInputValue={setFormInputValue}
             />
-          ) : (
-            ""
           )}
-          {formInputValue.propertyType === "Residential House" &&
-          (formInputValue.propertyPurpose === "sale" ||
-            formInputValue.propertyPurpose === "partnership") ? (
+          {formInputValue.propertyType === "Residential House" && (
             <ResidentialHouseForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
@@ -141,13 +119,9 @@ const ListProperty = () => {
               localities={localities}
               setFormInputValue={setFormInputValue}
             />
-          ) : (
-            ""
           )}
 
-          {formInputValue?.propertyType === "Commercial Office Space" &&
-          (formInputValue.propertyPurpose === "sale" ||
-            formInputValue.propertyPurpose === "partnership") ? (
+          {formInputValue?.propertyType === "Commercial Office Space" && (
             <CommercialOfficeSpaceForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
@@ -155,12 +129,8 @@ const ListProperty = () => {
               localities={localities}
               setFormInputValue={setFormInputValue}
             />
-          ) : (
-            ""
           )}
-          {formInputValue?.propertyType === "Commercial Plot/Land" &&
-          (formInputValue.propertyPurpose === "sale" ||
-            formInputValue.propertyPurpose === "partnership") ? (
+          {formInputValue?.propertyType === "Commercial Plot/Land" && (
             <CommercialPlotForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
@@ -168,12 +138,8 @@ const ListProperty = () => {
               localities={localities}
               setFormInputValue={setFormInputValue}
             />
-          ) : (
-            ""
           )}
-          {formInputValue?.propertyType === "Commercial Shop" &&
-          (formInputValue.propertyPurpose === "sale" ||
-            formInputValue.propertyPurpose === "partnership") ? (
+          {formInputValue?.propertyType === "Commercial Shop" && (
             <CommercialShopForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
@@ -181,12 +147,8 @@ const ListProperty = () => {
               localities={localities}
               setFormInputValue={setFormInputValue}
             />
-          ) : (
-            ""
           )}
-          {formInputValue?.propertyType === "Commercial Showroom" &&
-          (formInputValue.propertyPurpose === "sale" ||
-            formInputValue.propertyPurpose === "partnership") ? (
+          {formInputValue?.propertyType === "Commercial Showroom" && (
             <CommercialShowroomForm
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}
@@ -194,8 +156,6 @@ const ListProperty = () => {
               localities={localities}
               setFormInputValue={setFormInputValue}
             />
-          ) : (
-            ""
           )}
 
           {/* property description */}

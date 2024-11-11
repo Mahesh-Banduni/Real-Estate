@@ -27,18 +27,21 @@ const Properties = () => {
               <ul className="flex items-center gap-5 uppercase max-sm:gap-2">
                 <PropertyTypeList
                   handelChangePropertyType={handelChangePropertyType}
-                  property={property}
+                  property={property === "Sale" ? "Buy" : ""}
                   text="Buy"
+                  name="Sale"
                 />
                 <PropertyTypeList
                   handelChangePropertyType={handelChangePropertyType}
                   property={property}
-                  text="exchange property"
+                  text="Exchange Property"
+                  name="Exchange Property"
                 />
                 <PropertyTypeList
                   handelChangePropertyType={handelChangePropertyType}
                   property={property}
-                  text="partnership property"
+                  text="Partnership Property"
+                  name="Partnership Property"
                 />
               </ul>
             </div>
