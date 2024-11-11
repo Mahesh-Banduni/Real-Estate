@@ -1,12 +1,16 @@
 const User = require('../models/user.model.js');
-const JWTToken= require("./token.generation.service.js");
-const { sendAndStoreOTP, verifyOTP }= require("./otp.service.js");
+const JWTToken= require("../utils/token.generation.service.js");
+const { sendOTP, verifyOTP }= require("../utils/otp.service.js");
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 const crypto = require('crypto');
 
 // Login a user and issue a JWT token
-const loginUser = async (phone, password) => {
+const loginUser = async (phoneNumber, password) => {
+  const ccode='91';
+  console.log(phoneNumber);
+  const phone=ccode.concat(phoneNumber);
   const user = await User.findOne({ phone });
+  console.log(phone);
 
   if(!user){
     throw new NotFoundError('No user exist with this phone number');
@@ -19,28 +23,30 @@ const loginUser = async (phone, password) => {
     throw new BadRequestError('Incorrect password');
   }
 
-  // Generate JWT token
-  const token = JWTToken.generateToken(user);
-
-  // Send OTP and store it in Redis
-  await sendAndStoreOTP(user._id, phone);
-
-  return { message: 'OTP sent to phone. Please verify to log in', userId: user._id, user, token };
-
-  //return { user, token }; // Return user and token
+  // Send OTP
+  const response = await sendOTP(user.phone);
+  return { response, user};
 };
 
-const verifyLoginOTP = async (userId, otp) => {
-  const isValid = await verifyOTP(userId, otp);
-
-  if (!isValid) {
-    throw new Error('Invalid OTP or OTP has expired');
+const verifyLoginOTP = async (phoneNumber, otp) => {
+  const ccode='91';
+  const phone=ccode.concat(phoneNumber);
+  const response = await verifyOTP(phone, otp);
+  //const user = await User.findOne({ phone });
+  // Generate JWT token after user creation
+  
+  if(response.success)
+  {
+  // Generate JWT token after user creation    
+  const user = await User.findOne({ phone });
+  const token = JWTToken.generateToken(user);
+    
+  user.isVerified= true;
+  await user.save();
+  return { response, token};
   }
 
-  // Return user details after successful verification
-  const user = await User.findById(userId);
-
-  return { message: 'Login successful', user };
+  return { response};
 };
 
 // Logout the user (just a placeholder, JWT is stateless)
@@ -50,8 +56,24 @@ const logoutUser = async (req) => {
   return { message: "User logged out successfully" };
 };
 
+const forgetPassword = async (phoneNumber) => {
+  // Fetch the user by userId
+  const ccode='91';
+  const phone=ccode.concat(phoneNumber);
+
+  const user = await User.findOne({ phone });
+  if (!user) {
+    throw new NotFoundError('User not found');;
+  }
+
+  const response = await sendOTP(user.phone);
+
+  return { response, user}; // Return both user and token
+};
+
 module.exports = {
   loginUser,
   verifyLoginOTP,
-  logoutUser
+  logoutUser,
+  forgetPassword
 };

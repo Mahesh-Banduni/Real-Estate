@@ -53,10 +53,10 @@ const residentialFlatSchema = new mongoose.Schema({
     //Price Details
     expectedPrice: {type: Number, required: true},
     bookingAmount: {type: Number},
-    priceNegotiable: {type: Boolean, default: false},
+    priceNegotiable: {type: String, default: "No"},
     
     residentialAmenities: {
-    type: [Object],
+    type: [String],
     // enum: [
     //   "Reserved Parking",
     //   "Visitor Parking",

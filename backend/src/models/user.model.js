@@ -7,8 +7,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6,
   },
+  isVerified: { type: Boolean, default: false},
   role: {type: String, enum: ["User","Agent","Admin"], default: 'User'},
-  phone: { type: String, required: true, minlength: 10, maxlength: 10 },
+  phone: { type: String, required: true, minlength: 12, maxlength: 12 },
   favoriteProperties: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Property",

@@ -3,13 +3,13 @@ const userLoginService = require('../services/user.login.service.js');
 // Login a user
 const loginUser = async (req, res, next) => {
     try {
-      const { phone, password } = req.body;
-      const { user, token } = await userLoginService.loginUser(phone, password);
+      const { phoneNumber, password } = req.body;
+      const { response, user} = await userLoginService.loginUser(phoneNumber, password);
       
       // Send back the user data and the token
       res.status(200).json({
           success: true,
-          data: {user, token}
+          data: {response, user}
         });
     } catch (error) {
       next(error);
@@ -18,9 +18,12 @@ const loginUser = async (req, res, next) => {
 
 const verifyLoginOTP = async (req, res, next) => {
   try {
-    const { userId, otp } = req.body;
-    const response = await userLoginService.verifyLoginOTP(userId, otp);
-    res.status(200).json(response);
+    const { phoneNumber, otp } = req.body;
+    const { response, token} = await userLoginService.verifyLoginOTP(phoneNumber, otp);
+    res.status(200).json({
+      success: true,
+      data: {response, token}
+    });
   } catch (error) {
     next(error);
   }
@@ -35,9 +38,22 @@ const logoutUser = async (req, res, next) => {
       next(error);
     }
 };
+
+const forgetPassword = async (req, res, next) => {
+  try {
+    const {response, user} = await userLoginService.forgetPassword(req.body.phoneNumber);
+    res.status(200).json({
+      success: true,
+      data: {response, user},
+    });
+  } catch (error) {
+    next(error);
+  }
+};
   
 module.exports = {
     loginUser,
     verifyLoginOTP,
-    logoutUser
+    logoutUser,
+    forgetPassword
 }

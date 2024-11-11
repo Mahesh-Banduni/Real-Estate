@@ -14,8 +14,8 @@ const agriculturePlotSchema = new mongoose.Schema({
   //Property Area
   plotArea: { type: Number, required: true },
   areaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"],required: true},
-  lengthdimension: { type: Number, required: true }, //in yard
-  widthdimension: { type: Number, required: true },
+  lengthDimension: { type: Number, required: true }, //in yard
+  widthDimension: { type: Number, required: true },
   cornerPlot: {type: Boolean, default: false},
 
   //Transaction Type & Property Avialability

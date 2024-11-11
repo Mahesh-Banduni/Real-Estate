@@ -11,7 +11,7 @@ const auctionPropertySchema = new mongoose.Schema({
   address: {type: mongoose.Schema.Types.ObjectId, ref: "Address", required: true },
   reservePrice: { type: String, required: true },
   EMD: {type: Number, required: true },
-  auctionStartDate: { type: Date, default: Date.now },
+  auctionStartDate: { type: Date, format:'', default: Date.now },
   auctionEndDate: { type: Date, default: Date.now },
 },{timestamps: true});
 

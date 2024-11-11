@@ -4,10 +4,10 @@ const auth = require("../middleware/auth.js");
 // Create a new user
 const createUser = async(req, res, next) => {
   try {
-    const { user, token } = await userService.createUser(req.body);
+    const { response, user, token } = await userService.createUser(req.body);
     res.status(201).json({
         success: true,
-        data: {user, token}
+        data: {response, user, token}
     });
   } catch (error) {
     next(error);
@@ -30,7 +30,7 @@ const getAllUsers = async (req, res, next) => {
 // Get user by ID
 const getUserById = async (req, res, next) => {
   try {
-    const user = await userService.getUserById(req.params.id,);
+    const user = await userService.getUserById(req.user.id,);
     res.status(200).json({
       success: true,
       data: user,
@@ -101,7 +101,17 @@ const changePassword = async (req, res, next) => {
   }
 };
 
-
+const resetPassword = async (req, res, next) => {
+  try {
+    const response = await userService.resetPassword(req.params.id, req.body.newPassword, req.body.confirmNewPassword);
+    res.status(200).json({
+      success: true,
+      data: response,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   createUser,
@@ -111,5 +121,6 @@ module.exports = {
   deleteUser,
   addFavoriteProperty,
   removeFavoriteProperty,
-  changePassword
+  changePassword,
+  resetPassword
 };

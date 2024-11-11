@@ -22,18 +22,18 @@ const commercialPlotSchema = new mongoose.Schema({
   openSides: {type: Number},
   facingRoadWidth: {type: Number},
   facingRoadWidthUnit: {type: String, enum:["Meters"], default: "Meters"},
-  boundaryWall: {type: Boolean, default: false},
+  boundaryWall: {type: String, default: "No"},
 
   //Property Area
   plotArea: { type: Number},
   plotAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
-  lengthdimension: { type: Number},
-  widthdimension: { type: Number},
+  lengthDimension: { type: Number},
+  widthDimension: { type: Number},
   dimensionUnit: {type: String, enum:["ft"], default:"ft"},
-  cornerPlot: {type: Boolean,default: false},
+  cornerPlot: {type: String, default: "No"},
 
   //Transaction Type & Property Avialability
-  currentlyLeasedOut: {type: Boolean, default: false},
+  currentlyLeasedOut: {type: String, default: "No"},
   possessionStatus: {type: String, //enum: ["Ready To Move", "Under Construction"]
 
   },
@@ -41,11 +41,11 @@ const commercialPlotSchema = new mongoose.Schema({
   //Price Details
   expectedPrice: {type: Number, required: true},
   bookingAmount: {type: Number},
-  priceNegotiable: {type: Boolean, default: false},
+  priceNegotiable: {type: String, default: "No"},
   
   //Amenities/Unique Features
   landAmenities: {
-    type: [Object], 
+    type: [String], 
     //enum: ["Maintenance Staff","Water Storage","Rain Water Harvesting","Feng Shui / Vaastu Compliant",]
   },
 

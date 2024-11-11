@@ -26,6 +26,6 @@ const uploadPic = multer({
     }
     cb(null, true);
   },
-}).array('images', 1);
+}).single('profilePicture', 1);
 
 module.exports = {upload,uploadPic};
