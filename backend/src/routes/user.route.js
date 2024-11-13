@@ -3,6 +3,8 @@ const router = express.Router();
 const userController = require('../controllers/user.controller.js');
 const userLoginController = require('../controllers/user.login.controller.js');
 const auth = require("../middleware/auth.js");
+const { registerLimiter } = require('../middleware/rate.limitter.js');
+
 
 /**
  * @swagger
@@ -40,7 +42,7 @@ const auth = require("../middleware/auth.js");
  *       400:
  *         description: Bad request
  */
-router.post('/register', userController.createUser);
+router.post('/register',registerLimiter, userController.createUser);
 
 /**
  * @swagger

@@ -17,7 +17,6 @@ exports.createAuctionProperty = async (req, res, next) => {
 // Get all auction properties
 exports.getAllAuctionProperties = async (req, res, next) => {
   try {
-    console.log(req.ip);
     const auctionProperties = await auctionPropertyService.getAllAuctionProperties();
     res.status(200).json({
       success: true,
