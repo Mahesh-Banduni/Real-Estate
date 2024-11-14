@@ -5,6 +5,7 @@ const { sendOTP, verifyOTP }= require("../utils/otp.service.js");
 const JWTToken = require("../utils/token.generation.service.js");
 const hashValue = require("../utils/hashing.service.js");
 const {encrypt, decrypt} = require("../utils/encryption.decryption.utils.js");
+const logger = require("../configs/winston.config.js");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -37,6 +38,9 @@ const createUser = async (userData) => {
 const getAllUsers = async () => {
   const users=await User.find();
   const encryptedResponse = encrypt(JSON.stringify(users), process.env.ENCRYPTION_KEY);
+  const encrypteResponse = encrypt(JSON.stringify("Gotcha"), process.env.ENCRYPTION_KEY);
+  //logger.info(encrypteResponse.encryptedData);
+  logger.error("error");
   return encryptedResponse;
 };
 
