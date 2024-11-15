@@ -13,8 +13,12 @@ import {
   PrimaryCards,
 } from "../index";
 import { recommend } from "../../utils/icons";
+import useRecommended from "../../hooks/useRecommended";
 
 const RecommendationSection = () => {
+  const { recommendedProperties } = useRecommended();
+  console.log(recommendedProperties);
+
   return (
     <div className="w-11/12 mx-auto my-10 max-sm:pt-0 flex flex-col gap-5 max-sm:gap-2 ">
       <div className="flex flex-col gap-5 max-sm:gap-2 max-sm:items-center">
@@ -58,7 +62,14 @@ const RecommendationSection = () => {
             },
           }}
         >
-          <SwiperSlide>
+          {recommendedProperties?.map((item) => {
+            return (
+              <SwiperSlide key={item._id}>
+                <PrimaryCards item={item} />
+              </SwiperSlide>
+            );
+          })}
+          {/* <SwiperSlide>
             <PrimaryCards
               pic={recommend}
               heading={"Perum griya asri"}
@@ -97,7 +108,7 @@ const RecommendationSection = () => {
               para="Bogor, Jawa Barat"
               price="$25,000"
             />
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
       </div>
     </div>
