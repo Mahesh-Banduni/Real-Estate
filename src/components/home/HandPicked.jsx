@@ -1,7 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -13,9 +12,11 @@ import {
   SecondaryButton,
   PrimaryCards,
 } from "../index";
+import useHandpicked from "../../hooks/useHandpicked";
 import { recommend } from "../../utils/icons";
 
 const HandPicked = () => {
+  const { handpickedProperties, isLoading, message } = useHandpicked();
   return (
     <div className="w-11/12 mx-auto my-10 pt-10  flex flex-col gap-5 max-sm:gap-2">
       <div className="flex flex-col gap-5 max-sm:gap-2 max-sm:items-center">
@@ -58,46 +59,13 @@ const HandPicked = () => {
             },
           }}
         >
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
+          {handpickedProperties?.map((item) => {
+            return (
+              <SwiperSlide key={item._id}>
+                <PrimaryCards item={item} />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </div>
