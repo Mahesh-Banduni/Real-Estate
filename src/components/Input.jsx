@@ -1,7 +1,17 @@
 import React from "react";
 
 const Input = React.forwardRef(function Input(
-  { label, icon, placeholder, type, name, className, ...props },
+  {
+    label,
+    value,
+    icon,
+    handelChangeInputField,
+    placeholder,
+    type,
+    name,
+    className,
+    ...props
+  },
   ref
 ) {
   return (
@@ -18,6 +28,8 @@ const Input = React.forwardRef(function Input(
         {icon && <img src={icon} alt="icon" />}
         {type === "number" && "+91 | "}
         <input
+          value={value && value[name]}
+          onChange={handelChangeInputField}
           name={name && name}
           id={label && label}
           className={`outline-none border-none max-sm:text-sm ${className}`}

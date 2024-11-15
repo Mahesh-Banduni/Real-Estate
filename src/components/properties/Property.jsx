@@ -1,22 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import {
-  propertyImage,
-  superArea,
-  transaction,
-  status,
-  furnishing,
-  floor,
-  facing,
-  heart,
-  share,
-} from "../../utils/icons";
-import { Button, Heading } from "../index";
+import { Button } from "../index";
 import ResidentialFlatProperties from "./ResidentialFlatProperties";
 import ResidentialPlotProperties from "./ResidentialPlotProperty";
 import ResidentialHouseProperties from "./ResidentialHouseProperty";
 import CommercialShowroomProperties from "./CommercialShowroomProperty";
-import { Link } from "react-router-dom";
 
 const Property = ({ item }) => {
   return (
@@ -33,7 +22,7 @@ const Property = ({ item }) => {
 
       {/* property features */}
       <div className="py-2">
-        {(item.propertyType === "Residential Flat/Appartment" ||
+        {(item.propertyType === "Residential Flat/Apartment" ||
           item.propertyType === "Commercial Office Space") && (
           <ResidentialFlatProperties item={item} />
         )}
