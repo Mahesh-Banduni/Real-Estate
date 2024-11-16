@@ -1,6 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useSelector } from "react-redux";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -13,10 +14,10 @@ import {
   PrimaryCards,
 } from "../index";
 import useHandpicked from "../../hooks/useHandpicked";
-import { recommend } from "../../utils/icons";
 
 const HandPicked = () => {
-  const { handpickedProperties, isLoading, message } = useHandpicked();
+  const data = useSelector((store) => store?.authReducer?.handpickedProperties);
+  const { isLoading, message } = useHandpicked();
   return (
     <div className="w-11/12 mx-auto my-10 pt-10  flex flex-col gap-5 max-sm:gap-2">
       <div className="flex flex-col gap-5 max-sm:gap-2 max-sm:items-center">
@@ -31,7 +32,7 @@ const HandPicked = () => {
             }
             className={"w-2/5  text-balance max-sm:text-center max-sm:w-full "}
           />
-          <SecondaryButton text={"Learn more"} />
+          <SecondaryButton link="/handpicked" text={"Learn more"} />
         </div>
       </div>
 
@@ -59,7 +60,7 @@ const HandPicked = () => {
             },
           }}
         >
-          {handpickedProperties?.map((item) => {
+          {data?.map((item) => {
             return (
               <SwiperSlide key={item._id}>
                 <PrimaryCards item={item} />

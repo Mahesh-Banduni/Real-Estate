@@ -5,16 +5,13 @@ const authSlice = createSlice({
   initialState: {
     status: false,
     allProperties: [],
-    handpickedProperty: [],
     token: "",
     recommendedProperties: [],
+    handpickedProperties: [],
   },
   reducers: {
     handelSetToken: (state, action) => {
       state.token = action.payload;
-    },
-    handelAddHandPickedProperty: (state, action) => {
-      state.handpickedProperty = action.payload;
     },
     handelFetchAllProperties: (state, action) => {
       state.allProperties = action.payload;
@@ -40,6 +37,9 @@ const authSlice = createSlice({
     handelFetchRecommendedProperty: (state, action) => {
       state.recommendedProperties = action.payload;
     },
+    handelFetchHandpickedProperties: (state, action) => {
+      state.handpickedProperties = action.payload;
+    },
   },
 });
 export const {
@@ -51,5 +51,6 @@ export const {
   handelPriceHighToLow,
   handelMostRecent,
   handelFetchRecommendedProperty,
+  handelFetchHandpickedProperties,
 } = authSlice.actions;
 export default authSlice.reducer;

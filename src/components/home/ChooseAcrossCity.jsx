@@ -26,10 +26,10 @@ const ChooseAcrossCity = () => {
         <SecondaryButton text={"view all"} />
       </div>
       <div className="flex items-center justify-between max-sm:flex-wrap max-xl:justify-center max-xl:gap-5">
-        <SecondaryCard pic={cityImage} text="UDAIPUR" />
+        <SecondaryCard pic={cityImage} text="Udaipur" />
         <SecondaryCard pic={delhi} text="Delhi" />
-        <SecondaryCard pic={dehradun} text="dehradun" />
-        <SecondaryCard pic={kolkata} text="kolkata" />
+        <SecondaryCard pic={dehradun} text="Dehradun" />
+        <SecondaryCard pic={kolkata} text="Kolkata" />
       </div>
     </div>
   );

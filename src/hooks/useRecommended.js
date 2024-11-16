@@ -34,6 +34,7 @@ const useRecommended = () => {
     }));
   };
 
+  // -----------------------fetch recommended properties ----------------
   const fetchProperties = useCallback(async () => {
     setMessage("");
     try {

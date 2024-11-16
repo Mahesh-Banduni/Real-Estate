@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PropertyTypeList from "../components/home/PropertyTypeList";
 import { Button, Input } from "../components";
 import { location, upDownArrow } from "../utils/icons";
-import useProperties from "../hooks/useProperties";
-import useRecommended from "../hooks/useRecommended";
+import useHandpicked from "../hooks/useHandpicked";
 import { ListProperty, Loader } from "../components/index";
 import {
   handelPriceLowToHigh,
@@ -13,11 +12,9 @@ import {
   handelMostRecent,
 } from "../store/slice";
 
-const Recommendation = () => {
+const HandpickedPage = () => {
   const dispatch = useDispatch();
-  const data = useSelector(
-    (store) => store?.authReducer?.recommendedProperties
-  );
+  const data = useSelector((store) => store?.authReducer?.handpickedProperties);
   const {
     handelChangeInputFields,
     cities,
@@ -25,12 +22,12 @@ const Recommendation = () => {
     property,
     isLoading,
     handelSelectCity,
-    recommendedFilter,
     message,
     handelChangeCity,
     searchCity,
     showDropdown,
-  } = useRecommended();
+    handpickedFilter,
+  } = useHandpicked();
 
   return (
     <>
@@ -44,7 +41,7 @@ const Recommendation = () => {
         <Loader />
       ) : (
         <div className="w-11/12 mx-auto">
-          <div className="my-10 w-full">
+          <div className="my-10">
             <div className="mt-10 max-sm:mt-5">
               <ul className="flex items-center gap-5 uppercase max-sm:gap-2">
                 <PropertyTypeList
@@ -70,7 +67,7 @@ const Recommendation = () => {
             <div className="flex gap-5 items-center justify-start w-full">
               <div className="flex w-1/3">
                 {property === "exchange property" ? (
-                  <div className="flex items-center gap-2 w-full">
+                  <div className="flex items-center gap-2">
                     <Input
                       className={"bg-transparent p-2 w-full max-sm:py-1"}
                       icon={location}
@@ -128,7 +125,7 @@ const Recommendation = () => {
                 </Button> */}
               </div>
               <select
-                value={recommendedFilter?.propertyType}
+                value={handpickedFilter?.propertyType}
                 onChange={handelChangeInputFields}
                 name="propertyType"
                 className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 max-[1120px]:w-full outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
@@ -222,4 +219,4 @@ const Recommendation = () => {
   );
 };
 
-export default Recommendation;
+export default HandpickedPage;

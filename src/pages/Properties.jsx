@@ -26,12 +26,19 @@ const Properties = () => {
     localities,
     filters,
     handelChangeDropdown,
+    message,
   } = useProperties();
   console.log(cities);
 
   return (
     <>
-      {isLoading ? (
+      {message ? (
+        <div className="w-full h-[42vh] flex items-center justify-center">
+          <h1 className="text-center text-3xl font-interSemiBold capitalize text-red-500">
+            {message}
+          </h1>
+        </div>
+      ) : isLoading ? (
         <Loader />
       ) : (
         <div className="w-11/12 mx-auto">
