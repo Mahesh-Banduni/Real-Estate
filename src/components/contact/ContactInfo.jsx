@@ -15,10 +15,10 @@ const ContactInfo = () => {
             className="text-4xl text-balance leading-[3.6rem] max-md:text-center"
           />
         </div>
-        <div className="flex items-center max-md:justify-center">
+        <div className="flex items-center max-md:justify-center max-sm:flex-col max-sm:gap-10">
           <div className="flex flex-col gap-2 max-md:items-center">
-            <div className="flex gap-5 flex-col">
-              <h2 className="text-[#000000] capitalize font-interMedium ">
+            <div className="flex gap-5 flex-col max-sm:gap-1">
+              <h2 className="text-[#000000] capitalize font-interMedium max-sm:font-interRegular">
                 Email address
               </h2>
               <div className="border-2 border-black h-[1px] w-10 max-md:hidden"></div>
@@ -31,7 +31,7 @@ const ContactInfo = () => {
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <div className="flex gap-5 flex-col max-md:items-center">
+            <div className="flex gap-5 flex-col max-md:items-center max-sm:gap-1">
               <h2 className="text-[#000000] capitalize font-interMedium ">
                 Number
               </h2>
