@@ -7,6 +7,7 @@ const authSlice = createSlice({
     allProperties: [],
     handpickedProperty: [],
     token: "",
+    recommendedProperties: [],
   },
   reducers: {
     handelSetToken: (state, action) => {
@@ -36,6 +37,9 @@ const authSlice = createSlice({
         (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
       );
     },
+    handelFetchRecommendedProperty: (state, action) => {
+      state.recommendedProperties = action.payload;
+    },
   },
 });
 export const {
@@ -46,5 +50,6 @@ export const {
   handelPriceLowToHigh,
   handelPriceHighToLow,
   handelMostRecent,
+  handelFetchRecommendedProperty,
 } = authSlice.actions;
 export default authSlice.reducer;

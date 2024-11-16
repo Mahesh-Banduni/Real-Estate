@@ -35,7 +35,7 @@ const RecommendationSection = () => {
               "w-2/5 max-sm:w-3/5 text-balance max-sm:text-center max-sm: "
             }
           />
-          <SecondaryButton text={"view all"} />
+          <SecondaryButton link="/recommendation" text={"view all"} />
         </div>
       </div>
       <div className="my-5">
@@ -69,46 +69,6 @@ const RecommendationSection = () => {
               </SwiperSlide>
             );
           })}
-          {/* <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <PrimaryCards
-              pic={recommend}
-              heading={"Perum griya asri"}
-              para="Bogor, Jawa Barat"
-              price="$25,000"
-            />
-          </SwiperSlide> */}
         </Swiper>
       </div>
     </div>

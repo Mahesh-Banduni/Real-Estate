@@ -6,7 +6,7 @@ const PrimaryCards = ({ item }) => {
   console.log();
 
   return (
-    <div className="border border-border-color p-3 w-fit flex flex-col gap-4 justify-center overflow-hidden">
+    <div className="border border-border-color p-3 w-fit flex flex-col gap-2 justify-center overflow-hidden">
       <div className="max-sm:w-full">
         <img
           className="w-[20rem] h-[15rem]"
@@ -18,7 +18,7 @@ const PrimaryCards = ({ item }) => {
         {item?.propertyType}
       </h1>
       <p className="font-interRegular text-lg text-[#A6A6A6] max-sm:text-sm">
-        city {`=>`} {item?.city}
+        {item?.locality}, {item?.city}
       </p>
       <div className="flex items-center gap-10 max-sm:gap-4">
         <h2 className="text-primary-color font-interSemiBold text-2xl max-sm:text-base">

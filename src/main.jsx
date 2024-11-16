@@ -16,6 +16,7 @@ const SignUp = lazy(() => import("./pages/SignUp.jsx"));
 const SignIn = lazy(() => import("./pages/SignIn.jsx"));
 const ListProperty = lazy(() => import("./pages/ListProperty.jsx"));
 const Wishlist = lazy(() => import("./pages/Wishlist.jsx"));
+const Recommendation = lazy(() => import("./pages/Recommendation.jsx"));
 
 const routes = createBrowserRouter([
   {
@@ -67,6 +68,14 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <ListProperty />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/recommendation",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Recommendation />
           </Suspense>
         ),
       },

@@ -5,6 +5,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import ListProperty from "./ListProperty";
 import SinglePropertyPage from "./SinglePropertyPage";
+import Recommendation from "./Recommendation";
 
 export {
   Home,
@@ -14,4 +15,5 @@ export {
   SignIn,
   ListProperty,
   SinglePropertyPage,
+  Recommendation,
 };

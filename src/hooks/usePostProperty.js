@@ -263,8 +263,7 @@ const usePostProperty = () => {
           !widthDimension ||
           !city ||
           !locality ||
-          !expectedPrice ||
-          !possessionStatus
+          !expectedPrice
         ) {
           console.log(`Residential Plot/Land => entered`);
           alert(`Please filled all the fields`);
