@@ -17,7 +17,6 @@ const recommendedPropertyRoutes = require("./routes/recommended.property.route.j
 const exchangePropertyRoutes = require("./routes/exchange.property.route.js");
 const contactFormRoutes = require("./routes/contact.form.route");
 const citySearchRoutes = require("./routes/city.route.js");
-const propertyNewRoutes = require("./routes/property.route copy.js");
 const auctionPropertyRoutes = require("./routes/auction.property.route.js");
 const { generalLimiter } = require('./middleware/rate.limitter.js');
 const { requestCounter } = require('./middleware/req.count.js');
@@ -31,6 +30,7 @@ connectDb();
 
 app.use(generalLimiter);
 app.use(requestCounter);
+
 app.use(compression());
 
 app.use(cors({
@@ -92,7 +92,6 @@ app.use('/recommended-properties',recommendedPropertyRoutes);
 app.use('/contact-forms',contactFormRoutes);
 app.use('/cities-localities',citySearchRoutes);
 app.use('/auction-properties',auctionPropertyRoutes);
-app.use('/properties-new',propertyNewRoutes);
 app.use('/exchange-properties',exchangePropertyRoutes);
 
 app.use(errorHandler);
