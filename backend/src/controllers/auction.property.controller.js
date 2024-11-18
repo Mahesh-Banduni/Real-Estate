@@ -3,8 +3,9 @@ const auctionPropertyService = require('../services/auction.property.service.js'
 // Create a new auction property
 exports.createAuctionProperty = async (req, res, next) => {
   try {
+    const userId = req.body.userId;
     const auctionPropertyData = req.body;
-    const auctionProperty = await auctionPropertyService.createAuctionProperty(auctionPropertyData);
+    const auctionProperty = await auctionPropertyService.createAuctionProperty(userId, auctionPropertyData);
     res.status(201).json({
       success: true,
       data: auctionProperty,
@@ -43,7 +44,8 @@ exports.getAuctionPropertyById = async (req, res, next) => {
 // Update auction property by ID
 exports.updateAuctionProperty = async (req, res, next) => {
   try {
-    const updatedAuctionProperty = await auctionPropertyService.updateAuctionProperty(req.params.id, req.body);
+    const userId = req.body.userId;
+    const updatedAuctionProperty = await auctionPropertyService.updateAuctionProperty(userId, req.params.id, req.body);
     res.status(200).json({
       success: true,
       data: updatedAuctionProperty,
@@ -56,7 +58,8 @@ exports.updateAuctionProperty = async (req, res, next) => {
 // Delete auction property by ID
 exports.deleteAuctionProperty = async (req, res, next) => {
   try {
-    await auctionPropertyService.deleteAuctionProperty(req.params.id);
+    const userId = req.body.userId;
+    await auctionPropertyService.deleteAuctionProperty(userId, req.params.id);
     res.status(200).json({ message: 'Auction property deleted successfully' });
   } catch (error) {
     next(error);

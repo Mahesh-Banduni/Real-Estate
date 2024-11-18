@@ -52,6 +52,13 @@ router.post('/register',registerLimiter, userController.createUser);
  *     description: Retrieve a user by their ID
  *     tags:
  *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
  *     responses:
  *       200:
  *         description: User retrieved successfully
@@ -114,9 +121,12 @@ router.get('/', userController.getAllUsers);
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               phone:
  *                 type: string
- *                 description: Updated user's name
+ *                 description: Updated user's phone
+ *               password:
+ *                 type: string
+ *                 description: Updated user's password
  *     responses:
  *       200:
  *         description: User updated successfully

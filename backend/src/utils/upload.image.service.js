@@ -73,3 +73,4 @@ const uploadImage = async (file) => {
 };
 
 module.exports= {uploadImages, uploadImage};
+

@@ -10,7 +10,7 @@ const createRateLimiter = (maxRequests, windowMinutes, message) => rateLimit({
 });
   
 const registerLimiter = createRateLimiter(5, 15, 'Too many registration attempts, please try again after 15 minutes');
-const loginLimiter = createRateLimiter(10, 15, 'Too many login attempts, please try again after 15 minutes');
+const loginLimiter = createRateLimiter(20, 15, 'Too many login attempts, please try again after 15 minutes');
 const generalLimiter = createRateLimiter(150, 5, 'Too many requests, please try again later');
   
 module.exports = {

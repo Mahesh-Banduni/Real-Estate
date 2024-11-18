@@ -6,7 +6,7 @@ const propertyController = require('../controllers/property.controller.js');
  * @swagger
  * /exchange-properties:
  *   get:
- *     summary: Recommended properties
+ *     summary: Exchange properties
  *     description: Retrieve a list of exchange properties filtered by the query parameters
  *     tags:
  *       - Properties
@@ -69,12 +69,14 @@ const propertyController = require('../controllers/property.controller.js');
  *       - in: query
  *         name: isHandpickedProperty
  *         schema:
- *           type: boolean
+ *           type: string
+ *           enum: ["Yes","No"]
  *         description: To filter handpicked properties
  *       - in: query
  *         name: isRecommendedProperty
  *         schema:
- *           type: boolean
+ *           type: string
+ *           enum: ["Yes","No"]
  *         description: To filter recommended properties
  *       - in: query
  *         name: propertyStatus

@@ -60,7 +60,7 @@ const auth = require('../middleware/auth.js');
  *       500:
  *         description: Internal server error
  */
-router.post('/', upload ,auth, propertyController.createProperty);
+router.post('/', upload , propertyController.createProperty);
 
 /**
  * @swagger
@@ -144,12 +144,16 @@ router.put('/:id', propertyController.updateProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User ID
  *     responses:
  *       200:
  *         description: Property deleted successfully

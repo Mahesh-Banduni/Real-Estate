@@ -9,14 +9,15 @@ const propertySchema = new mongoose.Schema({
     type: String,
     enum: ["Residential Plot/Land", "Residential Flat/Apartment", "Residential House","Residential Villa","Builder Floor Apartment","Penthouse","Studio Apartment","Commercial Office Space","IT Park/SEZ office","Commercial Shop","Commercial Showroom","Commercial Plot/Land","Warehouse/ Godown","Industrial Plot/Land","Industrial Building","Industrial Shed", "Agricultural Plot/Land","Farm House"],
     required: true,
-    set: (propertyType) => propertyType.charAt(0).toUpperCase() + propertyType.slice(1).toLowerCase()
+    //set: (propertyType) => propertyType.charAt(0).toUpperCase() + propertyType.slice(1).toLowerCase()
   },
   images: {
     type: [String], // Array of URLs from Cloudinary
   },
   dateListed: { type: Date, default: Date.now },
-  isAvailable: {type: String, default: "No"},
-  propertyStatus: {type: String, enum:["Approval Pending","Approved"], default: "Approval Pending", set: (propertyStatus) => propertyStatus.charAt(0).toUpperCase() + propertyStatus.slice(1).toLowerCase()},
+  isAvailable: {type: String, default: "Yes"},
+  propertyStatus: {type: String, enum:["Approval Pending","Approved"], default: "Approval Pending"//, set: (propertyStatus) => propertyStatus.charAt(0).toUpperCase() + propertyStatus.slice(1).toLowerCase()
+    },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -59,11 +60,11 @@ const propertySchema = new mongoose.Schema({
     //   "Close to Commercial Hub",
     //   "Close to Entertainment Zone"
     // ],
-    set: (locationAdvantages) => locationAdvantages.charAt(0).toUpperCase() + locationAdvantages.slice(1).toLowerCase()
+    //set: (locationAdvantages) => locationAdvantages.charAt(0).toUpperCase() + locationAdvantages.slice(1).toLowerCase()
   },
   overlooking: {
     type: [String], //enum:["Pool","Garden/Park","Main Road","Club","Others","Hills","Lake","River","Open Land","Forest","City Skyline","Residential Area","Commercial Area","Farmland","Mountains"],
-    set: (overlooking) => overlooking.charAt(0).toUpperCase() + overlooking.slice(1).toLowerCase()
+    //set: (overlooking) => overlooking.charAt(0).toUpperCase() + overlooking.slice(1).toLowerCase()
   },
   facing: {type: String, //enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"],
     set: (facing) => facing.charAt(0).toUpperCase() + facing.slice(1).toLowerCase()
