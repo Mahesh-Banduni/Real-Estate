@@ -21,17 +21,51 @@ const useLogin = () => {
   const submitForm = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/users/login",
+        "http://localhost:8080/userauth/login",
         data
       );
       console.log(response);
 
-      if (response?.statusText === "OK") {
-        dispatch(handelSetToken(response?.data?.data?.token));
-        localStorage.setItem("token", response?.data?.data?.token);
-        alert("User login successfully");
-        navigate("/");
+      // Extracting data according to the response structure
+      const responseData = response?.data?.data;
+      const user = responseData?.user;
+      //const token = responseData?.token;
+
+      // Logging the user and response data
+      console.log(user);
+      console.log(responseData);
+      if (response?.data?.success) {
+        console.log(data);
+
+        dispatch(phoneNumber(data?.phone));
+        navigate("/otp");
       }
+
+      // Checking for success instead of relying solely on statusText
+      // if (response?.data?.success) {
+      //   dispatch(handelSetToken(user));
+      //   localStorage.setItem("token", JSON.stringify(token));
+      //   alert("User login successfully");
+      //   navigate("/");
+      // }
+      // console.log(response?.data?.data?.user);
+      // console.log(response?.data?.data);
+
+      // if (response?.statusText === "OK") {
+      //   dispatch(handelSetToken(response?.data?.data?.user));
+      //   localStorage.setItem(
+      //     "token",
+      //     JSON.stringify(response?.data?.data?.token)
+      //   );
+      //   alert("User login successfully");
+      //   navigate("/");
+      // }
+      // if (response?.statusText === "Created") {
+      //   console.log(data);
+
+      //   dispatch(phoneNumber(data?.phone));
+      //   navigate("/otp");
+      // }
     } catch (error) {
       console.log(error);
       if (error?.status === 400) {

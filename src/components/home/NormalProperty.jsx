@@ -39,7 +39,17 @@ const NormalProperty = () => {
             "Commercial Office Space",
           ]}
         />
-        <SelectInput label={"price range"} className={"w-full"} />
+        <SelectInput
+          label={"price range"}
+          className={"w-full"}
+          options={[
+            "Under Rs 25 lakh",
+            "Rs 25 Lakh - Rs 50 Lakh",
+            "Rs 50 Lakh - Rs 1 Crore",
+            "Rs 1 Crore - Rs 2.5 Crore",
+            "Above 2.5 Crore",
+          ]}
+        />
         <div className="w-full h-full flex max-[1120px]:items-start items-end justify-end">
           <button className="bg-primary-color w-12 h-12 max-sm:h-8 max-[1120px]:w-full max-[1120px]:mt-2 grid place-content-center">
             <img

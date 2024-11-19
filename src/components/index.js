@@ -45,6 +45,7 @@ import CommercialShowroomForm from "./list-property/CommercialShowroomForm";
 import ExchangePropertyTypesDropDown from "./list-property/ExchangePropertyTypesDropDown";
 import Loader from "./Loader";
 import Dropdown from "./list-property/Dropdown";
+import ProfileInput from "./ProfileInput";
 
 export {
   RadioInput,
@@ -91,4 +92,5 @@ export {
   ExchangePropertyTypesDropDown,
   Loader,
   Dropdown,
+  ProfileInput,
 };

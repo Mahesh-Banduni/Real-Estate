@@ -51,6 +51,20 @@ const Header = () => {
                   Home
                 </NavLink>
               </li>
+
+              <li className="bg-transparent">
+                <NavLink
+                  to={"/"}
+                  className={({ isActive }) =>
+                    isActive
+                      ? " border-b-2 text-xl border-none text-primary-color "
+                      : " text-black text-xl border-none hover:border-b-2 hover:text-primary-color "
+                  }
+                >
+                  About
+                </NavLink>
+              </li>
+
               <li className="bg-transparent">
                 <NavLink
                   to={"/properties"}
@@ -109,6 +123,19 @@ const Header = () => {
                 }
               >
                 Home
+              </NavLink>
+            </li>
+
+            <li className="bg-transparent">
+              <NavLink
+                to={"/about"}
+                className={({ isActive }) =>
+                  isActive
+                    ? " border-b-2 border-primary-color text-primary-color text-lg uppercase cursor-pointer font-interSemiBold  "
+                    : "font-interSemiBold text-black hover:border-b-2 hover:border-primary-color hover:text-primary-color text-lg uppercase cursor-pointer "
+                }
+              >
+                About
               </NavLink>
             </li>
             <li className="bg-transparent">
@@ -184,6 +211,15 @@ const Header = () => {
                     >
                       Logout
                     </button>
+                  </li>
+                  <li>
+                    <Link to={"/profile"}>View Profile</Link>
+                  </li>
+                  <li>
+                    <Link to={"/owned-properties"}>Owned Properties</Link>
+                  </li>
+                  <li>
+                    <Link to={"/favorite-properties"}>Favorite Properties</Link>
                   </li>
                 </ul>
               </div>

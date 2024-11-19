@@ -191,7 +191,7 @@ const usePostProperty = () => {
 
     //=================get the token from localStorage=====================
 
-    let token = localStorage.getItem("token");
+    let token = JSON.parse(localStorage.getItem("token"));
 
     const postPropertyHandler = async () => {
       setLoading(true);

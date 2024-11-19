@@ -37,7 +37,7 @@ const Signup = () => {
             placeholder={"enter your name"}
             type={"text"}
             className={"bg-transparent py-2 px-2 capitalize"}
-            {...register("userName", {
+            {...register("name", {
               required: true,
             })}
           />

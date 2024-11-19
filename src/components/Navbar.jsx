@@ -13,6 +13,7 @@ const Navbar = () => {
         <div className="flex items-center gap-8">
           <ul className="flex items-center gap-5">
             <li className="text-lg uppercase cursor-pointer ">Home</li>
+            <li className="text-lg uppercase cursor-pointer ">About</li>
             <li className="text-lg uppercase cursor-pointer ">Properties</li>
             <li className="text-lg uppercase cursor-pointer ">Contact Us</li>
             <li className="text-lg uppercase cursor-pointer flex items-center gap-2 ">

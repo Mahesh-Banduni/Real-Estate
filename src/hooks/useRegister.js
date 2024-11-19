@@ -2,13 +2,14 @@ import { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { handelSetToken } from "../store/slice";
+import { phoneNumber } from "../store/slice";
 import { useDispatch } from "react-redux";
 
 const useRegister = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+
   const {
     handleSubmit,
     register,
@@ -25,11 +26,13 @@ const useRegister = () => {
         "http://localhost:8080/users/register",
         data
       );
+      console.log(response);
 
       if (response?.statusText === "Created") {
-        dispatch(handelSetToken(response?.data?.token));
-        alert("User Register successfully");
-        navigate("/");
+        console.log(data);
+
+        dispatch(phoneNumber(data?.phone));
+        navigate("/otp");
       }
     } catch (message) {
       console.log(`register form error ${message.message}`);

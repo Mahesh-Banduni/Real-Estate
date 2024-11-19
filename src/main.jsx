@@ -18,6 +18,9 @@ const ListProperty = lazy(() => import("./pages/ListProperty.jsx"));
 const Wishlist = lazy(() => import("./pages/Wishlist.jsx"));
 const Recommendation = lazy(() => import("./pages/Recommendation.jsx"));
 const HandpickedPage = lazy(() => import("./pages/HandpickedPage.jsx"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage.jsx"));
+const OwnedProperties = lazy(() => import("./pages/OwnedProperties.jsx"));
+const OtpPage = lazy(() => import("./pages/OtpPage.jsx"));
 
 const routes = createBrowserRouter([
   {
@@ -89,12 +92,40 @@ const routes = createBrowserRouter([
         ),
       },
       {
+        path: "/owned-properties",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <OwnedProperties />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ProfilePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/otp",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <OtpPage />
+          </Suspense>
+        ),
+      },
+      {
         path: "/singleProperty",
         element: <SinglePropertyPage />,
       },
       {
         path: "/wishlist",
-        element: <Wishlist />,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Wishlist />
+          </Suspense>
+        ),
       },
     ],
   },

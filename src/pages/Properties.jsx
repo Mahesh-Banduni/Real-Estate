@@ -180,6 +180,27 @@ const Properties = () => {
                   Commercial Office Space
                 </option>
               </select>
+              <select
+                value={
+                  filters.minPrice && filters.maxPrice
+                    ? `${filters.minPrice}-${filters.maxPrice}`
+                    : ""
+                }
+                onChange={handelChangeDropdown}
+                name="priceRange"
+                className="rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 max-[1120px]:w-full outline-none hover:outline-none max-sm:text-sm"
+              >
+                <option value="">Select Price Range</option>
+                <option value="0-2500000">Under Rs 25 Lakh</option>
+                <option value="2500000-5000000">Rs 25 Lakh - Rs 50 Lakh</option>
+                <option value="5000000-10000000">
+                  Rs 50 Lakh - Rs 1 Crore
+                </option>
+                <option value="10000000-25000000">
+                  Rs 1 Crore - Rs 2.5 Crore
+                </option>
+                <option value="25000000-">Above Rs 2.5 Crore</option>
+              </select>
             </div>
           </div>
           <hr />

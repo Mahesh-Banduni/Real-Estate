@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
+    phoneNumber: "",
     status: false,
     allProperties: [],
     token: "",
@@ -40,6 +41,11 @@ const authSlice = createSlice({
     handelFetchHandpickedProperties: (state, action) => {
       state.handpickedProperties = action.payload;
     },
+    phoneNumber: (state, action) => {
+      console.log(action.payload);
+
+      state.phoneNumber = action.payload;
+    },
   },
 });
 export const {
@@ -52,5 +58,6 @@ export const {
   handelMostRecent,
   handelFetchRecommendedProperty,
   handelFetchHandpickedProperties,
+  phoneNumber,
 } = authSlice.actions;
 export default authSlice.reducer;
