@@ -21,7 +21,7 @@ const UserProfileSchema = new mongoose.Schema({
   state: { type: String, required: true },
   country: { type: String, required: true },
   postalCode: { type: String, required: true },
-  });
+  },{timestamps: true});
 
 const UserProfile = mongoose.model("UserProfile", UserProfileSchema);
 module.exports = UserProfile;

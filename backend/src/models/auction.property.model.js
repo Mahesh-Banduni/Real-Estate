@@ -49,7 +49,7 @@ const auctionPropertySchema = new mongoose.Schema({
   auctionEndDateTime: {
     type: Date, default: Date.now
   },
-});
+},{timestamps: true});
 
 const AuctionProperty = mongoose.model('AuctionProperty', auctionPropertySchema);
 module.exports = AuctionProperty;

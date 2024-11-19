@@ -308,6 +308,7 @@ const unmarkApprovedProperty= async (req, res, next) => {
 const markRecommendedProperty= async (req, res, next) => {
   try {
     const property = await propertyService.markRecommendedProperty(req.params.id, req.body.userId);
+    logger.info("User ID:"+`${req.body.userId}`+" has marked property ID:"+`${req.params.propertyId}`+" as recommended property");
     res.status(200).json({
       success: true,
       data: property,
@@ -320,6 +321,7 @@ const markRecommendedProperty= async (req, res, next) => {
 const unmarkRecommendedProperty= async (req, res, next) => {
   try {
     const property = await propertyService.unmarkRecommendedProperty(req.params.propertyId, req.body.userId);
+    logger.info("User ID:"+`${req.body.userId}`+" has unmarked property ID:"+`${req.params.propertyId}`+" as recommended property");
     res.status(200).json({
       success: true,
       data: property,

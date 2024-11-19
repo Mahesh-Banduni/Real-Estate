@@ -60,7 +60,7 @@ const auth = require('../middleware/auth.js');
  *       500:
  *         description: Internal server error
  */
-router.post('/', upload , propertyController.createProperty);
+router.post('/', upload ,auth, propertyController.createProperty);
 
 /**
  * @swagger

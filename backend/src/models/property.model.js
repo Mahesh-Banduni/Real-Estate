@@ -69,7 +69,7 @@ const propertySchema = new mongoose.Schema({
   facing: {type: String, //enum: ["North", "South", "West", "East","North - East","North - West", "South - West", "South - East"],
     set: (facing) => facing.charAt(0).toUpperCase() + facing.slice(1).toLowerCase()
   },
-});
+},{timestamps: true});
 
 const Property = mongoose.model("Property", propertySchema);
 module.exports = Property;

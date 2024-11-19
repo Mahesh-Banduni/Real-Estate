@@ -5,7 +5,6 @@ const loginUser = async (req, res, next) => {
     try {
       const { phoneNumber, password } = req.body;
       const { response, user} = await userLoginService.loginUser(phoneNumber, password);
-      
       // Send back the user data and the token
       res.status(200).json({
           success: true,
@@ -19,10 +18,11 @@ const loginUser = async (req, res, next) => {
 const verifyLoginOTP = async (req, res, next) => {
   try {
     const { phoneNumber, otp } = req.body;
-    const { response, token} = await userLoginService.verifyLoginOTP(phoneNumber, otp);
+    const { response, token, user} = await userLoginService.verifyLoginOTP(phoneNumber, otp);
+    logger.info("User ID:"+`${req.user._id}`+" has sign-in successfully");
     res.status(200).json({
       success: true,
-      data: {response, token}
+      data: {response, token, user}
     });
   } catch (error) {
     next(error);
