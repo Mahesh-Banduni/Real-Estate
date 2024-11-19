@@ -2,7 +2,10 @@ const express = require("express");
 const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
+// const expressPino = require('express-pino-logger');
+// const logger = require('./configs/winston.config.js');
 const crypto = require('crypto');
+const compression = require("compression");
 const connectDb = require("./configs/mongodb.connection.config.js");
 const userRoutes = require("./routes/user.route");
 const userAuthRoutes = require("./routes/user.login.route.js");
@@ -10,21 +13,28 @@ const userProfileRoutes= require("./routes/user.profile.route");
 const propertyRoutes = require("./routes/property.route.js");
 const searchPropertyRoutes = require("./routes/search.property.route.js");
 const handpickedPropertyRoutes = require("./routes/handpicked.property.route.js");
-const recommendedPropertyRoutes = require("./routes/recommended.property.route.js")
+const recommendedPropertyRoutes = require("./routes/recommended.property.route.js");
+const exchangePropertyRoutes = require("./routes/exchange.property.route.js");
 const contactFormRoutes = require("./routes/contact.form.route");
 const citySearchRoutes = require("./routes/city.route.js");
-const propertyNewRoutes = require("./routes/property.route copy.js");
 const auctionPropertyRoutes = require("./routes/auction.property.route.js");
+const { generalLimiter } = require('./middleware/rate.limitter.js');
+const { requestCounter } = require('./middleware/req.count.js');
 
-const { errorHandler } = require("./middleware/errorHandler");
+const { errorHandler } = require("./middleware/error.handler.js");
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 require('dotenv').config();
 
 connectDb();
 
+app.use(generalLimiter);
+app.use(requestCounter);
+
+app.use(compression());
+
 app.use(cors({
-      origin: [`http://${process.env.ORIGIN}:${process.env.ORIGIN_PORT}`],
+      origin: [`http://${process.env.ORIGIN}:${process.env.ORIGIN_PORT}`,'172.16.17.55:8080'],
       methods: ['GET', 'POST', 'PUT','PATCH','DELETE'], // Restrict methods
       allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
@@ -82,9 +92,33 @@ app.use('/recommended-properties',recommendedPropertyRoutes);
 app.use('/contact-forms',contactFormRoutes);
 app.use('/cities-localities',citySearchRoutes);
 app.use('/auction-properties',auctionPropertyRoutes);
-app.use('/properties-new',propertyNewRoutes);
+app.use('/exchange-properties',exchangePropertyRoutes);
 
 app.use(errorHandler);
+
+// // Request Logger Middleware (using express-pino)
+// app.use(expressPino({ logger }));
+
+// // Global error handling for uncaught exceptions and unhandled rejections
+// process.on('uncaughtException', (err) => {
+//   logger.error(`Uncaught Exception: ${err.message}`);
+//   process.exit(1); // Exit process after logging the error
+// });
+
+// process.on('unhandledRejection', (reason, promise) => {
+//   logger.error(`Unhandled Rejection: ${reason}`);
+//   process.exit(1); // Exit process after logging the error
+// });
+
+// // Gracefully shutdown the application on SIGINT or SIGTERM
+// const shutdown = () => {
+//   logger.info(`Worker ${process.pid} shutting down gracefully.`);
+//   process.exit(0); // Gracefully shutdown
+// };
+
+// // Handle signals for graceful shutdown
+// process.on('SIGINT', shutdown);
+// process.on('SIGTERM', shutdown);
 
 app.listen(process.env.SOURCE_PORT, () => {
   console.log(`App is listening at port ${process.env.SOURCE_PORT}`);

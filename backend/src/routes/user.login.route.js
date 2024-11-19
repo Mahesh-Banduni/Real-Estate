@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userLoginController = require('../controllers/user.login.controller.js');
+const { loginLimiter } = require('../middleware/rate.limitter.js');
 
 /**
  * @swagger
@@ -32,7 +33,7 @@ const userLoginController = require('../controllers/user.login.controller.js');
  *       401:
  *         description: Unauthorized (Invalid credentials)
  */
-router.post('/login', userLoginController.loginUser);
+router.post('/login',loginLimiter, userLoginController.loginUser);
 
 /**
  * @swagger

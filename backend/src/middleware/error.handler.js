@@ -11,7 +11,11 @@ const errorHandler = (error, req, res, next) => {
         return res.status(400).json({ error: validationErrors });
     }
 
-    console.log(error);
+    if (error.status === 429) {
+        return res.status(429).json({
+            error: error.message || 'Too many requests, please try again later.',
+        });
+    }
 
     return res.status(500).json({ error: 'Internal Server Error' });
 };

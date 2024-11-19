@@ -1,8 +1,14 @@
 const AuctionProperty = require('../models/auction.property.model.js');
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
+const userService = require("../services/user.service.js");
 
 // Create a new auction property
-const createAuctionProperty = async (auctionPropertyData) => {
+const createAuctionProperty = async (userId, auctionPropertyData) => {
+  const user = await userService.getUserById(userId);
+  // Ensure the user has the 'admin' role
+  if (user.role !== 'Admin') {
+    throw new BadRequestError('Only admins can add auction property.');
+  }
   const { propertyID } = auctionPropertyData;
 
   const existingAuctionProperty = await AuctionProperty.findOne({ propertyID });
@@ -29,7 +35,12 @@ const getAuctionPropertyById = async (auctionPropertyId) => {
 };
 
 // Update auction property
-const updateAuctionProperty = async (auctionPropertyId, updateData) => {
+const updateAuctionProperty = async (userId, auctionPropertyId, updateData) => {
+  const user = await userService.getUserById(userId);
+  // Ensure the user has the 'admin' role
+  if (user.role !== 'Admin') {
+    throw new BadRequestError('Only admins can update auction property.');
+  }
   const auctionProperty = await AuctionProperty.findById(auctionPropertyId);
   if (!auctionProperty) {
     throw new NotFoundError('Auction property not found');
@@ -47,7 +58,13 @@ const updateAuctionProperty = async (auctionPropertyId, updateData) => {
 };
 
 // Delete auction property
-const deleteAuctionProperty = async (auctionPropertyId) => {
+const deleteAuctionProperty = async (userId, auctionPropertyId) => {
+  const user = await userService.getUserById(userId);
+  // Ensure the user has the 'admin' role
+  if (user.role !== 'Admin') {
+    throw new BadRequestError('Only admins can delete auction property.');
+  }
+
   const auctionProperty = await AuctionProperty.findByIdAndDelete(auctionPropertyId);
   if (!auctionProperty) {
     throw new NotFoundError('Auction property not found');

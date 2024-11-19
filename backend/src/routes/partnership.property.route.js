@@ -69,12 +69,14 @@ const propertyController = require('../controllers/property.controller.js');
  *       - in: query
  *         name: isHandpickedProperty
  *         schema:
- *           type: boolean
+ *           type: string
+ *           enum: ["Yes","No"]
  *         description: To filter handpicked properties
  *       - in: query
  *         name: isRecommendedProperty
  *         schema:
- *           type: boolean
+ *           type: string
+ *           enum: ["Yes","No"]
  *         description: To filter recommended properties
  *       - in: query
  *         name: propertyStatus

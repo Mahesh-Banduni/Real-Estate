@@ -5,7 +5,9 @@ dotenv.config();
 
 const connectDb = async () => {
   try {
-   const connection =  await mongoose.connect(process.env.DATABASE_URL);
+   const connection =  await mongoose.connect(process.env.DATABASE_URL,{
+        maxPoolSize: 10,
+    });
     console.log("MongoDB connected successfully.");
   } catch (error) {
     console.error(`MongoDB connection error: ${error.message}`);

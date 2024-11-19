@@ -1,6 +1,7 @@
 const UserProfile = require('../models/user.profile.model.js');
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
-const {uploadImages, uploadImage} = require('../utils/upload.image.service.js');
+const {uploadImages, uploadImage} = require('../utils/upload.photos.service.js');
+const User = require('../models/user.model.js');
 
 // Create a new userProfile
 const createUserProfile = async (userProfileData, file) => {
@@ -25,15 +26,22 @@ const createUserProfile = async (userProfileData, file) => {
   userProfile.postalCode= userProfileData.postalCode;
   userProfile.profilePicture= imageURL;
 
-  return await userProfile.save();
+  await userProfile.save()
+
+  await User.findByIdAndUpdate(
+    userProfile.user, 
+    { $push: { profile: userProfile._id } } // Add the property ID to ownedProperties
+  );
+
+  return userProfile;
 };
 
 const getAllUserProfiles = async () => {
-  return await UserProfile.find().populate('user propertiesOwned favoriteProperties', 'name phone');
+  return await UserProfile.find().populate('user', 'name phone');
 };
 
 const getUserProfileById = async (userProfileId) => {
-  const userProfile = await UserProfile.findById(userProfileId).populate('user propertiesOwned favoriteProperties', 'name phone');
+  const userProfile = await UserProfile.findById(userProfileId).populate('user', 'name phone');
   if (!userProfile) {
     throw new NotFoundError('User Profile not found');
   }

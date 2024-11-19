@@ -3,8 +3,10 @@ const auctionPropertyService = require('../services/auction.property.service.js'
 // Create a new auction property
 exports.createAuctionProperty = async (req, res, next) => {
   try {
+    const userId = req.body.userId;
     const auctionPropertyData = req.body;
-    const auctionProperty = await auctionPropertyService.createAuctionProperty(auctionPropertyData);
+    const auctionProperty = await auctionPropertyService.createAuctionProperty(userId, auctionPropertyData);
+    logger.info("User ID:"+`${userId}`+" has posted auction property ID:"+`${auctionProperty._id}`+" successfully");
     res.status(201).json({
       success: true,
       data: auctionProperty,
@@ -17,7 +19,6 @@ exports.createAuctionProperty = async (req, res, next) => {
 // Get all auction properties
 exports.getAllAuctionProperties = async (req, res, next) => {
   try {
-    console.log(req.ip);
     const auctionProperties = await auctionPropertyService.getAllAuctionProperties();
     res.status(200).json({
       success: true,
@@ -44,7 +45,9 @@ exports.getAuctionPropertyById = async (req, res, next) => {
 // Update auction property by ID
 exports.updateAuctionProperty = async (req, res, next) => {
   try {
-    const updatedAuctionProperty = await auctionPropertyService.updateAuctionProperty(req.params.id, req.body);
+    const userId = req.body.userId;
+    const updatedAuctionProperty = await auctionPropertyService.updateAuctionProperty(userId, req.params.id, req.body);
+    logger.info("User ID:"+`${userId}`+" has updated auction property ID:"+`${req.params.id}`+"successfully");
     res.status(200).json({
       success: true,
       data: updatedAuctionProperty,
@@ -57,7 +60,9 @@ exports.updateAuctionProperty = async (req, res, next) => {
 // Delete auction property by ID
 exports.deleteAuctionProperty = async (req, res, next) => {
   try {
-    await auctionPropertyService.deleteAuctionProperty(req.params.id);
+    const userId = req.body.userId;
+    await auctionPropertyService.deleteAuctionProperty(userId, req.params.id);
+    logger.info("User ID:"+`${userId}`+" has deleted auction property ID:"+`${req.params.id}`+"successfully");
     res.status(200).json({ message: 'Auction property deleted successfully' });
   } catch (error) {
     next(error);

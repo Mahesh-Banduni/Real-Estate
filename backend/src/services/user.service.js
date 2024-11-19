@@ -1,9 +1,12 @@
 const User = require('../models/user.model.js');
 const Property = require('../models/property.model.js');
+const userProfile = require('../models/user.profile.model.js')
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 const { sendOTP, verifyOTP }= require("../utils/otp.service.js");
 const JWTToken = require("../utils/token.generation.service.js");
 const hashValue = require("../utils/hashing.service.js");
+const {encrypt, decrypt} = require("../utils/encryption.decryption.utils.js");
+const logger = require("../configs/winston.config.js");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -19,7 +22,7 @@ const createUser = async (userData) => {
     throw new ConflictError('User with this phone number already exists');
   }
 
-  const password= hash(userData.password);
+  const password= hashValue.hash(userData.password);
   
   const user = new User();
   user.name = userData.name;
@@ -29,19 +32,29 @@ const createUser = async (userData) => {
 
   await user.save();  
   const response = await sendOTP(user.phone);
-
+  
   return { response, user}; // Return both user and token
 };
 
 const getAllUsers = async () => {
-  return await User.find();
+  const users=await User.find().populate(
+    {
+    path: 'ownedProperties',
+    model: 'Property'
+  }).populate('profile','email').exec();
+  const encryptedResponse = encrypt(JSON.stringify(users), process.env.ENCRYPTION_KEY);
+  const encrypteResponse = encrypt(JSON.stringify("Gotcha"), process.env.ENCRYPTION_KEY);
+  //logger.info(encrypteResponse.encryptedData);
+  logger.error("error");
+  return users;
 };
 
 const getUserById = async (userId) => {
-  const user = await User.findById(userId).populate({
+  const user = await User.findById(userId).populate(
+    {
     path: 'ownedProperties',
     model: 'Property'
-  });
+  }).populate('profile','email').exec();
   if (!user) {
     throw new NotFoundError('User not found');
   }
@@ -55,13 +68,17 @@ const updateUser = async (userId, updateData) => {
     throw new NotFoundError('User not found');
   }
 
-  if (updateData.name) {
-    user.name = updateData.name; // Only update the name field
-  } else {
-    throw new BadRequestError('Name is required to update');
-  }
+  // if (updateData.name) {
+  //   user.name = updateData.name; // Only update the name field
+  // } else {
+  //   throw new BadRequestError('Name is required to update');
+  // }
+  user.phone = updateData.phone; 
+  user.password= hashValue.hash(updateData.password); 
 
-  return await user.save();
+  await user.save();
+  
+  return user;
 };
 
 const deleteUser = async (userId) => {

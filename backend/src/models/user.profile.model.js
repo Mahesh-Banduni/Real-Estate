@@ -14,10 +14,6 @@ const UserProfileSchema = new mongoose.Schema({
   },
   profilePicture: { type: String },
   bio: { type: String },
-  propertiesOwned: [{ type: mongoose.Schema.Types.ObjectId, ref: "Property" }],
-  favoriteProperties: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "Property" },
-  ],
   address: { type: String},
   locality: { type: String, required: true },
   city: { type: String, required: true },
@@ -25,7 +21,7 @@ const UserProfileSchema = new mongoose.Schema({
   state: { type: String, required: true },
   country: { type: String, required: true },
   postalCode: { type: String, required: true },
-  });
+  },{timestamps: true});
 
 const UserProfile = mongoose.model("UserProfile", UserProfileSchema);
 module.exports = UserProfile;

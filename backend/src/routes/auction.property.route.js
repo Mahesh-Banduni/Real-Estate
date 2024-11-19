@@ -21,6 +21,9 @@ const auctionPropertyController = require('../controllers/auction.property.contr
  *               - propertyID:
  *               - propertyType: 
  *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User
  *               bankName:
  *                 type: string
  *                 description: Bank name of the auction property
@@ -134,6 +137,9 @@ router.get('/:id', auctionPropertyController.getAuctionPropertyById);
  *           schema:
  *             type: object
  *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User
  *               bankName:
  *                 type: string
  *                 description: Bank name of the auction property
@@ -203,6 +209,16 @@ router.put('/:id', auctionPropertyController.updateAuctionProperty);
  *         schema:
  *           type: string
  *         description: Auction property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: User
  *     responses:
  *       200:
  *         description: Auction property deleted successfully
