@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { logo, heart, profile } from "../utils/icons";
 import { NavLinks, AnimatedButton, Dropdowns } from "./index";
 import { Link, NavLink } from "react-router-dom";
@@ -9,6 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 const Header = () => {
   const dispatch = useDispatch();
   const token = useSelector((store) => store?.authReducer?.token);
+  const navigate = useNavigate(); // Instantiate navigate function
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token from localStorage
+    dispatch(handelRemoveToken()); // Call the function to update state (if necessary)
+    navigate("/"); // Redirect to the home page
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -52,7 +58,7 @@ const Header = () => {
                 </NavLink>
               </li>
 
-              <li className="bg-transparent">
+              {/*<li className="bg-transparent">
                 <NavLink
                   to={"/"}
                   className={({ isActive }) =>
@@ -63,7 +69,7 @@ const Header = () => {
                 >
                   About
                 </NavLink>
-              </li>
+              </li>*/}
 
               <li className="bg-transparent">
                 <NavLink
@@ -126,7 +132,7 @@ const Header = () => {
               </NavLink>
             </li>
 
-            <li className="bg-transparent">
+            {/*<li className="bg-transparent">
               <NavLink
                 to={"/about"}
                 className={({ isActive }) =>
@@ -137,7 +143,7 @@ const Header = () => {
               >
                 About
               </NavLink>
-            </li>
+            </li>*/}
             <li className="bg-transparent">
               <NavLink
                 to={"/properties"}
@@ -203,23 +209,13 @@ const Header = () => {
                   className="dropdown-content menu bg-base-100 rounded-box z-[1] w-40 -left-20 p-2 shadow"
                 >
                   <li>
-                    <button
-                      onClick={() => {
-                        localStorage.removeItem("token");
-                        dispatch(handelRemoveToken());
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </li>
-                  <li>
                     <Link to={"/profile"}>View Profile</Link>
                   </li>
                   <li>
                     <Link to={"/owned-properties"}>Owned Properties</Link>
                   </li>
                   <li>
-                    <Link to={"/favorite-properties"}>Favorite Properties</Link>
+                    <button onClick={handleLogout}>Logout</button>
                   </li>
                 </ul>
               </div>

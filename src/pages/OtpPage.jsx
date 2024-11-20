@@ -69,7 +69,7 @@ const OtpPage = () => {
             type="submit"
             className=" font-interMedium text-white bg-slate-950 py-2 capitalize"
           >
-            Verify OPT
+            Verify OTP
           </Button>
         </form>
       </div>

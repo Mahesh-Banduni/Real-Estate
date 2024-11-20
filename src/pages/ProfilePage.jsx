@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input, ProfileInput } from "../components";
 import useProfile from "../hooks/useProfile";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const { user, handelInputChange, handelSubmitForm } = useProfile();
+  // Check for token in localStorage
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/signin"); // Redirect to login page if token is not present
+    }
+  }, [navigate]);
+
   return (
     <div className="w-4/5 mx-auto ">
       <h1 className="text-center my-10 font-interSemiBold text-3xl">

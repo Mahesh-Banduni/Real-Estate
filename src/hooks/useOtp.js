@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useRegister from "./useRegister";
 
 const useOtp = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const {
@@ -31,18 +31,23 @@ const useOtp = () => {
       );
       console.log(response);
 
-      if (response?.data?.success) {
+      /*if (response?.data?.success) {
         const token = response?.data?.data?.token;
         dispatch(handelSetToken(token));
         alert("User registered Successfully");
         navigate("/");
-      }
+      }*/
 
-      // if (response?.statusText === "Created") {
-      //   dispatch(handelSetToken(response?.data?.token));
-      //   alert("User Register successfully");
-      //   navigate("/signin");
-      // }
+      if (response?.statusText === "OK") {
+        //dispatch(handelSetToken(response?.data?.token));
+        dispatch(handelSetToken(response?.data?.data?.user));
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response?.data?.data?.token)
+        );
+        alert("User Signin successfully");
+        navigate("/");
+      }
     } catch (message) {
       console.log(`register form error ${message.message}`);
       setMessage(message.message);

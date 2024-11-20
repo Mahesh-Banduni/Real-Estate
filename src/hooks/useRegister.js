@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { phoneNumber } from "../store/slice";
 import { useDispatch } from "react-redux";
+import { handelSetToken } from "../store/slice";
 
 const useRegister = () => {
   const dispatch = useDispatch();
@@ -28,10 +29,20 @@ const useRegister = () => {
       );
       console.log(response);
 
-      if (response?.statusText === "Created") {
-        console.log(data);
+      // if (response?.statusText === "Created") {
+      //   console.log(data);
 
+      //   //dispatch(phoneNumber(data?.phone));
+      //   navigate("/");
+      // }
+      if (response?.statusText === "Created") {
+        // dispatch(handelSetToken(response?.data?.data?.user));
+        // localStorage.setItem(
+        //   "token",
+        //   JSON.stringify(response?.data?.data?.token)
+        // );
         dispatch(phoneNumber(data?.phone));
+        alert("User Register successfully");
         navigate("/otp");
       }
     } catch (message) {

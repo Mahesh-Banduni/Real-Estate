@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
+import { phoneNumber } from "../store/slice";
+
 import { handelSetToken } from "../store/slice";
 
 const useLogin = () => {
@@ -19,27 +21,24 @@ const useLogin = () => {
   } = useForm();
 
   const submitForm = async (data) => {
+    console.log(data);
     try {
       const response = await axios.post(
         "http://localhost:8080/userauth/login",
-        data
+        //data
+        {
+          phoneNumber: data.phone,
+          password: data.password,
+        }
       );
       console.log(response);
 
       // Extracting data according to the response structure
-      const responseData = response?.data?.data;
-      const user = responseData?.user;
+      // const responseData = response?.data?.data;
+      // const user = responseData?.user;
       //const token = responseData?.token;
 
       // Logging the user and response data
-      console.log(user);
-      console.log(responseData);
-      if (response?.data?.success) {
-        console.log(data);
-
-        dispatch(phoneNumber(data?.phone));
-        navigate("/otp");
-      }
 
       // Checking for success instead of relying solely on statusText
       // if (response?.data?.success) {
@@ -60,12 +59,11 @@ const useLogin = () => {
       //   alert("User login successfully");
       //   navigate("/");
       // }
-      // if (response?.statusText === "Created") {
-      //   console.log(data);
-
-      //   dispatch(phoneNumber(data?.phone));
-      //   navigate("/otp");
-      // }
+      if (response?.statusText === "OK") {
+        //console.log(data);
+        dispatch(phoneNumber(data?.phone));
+        navigate("/otp");
+      }
     } catch (error) {
       console.log(error);
       if (error?.status === 400) {
