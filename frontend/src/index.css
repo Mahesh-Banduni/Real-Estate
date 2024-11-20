@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "InterMedium";
+    src: url("./assets/font-family/Inter_18pt-Medium.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "InterRegular";
+    src: url("./assets/font-family/Inter_18pt-Regular.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "InterSemiBold";
+    src: url("./assets/font-family/Inter_28pt-SemiBold.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "InterRegular";
+    src: url("./assets/font-family/Inter_18pt-Regular.ttf") format("truetype");
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.login-or {
+  position: relative;
+  text-align: center;
+}
+.login-or::after {
+  content: " ";
+  position: absolute;
+  height: 1px;
+  background-color: black;
+  width: 45%;
+  top: 50%;
+  left: 55.3%;
+}
+.login-or::before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  height: 1px;
+  top: 50%;
+  background-color: black;
+  width: 45%;
+}

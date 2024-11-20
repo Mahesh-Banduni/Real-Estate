@@ -12,7 +12,7 @@
     "nodemon": "^3.1.4"
   },
   "dependencies": {
-    "backblaze-b2": "^1.7.0",
+    "backblaze-b2": "^0.9.12",
     "cloudinary": "^2.5.0",
     "cluster": "^0.7.7",
     "compression": "^1.7.5",
