@@ -48,7 +48,7 @@ const verifyLoginOTP = async (phoneNumber, otp) => {
 
     user.isVerified = true;
     await user.save();
-    return { response, token, user };
+    return { response, token };
   }
 
   return { response };

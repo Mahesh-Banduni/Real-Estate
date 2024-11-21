@@ -105,7 +105,7 @@ const propertySchema = new mongoose.Schema({
     set: (facing) =>
       facing.charAt(0).toUpperCase() + facing.slice(1).toLowerCase(),
   },
-});
+},{timestamps: true});
 
 const Property = mongoose.model("Property", propertySchema);
 module.exports = Property;
