@@ -1,13 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { handelSetToken } from "../store/slice";
 import { useDispatch, useSelector } from "react-redux";
 import useRegister from "./useRegister";
 
 const useOtp = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const {
@@ -46,7 +47,8 @@ const useOtp = () => {
           JSON.stringify(response?.data?.data?.token)
         );
         alert("User Signin successfully");
-        navigate("/");
+        const redirectPath = location.state?.from || "/";
+        navigate(redirectPath);
       }
     } catch (message) {
       console.log(`register form error ${message.message}`);
