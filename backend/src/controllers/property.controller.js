@@ -1,13 +1,24 @@
-const propertyService = require('../services/property.service.js');
+const propertyService = require("../services/property.service.js");
 
 // Controller for creating a new Property
 const createProperty = async (req, res, next) => {
   try {
-    const userId=req.body.user;
+    const userId = req.user._id;
     const propertyData = req.body;
     const files = req.files;
-    const property = await propertyService.createProperty(userId, propertyData, files);
-    logger.info("User ID:"+`${userId}`+" has posted property ID:"+`${property._id}`+" successfully");
+    console.log(req?.user);
+    const property = await propertyService.createProperty(
+      userId,
+      propertyData,
+      files
+    );
+    logger.info(
+      "User ID:" +
+        `${userId}` +
+        " has posted property ID:" +
+        `${property._id}` +
+        " successfully"
+    );
     return res.status(201).json({
       success: true,
       data: property,
@@ -33,8 +44,17 @@ const getPropertyById = async (req, res, next) => {
 // Controller for updating a Property by ID
 const updateProperty = async (req, res, next) => {
   try {
-    const updatedProperty = await propertyService.updateProperty(req.params.id, req.body);
-    logger.info("User ID:"+`${updatedProperty.userId}`+" has updated property ID:"+`${req.params.id}`+" successfully");
+    const updatedProperty = await propertyService.updateProperty(
+      req.params.id,
+      req.body
+    );
+    logger.info(
+      "User ID:" +
+        `${updatedProperty.userId}` +
+        " has updated property ID:" +
+        `${req.params.id}` +
+        " successfully"
+    );
     res.status(200).json({
       success: true,
       data: updatedProperty.property,
@@ -48,8 +68,14 @@ const updateProperty = async (req, res, next) => {
 const deleteProperty = async (req, res, next) => {
   try {
     await propertyService.deleteProperty(req.params.id, req.body.userId);
-    logger.info("User ID:"+`${req.body.userId}`+" has deleted property ID:"+`${req.params.id}`+" successfully");
-    res.status(200).json({ message: 'Property deleted successfully' });
+    logger.info(
+      "User ID:" +
+        `${req.body.userId}` +
+        " has deleted property ID:" +
+        `${req.params.id}` +
+        " successfully"
+    );
+    res.status(200).json({ message: "Property deleted successfully" });
   } catch (error) {
     next(error);
   }
@@ -57,28 +83,32 @@ const deleteProperty = async (req, res, next) => {
 
 const searchProperty = async (req, res, next) => {
   try {
-        // Accessing query parameters for filtering
-        const filters = {
-          propertyPurpose: req.query.propertyPurpose,
-          propertyType: req.query.propertyType,
-          city: req.query.city,
-          locality: req.query.locality,
-          fromCity: req.query.fromCity,
-          toCity: req.query.toCity,
-          fromCityLocality: req.query.fromCityLocality,
-          toCityLocality: req.query.toCityLocality,
-          minPrice: req.query.minPrice,
-          maxPrice: req.query.maxPrice,
-          isHandpickedProperty: req.query.isHandpickedProperty,
-          isRecommendedProperty: req.query.isRecommendedProperty,
-          propertyStatus: req.query.propertyStatus,
+    // Accessing query parameters for filtering
+    const filters = {
+      propertyPurpose: req.query.propertyPurpose,
+      propertyType: req.query.propertyType,
+      city: req.query.city,
+      locality: req.query.locality,
+      fromCity: req.query.fromCity,
+      toCity: req.query.toCity,
+      fromCityLocality: req.query.fromCityLocality,
+      toCityLocality: req.query.toCityLocality,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      isHandpickedProperty: req.query.isHandpickedProperty,
+      isRecommendedProperty: req.query.isRecommendedProperty,
+      propertyStatus: req.query.propertyStatus,
     };
 
     // Access sorting parameters from the query
     const sortBy = req.query.sortBy; // price or dateListed
-    const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
-    
-    const properties = await propertyService.searchProperty(filters, sortBy, sortOrder);
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
+
+    const properties = await propertyService.searchProperty(
+      filters,
+      sortBy,
+      sortOrder
+    );
     res.status(200).json({
       success: true,
       data: properties,
@@ -90,32 +120,36 @@ const searchProperty = async (req, res, next) => {
 
 const handpickedProperty = async (req, res, next) => {
   try {
-      // Accessing query parameters for filtering
-      const filters = {
-        propertyPurpose: req.query.propertyPurpose,
-        propertyType: req.query.propertyType,
-        city: req.query.city,
-        locality: req.query.locality,
-        fromCity: req.query.fromCity,
-        toCity: req.query.toCity,
-        fromCityLocality: req.query.fromCityLocality,
-        toCityLocality: req.query.toCityLocality,
-        minPrice: req.query.minPrice,
-        maxPrice: req.query.maxPrice,
-        isHandpickedProperty: req.query.isHandpickedProperty,
-        isRecommendedProperty: req.query.isRecommendedProperty,
-        propertyStatus: req.query.propertyStatus,
-  };
+    // Accessing query parameters for filtering
+    const filters = {
+      propertyPurpose: req.query.propertyPurpose,
+      propertyType: req.query.propertyType,
+      city: req.query.city,
+      locality: req.query.locality,
+      fromCity: req.query.fromCity,
+      toCity: req.query.toCity,
+      fromCityLocality: req.query.fromCityLocality,
+      toCityLocality: req.query.toCityLocality,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      isHandpickedProperty: req.query.isHandpickedProperty,
+      isRecommendedProperty: req.query.isRecommendedProperty,
+      propertyStatus: req.query.propertyStatus,
+    };
 
-  // Access sorting parameters from the query
-  const sortBy = req.query.sortBy; // price or dateListed
-  const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
+    // Access sorting parameters from the query
+    const sortBy = req.query.sortBy; // price or dateListed
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
 
-  const properties = await propertyService.handpickedProperty(filters, sortBy, sortOrder);
-  res.status(200).json({
-    success: true,
-    data: properties,
-  });
+    const properties = await propertyService.handpickedProperty(
+      filters,
+      sortBy,
+      sortOrder
+    );
+    res.status(200).json({
+      success: true,
+      data: properties,
+    });
   } catch (error) {
     next(error);
   }
@@ -123,32 +157,36 @@ const handpickedProperty = async (req, res, next) => {
 
 const recommendedProperty = async (req, res, next) => {
   try {
-      // Accessing query parameters for filtering
-      const filters = {
-        propertyPurpose: req.query.propertyPurpose,
-        propertyType: req.query.propertyType,
-        city: req.query.city,
-        locality: req.query.locality,
-        fromCity: req.query.fromCity,
-        toCity: req.query.toCity,
-        fromCityLocality: req.query.fromCityLocality,
-        toCityLocality: req.query.toCityLocality,
-        minPrice: req.query.minPrice,
-        maxPrice: req.query.maxPrice,
-        isHandpickedProperty: req.query.isHandpickedProperty,
-        isRecommendedProperty: req.query.isRecommendedProperty,
-        propertyStatus: req.query.propertyStatus,
-  };
+    // Accessing query parameters for filtering
+    const filters = {
+      propertyPurpose: req.query.propertyPurpose,
+      propertyType: req.query.propertyType,
+      city: req.query.city,
+      locality: req.query.locality,
+      fromCity: req.query.fromCity,
+      toCity: req.query.toCity,
+      fromCityLocality: req.query.fromCityLocality,
+      toCityLocality: req.query.toCityLocality,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      isHandpickedProperty: req.query.isHandpickedProperty,
+      isRecommendedProperty: req.query.isRecommendedProperty,
+      propertyStatus: req.query.propertyStatus,
+    };
 
-  // Access sorting parameters from the query
-  const sortBy = req.query.sortBy; // price or dateListed
-  const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
+    // Access sorting parameters from the query
+    const sortBy = req.query.sortBy; // price or dateListed
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
 
-  const properties = await propertyService.recommendedProperty(filters, sortBy, sortOrder);
-  res.status(200).json({
-    success: true,
-    data: properties,
-  });
+    const properties = await propertyService.recommendedProperty(
+      filters,
+      sortBy,
+      sortOrder
+    );
+    res.status(200).json({
+      success: true,
+      data: properties,
+    });
   } catch (error) {
     next(error);
   }
@@ -156,32 +194,36 @@ const recommendedProperty = async (req, res, next) => {
 
 const saleProperty = async (req, res, next) => {
   try {
-      // Accessing query parameters for filtering
-      const filters = {
-        propertyPurpose: req.query.propertyPurpose,
-        propertyType: req.query.propertyType,
-        city: req.query.city,
-        locality: req.query.locality,
-        fromCity: req.query.fromCity,
-        toCity: req.query.toCity,
-        fromCityLocality: req.query.fromCityLocality,
-        toCityLocality: req.query.toCityLocality,
-        minPrice: req.query.minPrice,
-        maxPrice: req.query.maxPrice,
-        isHandpickedProperty: req.query.isHandpickedProperty,
-        isRecommendedProperty: req.query.isRecommendedProperty,
-        propertyStatus: req.query.propertyStatus,
-  };
+    // Accessing query parameters for filtering
+    const filters = {
+      propertyPurpose: req.query.propertyPurpose,
+      propertyType: req.query.propertyType,
+      city: req.query.city,
+      locality: req.query.locality,
+      fromCity: req.query.fromCity,
+      toCity: req.query.toCity,
+      fromCityLocality: req.query.fromCityLocality,
+      toCityLocality: req.query.toCityLocality,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      isHandpickedProperty: req.query.isHandpickedProperty,
+      isRecommendedProperty: req.query.isRecommendedProperty,
+      propertyStatus: req.query.propertyStatus,
+    };
 
-  // Access sorting parameters from the query
-  const sortBy = req.query.sortBy; // price or dateListed
-  const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
+    // Access sorting parameters from the query
+    const sortBy = req.query.sortBy; // price or dateListed
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
 
-  const properties = await propertyService.saleProperty(filters, sortBy, sortOrder);
-  res.status(200).json({
-    success: true,
-    data: properties,
-  });
+    const properties = await propertyService.saleProperty(
+      filters,
+      sortBy,
+      sortOrder
+    );
+    res.status(200).json({
+      success: true,
+      data: properties,
+    });
   } catch (error) {
     next(error);
   }
@@ -189,32 +231,36 @@ const saleProperty = async (req, res, next) => {
 
 const exchangeProperty = async (req, res, next) => {
   try {
-      // Accessing query parameters for filtering
-      const filters = {
-        propertyPurpose: req.query.propertyPurpose,
-        propertyType: req.query.propertyType,
-        city: req.query.city,
-        locality: req.query.locality,
-        fromCity: req.query.fromCity,
-        toCity: req.query.toCity,
-        fromCityLocality: req.query.fromCityLocality,
-        toCityLocality: req.query.toCityLocality,
-        minPrice: req.query.minPrice,
-        maxPrice: req.query.maxPrice,
-        isHandpickedProperty: req.query.isHandpickedProperty,
-        isRecommendedProperty: req.query.isRecommendedProperty,
-        propertyStatus: req.query.propertyStatus,
-  };
+    // Accessing query parameters for filtering
+    const filters = {
+      propertyPurpose: req.query.propertyPurpose,
+      propertyType: req.query.propertyType,
+      city: req.query.city,
+      locality: req.query.locality,
+      fromCity: req.query.fromCity,
+      toCity: req.query.toCity,
+      fromCityLocality: req.query.fromCityLocality,
+      toCityLocality: req.query.toCityLocality,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      isHandpickedProperty: req.query.isHandpickedProperty,
+      isRecommendedProperty: req.query.isRecommendedProperty,
+      propertyStatus: req.query.propertyStatus,
+    };
 
-  // Access sorting parameters from the query
-  const sortBy = req.query.sortBy; // price or dateListed
-  const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
+    // Access sorting parameters from the query
+    const sortBy = req.query.sortBy; // price or dateListed
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
 
-  const properties = await propertyService.exchangeProperty(filters, sortBy, sortOrder);
-  res.status(200).json({
-    success: true,
-    data: properties,
-  });
+    const properties = await propertyService.exchangeProperty(
+      filters,
+      sortBy,
+      sortOrder
+    );
+    res.status(200).json({
+      success: true,
+      data: properties,
+    });
   } catch (error) {
     next(error);
   }
@@ -222,41 +268,54 @@ const exchangeProperty = async (req, res, next) => {
 
 const partnershipProperty = async (req, res, next) => {
   try {
-      // Accessing query parameters for filtering
-      const filters = {
-        propertyPurpose: req.query.propertyPurpose,
-        propertyType: req.query.propertyType,
-        city: req.query.city,
-        locality: req.query.locality,
-        fromCity: req.query.fromCity,
-        toCity: req.query.toCity,
-        fromCityLocality: req.query.fromCityLocality,
-        toCityLocality: req.query.toCityLocality,
-        minPrice: req.query.minPrice,
-        maxPrice: req.query.maxPrice,
-        isHandpickedProperty: req.query.isHandpickedProperty,
-        isRecommendedProperty: req.query.isRecommendedProperty,
-        propertyStatus: req.query.propertyStatus,
-  };
+    // Accessing query parameters for filtering
+    const filters = {
+      propertyPurpose: req.query.propertyPurpose,
+      propertyType: req.query.propertyType,
+      city: req.query.city,
+      locality: req.query.locality,
+      fromCity: req.query.fromCity,
+      toCity: req.query.toCity,
+      fromCityLocality: req.query.fromCityLocality,
+      toCityLocality: req.query.toCityLocality,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      isHandpickedProperty: req.query.isHandpickedProperty,
+      isRecommendedProperty: req.query.isRecommendedProperty,
+      propertyStatus: req.query.propertyStatus,
+    };
 
-  // Access sorting parameters from the query
-  const sortBy = req.query.sortBy; // price or dateListed
-  const sortOrder = req.query.sortOrder === 'desc' ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
+    // Access sorting parameters from the query
+    const sortBy = req.query.sortBy; // price or dateListed
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
 
-  const properties = await propertyService.partnershipProperty(filters, sortBy, sortOrder);
-  res.status(200).json({
-    success: true,
-    data: properties,
-  });
+    const properties = await propertyService.partnershipProperty(
+      filters,
+      sortBy,
+      sortOrder
+    );
+    res.status(200).json({
+      success: true,
+      data: properties,
+    });
   } catch (error) {
     next(error);
   }
 };
 
- const markHandpickedProperty= async (req, res, next) => {
+const markHandpickedProperty = async (req, res, next) => {
   try {
-    const property = await propertyService.markHandpickedProperty(req.params.id, req.body.userId);
-    logger.info("User ID:"+`${req.body.userId}`+" has marked property ID:"+`${req.params.id}`+" as handpicked property");
+    const property = await propertyService.markHandpickedProperty(
+      req.params.id,
+      req.body.userId
+    );
+    logger.info(
+      "User ID:" +
+        `${req.body.userId}` +
+        " has marked property ID:" +
+        `${req.params.id}` +
+        " as handpicked property"
+    );
     res.status(200).json({
       success: true,
       data: property,
@@ -266,10 +325,19 @@ const partnershipProperty = async (req, res, next) => {
   }
 };
 
-const unmarkHandpickedProperty= async (req, res, next) => {
+const unmarkHandpickedProperty = async (req, res, next) => {
   try {
-    const property = await propertyService.unmarkHandpickedProperty(req.params.propertyId, req.body.userId);
-    logger.info("User ID:"+`${req.body.userId}`+" has unmarked property ID:"+`${req.params.propertyId}`+" as handpicked property");
+    const property = await propertyService.unmarkHandpickedProperty(
+      req.params.propertyId,
+      req.body.userId
+    );
+    logger.info(
+      "User ID:" +
+        `${req.body.userId}` +
+        " has unmarked property ID:" +
+        `${req.params.propertyId}` +
+        " as handpicked property"
+    );
     res.status(200).json({
       success: true,
       data: property,
@@ -279,10 +347,19 @@ const unmarkHandpickedProperty= async (req, res, next) => {
   }
 };
 
-const markApprovedProperty= async (req, res, next) => {
+const markApprovedProperty = async (req, res, next) => {
   try {
-    const property = await propertyService.markApprovedProperty(req.params.id, req.body.userId);
-    logger.info("User ID:"+`${req.body.userId}`+" has marked property ID:"+`${req.params.id}`+" as approved property");
+    const property = await propertyService.markApprovedProperty(
+      req.params.id,
+      req.body.userId
+    );
+    logger.info(
+      "User ID:" +
+        `${req.body.userId}` +
+        " has marked property ID:" +
+        `${req.params.id}` +
+        " as approved property"
+    );
     res.status(200).json({
       success: true,
       data: property,
@@ -292,10 +369,19 @@ const markApprovedProperty= async (req, res, next) => {
   }
 };
 
-const unmarkApprovedProperty= async (req, res, next) => {
+const unmarkApprovedProperty = async (req, res, next) => {
   try {
-    const property = await propertyService.unmarkApprovedProperty(req.params.propertyId, req.body.userId);
-    logger.info("User ID:"+`${req.body.userId}`+" has unmarked property ID:"+`${req.params.propertyId}`+" as handpicked property");
+    const property = await propertyService.unmarkApprovedProperty(
+      req.params.propertyId,
+      req.body.userId
+    );
+    logger.info(
+      "User ID:" +
+        `${req.body.userId}` +
+        " has unmarked property ID:" +
+        `${req.params.propertyId}` +
+        " as handpicked property"
+    );
     res.status(200).json({
       success: true,
       data: property,
@@ -305,10 +391,12 @@ const unmarkApprovedProperty= async (req, res, next) => {
   }
 };
 
-const markRecommendedProperty= async (req, res, next) => {
+const markRecommendedProperty = async (req, res, next) => {
   try {
-    const property = await propertyService.markRecommendedProperty(req.params.id, req.body.userId);
-    logger.info("User ID:"+`${req.body.userId}`+" has marked property ID:"+`${req.params.propertyId}`+" as recommended property");
+    const property = await propertyService.markRecommendedProperty(
+      req.params.id,
+      req.body.userId
+    );
     res.status(200).json({
       success: true,
       data: property,
@@ -318,10 +406,12 @@ const markRecommendedProperty= async (req, res, next) => {
   }
 };
 
-const unmarkRecommendedProperty= async (req, res, next) => {
+const unmarkRecommendedProperty = async (req, res, next) => {
   try {
-    const property = await propertyService.unmarkRecommendedProperty(req.params.propertyId, req.body.userId);
-    logger.info("User ID:"+`${req.body.userId}`+" has unmarked property ID:"+`${req.params.propertyId}`+" as recommended property");
+    const property = await propertyService.unmarkRecommendedProperty(
+      req.params.propertyId,
+      req.body.userId
+    );
     res.status(200).json({
       success: true,
       data: property,
@@ -330,7 +420,6 @@ const unmarkRecommendedProperty= async (req, res, next) => {
     next(error);
   }
 };
-
 
 module.exports = {
   createProperty,
@@ -348,5 +437,5 @@ module.exports = {
   markApprovedProperty,
   unmarkApprovedProperty,
   markRecommendedProperty,
-  unmarkRecommendedProperty
+  unmarkRecommendedProperty,
 };
