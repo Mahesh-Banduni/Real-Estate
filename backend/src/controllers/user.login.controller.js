@@ -8,7 +8,7 @@ const loginUser = async (req, res, next) => {
       // Send back the user data and the token
       res.status(200).json({
           success: true,
-          data: {response, user}
+          data: {response}
         });
     } catch (error) {
       next(error);

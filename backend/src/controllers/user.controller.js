@@ -9,7 +9,7 @@ const createUser = async(req, res, next) => {
     logger.info("User ID:"+`${user._id}`+" has been registered successfully");
     res.status(201).json({
         success: true,
-        data: {response, user}
+        data: {response}
     });
   } catch (error) {
     next(error);
