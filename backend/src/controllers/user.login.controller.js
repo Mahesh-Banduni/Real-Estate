@@ -1,59 +1,68 @@
-const userLoginService = require('../services/user.login.service.js');
+const userLoginService = require("../services/user.login.service.js");
 
 // Login a user
 const loginUser = async (req, res, next) => {
-    try {
-      const { phoneNumber, password } = req.body;
-      const { response, user} = await userLoginService.loginUser(phoneNumber, password);
-      
-      // Send back the user data and the token
-      res.status(200).json({
-          success: true,
-          data: {response, user}
-        });
-    } catch (error) {
-      next(error);
-    }
+  try {
+    const { phoneNumber, password } = req.body;
+    const { response } = await userLoginService.loginUser(
+      phoneNumber,
+      password
+    );
+    console.log({ response });
+
+    // Send back the user data and the token
+    res.status(200).json({
+      success: true,
+      data: { response },
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const verifyLoginOTP = async (req, res, next) => {
   try {
     const { phoneNumber, otp } = req.body;
-    const { response, token} = await userLoginService.verifyLoginOTP(phoneNumber, otp);
+    const { response, token, user } = await userLoginService.verifyLoginOTP(
+      phoneNumber,
+      otp
+    );
     res.status(200).json({
       success: true,
-      data: {response, token}
+      data: { response, token, user },
     });
   } catch (error) {
     next(error);
   }
 };
-  
+
 // Logout a user
 const logoutUser = async (req, res, next) => {
-    try {
-      const result = await userLoginService.logoutUser(req); // Usually handled on the frontend
-      res.status(200).json(result);
-    } catch (error) {
-      next(error);
-    }
+  try {
+    const result = await userLoginService.logoutUser(req); // Usually handled on the frontend
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
 const forgetPassword = async (req, res, next) => {
   try {
-    const {response, user} = await userLoginService.forgetPassword(req.body.phoneNumber);
+    const { response, user } = await userLoginService.forgetPassword(
+      req.body.phoneNumber
+    );
     res.status(200).json({
       success: true,
-      data: {response, user},
+      data: { response, user },
     });
   } catch (error) {
     next(error);
   }
 };
-  
+
 module.exports = {
-    loginUser,
-    verifyLoginOTP,
-    logoutUser,
-    forgetPassword
-}
+  loginUser,
+  verifyLoginOTP,
+  logoutUser,
+  forgetPassword,
+};

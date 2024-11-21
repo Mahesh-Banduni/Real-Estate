@@ -1,15 +1,17 @@
-const userService = require('../services/user.service.js');
+const userService = require("../services/user.service.js");
 const auth = require("../middleware/auth.js");
 const logger = require("../configs/winston.config.js");
 
 // Create a new user
-const createUser = async(req, res, next) => {
+const createUser = async (req, res, next) => {
   try {
-    const { response, user, token } = await userService.createUser(req.body);
-    logger.info("User id:"+`${user._id}`+" has been registered successfully");
+    const { response, user } = await userService.createUser(req.body);
+    logger.info(
+      "User id:" + `${user._id}` + " has been registered successfully"
+    );
     res.status(201).json({
-        success: true,
-        data: {response, user, token}
+      success: true,
+      data: { response },
     });
   } catch (error) {
     next(error);
@@ -46,7 +48,9 @@ const getUserById = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const updatedUser = await userService.updateUser(req.params.id, req.body);
-    logger.info("User id:"+`${user._id}`+" has updated his data successfully");
+    logger.info(
+      "User id:" + `${user._id}` + " has updated his data successfully"
+    );
     res.status(200).json({
       success: true,
       data: updatedUser,
@@ -60,8 +64,10 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     await userService.deleteUser(req.params.id);
-    logger.info("User id:"+`${req.params.id}`+" has been deleted successfully");
-    res.status(200).json({ message: 'User deleted successfully' });
+    logger.info(
+      "User id:" + `${req.params.id}` + " has been deleted successfully"
+    );
+    res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     next(error);
   }
@@ -70,7 +76,10 @@ const deleteUser = async (req, res, next) => {
 // Add a property to favorites
 const addFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await userService.addFavoriteProperty(req.body.userId, req.body.propertyId);
+    const user = await userService.addFavoriteProperty(
+      req.body.userId,
+      req.body.propertyId
+    );
     res.status(200).json({
       success: true,
       data: user,
@@ -83,7 +92,10 @@ const addFavoriteProperty = async (req, res, next) => {
 // Remove a property from favorites
 const removeFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await userService.removeFavoriteProperty(req.body.userId, req.body.propertyId);
+    const user = await userService.removeFavoriteProperty(
+      req.body.userId,
+      req.body.propertyId
+    );
     res.status(200).json({
       success: true,
       data: user,
@@ -95,7 +107,10 @@ const removeFavoriteProperty = async (req, res, next) => {
 
 const changePassword = async (req, res, next) => {
   try {
-    const updatedUser = await userService.changePassword(req.params.id, req.body);
+    const updatedUser = await userService.changePassword(
+      req.params.id,
+      req.body
+    );
     res.status(200).json({
       success: true,
       data: updatedUser,
@@ -107,7 +122,11 @@ const changePassword = async (req, res, next) => {
 
 const resetPassword = async (req, res, next) => {
   try {
-    const response = await userService.resetPassword(req.params.id, req.body.newPassword, req.body.confirmNewPassword);
+    const response = await userService.resetPassword(
+      req.params.id,
+      req.body.newPassword,
+      req.body.confirmNewPassword
+    );
     res.status(200).json({
       success: true,
       data: response,
@@ -126,5 +145,5 @@ module.exports = {
   addFavoriteProperty,
   removeFavoriteProperty,
   changePassword,
-  resetPassword
+  resetPassword,
 };

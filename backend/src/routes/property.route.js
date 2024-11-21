@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const propertyController = require('../controllers/property.controller.js');
-const {upload} = require('../middleware/multer.js');
-const auth = require('../middleware/auth.js');
+const propertyController = require("../controllers/property.controller.js");
+const { upload } = require("../middleware/multer.js");
+const auth = require("../middleware/auth.js");
 
 /**
  * @swagger
@@ -60,7 +60,7 @@ const auth = require('../middleware/auth.js');
  *       500:
  *         description: Internal server error
  */
-router.post('/', upload , propertyController.createProperty);
+router.post("/", upload, auth, propertyController.createProperty);
 
 /**
  * @swagger
@@ -83,7 +83,7 @@ router.post('/', upload , propertyController.createProperty);
  *       404:
  *         description: Property not found
  */
-router.get('/:id', propertyController.getPropertyById);
+router.get("/:id", propertyController.getPropertyById);
 
 /**
  * @swagger
@@ -127,7 +127,7 @@ router.get('/:id', propertyController.getPropertyById);
  *       404:
  *         description: Property not found
  */
-router.put('/:id', propertyController.updateProperty);
+router.put("/:id", propertyController.updateProperty);
 
 /**
  * @swagger
@@ -160,8 +160,7 @@ router.put('/:id', propertyController.updateProperty);
  *       404:
  *         description: Property not found
  */
-router.delete('/:id', propertyController.deleteProperty);
-
+router.delete("/:id", propertyController.deleteProperty);
 
 /**
  * @swagger
@@ -194,8 +193,7 @@ router.delete('/:id', propertyController.deleteProperty);
  *       400:
  *         description: Only admins can mark properties as handpicked
  */
-router.put('/:id/mark-handpicked', propertyController.markHandpickedProperty);
-
+router.put("/:id/mark-handpicked", propertyController.markHandpickedProperty);
 
 /**
  * @swagger
@@ -228,7 +226,10 @@ router.put('/:id/mark-handpicked', propertyController.markHandpickedProperty);
  *       400:
  *         description: Only admins can Unmark properties as handpicked
  */
-router.put('/:id/unmark-handpicked', propertyController.unmarkHandpickedProperty);
+router.put(
+  "/:id/unmark-handpicked",
+  propertyController.unmarkHandpickedProperty
+);
 
 /**
  * @swagger
@@ -261,7 +262,7 @@ router.put('/:id/unmark-handpicked', propertyController.unmarkHandpickedProperty
  *       400:
  *         description: Only admins can mark properties as approved
  */
-router.put('/:id/mark-approved', propertyController.markApprovedProperty);
+router.put("/:id/mark-approved", propertyController.markApprovedProperty);
 
 /**
  * @swagger
@@ -294,7 +295,7 @@ router.put('/:id/mark-approved', propertyController.markApprovedProperty);
  *       400:
  *         description: Only admins can mark properties as approval pending
  */
-router.put('/:id/unmark-approved', propertyController.unmarkApprovedProperty);
+router.put("/:id/unmark-approved", propertyController.unmarkApprovedProperty);
 
 /**
  * @swagger
@@ -327,7 +328,7 @@ router.put('/:id/unmark-approved', propertyController.unmarkApprovedProperty);
  *       400:
  *         description: Only admins can mark properties as recommended
  */
-router.put('/:id/mark-recommended', propertyController.markRecommendedProperty);
+router.put("/:id/mark-recommended", propertyController.markRecommendedProperty);
 
 /**
  * @swagger
@@ -360,6 +361,9 @@ router.put('/:id/mark-recommended', propertyController.markRecommendedProperty);
  *       400:
  *         description: Only admins can mark properties as not recommended
  */
-router.put('/:id/unmark-recommended', propertyController.unmarkRecommendedProperty);
+router.put(
+  "/:id/unmark-recommended",
+  propertyController.unmarkRecommendedProperty
+);
 
 module.exports = router;
