@@ -21,7 +21,7 @@ const PrimaryCards = ({ item }) => {
         <h2 className="text-primary-color font-interSemiBold text-2xl max-sm:text-base">
           {item?.expectedPrice
             ? `Rs. ${item.expectedPrice.toLocaleString("en-IN")}`
-            : "Price Unavailable"}
+            : "N/A"}
         </h2>
       </div>
       <Button className="w-full grid place-content-center py-2 capitalize border-2 border-primary-color text-primary-color hover:text-white hover:bg-primary-color transition-all  bg-transparent text-lg max-sm:text-base max-sm:py-1 max-sm:px-0">
