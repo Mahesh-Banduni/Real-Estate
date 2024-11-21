@@ -58,7 +58,7 @@ const Header = () => {
                 </NavLink>
               </li>
 
-              {/*<li className="bg-transparent">
+              <li className="bg-transparent">
                 <NavLink
                   to={"/"}
                   className={({ isActive }) =>
@@ -69,7 +69,7 @@ const Header = () => {
                 >
                   About
                 </NavLink>
-              </li>*/}
+              </li>
 
               <li className="bg-transparent">
                 <NavLink
@@ -132,7 +132,7 @@ const Header = () => {
               </NavLink>
             </li>
 
-            {/*<li className="bg-transparent">
+            <li className="bg-transparent">
               <NavLink
                 to={"/about"}
                 className={({ isActive }) =>
@@ -143,7 +143,7 @@ const Header = () => {
               >
                 About
               </NavLink>
-            </li>*/}
+            </li>
             <li className="bg-transparent">
               <NavLink
                 to={"/properties"}

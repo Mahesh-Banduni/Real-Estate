@@ -23,7 +23,7 @@ const ChooseAcrossCity = () => {
           }
           className={"w-2/5 text-balance max-sm:w-full max-sm:text-center"}
         />
-        <SecondaryButton text={"view all"} />
+        <SecondaryButton link="/properties" text={"view all"} />
       </div>
       <div className="flex items-center justify-between max-sm:flex-wrap max-xl:justify-center max-xl:gap-5">
         <SecondaryCard pic={cityImage} text="Udaipur" />

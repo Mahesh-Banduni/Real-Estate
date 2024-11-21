@@ -13,6 +13,8 @@ const useProperties = () => {
     city: "",
     locality: "",
     propertyType: "",
+    minPrice: "",
+    maxPrice: "",
   });
   const [cities, setCities] = useState([]);
   const [calling, setCalling] = useState(true);
@@ -32,8 +34,21 @@ const useProperties = () => {
     setMessage("");
     try {
       setIsLoading(true);
-      let response = await axios.get(
-        `http://localhost:8080/search-properties?propertyPurpose=${property}&propertyType=${filters.propertyType}&city=${filters.city}&locality=${filters.locality}`
+      // let response = await axios.get(
+      //   `http://localhost:8080/search-properties?propertyPurpose=${property}&propertyType=${filters.propertyType}&city=${filters.city}&locality=${filters.locality}&minPrice=${filters.minPrice}&maxPrice=${filters.maxPrice}`
+      // );
+      const response = await axios.get(
+        `http://localhost:8080/search-properties`,
+        {
+          params: {
+            propertyPurpose: property,
+            propertyType: filters.propertyType,
+            city: filters.city,
+            locality: filters.locality,
+            minPrice: filters.minPrice,
+            maxPrice: filters.maxPrice,
+          },
+        }
       );
       console.log(response);
 
@@ -108,14 +123,30 @@ const useProperties = () => {
   };
 
   //---------------------------handel select city--------------------------
+  // const handelChangeDropdown = (event) => {
+  //   const { name, value } = event.target;
+  //   setFilters((preValue) => {
+  //     return {
+  //       ...preValue,
+  //       [name]: value,
+  //     };
+  //   });
+  // };
+
+  // Handle dropdown changes including price range
+
   const handelChangeDropdown = (event) => {
     const { name, value } = event.target;
-    setFilters((preValue) => {
-      return {
-        ...preValue,
-        [name]: value,
-      };
-    });
+    if (name === "priceRange") {
+      const [minPrice, maxPrice] = value.split("-");
+      setFilters((prev) => ({
+        ...prev,
+        minPrice: minPrice || "",
+        maxPrice: maxPrice || "",
+      }));
+    } else {
+      setFilters((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   //-----------------------method for cities property--------------------------

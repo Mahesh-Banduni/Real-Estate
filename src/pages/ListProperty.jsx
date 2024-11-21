@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { listProperty } from "../utils/icons";
 import usePostProperty from "../hooks/usePostProperty";
@@ -23,13 +23,14 @@ import {
 
 const ListProperty = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/signin"); // Redirect to login page if token is not present
+      navigate("/signin", { state: { from: location.pathname } }); // Redirect to login page if token is not present
     }
-  }, [navigate]);
+  }, [navigate, location]);
   const {
     handelChangeFormInputFields,
     formInputValue,
