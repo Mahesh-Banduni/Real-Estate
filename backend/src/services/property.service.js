@@ -9,8 +9,8 @@ const commercialOfficeSpace = require('../models/model/commercial.office.space.m
 const commercialShop = require('../models/model/commercial.shop.model.js');
 const commercialShowroom = require('../models/model/commercial.showroom.model.js');
 const commercialPlot = require('../models/model/commercial.plot.model.js');
-//const {uploadImages}= require('../utils/upload.image.service.js');
-const {uploadImages}= require('../utils/upload.photos.service.js');
+const {uploadImages}= require('../utils/upload.image.service.js');
+//const {uploadImages}= require('../utils/upload.photos.service.js');
 const {encrypt, decrypt} = require("../utils/encryption.decryption.utils.js");
 
 // // Upload images function for Cloudinary

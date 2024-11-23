@@ -3,10 +3,10 @@ const propertyService = require("../services/property.service.js");
 // Controller for creating a new Property
 const createProperty = async (req, res, next) => {
   try {
-    const userId = req.user._id;
+    const userId = req.body.user;
     const propertyData = req.body;
     const files = req.files;
-    console.log(req?.user);
+    //console.log(req?.user);
     const property = await propertyService.createProperty(
       userId,
       propertyData,

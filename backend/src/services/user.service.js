@@ -169,6 +169,97 @@ const resetPassword = async (userId, newPassword, confirmNewPassword) => {
   return response;
 };
 
+const ownedProperties = async (userId, filters, sortBy, sortOrder) => {
+  const query = { user: userId };
+
+  // Apply filters
+  if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
+  if (filters.propertyType) query.propertyType = filters.propertyType;
+  if (filters.city) query.city = filters.city;
+  if (filters.locality) query.locality = filters.locality;
+  if (filters.ownership) query.ownership = filters.ownership;
+  if (filters.fromCity) query.fromCity = filters.fromCity;
+  if (filters.toCity) query.toCity = filters.toCity;
+  if (filters.fromCityLocality) query.fromCityLocality = filters.fromCityLocality;
+  if (filters.toCityLocality) query.toCityLocality = filters.toCityLocality;
+  if (filters.isHandpickedProperty) query.isHandpickedProperty = filters.isHandpickedProperty;
+  if (filters.isRecommendedProperty) query.isRecommendedProperty = filters.isRecommendedProperty;
+  if (filters.propertyStatus) query.propertyStatus = filters.propertyStatus;
+
+
+  // Budget filter (minPrice and maxPrice)
+  if (filters.minPrice || filters.maxPrice) {
+    query.expectedPrice = {};
+    if (filters.minPrice) query.expectedPrice.$gte = filters.minPrice;
+    if (filters.maxPrice) query.expectedPrice.$lte = filters.maxPrice;
+  }
+
+  // Define sorting
+  let sortCriteria = {};
+  if (sortBy === 'price') {
+    sortCriteria.expectedPrice = sortOrder; // 1 for ascending, -1 for descending
+  } else if (sortBy === 'dateListed') {
+      sortCriteria.dateListed = sortOrder; // 1 for ascending, -1 for descending (most recent first)
+  }
+  
+  // Query database with filters and sorting
+  const filteredProperties = await Property.find(query).sort(sortCriteria).exec();
+  console.log(filteredProperties.length);
+  
+  if (!filteredProperties || filteredProperties.length === 0) {
+    throw new NotFoundError('No properties found');
+  }
+  // const filteredPropertiesResponse = encrypt(JSON.stringify(filteredProperties), process.env.ENCRYPTION_KEY);
+  // return filteredPropertiesResponse;
+  return filteredProperties;
+};
+
+const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
+  const query = { user: userId };
+
+  // Apply filters
+  if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
+  if (filters.propertyType) query.propertyType = filters.propertyType;
+  if (filters.city) query.city = filters.city;
+  if (filters.locality) query.locality = filters.locality;
+  if (filters.ownership) query.ownership = filters.ownership;
+  if (filters.fromCity) query.fromCity = filters.fromCity;
+  if (filters.toCity) query.toCity = filters.toCity;
+  if (filters.fromCityLocality) query.fromCityLocality = filters.fromCityLocality;
+  if (filters.toCityLocality) query.toCityLocality = filters.toCityLocality;
+  if (filters.isHandpickedProperty) query.isHandpickedProperty = filters.isHandpickedProperty;
+  if (filters.isRecommendedProperty) query.isRecommendedProperty = filters.isRecommendedProperty;
+  if (filters.propertyStatus) query.propertyStatus = filters.propertyStatus;
+
+
+  // Budget filter (minPrice and maxPrice)
+  if (filters.minPrice || filters.maxPrice) {
+    query.expectedPrice = {};
+    if (filters.minPrice) query.expectedPrice.$gte = filters.minPrice;
+    if (filters.maxPrice) query.expectedPrice.$lte = filters.maxPrice;
+  }
+
+  // Define sorting
+  let sortCriteria = {};
+  if (sortBy === 'price') {
+    sortCriteria.expectedPrice = sortOrder; // 1 for ascending, -1 for descending
+  } else if (sortBy === 'dateListed') {
+      sortCriteria.dateListed = sortOrder; // 1 for ascending, -1 for descending (most recent first)
+  }
+  
+  // Query database with filters and sorting
+  const filteredProperties = await Property.find(query).sort(sortCriteria).exec();
+  console.log(filteredProperties.length);
+  
+  if (!filteredProperties || filteredProperties.length === 0) {
+    throw new NotFoundError('No properties found.');
+  }
+  // const filteredPropertiesResponse = encrypt(JSON.stringify(filteredProperties), process.env.ENCRYPTION_KEY);
+  // return filteredPropertiesResponse;
+  return filteredProperties;
+};
+
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -177,4 +268,5 @@ module.exports = {
   deleteUser,
   changePassword,
   resetPassword,
+  ownedProperties
 };

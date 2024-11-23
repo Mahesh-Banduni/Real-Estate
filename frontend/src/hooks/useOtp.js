@@ -49,6 +49,7 @@ const useOtp = () => {
         alert("User Signin successfully");
         const redirectPath = location.state?.from || "/";
         navigate(redirectPath);
+        window.location.reload();
       }
     } catch (message) {
       console.log(`register form error ${message.message}`);
