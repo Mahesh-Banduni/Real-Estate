@@ -6,6 +6,8 @@ const authSlice = createSlice({
     phoneNumber: "",
     status: false,
     allProperties: [],
+    ownedProperties: [],
+    searchedProperties: [],
     token: "",
     recommendedProperties: [],
     handpickedProperties: [],
@@ -17,21 +19,28 @@ const authSlice = createSlice({
     handelFetchAllProperties: (state, action) => {
       state.allProperties = action.payload;
     },
+    handleFetchAllSearchProperties: (state, action) => {
+      state.allProperties= action.payload;
+      state.searchedProperties = action.payload;
+    },
+    handleFetchAllOwnedProperties: (state, action) => {
+      state.ownedProperties = action.payload;
+    },
     handelRemoveToken: (state, action) => {
       state.token = "";
     },
     handelPriceLowToHigh: (state, action) => {
-      state.allProperties = state.allProperties.sort((a, b) => {
+      state.searchedProperties = state.searchedProperties.sort((a, b) => {
         return a.expectedPrice - b.expectedPrice;
       });
     },
     handelPriceHighToLow: (state, action) => {
-      state.allProperties = state.allProperties.sort((a, b) => {
+      state.searchedProperties = state.searchedProperties.sort((a, b) => {
         return b.expectedPrice - a.expectedPrice;
       });
     },
     handelMostRecent: (state, action) => {
-      state.allProperties = state.allProperties.sort(
+      state.searchedProperties = state.searchedProperties.sort(
         (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
       );
     },
@@ -46,11 +55,27 @@ const authSlice = createSlice({
 
       state.phoneNumber = action.payload;
     },
-  },
-});
+    handlePriceLowToHigh: (state, action) => {
+      state.ownedProperties = state.ownedProperties.sort((a, b) => {
+        return a.expectedPrice - b.expectedPrice;
+      });
+    },
+    handlePriceHighToLow: (state, action) => {
+      state.ownedProperties = state.ownedProperties.sort((a, b) => {
+        return b.expectedPrice - a.expectedPrice;
+      });
+    },
+    handleMostRecent: (state, action) => {
+      state.ownedProperties = state.ownedProperties.sort(
+        (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
+      );
+    },
+}});
 export const {
   handelAddHandPickedProperty,
   handelFetchAllProperties,
+  handleFetchAllOwnedProperties,
+  handleFetchAllSearchProperties,
   handelSetToken,
   handelRemoveToken,
   handelPriceLowToHigh,
@@ -59,5 +84,8 @@ export const {
   handelFetchRecommendedProperty,
   handelFetchHandpickedProperties,
   phoneNumber,
+  handlePriceLowToHigh,
+  handlePriceHighToLow,
+  handleMostRecent,
 } = authSlice.actions;
 export default authSlice.reducer;

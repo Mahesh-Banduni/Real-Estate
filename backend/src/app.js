@@ -15,6 +15,8 @@ const searchPropertyRoutes = require("./routes/search.property.route.js");
 const handpickedPropertyRoutes = require("./routes/handpicked.property.route.js");
 const recommendedPropertyRoutes = require("./routes/recommended.property.route.js");
 const exchangePropertyRoutes = require("./routes/exchange.property.route.js");
+const ownedPropertyRoutes = require("./routes/owned.property.route.js");
+const favoritePropertyRoutes = require("./routes/favorite.property.route.js");
 const contactFormRoutes = require("./routes/contact.form.route");
 const citySearchRoutes = require("./routes/city.route.js");
 const auctionPropertyRoutes = require("./routes/auction.property.route.js");
@@ -93,6 +95,8 @@ app.use('/contact-forms',contactFormRoutes);
 app.use('/cities-localities',citySearchRoutes);
 app.use('/auction-properties',auctionPropertyRoutes);
 app.use('/exchange-properties',exchangePropertyRoutes);
+app.use('/owned-properties',ownedPropertyRoutes);
+app.use('/favorite-properties',favoritePropertyRoutes);
 
 app.use(errorHandler);
 

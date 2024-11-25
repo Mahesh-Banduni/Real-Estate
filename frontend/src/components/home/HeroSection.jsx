@@ -48,7 +48,7 @@ const HeroSection = () => {
         </div>
         <PropertyType property={property} />
         <div className="flex items-center gap-5 mt-5 text-[#8F90A6] text-base max-sm:hidden ">
-          Resent Searches:
+          Recent Searches:
           {searchHistory?.map((item, index) => {
             return <RecentSearch key={index} text={item} />;
           })}

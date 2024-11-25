@@ -53,7 +53,7 @@ const propertySchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    //required: true,
   },
   isHandpickedProperty: { type: String, default: "No" },
   isRecommendedProperty: { type: String, default: "No" },
