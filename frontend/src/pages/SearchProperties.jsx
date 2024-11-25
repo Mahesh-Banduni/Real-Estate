@@ -14,7 +14,7 @@ import {
 
 const Properties = () => {
   const dispatch = useDispatch();
-  const data = useSelector((store) => store?.authReducer?.searchedProperties);
+  const data = useSelector((store) => store?.authReducer?.searchProperties);
   
   const {
     handelChangeInputField,

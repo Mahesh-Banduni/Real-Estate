@@ -175,6 +175,45 @@ const ownedProperties = async (req, res, next) => {
     next(error);
   }
 };
+const favoriteProperties = async (req, res, next) => {
+  try {
+    // Accessing query parameters for filtering
+    const filters = {
+      propertyPurpose: req.query.propertyPurpose,
+      propertyType: req.query.propertyType,
+      city: req.query.city,
+      locality: req.query.locality,
+      fromCity: req.query.fromCity,
+      toCity: req.query.toCity,
+      fromCityLocality: req.query.fromCityLocality,
+      toCityLocality: req.query.toCityLocality,
+      minPrice: req.query.minPrice,
+      maxPrice: req.query.maxPrice,
+      isHandpickedProperty: req.query.isHandpickedProperty,
+      isRecommendedProperty: req.query.isRecommendedProperty,
+      propertyStatus: req.query.propertyStatus,
+    };
+
+    // Access sorting parameters from the query
+    const sortBy = req.query.sortBy; // price or dateListed
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
+    const userId= req.user.id;
+    console.log(userId);
+
+    const user = await userService.favoriteProperties(
+      userId,
+      filters,
+      sortBy,
+      sortOrder
+    );
+    res.status(200).json({
+      success: true,
+      data: user.favoriteProperties,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   createUser,
@@ -186,5 +225,6 @@ module.exports = {
   removeFavoriteProperty,
   changePassword,
   resetPassword,
-  ownedProperties
+  ownedProperties,
+  favoriteProperties
 };

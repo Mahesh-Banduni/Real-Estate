@@ -17,6 +17,8 @@ const OwnedProperties = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const data = useSelector((store) => store?.authReducer?.ownedProperties);
+  // console.log(ownedProperty);
+  console.log(data);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -26,7 +28,6 @@ const OwnedProperties = () => {
 
   // Destructuring updated return values from the custom hook
   const {
-    //user,
     handleInputChange,
     ownedProperty,
     cities,
@@ -39,6 +40,8 @@ const OwnedProperties = () => {
     handleDropdownChange,
     message,
   } = useOwnedProperties();
+
+
 
   return (
     <>

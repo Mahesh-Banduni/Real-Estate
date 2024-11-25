@@ -215,7 +215,15 @@ const ownedProperties = async (userId, filters, sortBy, sortOrder) => {
 };
 
 const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
-  const query = { user: userId };
+  // const user = await User.findById(userId);
+  // if (!user) {
+  //   throw new NotFoundError("User not found");
+  // }
+  // const properties= user.favoriteProperties;
+  // const property = await Property.findById(propertyId).populate('user', '_id name phone');
+
+  //const query = { user: userId };
+  const query={};
 
   // Apply filters
   if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
@@ -248,15 +256,21 @@ const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).exec();
-  console.log(filteredProperties.length);
+  //const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', 'favoriteProperties').exec();
+  const user = await User.findById(userId).populate({
+    path: 'favoriteProperties', // Field to populate
+    model: 'Property', // Target model
+    match: query, // Apply filters
+  });
+
+  console.log(user.length);
   
-  if (!filteredProperties || filteredProperties.length === 0) {
-    throw new NotFoundError('No properties found.');
-  }
+  // if (user.ownedProperties.length === 0) {
+  //   throw new NotFoundError('No properties found.');
+  // }
   // const filteredPropertiesResponse = encrypt(JSON.stringify(filteredProperties), process.env.ENCRYPTION_KEY);
   // return filteredPropertiesResponse;
-  return filteredProperties;
+  return user;
 };
 
 
@@ -268,5 +282,6 @@ module.exports = {
   deleteUser,
   changePassword,
   resetPassword,
-  ownedProperties
+  ownedProperties,
+  favoriteProperties
 };

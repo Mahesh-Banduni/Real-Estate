@@ -3,13 +3,15 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { handleFetchAllOwnedProperties } from "../store/slice";
+import { useLocation, useNavigate } from "react-router-dom";
 import OwnedProperties from "../pages/OwnedProperties";
 
 const useOwnedProperties = () => {
     //const [user, setUser] = useState({});
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [property, setProperty] = useState("Sale");
+  const [ownedProperties, setOwnedProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [ownedFilter, setOwnedFilter] = useState({
@@ -59,8 +61,9 @@ const useOwnedProperties = () => {
       console.log(response);
 
       if (response.status === "OK") {
-        //setOwnedProperty(response?.data?.data);
+        //setOwnedProperties(response?.data?.data);
         dispatch(handleFetchAllOwnedProperties(response?.data?.data));
+        navigate("/properties");
       }
 
       setIsLoading(false);
@@ -164,6 +167,7 @@ const useOwnedProperties = () => {
 //     let userData = JSON.parse(localStorage.getItem("token"));
 //     setUser(userData);
 //   }, []);
+console.log(ownedProperty);
 
   return {
     handleChangePropertyType,
@@ -178,6 +182,7 @@ const useOwnedProperties = () => {
     handleDropdownChange,
     message,
     handleSetCity,
+    ownedProperties
   };
 };
 
