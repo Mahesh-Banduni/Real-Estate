@@ -25,15 +25,6 @@ const auctionPropertySchema = new mongoose.Schema({
   city: {
     type: String,
   },
-  locality: {
-    type: String,
-  },
-  district: {
-    type: String,
-  },
-  state: {
-    type: String,
-  },
   reservePrice: {
     type: Number
   },
@@ -49,6 +40,7 @@ const auctionPropertySchema = new mongoose.Schema({
   auctionEndDateTime: {
     type: Date, default: Date.now
   },
+  image: { type: String }
 },{timestamps: true});
 
 const AuctionProperty = mongoose.model('AuctionProperty', auctionPropertySchema);
