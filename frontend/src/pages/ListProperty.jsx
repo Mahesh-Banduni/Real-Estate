@@ -68,7 +68,7 @@ const ListProperty = () => {
             <Heading className="text-xl" text="property details" />
             <div className="flex items-center gap-2">
               <RadioInput
-                value="sale"
+                defaultValue="sale"
                 id="sellProperty"
                 label={"sell"}
                 name="propertyPurpose"
@@ -76,14 +76,14 @@ const ListProperty = () => {
                 handelChangePropertyDetail={handelChangeFormInputFields}
               />
               <RadioInput
-                value="exchange"
+                defaultValue="Exchange"
                 id="exchangeProperty"
                 label={"exchange Property"}
                 name="propertyPurpose"
                 handelChangePropertyDetail={handelChangeFormInputFields}
               />
               <RadioInput
-                value="partnership"
+                defaultValue="Partnership"
                 id="partnershipProperty"
                 label={"Partnership Property"}
                 name="propertyPurpose"

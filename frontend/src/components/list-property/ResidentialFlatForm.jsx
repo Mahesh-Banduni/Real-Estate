@@ -61,7 +61,7 @@ const ResidentialFlatForm = ({
                   }
                 />
 
-                {showCities ? (
+                {FromCity ? (
                   <Dropdown
                     showCities={showCities}
                     handelToggleCityDropdown={handelToggleCityDropdown}
@@ -88,7 +88,7 @@ const ResidentialFlatForm = ({
                   }
                 />
 
-                {showCities ? (
+                {toCity ? (
                   <Dropdown
                     showCities={showCities}
                     handelToggleCityDropdown={handelToggleCityDropdown}

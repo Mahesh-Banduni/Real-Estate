@@ -39,30 +39,92 @@ const CommercialOfficeSpaceForm = ({
       <div className="mt-5">
         <Heading className="text-xl" text="Property location" />
         <div className="flex flex-col gap-5 w-1/3">
-          <div className="relative">
-            <ListPropertyInput
-              handelToggleDropdown={handelToggleCityDropdown}
-              formInputValue={formInputValue}
-              handelChangeFormInputFields={handelChangeFormInputFields}
-              type={"text"}
-              placeholder="Enter City"
-              label={"City"}
-              name="city"
-              className={
-                "rounded-md  border border-primary-color py-0 outline-none  "
-              }
-            />
-            {showCities && (
-              <Dropdown
-                showCities={showCities}
-                handelToggleCityDropdown={handelToggleCityDropdown}
-                className={"absolute -bottom-[11.5rem] rounded-md"}
-                name={"city"}
-                array={cities}
-                method={setFormInputValue}
+          {formInputValue?.propertyPurpose === "exchange" ? (
+            <div>
+              <div className="relative">
+                <ListPropertyInput
+                  handelToggleDropdown={handelToggleCityDropdown}
+                  formInputValue={formInputValue}
+                  handelChangeFormInputFields={handelChangeFormInputFields}
+                  type={"text"}
+                  placeholder="Enter City"
+                  label={"City"}
+                  name="city"
+                  className={
+                    " rounded-md border border-primary-color py-0 outline-none  "
+                  }
+                />
+
+                {FromCity ? (
+                  <Dropdown
+                    showCities={showCities}
+                    handelToggleCityDropdown={handelToggleCityDropdown}
+                    className={"absolute -bottom-[11.5rem] rounded-md"}
+                    name={"city"}
+                    array={cities}
+                    method={setFormInputValue}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="relative">
+                <ListPropertyInput
+                  handelToggleDropdown={handelToggleCityDropdown}
+                  formInputValue={formInputValue}
+                  handelChangeFormInputFields={handelChangeFormInputFields}
+                  type={"text"}
+                  placeholder="Enter City"
+                  label={"City"}
+                  name="city"
+                  className={
+                    " rounded-md border border-primary-color py-0 outline-none  "
+                  }
+                />
+
+                {toCity ? (
+                  <Dropdown
+                    showCities={showCities}
+                    handelToggleCityDropdown={handelToggleCityDropdown}
+                    className={"absolute -bottom-[11.5rem] rounded-md"}
+                    name={"city"}
+                    array={cities}
+                    method={setFormInputValue}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="relative">
+              <ListPropertyInput
+                handelToggleDropdown={handelToggleCityDropdown}
+                formInputValue={formInputValue}
+                handelChangeFormInputFields={handelChangeFormInputFields}
+                type={"text"}
+                placeholder="Enter City"
+                label={"City"}
+                name="city"
+                className={
+                  " rounded-md border border-primary-color py-0 outline-none  "
+                }
               />
-            )}
-          </div>
+
+              {showCities ? (
+                <Dropdown
+                  showCities={showCities}
+                  handelToggleCityDropdown={handelToggleCityDropdown}
+                  className={"absolute -bottom-[11.5rem] rounded-md"}
+                  name={"city"}
+                  array={cities}
+                  method={setFormInputValue}
+                />
+              ) : (
+                ""
+              )}
+            </div>
+          )}
 
           <div className="relative">
             <ListPropertyInput

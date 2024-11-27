@@ -2,7 +2,7 @@ import React from "react";
 
 import Property from "./Property";
 
-const ListProperty = ({ propertiesList }) => {
+const ListProperty = React.memo(({ propertiesList }) => {
   return (
     <div className="flex flex-col gap-10 my-5">
       {propertiesList?.map((item) => {
@@ -10,6 +10,6 @@ const ListProperty = ({ propertiesList }) => {
       })}
     </div>
   );
-};
+});
 
 export default ListProperty;

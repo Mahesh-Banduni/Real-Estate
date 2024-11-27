@@ -24,7 +24,7 @@ const Input = React.forwardRef(function Input(
           {label}
         </label>
       )}
-      <div className="px-3 bg-[#F2F2F2] flex items-center gap-1 w-full">
+      <div className="px-3 bg-[#F2F2F2] flex items-center gap-1 w-full rounded-md">
         {icon && <img src={icon} alt="icon" />}
         {type === "number" && "+91 | "}
         <input

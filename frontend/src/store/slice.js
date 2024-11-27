@@ -6,11 +6,20 @@ const authSlice = createSlice({
     phoneNumber: "",
     status: false,
     allProperties: [],
+    properties: [],
     ownedProperties: [],
     searchedProperties: [],
     token: "",
     recommendedProperties: [],
     handpickedProperties: [],
+    filters: {
+      city: "",
+      locality: "",
+      propertyType: "",
+      propertyPurpose: "Sale",
+      minPrice: "",
+      maxPrice: "",
+    },
   },
   reducers: {
     handelSetToken: (state, action) => {
@@ -20,7 +29,7 @@ const authSlice = createSlice({
       state.allProperties = action.payload;
     },
     handleFetchAllSearchProperties: (state, action) => {
-      state.allProperties= action.payload;
+      state.allProperties = action.payload;
       state.searchedProperties = action.payload;
     },
     handleFetchAllOwnedProperties: (state, action) => {
@@ -30,17 +39,17 @@ const authSlice = createSlice({
       state.token = "";
     },
     handelPriceLowToHigh: (state, action) => {
-      state.searchedProperties = state.searchedProperties.sort((a, b) => {
+      state.allProperties = state.allProperties.sort((a, b) => {
         return a.expectedPrice - b.expectedPrice;
       });
     },
     handelPriceHighToLow: (state, action) => {
-      state.searchedProperties = state.searchedProperties.sort((a, b) => {
+      state.allProperties = state.allProperties.sort((a, b) => {
         return b.expectedPrice - a.expectedPrice;
       });
     },
     handelMostRecent: (state, action) => {
-      state.searchedProperties = state.searchedProperties.sort(
+      state.allProperties = state.allProperties.sort(
         (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
       );
     },
@@ -70,7 +79,17 @@ const authSlice = createSlice({
         (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
       );
     },
-}});
+    handelUpdateFilters: (state, action) => {
+      if (action.payload.name === "priceRange") {
+        const [minPrice, maxPrice] = action.payload.value.split("-");
+        state.filters.minPrice = minPrice;
+        state.filters.maxPrice = maxPrice;
+      } else {
+        state.filters[action.payload.name] = action.payload.value;
+      }
+    },
+  },
+});
 export const {
   handelAddHandPickedProperty,
   handelFetchAllProperties,
@@ -87,5 +106,6 @@ export const {
   handlePriceLowToHigh,
   handlePriceHighToLow,
   handleMostRecent,
+  handelUpdateFilters,
 } = authSlice.actions;
 export default authSlice.reducer;

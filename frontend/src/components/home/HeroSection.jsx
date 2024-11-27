@@ -4,10 +4,14 @@ import { heroSectionBackground } from "../../utils/icons";
 import PropertyTypeList from "./PropertyTypeList";
 import PropertyType from "./PropertyType";
 import RecentSearch from "./RecentSearch";
+import { useDispatch } from "react-redux";
+import { handelUpdateFilters } from "../../store/slice";
 
 const HeroSection = () => {
-  const [property, setProperty] = useState("buy");
+  const dispatch = useDispatch();
+  const [property, setProperty] = useState("Sale");
   const handelChangePropertyType = (name) => {
+    dispatch(handelUpdateFilters({ name: "propertyPurpose", value: name }));
     setProperty(name);
   };
 
@@ -32,17 +36,20 @@ const HeroSection = () => {
             <PropertyTypeList
               handelChangePropertyType={handelChangePropertyType}
               property={property}
-              text="buy"
+              text="Sale"
+              name="Sale"
             />
             <PropertyTypeList
               handelChangePropertyType={handelChangePropertyType}
               property={property}
-              text="exchange property"
+              text="Exchange"
+              name="Exchange"
             />
             <PropertyTypeList
               handelChangePropertyType={handelChangePropertyType}
               property={property}
-              text="partnership property"
+              text="Partnership"
+              name="Partnership"
             />
           </ul>
         </div>
