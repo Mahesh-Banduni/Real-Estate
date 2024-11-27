@@ -24,6 +24,7 @@ const Wishlist = () => {
       navigate("/signin"); // { state: { from: location.pathname } ; // Redirect to login page if token is not present
     }
   }, [navigate]);
+
   // Destructuring updated return values from the custom hook
   const {
     handleInputChange,
@@ -38,6 +39,7 @@ const Wishlist = () => {
     handleDropdownChange,
     message,
   } = useWishlist();
+
   return (
     <>
       {message ? (
@@ -273,7 +275,7 @@ const Wishlist = () => {
           </div>
           <hr />
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">
-            {data.length} results | Property {`in Dehradun`} for Sale
+            {data.length} results | Property {`in Dehradun`} for Sale
           </p>
           <ListProperty propertiesList={data} />
         </div>
@@ -281,4 +283,5 @@ const Wishlist = () => {
     </>
   );
 };
+
 export default Wishlist;

@@ -107,13 +107,6 @@ router.get('/', userController.getAllUsers);
  *     description: Update a user's information by their ID
  *     tags:
  *       - Users
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
  *     requestBody:
  *       required: true
  *       content:
@@ -135,7 +128,7 @@ router.get('/', userController.getAllUsers);
  *       404:
  *         description: User not found
  */
-router.put('/:id', userController.updateUser);
+router.put('/:id',auth, userController.updateUser);
 
 /**
  * @swagger

@@ -21,9 +21,16 @@ const OwnedProperties = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
+<<<<<<< HEAD
       navigate("/signin"); // { state: { from: location.pathname } ; // Redirect to login page if token is not present
     }
   }, [navigate]);
+=======
+      navigate("/signin");// { state: { from: location.pathname } ; // Redirect to login page if token is not present
+    }
+  }, [navigate]);
+
+>>>>>>> 2f36f73880157724959fefac34823c39813ffb6b
   // Destructuring updated return values from the custom hook
   const {
     handleInputChange,

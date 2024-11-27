@@ -8,6 +8,7 @@ const authSlice = createSlice({
     allProperties: [],
     properties: [],
     ownedProperties: [],
+    wishlist: [],
     searchedProperties: [],
     token: "",
     recommendedProperties: [],
@@ -56,6 +57,9 @@ const authSlice = createSlice({
     },
     handelRemoveToken: (state, action) => {
       state.token = "";
+    },
+    handleFetchWishlistProperties: (state, action) => {
+      state.wishlist = action.payload;
     },
     handelPriceLowToHigh: (state, action) => {
       state.allProperties = state.allProperties.sort((a, b) => {
@@ -107,6 +111,21 @@ const authSlice = createSlice({
         state.filters[action.payload.name] = action.payload.value;
       }
     },
+    handlePriceLowToHighW: (state, action) => {
+      state.wishlist = state.wishlist.sort((a, b) => {
+        return a.expectedPrice - b.expectedPrice;
+      });
+    },
+    handlePriceHighToLowW: (state, action) => {
+      state.wishlist = state.wishlist.sort((a, b) => {
+        return b.expectedPrice - a.expectedPrice;
+      });
+    },
+    handleMostRecentW: (state, action) => {
+      state.wishlist = state.wishlist.sort(
+        (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
+      );
+    },
   },
 });
 export const {
@@ -118,6 +137,7 @@ export const {
   handelFetchAllProperties,
   handleFetchAllOwnedProperties,
   handleFetchAllSearchProperties,
+  handleFetchWishlistProperties,
   handelSetToken,
   handelRemoveToken,
   handelPriceLowToHigh,
@@ -130,5 +150,8 @@ export const {
   handlePriceHighToLow,
   handleMostRecent,
   handelUpdateFilters,
+  handlePriceLowToHighW,
+  handlePriceHighToLowW,
+  handleMostRecentW
 } = authSlice.actions;
 export default authSlice.reducer;

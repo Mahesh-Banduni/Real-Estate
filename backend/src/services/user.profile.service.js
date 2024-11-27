@@ -1,6 +1,6 @@
 const UserProfile = require('../models/user.profile.model.js');
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
-const {uploadImages, uploadImage} = require('../utils/upload.photos.service.js');
+const {uploadImages, uploadImage} = require('../utils/upload.image.service.js');
 const User = require('../models/user.model.js');
 
 // Create a new userProfile

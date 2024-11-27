@@ -92,7 +92,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/owned-properties",
+        path: "/owned-properties", 
         element: (
           <Suspense fallback={<Loader />}>
             <OwnedProperties />
