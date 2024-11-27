@@ -47,7 +47,7 @@ const getUserById = async (req, res, next) => {
 // Update user by ID
 const updateUser = async (req, res, next) => {
   try {
-    const updatedUser = await userService.updateUser(req.params.id, req.body);
+    const updatedUser = await userService.updateUser(req.user.id, req.body);
     logger.info(
       "User id:" + `${user._id}` + " has updated his data successfully"
     );
@@ -159,7 +159,7 @@ const ownedProperties = async (req, res, next) => {
     const sortBy = req.query.sortBy; // price or dateListed
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
     const userId= req.user.id;
-    console.log(userId);
+    //console.log(userId);
 
     const properties = await userService.ownedProperties(
       userId,
@@ -198,7 +198,7 @@ const favoriteProperties = async (req, res, next) => {
     const sortBy = req.query.sortBy; // price or dateListed
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
     const userId= req.user.id;
-    console.log(userId);
+    //console.log(userId);
 
     const user = await userService.favoriteProperties(
       userId,

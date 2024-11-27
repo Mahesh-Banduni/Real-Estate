@@ -20,6 +20,7 @@ const favoritePropertyRoutes = require("./routes/favorite.property.route.js");
 const contactFormRoutes = require("./routes/contact.form.route");
 const citySearchRoutes = require("./routes/city.route.js");
 const auctionPropertyRoutes = require("./routes/auction.property.route.js");
+const allAuctionPropertyRoutes = require("./routes/all.auction.property.route.js");
 const { generalLimiter } = require('./middleware/rate.limitter.js');
 const { requestCounter } = require('./middleware/req.count.js');
 
@@ -36,7 +37,7 @@ app.use(requestCounter);
 app.use(compression());
 
 app.use(cors({
-      origin: [`http://${process.env.ORIGIN}:${process.env.ORIGIN_PORT}`,'172.16.17.55:8080'],
+      origin: [`http://${process.env.ORIGIN}:${process.env.ORIGIN_PORT}`,'192.168.137.159:8080'],
       methods: ['GET', 'POST', 'PUT','PATCH','DELETE'], // Restrict methods
       allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
@@ -97,6 +98,7 @@ app.use('/auction-properties',auctionPropertyRoutes);
 app.use('/exchange-properties',exchangePropertyRoutes);
 app.use('/owned-properties',ownedPropertyRoutes);
 app.use('/favorite-properties',favoritePropertyRoutes);
+app.use('/all-auction-properties',allAuctionPropertyRoutes);
 
 app.use(errorHandler);
 

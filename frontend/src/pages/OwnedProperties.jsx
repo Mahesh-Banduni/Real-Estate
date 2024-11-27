@@ -14,7 +14,7 @@ import {
 
 const OwnedProperties = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  //const location = useLocation();
   const dispatch = useDispatch();
   const data = useSelector((store) => store?.authReducer?.ownedProperties);
   // console.log(ownedProperty);
@@ -22,9 +22,9 @@ const OwnedProperties = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/signin", { state: { from: location.pathname } }); // Redirect to login page if token is not present
+      navigate("/signin");// { state: { from: location.pathname } ; // Redirect to login page if token is not present
     }
-  }, [navigate, location]);
+  }, [navigate]);
 
   // Destructuring updated return values from the custom hook
   const {

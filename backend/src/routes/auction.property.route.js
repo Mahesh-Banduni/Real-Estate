@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auctionPropertyController = require('../controllers/auction.property.controller.js');
+const {upload, uploadPic} =require('../middleware/multer.js');
 
 /**
  * @swagger
@@ -13,7 +14,7 @@ const auctionPropertyController = require('../controllers/auction.property.contr
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required:
@@ -21,9 +22,6 @@ const auctionPropertyController = require('../controllers/auction.property.contr
  *               - propertyID:
  *               - propertyType: 
  *             properties:
- *               userId:
- *                 type: string
- *                 description: User
  *               bankName:
  *                 type: string
  *                 description: Bank name of the auction property
@@ -47,50 +45,25 @@ const auctionPropertyController = require('../controllers/auction.property.contr
  *               city:
  *                 type: string
  *                 description: City of the auction property
- *               district:
- *                 type: string
- *                 description: district of the auction property
- *               state:
- *                 type: string
- *                 description: state of the auction property
  *               reservePrice:
  *                 type: number
  *                 description: reserve price of the auction property
  *               emdAmount:
  *                 type: number
  *                 description: emd amount of the auction property
- *               emdSubmissionDeadline:
- *                 type: date
- *                 description: emd submission deadline of the auction
- *               auctionStartDateTime:
- *                 type: date
- *                 description: auction start date time of the auction
- *               auctionEndDateTime:
- *                 type: date
- *                 description: auction end date time of the auction
+ *               image:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: Property Image
  *     responses:
  *       201:
  *         description: Auction property created successfully
  *       400:
  *         description: Bad request
  */
-router.post('/', auctionPropertyController.createAuctionProperty);
-
-/**
- * @swagger
- * /auction-properties:
- *   get:
- *     summary: Get all auction properties
- *     description: Retrieve a list of all auction properties
- *     tags:
- *       - Auction Properties
- *     responses:
- *       200:
- *         description: List of auction properties retrieved successfully
- *       500:
- *         description: Internal server error
- */
-router.get('/', auctionPropertyController.getAllAuctionProperties);
+router.post('/',uploadPic, auctionPropertyController.createAuctionProperty);
 
 /**
  * @swagger

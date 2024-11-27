@@ -19,9 +19,6 @@ const auth = require("../middleware/auth.js");
  *           schema:
  *             type: object
  *             properties:
- *               user:
- *                 type: string
- *                 description: Owner of the property.
  *               propertyPurpose:
  *                 type: string
  *                 description: Purpose of the property.
@@ -60,7 +57,7 @@ const auth = require("../middleware/auth.js");
  *       500:
  *         description: Internal server error
  */
-router.post("/", upload, propertyController.createProperty);
+router.post("/", upload, auth, propertyController.createProperty);
 
 /**
  * @swagger
