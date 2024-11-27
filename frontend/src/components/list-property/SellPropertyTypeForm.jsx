@@ -5,7 +5,7 @@ import Heading from "../Heading";
 const SellPropertyTypeForm = ({ formInputValue, onPropertyTypeChange }) => {
   return (
     <div className="w-full">
-      <Heading className="text-xl" text="Property Type" />
+      <Heading className="text-xl max-sm:text-base" text="Property Type" />
       <select
         name="propertyType"
         onChange={onPropertyTypeChange}

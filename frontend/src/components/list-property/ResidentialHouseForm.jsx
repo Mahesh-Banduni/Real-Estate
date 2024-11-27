@@ -34,64 +34,38 @@ const ResidentialHouseForm = ({
     <React.Fragment>
       {/* property location */}
       <div className="mt-5">
-        <Heading className="text-xl" text="Property location" />
-        <div className="flex flex-col gap-5 w-1/3">
-          {formInputValue?.propertyPurpose === "exchange" ? (
-            <div>
-              <div className="relative">
-                <ListPropertyInput
-                  handelToggleDropdown={handelToggleCityDropdown}
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
-                  type={"text"}
-                  placeholder="Enter City"
-                  label={"City"}
-                  name="city"
-                  className={
-                    " rounded-md border border-primary-color py-0 outline-none  "
-                  }
-                />
+        <Heading
+          className="text-xl max-md:text-base"
+          text="Property location"
+        />
+        <div className="flex flex-col gap-5 w-1/3 max-md:w-2/3 max-md:text-base">
+          {formInputValue?.propertyPurpose === "Exchange" ? (
+            <div className="relative">
+              <ListPropertyInput
+                handelToggleDropdown={handelToggleCityDropdown}
+                formInputValue={formInputValue}
+                handelChangeFormInputFields={handelChangeFormInputFields}
+                type={"text"}
+                placeholder="Enter City"
+                label={"From City"}
+                name="city"
+                className={
+                  " rounded-md w-full border border-primary-color py-0 outline-none  "
+                }
+              />
 
-                {FromCity ? (
-                  <Dropdown
-                    showCities={showCities}
-                    handelToggleCityDropdown={handelToggleCityDropdown}
-                    className={"absolute -bottom-[11.5rem] rounded-md"}
-                    name={"city"}
-                    array={cities}
-                    method={setFormInputValue}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="relative">
-                <ListPropertyInput
-                  handelToggleDropdown={handelToggleCityDropdown}
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
-                  type={"text"}
-                  placeholder="Enter City"
-                  label={"City"}
-                  name="city"
-                  className={
-                    " rounded-md border border-primary-color py-0 outline-none  "
-                  }
+              {showCities ? (
+                <Dropdown
+                  showCities={showCities}
+                  handelToggleCityDropdown={handelToggleCityDropdown}
+                  className={"absolute -bottom-[11.5rem] rounded-md"}
+                  name={"city"}
+                  array={cities}
+                  method={setFormInputValue}
                 />
-
-                {toCity ? (
-                  <Dropdown
-                    showCities={showCities}
-                    handelToggleCityDropdown={handelToggleCityDropdown}
-                    className={"absolute -bottom-[11.5rem] rounded-md"}
-                    name={"city"}
-                    array={cities}
-                    method={setFormInputValue}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
+              ) : (
+                ""
+              )}
             </div>
           ) : (
             <div className="relative">
@@ -104,7 +78,7 @@ const ResidentialHouseForm = ({
                 label={"City"}
                 name="city"
                 className={
-                  " rounded-md border border-primary-color py-0 outline-none  "
+                  " rounded-md w-full border border-primary-color py-0 outline-none  "
                 }
               />
 
@@ -130,32 +104,9 @@ const ResidentialHouseForm = ({
             placeholder="Name of Project/Society"
             label={"Name of Project/Society"}
             className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
+              " rounded-md w-full border border-primary-color py-0 outline-none  "
             }
           />
-          <div className="relative">
-            <ListPropertyInput
-              handelToggleDropdown={handelToggleLocalityDropdown}
-              formInputValue={formInputValue}
-              handelChangeFormInputFields={handelChangeFormInputFields}
-              type={"text"}
-              placeholder="Enter Locality"
-              label={"Locality"}
-              name={"locality"}
-              className={
-                " rounded-md  border border-primary-color py-0 outline-none  "
-              }
-            />
-            {showLocalities && (
-              <Dropdown
-                handelToggleCityDropdown={handelToggleLocalityDropdown}
-                className={"absolute -bottom-[15rem] rounded-md"}
-                name={"locality"}
-                array={localities}
-                method={setFormInputValue}
-              />
-            )}
-          </div>
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
@@ -164,16 +115,19 @@ const ResidentialHouseForm = ({
             label={"Address"}
             name={"address"}
             className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
+              " rounded-md w-full border border-primary-color py-0 outline-none  "
             }
           />
         </div>
       </div>
 
       {/* property features */}
-      <div className="mt-5">
-        <Heading className="text-xl " text="Property features" />
-        <div className="grid grid-cols-3 grid-rows-2 gap-3">
+      <div className="mt-5 w-full">
+        <Heading
+          className="text-xl max-sm:text-base "
+          text="Property features"
+        />
+        <div className="grid grid-cols-3 grid-rows-2 gap-3 max-md:grid-cols-1 max-md:grid-rows-6 max-md:w-2/3">
           <ListPropertySelectInput
             name="bedrooms"
             formInputValue={formInputValue}
@@ -242,8 +196,8 @@ const ResidentialHouseForm = ({
 
       {/* Area */}
       <div className="mt-5">
-        <Heading className="text-xl " text="Area" />
-        <div className="flex flex-col gap-2 mt-1 w-1/3">
+        <Heading className="text-xl max-sm:text-base " text="Area" />
+        <div className="flex flex-col gap-2 mt-1 w-1/3 max-md:text-base max-md:w-2/3">
           <AreaInputField
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
@@ -275,16 +229,21 @@ const ResidentialHouseForm = ({
       </div>
 
       {/* property availability */}
-      <div className="w-1/3 max-lg:w-2/5 max-md:w-2/3">
-        <Heading className="text-xl pb-1 " text="property availability" />
+      <div className="w-full max-md:w-2/3">
+        <Heading
+          className="text-xl pb-1 max-md:text-base "
+          text="property availability"
+        />
         <ListPropertySelectInput
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
           name="possessionStatus"
           label={"Possession Status:-"}
           options={["under construction", "ready to move"]}
+          classTwo="w-full"
         />
         <ListPropertySelectInput
+          classTwo="w-full"
           name="ownership"
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
@@ -301,12 +260,17 @@ const ResidentialHouseForm = ({
 
       {/* price details */}
       <div className="mt-5">
-        <Heading className="text-xl pb-1 " text="Price Details" />
-        <div className="w-1/3 capitalize flex flex-col gap-2">
+        <Heading
+          className="text-xl pb-1 max-md:text-base "
+          text="Price Details"
+        />
+        <div className="w-1/3 max-md:w-2/3 max-md:text-base capitalize flex flex-col gap-2">
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"border border-primary-color rounded-md w-fit"}
+            className={
+              "border border-primary-color rounded-md max-md:text-base w-fit"
+            }
             placeholder={"Enter Total Price"}
             type={"number"}
             label={"expected price"}
@@ -315,14 +279,16 @@ const ResidentialHouseForm = ({
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"border border-primary-color rounded-md w-fit"}
+            className={
+              "border border-primary-color rounded-md w-fit max-md:text-base"
+            }
             placeholder={"Enter booking amount"}
             type={"number"}
             label={"booking amount"}
             name="bookingAmount"
           />
           <div className="flex items-center gap-2 mt-2">
-            <p>Price Negotiable:-</p>
+            <p className="text-sm">Price Negotiable:-</p>
             <div className="flex items-center gap-5">
               <div className="flex items-center justify-center gap-1">
                 <label htmlFor="yesNegotiable">yes</label>
@@ -360,7 +326,7 @@ const ResidentialHouseForm = ({
           <Select
             styles={customStyles}
             name="locationAdvantages"
-            className="w-1/3"
+            className="w-1/3 max-md:w-2/3 max-md:text-base"
             options={locationAdvantage}
             onChange={(value) => {
               let event = {
@@ -380,7 +346,7 @@ const ResidentialHouseForm = ({
           <Select
             styles={customStyles}
             name="overlooking"
-            className="w-1/3"
+            className="w-1/3 max-md:w-2/3 max-md:text-base"
             options={overLookingValue}
             onChange={(value) => {
               let event = {

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../utils/axiosInstance";
 
 const useHome = () => {
   const navigate = useNavigate();
@@ -78,12 +79,9 @@ const useHome = () => {
     };
   }, [filterCity?.city]);
 
-  const submitForm = (event) => {
-    event.preventDefault();
-    navigate("/properties", { state: { filters } });
-  };
-
-  console.log(filters);
+  useEffect(() => {
+    axiosInstance.get("");
+  });
 
   return {
     handelChangeInputField,

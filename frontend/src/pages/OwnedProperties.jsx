@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import PropertyTypeList from "../components/home/PropertyTypeList";
 import { Button, Input } from "../components";
@@ -11,10 +11,9 @@ import {
   handlePriceHighToLow,
   handleMostRecent,
 } from "../store/slice";
-
 const OwnedProperties = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  //const location = useLocation();
   const dispatch = useDispatch();
   const data = useSelector((store) => store?.authReducer?.ownedProperties);
   // console.log(ownedProperty);
@@ -22,10 +21,9 @@ const OwnedProperties = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/signin", { state: { from: location.pathname } }); // Redirect to login page if token is not present
+      navigate("/signin"); // { state: { from: location.pathname } ; // Redirect to login page if token is not present
     }
-  }, [navigate, location]);
-
+  }, [navigate]);
   // Destructuring updated return values from the custom hook
   const {
     handleInputChange,
@@ -40,9 +38,6 @@ const OwnedProperties = () => {
     handleDropdownChange,
     message,
   } = useOwnedProperties();
-
-
-
   return (
     <>
       {message ? (
@@ -173,7 +168,9 @@ const OwnedProperties = () => {
                 <option valudefaultValuee="Residential Plot/Land">
                   Residential Plot/Land
                 </option>
-                <option defaultValue="Residential House">Residential House</option>
+                <option defaultValue="Residential House">
+                  Residential House
+                </option>
                 <option defaultValue="Commercial Shop">Commercial Shop</option>
                 <option defaultValue="Commercial Showroom">
                   Commercial Showroom
@@ -276,7 +273,7 @@ const OwnedProperties = () => {
           </div>
           <hr />
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">
-          {data.length} results | Property {`in Dehradun`} for Sale
+            {data.length} results | Property {`in Dehradun`} for Sale
           </p>
           <ListProperty propertiesList={data} />
         </div>
@@ -284,5 +281,4 @@ const OwnedProperties = () => {
     </>
   );
 };
-
 export default OwnedProperties;

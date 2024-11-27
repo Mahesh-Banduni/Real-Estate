@@ -1,5 +1,7 @@
 const propertyService = require("../services/property.service.js");
 
+const logger = require("../configs/winston.config.js");
+
 // Controller for creating a new Property
 const createProperty = async (req, res, next) => {
   try {

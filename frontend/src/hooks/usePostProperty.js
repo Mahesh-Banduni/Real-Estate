@@ -92,6 +92,8 @@ const usePostProperty = () => {
 
   const handelChangeFormInputFields = (event) => {
     const { name, value } = event.target;
+    console.log(name);
+    console.log(value);
 
     if (name === "images") {
       setFormInputValue((preValue) => {
@@ -123,61 +125,26 @@ const usePostProperty = () => {
       bookingAmount,
       carpetArea,
       city,
-      fromCity,
-      toCity,
       expectedPrice,
       floorNumber,
       furnished,
       locality,
-      fromLocality,
-      toLOcality,
       possessionStatus,
       superArea,
-      BHKType,
-      anyConstructionDone,
       boundaryWall,
       buildingComplexName,
-      carpetAreaUnit,
-      commercialAmenities,
-      cornerPlot,
-      cornerShop,
       coveredArea,
-      coveredAreaUnit,
-      currentlyLeasedOut,
-      description,
-      dimensionUnit,
-      entranceWidth,
-      entranceWidthUnit,
-      facing,
       facingRoadWidth,
-      facingRoadWidthUnit,
-      floorsAllowed,
       gatedColony,
       idealForBusinesses,
-      images,
-      landAmenities,
-      landZone,
       lengthDimension,
-      locationAdvantages,
       mainRoadFacing,
-      nearbyBusinesses,
-      numberOfFlatsInSociety,
       openSides,
-      overlooking,
-      ownership,
-      pantryCafeteria,
       personalWashroom,
       plotArea,
-      plotAreaUnit,
-      priceNegotiable,
       projectMarketName,
       projectSocietyName,
-      propertyPurpose,
-      propertyType,
-      residentialAmenities,
-      superAreaUnit,
       totalFloor,
-      transactionType,
       widthDimension,
     } = formInputValue;
     // Create FormData object
@@ -207,6 +174,7 @@ const usePostProperty = () => {
 
     const postPropertyHandler = async () => {
       setLoading(true);
+
       try {
         const response = await axios.post(
           "http://localhost:8080/properties",
@@ -220,7 +188,7 @@ const usePostProperty = () => {
         );
         console.log(response);
         if (response.statusText === "Created") {
-          setMessage("Property is posted successfully");
+          alert("Property is posted successfully");
           setFormInputValue(initialState);
         }
       } catch (error) {
@@ -237,8 +205,7 @@ const usePostProperty = () => {
     };
     //========================switch statement======================
     switch (true) {
-      case formInputValue?.propertyPurpose === "sale" &&
-        formInputValue.propertyType === "Residential Flat/Apartment":
+      case formInputValue.propertyType === "Residential Flat/Apartment":
         if (
           !address ||
           !balconies ||
@@ -250,18 +217,18 @@ const usePostProperty = () => {
           !expectedPrice ||
           !floorNumber ||
           !furnished ||
-          !locality ||
           !superArea ||
           !possessionStatus
         ) {
           alert("Please enter all the required fields.");
           return;
         } else {
+          console.log("this is tyring to posting property");
+
           postPropertyHandler();
         }
         break;
-      case formInputValue?.propertyPurpose === "sale" &&
-        formInputValue.propertyType === "Residential Plot/Land":
+      case formInputValue.propertyType === "Residential Plot/Land":
         if (
           !address ||
           !projectSocietyName ||
@@ -274,7 +241,6 @@ const usePostProperty = () => {
           !lengthDimension ||
           !widthDimension ||
           !city ||
-          !locality ||
           !expectedPrice
         ) {
           console.log(`Residential Plot/Land => entered`);
@@ -283,8 +249,7 @@ const usePostProperty = () => {
           postPropertyHandler();
         }
         break;
-      case formInputValue?.propertyPurpose === "sale" &&
-        formInputValue.propertyType === "Residential House":
+      case formInputValue.propertyType === "Residential House":
         if (
           !address ||
           !balconies ||
@@ -296,7 +261,6 @@ const usePostProperty = () => {
           !expectedPrice ||
           !floorNumber ||
           !furnished ||
-          !locality ||
           !plotArea ||
           !superArea ||
           !possessionStatus
@@ -306,11 +270,9 @@ const usePostProperty = () => {
           postPropertyHandler();
         }
         break;
-      case formInputValue?.propertyPurpose === "sale" &&
-        formInputValue.propertyType === "Commercial Office Space":
+      case formInputValue.propertyType === "Commercial Office Space":
         if (
           !city ||
-          !locality ||
           !address ||
           !buildingComplexName ||
           !idealForBusinesses ||
@@ -328,10 +290,7 @@ const usePostProperty = () => {
           postPropertyHandler();
         }
         break;
-      case formInputValue?.propertyPurpose === "sale" &&
-        formInputValue.propertyType === "Commercial Shop":
-        console.log(formInputValue);
-
+      case formInputValue.propertyType === "Commercial Shop":
         if (
           !city ||
           !address ||
@@ -352,11 +311,9 @@ const usePostProperty = () => {
           postPropertyHandler();
         }
         break;
-      case formInputValue?.propertyPurpose === "sale" &&
-        formInputValue.propertyType === "Commercial Showroom":
+      case formInputValue.propertyType === "Commercial Showroom":
         if (
           !city ||
-          !locality ||
           !projectMarketName ||
           !address ||
           !floorNumber ||
@@ -373,11 +330,9 @@ const usePostProperty = () => {
           postPropertyHandler();
         }
         break;
-      case formInputValue?.propertyPurpose === "sale" &&
-        formInputValue.propertyType === "Commercial Plot/Land":
+      case formInputValue.propertyType === "Commercial Plot/Land":
         if (
           !city ||
-          !locality ||
           !projectSocietyName ||
           !address ||
           !openSides ||
@@ -473,6 +428,7 @@ const usePostProperty = () => {
       console.log(`city search error: ${error?.message}`);
     }
   };
+
   useEffect(() => {
     const timeOut = setTimeout(() => {
       handelSearchToCity();

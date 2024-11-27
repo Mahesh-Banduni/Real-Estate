@@ -6,7 +6,7 @@ const RadioInput = ({
   id,
   defaultChecked,
   handelChangePropertyDetail,
-  value,
+  defaultValue,
 }) => {
   return (
     <div className="flex items-center gap-1">
@@ -16,7 +16,7 @@ const RadioInput = ({
         </label>
       )}
       <input
-        value={value}
+        defaultValue={defaultValue}
         onChange={handelChangePropertyDetail}
         className="radio radio-accent"
         name={name}

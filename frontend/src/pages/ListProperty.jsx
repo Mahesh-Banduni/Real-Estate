@@ -17,8 +17,6 @@ import {
   CommercialPlotForm,
   CommercialShopForm,
   CommercialShowroomForm,
-  ExchangePropertyTypesDropDown,
-  Loader,
 } from "../components";
 
 const ListProperty = () => {
@@ -41,13 +39,14 @@ const ListProperty = () => {
     loading,
   } = usePostProperty();
 
-  console.log(loading);
-
   return (
     <div className="w-11/12 mx-auto">
-      <div className="my-10 grid grid-rows-1 grid-cols-2">
+      <div className="my-10 grid grid-rows-1 grid-cols-2 max-sm:grid-cols-1 max-sm:grid-rows-1">
         <div className="flex flex-col gap-2 justify-center">
-          <Heading text="Post property Ad to sell your property online for Free!" />
+          <Heading
+            className="max-md:text-lg"
+            text="Post property Ad to sell your property online for Free!"
+          />
           <Paragraph text={"Get Access to 4 Lakh + Buyers"} />
           <Paragraph text={"Sell Faster with Premium Service"} />
           <Paragraph text={"Get Expert Advice on Market Trends and Insights"} />
@@ -57,7 +56,10 @@ const ListProperty = () => {
         </div>
       </div>
       <div>
-        <Heading className="" text="Start posting your property" />
+        <Heading
+          className=" max-md:text-lg"
+          text="Start posting your property"
+        />
         <form
           onSubmit={handelPostProperty}
           className="mt-5 flex flex-col gap-5 "
@@ -65,7 +67,10 @@ const ListProperty = () => {
         >
           {/* ============= property detail ============== */}
           <div className="flex flex-col gap-2">
-            <Heading className="text-xl" text="property details" />
+            <Heading
+              className="text-xl max-sm:text-xl"
+              text="property details"
+            />
             <div className="flex items-center gap-2">
               <RadioInput
                 defaultValue="sale"
@@ -94,7 +99,7 @@ const ListProperty = () => {
 
           {/* =====================you can change the form on the base of sell, exchange and partnership property========================*/}
 
-          <div className="w-1/3 flex">
+          <div className="w-1/3 flex max-md:w-3/4">
             <SellPropertyTypeForm
               formInputValue={formInputValue}
               onPropertyTypeChange={handelChangeFormInputFields}
@@ -169,7 +174,7 @@ const ListProperty = () => {
           )}
 
           {/* property description */}
-          <div className="mt-5">
+          <div className="mt-5 w-full ">
             <Heading
               text="What makes your property unique"
               className="text-xl font-interRegular  "
@@ -180,7 +185,7 @@ const ListProperty = () => {
             />
             <textarea
               onChange={handelChangeFormInputFields}
-              className="border-2 rounded-md p-2 w-1/3 outline-primary-color border-primary-color"
+              className="border-2 rounded-md p-2 w-1/3 max-md:w-2/3 outline-primary-color border-primary-color"
               placeholder="Write your properties unique features like garden etc"
               name="description"
               value={formInputValue?.description}
@@ -191,9 +196,9 @@ const ListProperty = () => {
           </div>
 
           {/* upload photo */}
-          <div className="flex flex-col gap-5 mt-5">
+          <div className="flex flex-col gap-5 mt-5 w-full">
             <Heading
-              className={"text-[2.25rem]"}
+              className="text-[2.25rem] max-md:text-base"
               text="Add photos of your property"
             />
             <UploadPhotos
@@ -211,7 +216,7 @@ const ListProperty = () => {
             <Button
               type={"submit"}
               className={
-                "flex gap-1 items-center px-28 py-5 bg-green-btn text-white font-interMedium w-fit capitalize rounded "
+                "flex gap-1 max-md:text-base items-center px-28 py-5 max-md:py-3 max-md:px-5 bg-green-btn text-white font-interMedium w-fit capitalize rounded "
               }
             >
               post your property {"->"}

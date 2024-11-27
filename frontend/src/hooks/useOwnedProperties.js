@@ -5,9 +5,8 @@ import { useDispatch } from "react-redux";
 import { handleFetchAllOwnedProperties } from "../store/slice";
 import { useLocation, useNavigate } from "react-router-dom";
 import OwnedProperties from "../pages/OwnedProperties";
-
 const useOwnedProperties = () => {
-    //const [user, setUser] = useState({});
+  //const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [property, setProperty] = useState("Sale");
@@ -28,11 +27,9 @@ const useOwnedProperties = () => {
   const [ownedProperty, setOwnedProperty] = useState({
     city: "",
   });
-
   const handleChangePropertyType = (name) => {
     setProperty(name);
   };
-
   //========================= Fetch owned properties ========================
   let token = localStorage.getItem("token");
   const fetchOwnedProperties = useCallback(async () => {
@@ -52,20 +49,19 @@ const useOwnedProperties = () => {
           },
         },
         {
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ${token}`,
-            },
-          }
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log(response);
-
-      if (response.status === "OK") {
+      if (response.statusText === "OK") {
         //setOwnedProperties(response?.data?.data);
         dispatch(handleFetchAllOwnedProperties(response?.data?.data));
-        navigate("/properties");
+        //console.log("Second:"+response?.data?.data);
+        navigate("/owned-properties");
       }
-
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -73,13 +69,10 @@ const useOwnedProperties = () => {
       setIsLoading(false);
     }
   }, [property, ownedFilter]);
-
   useEffect(() => {
     fetchOwnedProperties();
   }, [property, ownedFilter]);
-
   //============================= Handle Input Field Changes ===========================
-  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setOwnedProperty((preValue) => {
@@ -89,15 +82,16 @@ const useOwnedProperties = () => {
       };
     });
   };
-
-
   //============================= Search Cities with Throttling ===========================
   const handleSearchCity = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8080/cities-localities`,
         {
-          params: { city: ownedProperty.city, localities: ownedProperty.locality },
+          params: {
+            city: ownedProperty.city,
+            localities: ownedProperty.locality,
+          },
         }
       );
       if (response?.statusText === "Created") {
@@ -107,18 +101,15 @@ const useOwnedProperties = () => {
       console.log(`City search error: ${error.message}`);
     }
   };
-
   useEffect(() => {
-      const timeout = setTimeout(() => {
-        handleSearchCity();
-      }, 500);
-
-      return () => {clearTimeout(timeout);
-    }
+    const timeout = setTimeout(() => {
+      handleSearchCity();
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [ownedProperty?.city]);
-
   //============================= Handle City Selection ===========================
-  
   const handleSelectCity = (city) => {
     setLocalities(city?.localities);
     setOwnedProperty({
@@ -130,15 +121,11 @@ const useOwnedProperties = () => {
         city: city?.name,
       };
     });
-
     setCities([]);
   };
-
-
   //============================= Handle Dropdown Change ===========================
   const handleDropdownChange = (event) => {
     const { name, value } = event.target;
-
     if (name === "priceRange") {
       const [minPrice, maxPrice] = value.split("-");
       setOwnedFilter((prev) => ({
@@ -153,22 +140,19 @@ const useOwnedProperties = () => {
       }));
     }
   };
-
-   //-----------------------method for cities property--------------------------
-   const handleSetCity = (city) => {
+  //-----------------------method for cities property--------------------------
+  const handleSetCity = (city) => {
     setOwnedFilter((prev) => ({
       ...prev,
       city: city,
     }));
     console.log(ownedFilter);
   };
-
-//   useEffect(() => {
-//     let userData = JSON.parse(localStorage.getItem("token"));
-//     setUser(userData);
-//   }, []);
-console.log(ownedProperty);
-
+  //   useEffect(() => {
+  //     let userData = JSON.parse(localStorage.getItem("token"));
+  //     setUser(userData);
+  //   }, []);
+  console.log(ownedProperty);
   return {
     handleChangePropertyType,
     property,
@@ -182,8 +166,7 @@ console.log(ownedProperty);
     handleDropdownChange,
     message,
     handleSetCity,
-    ownedProperties
+    ownedProperties,
   };
 };
-
 export default useOwnedProperties;

@@ -8,9 +8,10 @@ const ListPropertySelectInput = React.memo(
     handelChangeFormInputFields,
     formInputValue,
     name,
+    classTwo,
   }) => {
     return (
-      <div className="flex flex-col gap-2 w-full">
+      <div className={`flex flex-col gap-2 w-full max-sm:text-sm ${classTwo}`}>
         {label && (
           <label
             className={`font-interRegular text-[#4B4B4B] capitalize text-base max-sm:text-base ${className}`}

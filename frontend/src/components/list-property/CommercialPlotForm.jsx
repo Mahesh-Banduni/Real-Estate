@@ -33,64 +33,40 @@ const CommercialPlotForm = ({
     <div>
       {/* property location */}
       <div className="mt-5">
-        <Heading className="text-xl" text="Property location" />
-        <div className="flex flex-col gap-5 w-1/3">
-          {formInputValue?.propertyPurpose === "exchange" ? (
-            <div>
-              <div className="relative">
-                <ListPropertyInput
-                  handelToggleDropdown={handelToggleCityDropdown}
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
-                  type={"text"}
-                  placeholder="Enter City"
-                  label={"City"}
-                  name="city"
-                  className={
-                    " rounded-md border border-primary-color py-0 outline-none  "
-                  }
-                />
+        <Heading
+          className="text-xl max-sm:text-base"
+          text="Property location"
+        />
+        <div className="flex flex-col gap-5 w-1/3 max-sm:text-sm max-sm:w-3/4">
+          {formInputValue?.propertyPurpose === "Exchange" ? (
+            <div className="relative">
+              <ListPropertyInput
+                handelToggleDropdown={handelToggleCityDropdown}
+                formInputValue={formInputValue}
+                handelChangeFormInputFields={handelChangeFormInputFields}
+                type={"text"}
+                placeholder="Enter City"
+                label={"From City"}
+                name="city"
+                className={
+                  "max-sm:text-sm rounded-md border border-primary-color py-0 outline-none  "
+                }
+              />
 
-                {FromCity ? (
-                  <Dropdown
-                    showCities={showCities}
-                    handelToggleCityDropdown={handelToggleCityDropdown}
-                    className={"absolute -bottom-[11.5rem] rounded-md"}
-                    name={"city"}
-                    array={cities}
-                    method={setFormInputValue}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="relative">
-                <ListPropertyInput
-                  handelToggleDropdown={handelToggleCityDropdown}
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
-                  type={"text"}
-                  placeholder="Enter City"
-                  label={"City"}
-                  name="city"
+              {showCities ? (
+                <Dropdown
+                  showCities={showCities}
+                  handelToggleCityDropdown={handelToggleCityDropdown}
                   className={
-                    " rounded-md border border-primary-color py-0 outline-none  "
+                    "absolute max-sm:text-sm -bottom-[11.5rem] rounded-md"
                   }
+                  name={"city"}
+                  array={cities}
+                  method={setFormInputValue}
                 />
-
-                {toCity ? (
-                  <Dropdown
-                    showCities={showCities}
-                    handelToggleCityDropdown={handelToggleCityDropdown}
-                    className={"absolute -bottom-[11.5rem] rounded-md"}
-                    name={"city"}
-                    array={cities}
-                    method={setFormInputValue}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
+              ) : (
+                ""
+              )}
             </div>
           ) : (
             <div className="relative">
@@ -103,7 +79,7 @@ const CommercialPlotForm = ({
                 label={"City"}
                 name="city"
                 className={
-                  " rounded-md border border-primary-color py-0 outline-none  "
+                  "max-sm:text-sm rounded-md border border-primary-color py-0 outline-none  "
                 }
               />
 
@@ -111,7 +87,9 @@ const CommercialPlotForm = ({
                 <Dropdown
                   showCities={showCities}
                   handelToggleCityDropdown={handelToggleCityDropdown}
-                  className={"absolute -bottom-[11.5rem] rounded-md"}
+                  className={
+                    "absolute max-sm:text-sm -bottom-[11.5rem] rounded-md"
+                  }
                   name={"city"}
                   array={cities}
                   method={setFormInputValue}
@@ -121,29 +99,6 @@ const CommercialPlotForm = ({
               )}
             </div>
           )}
-          <div className="relative">
-            <ListPropertyInput
-              handelToggleDropdown={handelToggleLocalityDropdown}
-              formInputValue={formInputValue}
-              handelChangeFormInputFields={handelChangeFormInputFields}
-              type={"text"}
-              placeholder="Enter Locality"
-              label={"Locality"}
-              name={"locality"}
-              className={
-                " rounded-md  border border-primary-color py-0 outline-none  "
-              }
-            />
-            {showLocalities && (
-              <Dropdown
-                handelToggleCityDropdown={handelToggleLocalityDropdown}
-                className={"absolute -bottom-[15rem] rounded-md"}
-                name={"locality"}
-                array={localities}
-                method={setFormInputValue}
-              />
-            )}
-          </div>
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
@@ -152,7 +107,7 @@ const CommercialPlotForm = ({
             placeholder="Name of Project/Society"
             label={"Name of Project/Society"}
             className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
+              " rounded-md max-sm:text-sm border border-primary-color py-0 outline-none  "
             }
           />
 
@@ -164,7 +119,7 @@ const CommercialPlotForm = ({
             label={"Address"}
             name={"address"}
             className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
+              " rounded-md max-sm:text-sm border border-primary-color py-0 outline-none  "
             }
           />
           <ListPropertySelectInput
@@ -192,7 +147,7 @@ const CommercialPlotForm = ({
       {/* property features */}
       <div className="mt-5">
         <Heading className="text-xl " text="Property features" />
-        <div className="grid grid-cols-3 grid-rows-1 gap-3">
+        <div className="grid grid-cols-3 grid-rows-1 gap-3 max-[850px]:grid-cols-1 max-[850px]:grid-rows-5">
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
@@ -201,7 +156,7 @@ const CommercialPlotForm = ({
             label={"Open Sides"}
             name="openSides"
             className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
+              "rounded-md max-sm:text-sm border border-primary-color py-0 outline-none  "
             }
           />
           <ListPropertyInput
@@ -212,7 +167,7 @@ const CommercialPlotForm = ({
             label={"Facing Road Width in Metre"}
             name="facingRoadWidth"
             className={
-              "rounded-md  border border-primary-color py-0 outline-none  "
+              "rounded-md max-sm:text-sm border border-primary-color py-0 outline-none  "
             }
           />
           <div className="flex items-center gap-2 mt-2">
@@ -273,9 +228,9 @@ const CommercialPlotForm = ({
       </div>
 
       {/* Area */}
-      <div className="mt-5">
-        <Heading className="text-xl " text="Area" />
-        <div className="flex flex-col gap-2 mt-1 w-1/3">
+      <div className="mt-5 max-[850px]:mt-0">
+        <Heading className="text-xl max-sm:text-base " text="Area" />
+        <div className="flex flex-col gap-2 mt-1 w-1/3 max-sm:text-sm max-sm:w-3/4 max-[400px]:w-11/12">
           <AreaInputField
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
@@ -283,7 +238,7 @@ const CommercialPlotForm = ({
             areaName="plotArea"
             unitName="plotAreaUnit"
             label={"Plot Area"}
-            className={"w-full"}
+            className={"w-full max-sm:text-sm"}
           />
           <div className=" border-b border-primary-color w-full flex flex-col gap-[0.15rem]">
             <label htmlFor={""}>Length:-</label>
@@ -331,7 +286,7 @@ const CommercialPlotForm = ({
 
       {/* property availability */}
 
-      <div className="flex items-center gap-5 my-5 ">
+      <div className="flex items-center gap-5 my-5 max-sm:text-sm ">
         <h1>Currently Leased Out:-</h1>
         <div className="flex items-center gap-5">
           <div className="flex items-center gap-1">
@@ -362,11 +317,13 @@ const CommercialPlotForm = ({
       {/* price details */}
       <div className="mt-5">
         <Heading className="text-xl pb-1 " text="Price Details" />
-        <div className="w-1/3 capitalize flex flex-col gap-2">
+        <div className="w-1/3 max-sm:text-sm max-sm:w-3/4 max-[400px]:w-11/12 capitalize flex flex-col gap-2">
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"border w-fit border-primary-color rounded-md"}
+            className={
+              "border w-fit max-sm:text-sm  border-primary-color rounded-md"
+            }
             placeholder={"Enter Total Price"}
             type={"number"}
             label={"expected price"}
@@ -375,7 +332,9 @@ const CommercialPlotForm = ({
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"border w-fit border-primary-color rounded-md"}
+            className={
+              "border w-fit max-sm:text-sm border-primary-color rounded-md"
+            }
             placeholder={"Enter booking amount"}
             type={"number"}
             label={"booking amount"}
@@ -420,7 +379,7 @@ const CommercialPlotForm = ({
             <Select
               styles={customStyles}
               name="overlooking"
-              className="w-1/3"
+              className="w-1/3 max-sm:text-sm max-sm:w-3/4"
               options={commercialOverLookingValue}
               onChange={(value) => {
                 let event = {
@@ -435,7 +394,7 @@ const CommercialPlotForm = ({
               isMulti
             />
           </div>
-          <div className="w-1/3">
+          <div className="w-1/3 max-sm:text-sm max-sm:w-3/4">
             <ListPropertySelectInput
               formInputValue={formInputValue}
               handelChangeFormInputFields={handelChangeFormInputFields}

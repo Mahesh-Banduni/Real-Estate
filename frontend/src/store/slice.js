@@ -12,6 +12,7 @@ const authSlice = createSlice({
     token: "",
     recommendedProperties: [],
     handpickedProperties: [],
+    wishlist: [],
     filters: {
       city: "",
       locality: "",
@@ -24,6 +25,24 @@ const authSlice = createSlice({
   reducers: {
     handelSetToken: (state, action) => {
       state.token = action.payload;
+    },
+    handleFetchWishlistProperties: (state, action) => {
+      state.wishlist = action.payload;
+    },
+    handlePriceLowToHighW: (state, action) => {
+      state.wishlist = state.wishlist.sort((a, b) => {
+        return a.expectedPrice - b.expectedPrice;
+      });
+    },
+    handlePriceHighToLowW: (state, action) => {
+      state.wishlist = state.wishlist.sort((a, b) => {
+        return b.expectedPrice - a.expectedPrice;
+      });
+    },
+    handleMostRecentW: (state, action) => {
+      state.wishlist = state.wishlist.sort(
+        (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
+      );
     },
     handelFetchAllProperties: (state, action) => {
       state.allProperties = action.payload;
@@ -91,6 +110,10 @@ const authSlice = createSlice({
   },
 });
 export const {
+  handlePriceLowToHighW,
+  handlePriceHighToLowW,
+  handleMostRecentW,
+  handleFetchWishlistProperties,
   handelAddHandPickedProperty,
   handelFetchAllProperties,
   handleFetchAllOwnedProperties,

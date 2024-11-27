@@ -39,17 +39,17 @@ const AreaInputField = ({
 
   return (
     <div
-      className={`${className} border-b border-primary-color w-full flex flex-col gap-[0.15rem]`}
+      className={` border-b border-primary-color w-full flex flex-col gap-[0.15rem] ${className} `}
     >
       {label && <label htmlFor={label}>{label}</label>}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between max-sm:justify-center">
         <input
           onChange={handelChangeFormInputFields}
           value={formInputValue[areaName]}
           name={areaName}
           type={type}
           placeholder={label}
-          className={`capitalize py-1 outline-none `}
+          className={`capitalize py-1 outline-none w-full `}
         />
         <select
           onChange={handelChangeFormInputFields}

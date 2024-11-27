@@ -36,71 +36,40 @@ const ResidentialFlatForm = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <TotalFlats
-        name="numberOfFlatsInSociety"
-        handelChangeFormInputFields={handelChangeFormInputFields}
-        formInputValue={formInputValue}
-      />
       {/* property location */}
       <div className="mt-5">
-        <Heading className="text-xl" text="Property location" />
-        <div className="flex flex-col gap-5 w-1/3">
-          {formInputValue?.propertyPurpose === "exchange" ? (
-            <div>
-              <div className="relative">
-                <ListPropertyInput
-                  handelToggleDropdown={handelToggleCityDropdown}
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
-                  type={"text"}
-                  placeholder="Enter City"
-                  label={"City"}
-                  name="city"
-                  className={
-                    " rounded-md border border-primary-color py-0 outline-none  "
-                  }
-                />
+        <Heading
+          className="text-xl max-md:text-base"
+          text="Property location"
+        />
+        <div className="flex flex-col gap-5 w-1/3 max-md:w-2/3">
+          {formInputValue?.propertyPurpose === "Exchange" ? (
+            <div className="w-full relative">
+              <ListPropertyInput
+                handelToggleDropdown={handelToggleCityDropdown}
+                formInputValue={formInputValue}
+                handelChangeFormInputFields={handelChangeFormInputFields}
+                type={"text"}
+                placeholder="Enter City"
+                label={"From City"}
+                name="city"
+                className={
+                  " rounded-md border border-primary-color py-0 outline-none max-md:text-base  "
+                }
+              />
 
-                {FromCity ? (
-                  <Dropdown
-                    showCities={showCities}
-                    handelToggleCityDropdown={handelToggleCityDropdown}
-                    className={"absolute -bottom-[11.5rem] rounded-md"}
-                    name={"city"}
-                    array={cities}
-                    method={setFormInputValue}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-              <div className="relative">
-                <ListPropertyInput
-                  handelToggleDropdown={handelToggleCityDropdown}
-                  formInputValue={formInputValue}
-                  handelChangeFormInputFields={handelChangeFormInputFields}
-                  type={"text"}
-                  placeholder="Enter City"
-                  label={"City"}
-                  name="city"
-                  className={
-                    " rounded-md border border-primary-color py-0 outline-none  "
-                  }
+              {showCities ? (
+                <Dropdown
+                  showCities={showCities}
+                  handelToggleCityDropdown={handelToggleCityDropdown}
+                  className={"absolute -bottom-[11.5rem] rounded-md"}
+                  name={"city"}
+                  array={cities}
+                  method={setFormInputValue}
                 />
-
-                {toCity ? (
-                  <Dropdown
-                    showCities={showCities}
-                    handelToggleCityDropdown={handelToggleCityDropdown}
-                    className={"absolute -bottom-[11.5rem] rounded-md"}
-                    name={"city"}
-                    array={cities}
-                    method={setFormInputValue}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
+              ) : (
+                ""
+              )}
             </div>
           ) : (
             <div className="relative">
@@ -113,7 +82,7 @@ const ResidentialFlatForm = ({
                 label={"City"}
                 name="city"
                 className={
-                  " rounded-md border border-primary-color py-0 outline-none  "
+                  " rounded-md border border-primary-color py-0 outline-none max-md:text-base "
                 }
               />
 
@@ -140,33 +109,9 @@ const ResidentialFlatForm = ({
             placeholder="Name of Project/Society"
             label={"Name of Project/Society"}
             className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
+              " rounded-md  border border-primary-color py-0 outline-none max-md:text-base  "
             }
           />
-
-          <div className="relative">
-            <ListPropertyInput
-              handelToggleDropdown={handelToggleLocalityDropdown}
-              formInputValue={formInputValue}
-              handelChangeFormInputFields={handelChangeFormInputFields}
-              type={"text"}
-              placeholder="Enter Locality"
-              label={"Locality"}
-              name={"locality"}
-              className={
-                " rounded-md  border border-primary-color py-0 outline-none  "
-              }
-            />
-            {showLocalities && (
-              <Dropdown
-                handelToggleCityDropdown={handelToggleLocalityDropdown}
-                className={"absolute -bottom-[11.5rem] rounded-md"}
-                name={"locality"}
-                array={localities}
-                method={setFormInputValue}
-              />
-            )}
-          </div>
 
           <ListPropertyInput
             formInputValue={formInputValue}
@@ -176,7 +121,7 @@ const ResidentialFlatForm = ({
             label={"Address"}
             name={"address"}
             className={
-              " rounded-md  border border-primary-color py-0 outline-none  "
+              " rounded-md  border border-primary-color py-0 outline-none max-md:text-base  "
             }
           />
         </div>
@@ -184,14 +129,17 @@ const ResidentialFlatForm = ({
 
       {/* property features */}
       <div className="mt-5">
-        <Heading className="text-xl " text="Property features" />
-        <div className="grid grid-cols-3 grid-rows-2 gap-3">
+        <Heading
+          className="text-xl max-md:text-base  "
+          text="Property features"
+        />
+        <div className="grid grid-cols-3 grid-rows-2 gap-3 max-[550px]:grid-cols-1 max-[550px]:grid-rows-6 max-md:w-2/3">
           <ListPropertySelectInput
             name="bedrooms"
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
             label={"bedrooms:-"}
-            className={"capitalize"}
+            className={"capitalize max-md:text-base"}
             options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ">10"]}
           />
           <ListPropertySelectInput
@@ -244,13 +192,13 @@ const ResidentialFlatForm = ({
       </div>
 
       {/* Area */}
-      <div className="mt-5">
-        <Heading className="text-xl " text="Area" />
-        <div className="flex flex-col justify-between w-1/3">
+      <div className="mt-5 max-md:w-2/3">
+        <Heading className="text-xl max-md:text-base  " text="Area" />
+        <div className="flex flex-col justify-between w-1/3 max-md:w-2/3">
           <AreaInputField
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"w-full"}
+            className={"w-full max-md:text-base "}
             areaName="carpetArea"
             unitName="carpetAreaUnit"
             label={"Carpet Area"}
@@ -259,7 +207,7 @@ const ResidentialFlatForm = ({
           <AreaInputField
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={"w-full"}
+            className={"w-full max-md:text-base "}
             areaName="superArea"
             unitName="superAreaUnit"
             label={"Super Area"}
@@ -269,13 +217,17 @@ const ResidentialFlatForm = ({
       </div>
 
       {/* construction status */}
-      <div className="w-1/3 mt-5 flex flex-col">
-        <Heading className="text-xl pb-1 " text="property availability" />
+      <div className="w-1/3 mt-5 flex flex-col max-md:w-2/3">
+        <Heading
+          className="text-xl pb-1 max-md:text-base  "
+          text="property availability"
+        />
         <ListPropertySelectInput
           formInputValue={formInputValue}
           handelChangeFormInputFields={handelChangeFormInputFields}
           name="possessionStatus"
           label={"Possession Status:-"}
+          className="max-md:text-base"
           options={["under construction", "ready to move"]}
         />
         <ListPropertySelectInput
@@ -294,13 +246,18 @@ const ResidentialFlatForm = ({
       </div>
 
       {/* price details */}
-      <div className="mt-5">
-        <Heading className="text-xl pb-1 " text="Price Details" />
-        <div className="w-1/3  capitalize flex flex-col gap-2">
+      <div className="mt-5 w-1/3 max-md:w-2/3 ">
+        <Heading
+          className="text-xl pb-1 max-md:text-base "
+          text="Price Details "
+        />
+        <div className="w-full  capitalize flex flex-col gap-2">
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={" w-full border-primary-color rounded-md border"}
+            className={
+              " w-full border-primary-color rounded-md border max-md:text-base"
+            }
             placeholder={"Enter Total Price"}
             type={"number"}
             label={"expected price"}
@@ -309,7 +266,9 @@ const ResidentialFlatForm = ({
           <ListPropertyInput
             formInputValue={formInputValue}
             handelChangeFormInputFields={handelChangeFormInputFields}
-            className={" w-full border-primary-color rounded-md border"}
+            className={
+              " w-full border-primary-color rounded-md border max-md:text-base"
+            }
             placeholder={"Enter booking amount"}
             type={"number"}
             label={"booking amount"}
@@ -319,17 +278,17 @@ const ResidentialFlatForm = ({
       </div>
 
       {/*=======================amenities===================*/}
-      <div className="mt-5 w-1/3">
-        <Heading className="text-xl " text="Amenities" />
+      <div className="mt-5 w-1/3 max-md:w-2/3">
+        <Heading className="text-xl max-md:text-base" text="Amenities" />
 
         <div className="mt-1 w-full">
-          <h2 className="capitalize font-interRegular">
+          <h2 className="capitalize font-interRegular max-md:text-base">
             Residential Amenities:-
           </h2>
           <Select
             styles={customStyles}
             name="residentialAmenities"
-            className=" border-primary-color"
+            className=" border-primary-color max-md:text-base"
             options={residentialAmenities}
             onChange={(value) => {
               let event = {
@@ -345,11 +304,13 @@ const ResidentialFlatForm = ({
           />
         </div>
         <div className="mt-1 w-full">
-          <h2 className="capitalize font-interRegular">Location advantage:-</h2>
+          <h2 className="capitalize font-interRegular max-md:text-base">
+            Location advantage:-
+          </h2>
           <Select
             styles={customStyles}
             name="locationAdvantages"
-            className="border-primary-color"
+            className="border-primary-color max-md:text-base"
             options={locationAdvantage}
             onChange={(value) => {
               let event = {
@@ -365,11 +326,13 @@ const ResidentialFlatForm = ({
           />
         </div>
         <div className="mt-1 w-full ">
-          <h2 className="capitalize font-interRegular">Overlooking:-</h2>
+          <h2 className="capitalize font-interRegular max-md:text-base">
+            Overlooking:-
+          </h2>
           <Select
             styles={customStyles}
             name="overlooking"
-            className="border-primary-color"
+            className="border-primary-color max-md:text-base"
             options={overLookingValue}
             onChange={(value) => {
               let event = {
@@ -390,6 +353,7 @@ const ResidentialFlatForm = ({
           label={"facing:-"}
           name="facing"
           options={facingValue}
+          className="max-md:text-base"
         />
       </div>
     </div>
