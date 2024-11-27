@@ -14,10 +14,14 @@ const usePostProperty = () => {
     propertyType: "Residential Flat/Apartment",
     numberOfFlatsInSociety: "",
     city: "",
+    fromCity: "",
+    toCity: "",
     projectSocietyName: "",
     projectMarketName: "",
     buildingComplexName: "",
-    locality: [],
+    locality: "",
+    fromLocality: "",
+    toLOcality: "",
     address: "",
     landZone: "",
     idealForBusinesses: [],
@@ -73,8 +77,12 @@ const usePostProperty = () => {
 
   //  ======================stats========================
   const [cities, setCities] = useState([]);
+  const [fromCities, setFromCities] = useState([]);
+  const [toCities, setToCities] = useState([]);
   const [localities, setLocalities] = useState([]);
   const [showCities, setShowCities] = useState(false);
+  const [showFromCity, setShowFromCity] = useState(false);
+  const [showToCity, setShowToCity] = useState(false);
   const [showLocalities, setShowLocalities] = useState(false);
   const [formInputValue, setFormInputValue] = useState(initialState);
   const [loading, setLoading] = useState(false);
@@ -115,10 +123,14 @@ const usePostProperty = () => {
       bookingAmount,
       carpetArea,
       city,
+      fromCity,
+      toCity,
       expectedPrice,
       floorNumber,
       furnished,
       locality,
+      fromLocality,
+      toLOcality,
       possessionStatus,
       superArea,
       BHKType,
@@ -416,6 +428,60 @@ const usePostProperty = () => {
       clearTimeout(timeOut);
     };
   }, [formInputValue.city]);
+
+  //================throttling functionality on fromCites search============================
+
+  const handelSearchFromCity = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/cities-localities?city=${formInputValue?.fromCity}`
+      );
+      if (response?.statusText === "Created") {
+        let cities = response?.data?.data?.map((item) => {
+          return item.name;
+        });
+        setFromCities(cities);
+      }
+    } catch (error) {
+      console.log(`city search error: ${error?.message}`);
+    }
+  };
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      handelSearchFromCity();
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [formInputValue.fromCity]);
+
+  //================throttling functionality on toCites search============================
+  const handelSearchToCity = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/cities-localities?city=${formInputValue?.toCity}`
+      );
+      if (response?.statusText === "Created") {
+        let cities = response?.data?.data?.map((item) => {
+          return item.name;
+        });
+        setFromCities(cities);
+      }
+    } catch (error) {
+      console.log(`city search error: ${error?.message}`);
+    }
+  };
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      handelSearchToCity();
+    }, 500);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [formInputValue.toCity]);
 
   //===============throttling functionality on locality search===============================
 

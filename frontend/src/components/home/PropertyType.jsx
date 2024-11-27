@@ -7,9 +7,7 @@ import PartnershipPropertyForm from "./PartnershipPropertyForm";
 const PropertyType = React.memo(({ property }) => {
   return (
     <React.Fragment>
-      {property === "buy" && <NormalProperty />}
-      {property === "exchange property" && <ExchangePropertyForm />}
-      {property === "partnership property" && <PartnershipPropertyForm />}
+      <NormalProperty property={property} />
     </React.Fragment>
   );
 });

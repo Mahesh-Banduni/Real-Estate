@@ -15,10 +15,10 @@ import {
 const Properties = () => {
   const dispatch = useDispatch();
   const data = useSelector((store) => store?.authReducer?.allProperties);
-  
+
   const {
     handelChangeInputField,
-    filterProperties,
+    filterCity,
     cities,
     handelChangePropertyType,
     property,
@@ -28,8 +28,8 @@ const Properties = () => {
     filters,
     handelChangeDropdown,
     message,
+    propertyFilter,
   } = useProperties();
-  console.log(cities);
 
   return (
     <>
@@ -44,30 +44,30 @@ const Properties = () => {
       ) : (
         <div className="w-11/12 mx-auto">
           <div className="my-10">
-            <div className="mt-10 max-sm:mt-5">
-              <ul className="flex items-center gap-5 uppercase max-sm:gap-2">
-                <PropertyTypeList
-                  handelChangePropertyType={handelChangePropertyType}
-                  property={property === "Sale" ? "Buy" : ""}
-                  text="Buy"
-                  name="Sale"
-                />
-                <PropertyTypeList
-                  handelChangePropertyType={handelChangePropertyType}
-                  property={property}
-                  text="Exchange Property"
-                  name="Exchange Property"
-                />
-                <PropertyTypeList
-                  handelChangePropertyType={handelChangePropertyType}
-                  property={property}
-                  text="Partnership Property"
-                  name="Partnership Property"
-                />
-              </ul>
-            </div>
+            {/*---------------- property purpose--------------- */}
+            <ul className="flex items-center mt-10 max-sm:mt-5 gap-5 uppercase max-sm:gap-2">
+              <PropertyTypeList
+                handelChangePropertyType={handelChangePropertyType}
+                property={property === "Sale" ? "Buy" : ""}
+                text="Buy"
+                name="Sale"
+              />
+              <PropertyTypeList
+                handelChangePropertyType={handelChangePropertyType}
+                property={property}
+                text="Exchange"
+                name="Exchange"
+              />
+              <PropertyTypeList
+                handelChangePropertyType={handelChangePropertyType}
+                property={property}
+                text="Partnership"
+                name="Partnership"
+              />
+            </ul>
+            {/*---------------------- filters---------------------------- */}
             <div className="flex gap-5 items-center justify-start w-full">
-              <div className="flex">
+              <div className="flex w-fit max-xl:w-[20rem]">
                 {property === "exchange property" ? (
                   <div className="flex items-center gap-2">
                     <Input
@@ -84,9 +84,9 @@ const Properties = () => {
                     />
                   </div>
                 ) : (
-                  <div className="relative ">
+                  <div className="relative w-full ">
                     <Input
-                      value={filterProperties}
+                      value={filterCity}
                       name="city"
                       handelChangeInputField={handelChangeInputField}
                       className={"bg-transparent p-2 w-full max-sm:py-1"}
@@ -126,40 +126,15 @@ const Properties = () => {
                   Search
                 </Button>
               </div>
-              {/* <div className="ml-5 cursor-pointer flex font-interMedium items-center justify-center border border-border-color px-8 py-[0.43rem] max-sm:py-1 max-sm:px-4 max-sm:text-sm ">
-                <img className="mr-2 h-4" src={filter} alt=" filter " />
-                Filter
-              </div> */}
-              {filters.city && (
-                <select
-                  name="locality"
-                  onChange={handelChangeDropdown}
-                  value={filters?.locality}
-                  className="border border-primary-color p-1 py-2 "
-                >
-                  <option className="capitalize" value="">
-                    Select Locality
-                  </option>
-                  {localities.map((locality) => {
-                    return (
-                      <option
-                        className="capitalize"
-                        key={locality._id}
-                        defaultValue={locality.name}
-                      >
-                        {locality.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              )}
+
+              {/* property type select input */}
               <select
-                value={filters.propertyType}
+                value={propertyFilter?.propertyType}
                 onChange={handelChangeDropdown}
                 name="propertyType"
-                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 max-[1120px]:w-full outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
+                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
               >
-                <option defaultValue="">Select Property Type</option>
+                <option defaultValue=" ">Select Property Type</option>
 
                 <option defaultValue="Residential Flat/Apartment">
                   Residential Flat/Apartment
@@ -181,15 +156,16 @@ const Properties = () => {
                   Commercial Office Space
                 </option>
               </select>
+              {/* price range select input */}
               <select
                 value={
-                  filters.minPrice && filters.maxPrice
-                    ? `${filters.minPrice}-${filters.maxPrice}`
+                  propertyFilter.minPrice
+                    ? `${propertyFilter.minPrice}-${propertyFilter.maxPrice}`
                     : ""
                 }
                 onChange={handelChangeDropdown}
                 name="priceRange"
-                className="rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 max-[1120px]:w-full outline-none hover:outline-none max-sm:text-sm"
+                className="rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none hover:outline-none max-sm:text-sm"
               >
                 <option value="">Select Price Range</option>
                 <option value="0-2500000">Under Rs 25 Lakh</option>
@@ -205,6 +181,7 @@ const Properties = () => {
             </div>
           </div>
           <hr />
+          {/*------------------------------- properties button ----------------------------- */}
           <div className=" pt-2 flex items-center justify-between max-[450px]:justify-center max-[450px]:gap-[0.15rem] ">
             <div className=" flex items-center gap-5 tracking-wider max-sm:tracking-normal max-sm:gap-2 max-[450px]:gap-1 ">
               <button
@@ -212,18 +189,6 @@ const Properties = () => {
               >
                 properties
               </button>
-              {/* <div
-            onClick={() => {
-              setPropertyType("new projects");
-            }}
-            className={`${
-              propertyType === "new projects"
-                ? "text-white bg-primary-color  "
-                : " text-[#8F90A6] bg-transparent "
-            } px-5 py-2 uppercase transition-all cursor-pointer max-sm:text-sm max-sm:px-2 max-sm:py-1 max-[450px]:text-xs max-[350px]:text-[0.65rem] max-[450px]:px-1`}
-          >
-            new projects
-          </div> */}
             </div>
             <div className="dropdown dropdown-hover bg-transparent hover:bg-transparent m-0">
               <div
@@ -271,9 +236,11 @@ const Properties = () => {
             </div>
           </div>
           <hr />
+          {/*--------------------------------------- total properties length ------------------------------- */}
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">
             {data.length} results | Property {`in Dehradun`} for Sale
           </p>
+          {/*-------------------------- all properties------------------------------- */}
           <ListProperty propertiesList={data} />
         </div>
       )}
