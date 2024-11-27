@@ -60,10 +60,11 @@ const useOwnedProperties = () => {
       );
       console.log(response);
 
-      if (response.status === "OK") {
+      if (response.statusText === "OK") {
         //setOwnedProperties(response?.data?.data);
         dispatch(handleFetchAllOwnedProperties(response?.data?.data));
-        navigate("/properties");
+        //console.log("Second:"+response?.data?.data);
+        navigate("/owned-properties");
       }
 
       setIsLoading(false);

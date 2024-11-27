@@ -7,12 +7,12 @@ dotenv.config();
 // JWT authentication middleware
 const auth = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  console.log('Authorization Header:', authHeader); // Debug: Check the header value
+  //console.log('Authorization Header:', authHeader); // Debug: Check the header value
 
   const token = authHeader && authHeader.split(' ')[1]; // Extract token from 'Bearer <token>'
   if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
 
-  console.log(token);
+  //console.log(token);
   const token1 = token.replace(/^"|"$/g, '');
   
   jwt.verify(token1, process.env.JWT_SECRET, (err, user) => {
@@ -22,7 +22,7 @@ const auth = (req, res, next) => {
     }
     
     req.user = user; // Attach the decoded token payload to request
-    console.log(user);
+    //console.log(user);
     next(); // Proceed to the next middleware or route handler
   });
 };

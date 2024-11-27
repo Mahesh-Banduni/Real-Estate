@@ -263,11 +263,11 @@ const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
     match: query, // Apply filters
   });
 
-  console.log(user.length);
+  //console.log(user.favoriteProperties.length);
   
-  // if (user.ownedProperties.length === 0) {
-  //   throw new NotFoundError('No properties found.');
-  // }
+  if (user.favoriteProperties.length === 0) {
+    throw new NotFoundError('No properties found');
+  }
   // const filteredPropertiesResponse = encrypt(JSON.stringify(filteredProperties), process.env.ENCRYPTION_KEY);
   // return filteredPropertiesResponse;
   return user;
