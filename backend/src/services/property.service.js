@@ -9,7 +9,7 @@ const commercialOfficeSpace = require('../models/model/commercial.office.space.m
 const commercialShop = require('../models/model/commercial.shop.model.js');
 const commercialShowroom = require('../models/model/commercial.showroom.model.js');
 const commercialPlot = require('../models/model/commercial.plot.model.js');
-const {uploadImages}= require('../utils/upload.image.service.js');
+const {uploadImages, deleteImages}= require('../utils/upload.image.service.js');
 const {sendPropertyInquiryEmail}= require('../utils/email.service.utils.js');
 const {encrypt, decrypt} = require("../utils/encryption.decryption.utils.js");
 
@@ -536,10 +536,20 @@ const deleteProperty = async (propertyId, userId) => {
   if (user.role !== 'Admin') {
     throw new BadRequestError('Only admins can delete a property.');
   }
-  const property = await Property.findByIdAndDelete(propertyId);
+  const property = await Property.findById(propertyId);
   if (!property) {
     throw new NotFoundError('Property not found');
   }
+
+  // Delete associated images from Cloudinary
+  if (property.images && property.images.length > 0) {
+    console.log(property.images.length);
+    await deleteImages(property.images);
+  }
+  console.log(property.images);
+
+  await Property.findByIdAndDelete(propertyId);
+
   return property;
 };
 

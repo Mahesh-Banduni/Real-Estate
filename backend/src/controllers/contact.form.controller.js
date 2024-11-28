@@ -5,7 +5,6 @@ exports.createContactForm = async (req, res, next) => {
   try {
     const contactForm = await contactFormService.createContactForm(req.body);
     res.status(201).json({
-      success: true,
       data: contactForm,
     });
   } catch (error) {

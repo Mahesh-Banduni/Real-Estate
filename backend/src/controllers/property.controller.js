@@ -36,7 +36,6 @@ const propertyInquiry = async (req, res, next) => {
     const propertyId = req.body.propertyId;
     const propertyInquiryResponse = await propertyService.propertyInquiry(propertyId, userId);
     res.status(201).json({
-      success: true,
       data: propertyInquiryResponse,
     });
   } catch (error) {
@@ -94,6 +93,7 @@ const deleteProperty = async (req, res, next) => {
     );
     res.status(200).json({ message: "Property deleted successfully" });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

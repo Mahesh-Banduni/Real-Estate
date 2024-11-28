@@ -139,5 +139,47 @@ const sendContactUsEmail = async (userDetails) => {
   }
 };
 
+// Function to handle property inquiry
+const sendAuctionPropertyInquiryEmail = async (propertyDetails, userDetails) => {
+  const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+  const { propertyID, propertyType, bankName, borrowerName, propertyPurpose, reservePrice, propertyArea, propertyAreaUnit, emdAmount, city} = propertyDetails;
+
+  // Email content to send to admin
+  const mailOptions = {
+    from: `"Auction Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+    to: process.env.ADMIN_EMAIL, // Admin's email
+    subject: `New Inquiry for Auction Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+    html: `
+      <h2>New Auction Property Inquiry</h2>
+      <p><strong>Property ID:</strong> ${propertyID}</p>
+      <p><strong>Bank name:</strong> ${bankName}</p>
+      <p><strong>Property Type:</strong> ${propertyType}</p>
+      <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+      <p><strong>Property Area:</strong> ${propertyArea} ${propertyAreaUnit}</p>
+      <p><strong>Reserve Price:</strong> ₹${reservePrice}</p>
+      <p><strong>EMD Amount:</strong> ₹${emdAmount}</p>
+      <p><strong>City:</strong> ${city}</p>
+      <br>
+      <h3>Borrower Details</h3>
+      <p><strong>Name:</strong> ${borrowerName}</p>
+      <br>
+      <h3>Inquiry User Details</h3>
+      <p><strong>Name:</strong> ${queryUsername}</p>
+      <p><strong>Email:</strong> ${queryUseremail}</p>
+      <p><strong>Phone:</strong> ${queryUserphone}</p>
+      <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    //console.log('Inquiry email sent to admin.');
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+  } catch (error) {
+    //console.error('Error sending inquiry email:', error);
+    return { success: false, message: 'Failed to send inquiry.' };
+  }
+};
+
 //module.exports = { sendOTP, verifyOTP };
-module.exports ={sendContactUsEmail, sendPropertyInquiryEmail};
+module.exports ={sendContactUsEmail, sendPropertyInquiryEmail, sendAuctionPropertyInquiryEmail};

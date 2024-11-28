@@ -72,5 +72,23 @@ const uploadImage = async (file) => {
   return uploadedImage;
 };
 
-module.exports= {uploadImages, uploadImage};
+const deleteImages = async (imageUrls) => {
+  const deletionResults = [];
+
+  const deletionPromises = imageUrls.map(async (url) => {
+    const publicId = url.split('/').slice(-1)[0].split('.')[0]; // Extract public_id
+    try {
+      const result = await cloudinary.uploader.destroy(publicId);
+      deletionResults.push({ publicId, result });
+    } catch (error) {
+      console.error(`Failed to delete image ${publicId}:`, error);
+      deletionResults.push({ publicId, error });
+    }
+  });
+
+  await Promise.all(deletionPromises);
+  return deletionResults;
+};
+
+module.exports= {uploadImages, uploadImage, deleteImages};
 

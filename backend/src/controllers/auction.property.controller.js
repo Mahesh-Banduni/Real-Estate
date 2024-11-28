@@ -84,10 +84,24 @@ const deleteAuctionProperty = async (req, res, next) => {
   }
 };
 
+const auctionPropertyInquiry = async (req, res, next) => {
+  try {
+    const userId= req.user.id;
+    const propertyId = req.body.propertyId;
+    const propertyInquiryResponse = await auctionPropertyService.auctionPropertyInquiry(propertyId, userId);
+    res.status(201).json({
+      data: propertyInquiryResponse,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createAuctionProperty,
   getAllAuctionProperties,
   getAuctionPropertyById,
   updateAuctionProperty,
-  deleteAuctionProperty
+  deleteAuctionProperty,
+  auctionPropertyInquiry
 };
