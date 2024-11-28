@@ -155,26 +155,22 @@ router.delete('/:id', userController.deleteUser);
 
 /**
  * @swagger
- * /users/{id}/favorite-properties:
+ * /users/{id}/favorites/{propertyId}:
  *   post:
  *     summary: Add a property to user's favorites
  *     description: Adds a property to the user's favorite properties list
  *     tags:
  *       - Users
- *       - Properties
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
- *       - in: path
- *         name: propertyId
- *         required: true
- *         schema:
- *           type: string
- *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               propertyId:
+ *                 type: string
+ *                 description: PropertyId
  *     responses:
  *       200:
  *         description: Property added to favorites successfully
@@ -183,30 +179,26 @@ router.delete('/:id', userController.deleteUser);
  *       500:
  *         description: Internal server error
  */
-router.post('/:id/favorite-properties', userController.addFavoriteProperty);
+router.post('/:id/favorites/:propertyId', auth, userController.addFavoriteProperty);
 
 /**
  * @swagger
- * /users/favorites-properties:
+ * /users/{id}/favorites/{propertyId}:
  *   delete:
  *     summary: Remove a property from user's favorites
  *     description: Removes a property from the user's favorite properties list
  *     tags:
  *       - Users
- *       - Properties
- *     parameters:
- *       - in: path
- *         name: userId
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
- *       - in: path
- *         name: propertyId
- *         required: true
- *         schema:
- *           type: string
- *         description: Property ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               propertyId:
+ *                 type: string
+ *                 description: PropertyId
  *     responses:
  *       200:
  *         description: Property removed from favorites successfully
@@ -215,7 +207,7 @@ router.post('/:id/favorite-properties', userController.addFavoriteProperty);
  *       500:
  *         description: Internal server error
  */
-router.delete('/:userId/favorites/:propertyId', userController.removeFavoriteProperty);
+router.delete('/:id/favorites/:propertyId',auth, userController.removeFavoriteProperty);
 
 /**
  * @swagger

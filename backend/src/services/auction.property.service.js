@@ -2,6 +2,7 @@ const AuctionProperty = require('../models/auction.property.model.js');
 const { ConflictError, NotFoundError, BadRequestError } = require('../errors/errors.js');
 const {uploadImages, uploadImage} = require('../utils/upload.image.service.js');
 const userService = require("../services/user.service.js");
+const {sendAuctionPropertyInquiryEmail}= require('../utils/email.service.utils.js');
 
 // Create a new auction property
 const createAuctionProperty = async (userId, auctionPropertyData, file) => {
@@ -124,10 +125,27 @@ const deleteAuctionProperty = async (userId, auctionPropertyId) => {
   return auctionProperty;
 };
 
+const auctionPropertyInquiry = async (propertyId, userId) => {
+  const propertyDetails = await AuctionProperty.findById(propertyId);
+  if (!propertyDetails) {
+    throw new NotFoundError('Auction Property not found');
+  }
+  const user = await User.findById(userId);
+  const userDetails={};
+  userDetails.queryUsername=user.name;
+  userDetails.queryUseremail=user.email;
+  userDetails.queryUserphone = user.phone;
+
+  const response = await sendAuctionPropertyInquiryEmail(propertyDetails, userDetails);
+
+  return response;
+}
+
 module.exports = {
   createAuctionProperty,
   getAllAuctionProperties,
   getAuctionPropertyById,
   updateAuctionProperty,
   deleteAuctionProperty,
+  auctionPropertyInquiry
 };

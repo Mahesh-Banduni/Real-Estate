@@ -17,9 +17,9 @@ const loginUser = async (req, res, next) => {
 
 const verifyLoginOTP = async (req, res, next) => {
   try {
-    const { phoneNumber, otp } = req.body;
+    const { email, otp } = req.body;
     const { response, token, user } = await userLoginService.verifyLoginOTP(
-      phoneNumber,
+      email,
       otp
     );
     res.status(200).json({
@@ -27,6 +27,7 @@ const verifyLoginOTP = async (req, res, next) => {
       data: { response, token, user },
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

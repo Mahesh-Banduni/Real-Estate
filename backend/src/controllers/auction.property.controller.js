@@ -33,7 +33,7 @@ const getAllAuctionProperties = async (req, res, next) => {
     const sortBy = req.query.sortBy; // price or dateListed
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
     const auctionProperties = await auctionPropertyService.getAllAuctionProperties(filters, sortBy, sortOrder);
-    console.log(auctionProperties);
+    //console.log(auctionProperties);
     res.status(200).json({
       success: true,
       data: auctionProperties,
@@ -84,10 +84,24 @@ const deleteAuctionProperty = async (req, res, next) => {
   }
 };
 
+const auctionPropertyInquiry = async (req, res, next) => {
+  try {
+    const userId= req.user.id;
+    const propertyId = req.body.propertyId;
+    const propertyInquiryResponse = await auctionPropertyService.auctionPropertyInquiry(propertyId, userId);
+    res.status(201).json({
+      data: propertyInquiryResponse,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createAuctionProperty,
   getAllAuctionProperties,
   getAuctionPropertyById,
   updateAuctionProperty,
-  deleteAuctionProperty
+  deleteAuctionProperty,
+  auctionPropertyInquiry
 };

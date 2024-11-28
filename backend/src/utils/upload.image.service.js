@@ -72,5 +72,26 @@ const uploadImage = async (file) => {
   return uploadedImage;
 };
 
-module.exports= {uploadImages, uploadImage};
+// Function to extract public_id from Cloudinary URL
+const extractPublicId = (url) => {
+  const parts = url.split('/');
+  const filename = parts[parts.length - 1];
+  const publicId = filename.split('.')[0]; // Remove file extension
+  return publicId;
+};
+
+// Function to delete multiple images from Cloudinary
+const deleteImages = async (imageUrls) => {
+  const deletePromises = imageUrls.map((url) => {
+    const publicId = extractPublicId(url);
+    return cloudinary.uploader.destroy(publicId)
+      .then((result) => ({ publicId, result }))
+      .catch((error) => ({ publicId, error }));
+  });
+
+  // Wait for all deletions to complete
+  return Promise.all(deletePromises);
+};
+
+module.exports= {uploadImages, uploadImage, deleteImages};
 

@@ -1,68 +1,185 @@
-const { SendMailClient } = require("zeptomail");
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
-const url = "api.zeptomail.in/";
-const token = "Zoho-enczapikey PHtE6r0JEe7oi255oxYIt6W6QpGtN9wv/rthKABHtodDC/5QHk1cqd4owDKz/k8oVvZFFvKTz4M8tbqdtLqHcz2+YGdKW2qyqK3sx/VYSPOZsbq6x00VuF0ZcEXdXI7tdNZo0ifVvtnfNA==";
+// Temporary in-memory storage for OTPs
+//global.otpStorage = {};
 
-// services/email.service.js
-const https = require('https');
-const { apiKey, senderAddress } = require('../config/zeptomail.config');
+// Nodemailer configuration for SMTP
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST, // Replace with your SMTP server
+  port: process.env.SMTP_PORT,  // Use 587 for STARTTLS or 465 for SSL/TLS
+  secure: true,                // true for 465, false for 587
+  auth: {
+    user: process.env.SMTP_USER, // SMTP user
+    pass: process.env.SMTP_PASS, // SMTP password
+  },
+});
 
-function sendTransactionalEmail(recipient, subject, content) {
-  return new Promise((resolve, reject) => {
-    const data = JSON.stringify({
-      bounce_address: 'bounces@yourdomain.com', // Replace with your bounce address
-      from: {
-        address: senderAddress,
-        name: 'Your Real Estate Website',
-      },
-      to: Array.isArray(recipient) ? recipient.map(email => ({ email_address: { address: email } })) : [
-        {
-          email_address: {
-            address: recipient,
-          },
-        },
-      ],
-      subject: subject,
-      htmlbody: content, // Use `plaintextbody` for plain text emails if preferred
-    });
+// // Generate a random 6-digit OTP
+// const generateOTP = () => crypto.randomInt(100000, 999999).toString();
 
-    const options = {
-      hostname: 'api.zeptomail.com',
-      port: 443,
-      path: '/v1.1/email',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Zoho-enczapikey ${apiKey}`,
-        'Content-Length': data.length,
-      },
-    };
+// // Function to send OTP via email and store it temporarily
+// const sendOTP = async (email) => {
+//   const otp = generateOTP();
+//   const expiryTime = Date.now() + 180 * 60 * 1000; // OTP valid for 180 minutes
 
-    const req = https.request(options, (res) => {
-      let responseBody = '';
+//   // Store OTP and expiry in memory
+//   global.otpStorage[email] = { otp, expiry: expiryTime };
+//   console.log(otpStorage);
 
-      res.on('data', (chunk) => {
-        responseBody += chunk;
-      });
+//   // Email content
+//   const mailOptions = {
+//     from: '"Propertymela" <pgoyal_realestate@propertymela.in>', // Sender's email
+//     to: email,
+//     subject: 'Your OTP Code',
+//     text: `Your OTP is ${otp}. It is valid for 5 minutes.`,
+//   };
 
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(responseBody));
-        } else {
-          reject(new Error(`Failed to send email: ${responseBody}`));
-        }
-      });
-    });
+//   try {
+//     await transporter.sendMail(mailOptions);
+//     console.log(`OTP sent to ${email}`);
+//     return { success: true, message: 'OTP sent successfully.' };
+//   } catch (error) {
+//     console.error('Error sending OTP:', error);
+//     return { success: false, message: 'Failed to send OTP.' };
+//   }
+// };
 
-    req.on('error', (error) => {
-      reject(error);
-    });
+// // Function to verify OTP
+// const verifyOTP = (email, userInputOtp) => {
+//   console.log(otpStorage);
+//   const storedData = global.otpStorage[email];
+//   if (!storedData) {
+//     return { success: false, message: 'No OTP found for this email.' };
+//   }
 
-    req.write(data);
-    req.end();
-  });
-}
+//   const { otp, expiry } = storedData;
 
-module.exports = {
-  sendTransactionalEmail,
+//   // Check for expiry
+//   if (Date.now() > expiry) {
+//     delete global.otpStorage[email]; // Clean up expired OTP
+//     return { success: false, message: 'OTP has expired.' };
+//   }
+
+//   // Validate OTP
+//   if (otp === userInputOtp) {
+//     delete global.otpStorage[email]; // OTP verified and cleared
+//     return { success: true, message: 'OTP verified successfully.' };
+//   }
+
+//   return { success: false, message: 'Invalid OTP.' };
+// };
+
+// Function to handle property inquiry
+const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
+  const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+  const { propertyID, propertyType, propertyPurpose, expectedPrice, city} = propertyDetails;
+  const { user } = propertyDetails;
+
+  // Email content to send to admin
+  const mailOptions = {
+    from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+    to: process.env.ADMIN_EMAIL, // Admin's email
+    subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+    html: `
+      <h2>New Property Inquiry</h2>
+      <p><strong>Property ID:</strong> ${propertyID}</p>
+      <p><strong>Property Type:</strong> ${propertyType}</p>
+      <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+      <p><strong>Price:</strong> ₹${expectedPrice}</p>
+      <p><strong>City:</strong> ${city}</p>
+      <br>
+      <h3>Owner Details</h3>
+      <p><strong>Name:</strong> ${user.name}</p>
+      <p><strong>Email:</strong> ${user.email}</p>
+      <p><strong>Phone:</strong> ${user.phone}</p>
+      <br>
+      <h3>Inquiry User Details</h3>
+      <p><strong>Name:</strong> ${queryUsername}</p>
+      <p><strong>Email:</strong> ${queryUseremail}</p>
+      <p><strong>Phone:</strong> ${queryUserphone}</p>
+      <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Inquiry email sent to admin.');
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+  } catch (error) {
+    console.error('Error sending inquiry email:', error);
+    return { success: false, message: 'Failed to send inquiry.' };
+  }
 };
+
+// Function to send Contact Us inquiry email
+const sendContactUsEmail = async (userDetails) => {
+  const { fullName, email, phone, message } = userDetails;
+
+  const mailOptions = {
+    from: `"Contact Us Query" <pgoyal_realestate@propertymela.in>`,
+    to: process.env.ADMIN_EMAIL, // Admin's email
+    subject: `New Contact Us Inquiry from ${fullName}`,
+    html: `
+      <h2>Contact Us Inquiry</h2>
+      <p><strong>Name:</strong> ${fullName}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Message:</strong> ${message}</p>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    ll.log('Contact Us inquiry email sent to admin.');
+    return { success: true, message: 'Thankyou. Your message has been sent to our team. We will contact you soon.' };
+  } catch (error) {
+    console.error('Error sending Contact Us inquiry email:', error);
+    return { success: false, message: 'Failed to send inquiry.' };
+  }
+};
+
+// Function to handle property inquiry
+const sendAuctionPropertyInquiryEmail = async (propertyDetails, userDetails) => {
+  const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+  const { propertyID, propertyType, bankName, borrowerName, propertyPurpose, reservePrice, propertyArea, propertyAreaUnit, emdAmount, city} = propertyDetails;
+
+  // Email content to send to admin
+  const mailOptions = {
+    from: `"Auction Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+    to: process.env.ADMIN_EMAIL, // Admin's email
+    subject: `New Inquiry for Auction Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+    html: `
+      <h2>New Auction Property Inquiry</h2>
+      <p><strong>Property ID:</strong> ${propertyID}</p>
+      <p><strong>Bank name:</strong> ${bankName}</p>
+      <p><strong>Property Type:</strong> ${propertyType}</p>
+      <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+      <p><strong>Property Area:</strong> ${propertyArea} ${propertyAreaUnit}</p>
+      <p><strong>Reserve Price:</strong> ₹${reservePrice}</p>
+      <p><strong>EMD Amount:</strong> ₹${emdAmount}</p>
+      <p><strong>City:</strong> ${city}</p>
+      <br>
+      <h3>Borrower Details</h3>
+      <p><strong>Name:</strong> ${borrowerName}</p>
+      <br>
+      <h3>Inquiry User Details</h3>
+      <p><strong>Name:</strong> ${queryUsername}</p>
+      <p><strong>Email:</strong> ${queryUseremail}</p>
+      <p><strong>Phone:</strong> ${queryUserphone}</p>
+      <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    //console.log('Inquiry email sent to admin.');
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+  } catch (error) {
+    //console.error('Error sending inquiry email:', error);
+    return { success: false, message: 'Failed to send inquiry.' };
+  }
+};
+
+//module.exports = { sendOTP, verifyOTP };
+module.exports ={sendContactUsEmail, sendPropertyInquiryEmail, sendAuctionPropertyInquiryEmail};
