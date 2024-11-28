@@ -10,15 +10,6 @@ import {
 } from "../components";
 
 const Contact = () => {
-  // const navigate = useNavigate();
-  // const location = useLocation();
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     navigate("/signin", { state: { from: location.pathname } }); // Redirect to login page if token is not present
-  //   }
-  // }, [navigate, location]);
   return (
     <React.Fragment>
       <div className="w-11/12 m-auto flex mt-10 items-center justify-between max-sm:flex-col-reverse max-sm:gap-2 max-sm:items-center">

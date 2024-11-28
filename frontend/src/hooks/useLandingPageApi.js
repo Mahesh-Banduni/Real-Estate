@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { useForm } from "react-hook-form";
 
 import { handelAddHandPickedProperty } from "../store/slice";
 
@@ -18,7 +17,6 @@ const useLandingPageApi = () => {
       const response = await axios.get(
         "http://localhost:8080/handpicked-properties"
       );
-      console.log(response);
       if (response?.statusText) {
         dispatch(handelAddHandPickedProperty(response?.data));
       }

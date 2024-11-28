@@ -11,8 +11,10 @@ import {
   status,
   superArea,
 } from "../../utils/icons";
+import useWishlist from "../../hooks/useWishlist";
 
 const CommercialShowroomProperties = ({ item, markFavorite }) => {
+  const { markFavoriteProperty, unMarkFavoriteProperty } = useWishlist();
   return (
     <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
       <div className="flex flex-col gap-1">
@@ -23,9 +25,21 @@ const CommercialShowroomProperties = ({ item, markFavorite }) => {
           />
           <div className="flex items-center justify-center gap-2">
             {markFavorite ? (
-              <IoHeartSharp className="w-6 h-6 text-red-500" />
+              <IoHeartSharp
+                onClick={() => {
+                  unMarkFavoriteProperty(item._id);
+                }}
+                className="w-6 h-6 text-red-500 cursor-pointer"
+              />
             ) : (
-              <img src={heart} alt="wishlist" />
+              <img
+                className="cursor-pointer"
+                onClick={() => {
+                  markFavoriteProperty(item._id);
+                }}
+                src={heart}
+                alt="wishlist"
+              />
             )}
           </div>
         </div>

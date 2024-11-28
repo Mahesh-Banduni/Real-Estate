@@ -1,15 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import useProperties from "../hooks/useProperties";
+import { handelUpdateFilters } from "../store/slice";
 
 const SecondaryCard = ({ pic, text }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { handelSetCity } = useProperties();
   return (
     <div
       onClick={() => {
-        handelSetCity(text);
+        dispatch(handelUpdateFilters({ name: "city", value: text }));
         navigate("/properties");
       }}
       to={"/properties"}

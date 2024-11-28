@@ -27,30 +27,21 @@ const useWishlist = () => {
     setProperty(name);
   };
   //========================= Fetch owned properties ========================
-  let token = localStorage.getItem("token");
   const fetchWishlistProperties = async () => {
     setMessage("");
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(
-        `http://localhost:8080/favorite-properties/`,
-        {
-          params: {
-            propertyPurpose: property,
-            propertyType: ownedFilter.propertyType,
-            city: ownedFilter.city,
-            locality: ownedFilter.locality,
-            minPrice: ownedFilter.minPrice,
-            maxPrice: ownedFilter.maxPrice,
-          },
+      const response = await axiosInstance.get(`/favorite-properties/`, {
+        params: {
+          propertyPurpose: property,
+          propertyType: ownedFilter.propertyType,
+          city: ownedFilter.city,
+          locality: ownedFilter.locality,
+          minPrice: ownedFilter.minPrice,
+          maxPrice: ownedFilter.maxPrice,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      });
+      console.log(response);
 
       if (response.statusText === "OK") {
         dispatch(handleFetchWishlistProperties(response?.data?.data));
@@ -141,6 +132,41 @@ const useWishlist = () => {
     }));
   };
 
+  const markFavoriteProperty = async (id) => {
+    try {
+      const response = await axiosInstance.post(
+        `http://localhost:8080/favorite-properties`,
+        {
+          propertyId: `${id}`,
+        }
+      );
+      if (response.statusText === "OK") {
+        fetchWishlistProperties();
+      }
+    } catch (error) {
+      console.log(error);
+      alert(`${error?.response?.data?.error}`);
+    }
+  };
+  const unMarkFavoriteProperty = async (id) => {
+    try {
+      const response = await axiosInstance.delete(`/favorite-properties`, {
+        data: {
+          propertyId: id,
+        },
+      });
+      console.log(response);
+
+      if (response.statusText === "OK") {
+        fetchWishlistProperties();
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+      alert(`${error?.response?.data?.error}`);
+    }
+  };
+
   return {
     handleChangePropertyType,
     property,
@@ -155,6 +181,8 @@ const useWishlist = () => {
     message,
     handleSetCity,
     fetchWishlistProperties,
+    markFavoriteProperty,
+    unMarkFavoriteProperty,
   };
 };
 export default useWishlist;

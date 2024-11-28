@@ -11,7 +11,7 @@ import Heading from "../Heading";
 import Button from "../Button";
 import { Link } from "react-router-dom";
 
-const AuctionPropertyFields = ({ item }) => {
+const AuctionPropertyFields = ({ item, sendQueryAuctionProperty }) => {
   let date = new Date(item?.auctionStartDateTime).toLocaleDateString();
 
   return (
@@ -134,7 +134,11 @@ const AuctionPropertyFields = ({ item }) => {
           </span>
         </div>
         <div className="flex flex-col gap-2">
-          <Button className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg">
+          <Button
+            id={item._id}
+            sendEnquiry={sendQueryAuctionProperty}
+            className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg"
+          >
             send enquiry
           </Button>
           <Link

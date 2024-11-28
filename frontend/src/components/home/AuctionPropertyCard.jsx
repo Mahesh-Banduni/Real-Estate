@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../Button";
 
-const AuctionPropertyCard = ({ item }) => {
+const AuctionPropertyCard = ({ item, sendQueryAuctionProperty }) => {
   return (
     <div className="border border-border-color p-3 w-fit flex flex-col gap-2 justify-center overflow-hidden">
       <div className="max-sm:w-full">
@@ -25,6 +25,13 @@ const AuctionPropertyCard = ({ item }) => {
             : "N/A"}
         </h2>
       </div>
+      <Button
+        id={item._id}
+        sendEnquiry={sendQueryAuctionProperty}
+        className="w-full grid place-content-center py-2 capitalize border-2 border-primary-color text-primary-color hover:text-white hover:bg-primary-color transition-all  bg-transparent text-lg max-sm:text-base max-sm:py-1 max-sm:px-0"
+      >
+        send inquiry
+      </Button>
     </div>
   );
 };

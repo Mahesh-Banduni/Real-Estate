@@ -3,7 +3,7 @@ import useHome from "../hooks/useHome";
 import AuctionPropertyFields from "../components/home/AuctionPropertyFields";
 
 const AuctionProperty = () => {
-  const { auctionProperty } = useHome();
+  const { auctionProperty, sendQueryAuctionProperty } = useHome();
 
   return (
     <div className="w-11/12 mx-auto">
@@ -13,7 +13,13 @@ const AuctionProperty = () => {
       <hr />
       <div className="flex flex-col gap-10 my-5">
         {auctionProperty?.map((item) => {
-          return <AuctionPropertyFields key={item._id} item={item} />;
+          return (
+            <AuctionPropertyFields
+              key={item._id}
+              sendQueryAuctionProperty={sendQueryAuctionProperty}
+              item={item}
+            />
+          );
         })}
       </div>
     </div>

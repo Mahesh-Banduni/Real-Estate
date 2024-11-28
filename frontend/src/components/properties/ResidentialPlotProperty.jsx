@@ -1,11 +1,11 @@
 import React from "react";
 import { IoHeartSharp } from "react-icons/io5";
-
-import { RxDimensions } from "react-icons/rx";
 import { AiOutlineColumnWidth } from "react-icons/ai";
 import { CgSidebarOpen } from "react-icons/cg";
+import { RxDimensions } from "react-icons/rx";
 
 import Heading from "../Heading";
+import useWishlist from "../../hooks/useWishlist";
 import {
   facing,
   floor,
@@ -16,6 +16,7 @@ import {
 } from "../../utils/icons";
 
 const ResidentialPlotProperties = ({ item, markFavorite }) => {
+  const { markFavoriteProperty, unMarkFavoriteProperty } = useWishlist();
   return (
     <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
       <div className="flex flex-col gap-1">
@@ -26,9 +27,21 @@ const ResidentialPlotProperties = ({ item, markFavorite }) => {
           />
           <div className="flex items-center justify-center gap-2">
             {markFavorite ? (
-              <IoHeartSharp className="w-6 h-6 text-red-500" />
+              <IoHeartSharp
+                onClick={() => {
+                  unMarkFavoriteProperty(item._id);
+                }}
+                className="w-6 h-6 text-red-500 cursor-pointer"
+              />
             ) : (
-              <img src={heart} alt="wishlist" />
+              <img
+                className="cursor-pointer"
+                onClick={() => {
+                  markFavoriteProperty(item._id);
+                }}
+                src={heart}
+                alt="wishlist"
+              />
             )}
           </div>
         </div>

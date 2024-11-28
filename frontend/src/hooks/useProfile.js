@@ -11,14 +11,12 @@ const useProfile = () => {
 
   const handelSubmitForm = async (event) => {
     event.preventDefault();
-    console.log(inputValue);
 
     try {
       const response = await axios.put(
         `http://localhost:8080/users/${user._id}`,
         inputValue
       );
-      console.log(response);
       if (response.statusText === "OK") {
         localStorage.setItem("token", JSON.stringify(response?.data?.data));
         alert("Your password and contact update successfully!");
@@ -38,7 +36,7 @@ const useProfile = () => {
   };
 
   useEffect(() => {
-    let userData = JSON.parse(localStorage.getItem("token"));
+    let userData = JSON.parse(localStorage.getItem("realEstateUser"));
     setUser(userData);
   }, []);
 

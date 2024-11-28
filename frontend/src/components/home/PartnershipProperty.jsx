@@ -18,14 +18,13 @@ import { partnershipPropertyImage } from "../../utils/icons";
 import AuctionPropertyCard from "./AuctionPropertyCard";
 
 const PartnershipProperty = () => {
-  const { auctionProperty } = useHome();
-  console.log(auctionProperty);
+  const { auctionProperty, sendQueryAuctionProperty } = useHome();
 
   return (
     <div className="w-11/12 mx-auto my-10 flex flex-col gap-5 max-sm:gap-2">
       <div className="flex flex-col gap-5 max-sm:items-center max-sm:gap-2">
         <Button className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]">
-          partnership property
+          Auction property
         </Button>
         <Heading className="max-sm:text-center" text="Auction Properties" />
         <div className="flex items-end justify-between max-sm:flex-col max-sm:items-center max-sm:gap-2 ">
@@ -65,7 +64,10 @@ const PartnershipProperty = () => {
           {auctionProperty?.map((item) => {
             return (
               <SwiperSlide key={item._id}>
-                <AuctionPropertyCard item={item} />
+                <AuctionPropertyCard
+                  sendQueryAuctionProperty={sendQueryAuctionProperty}
+                  item={item}
+                />
               </SwiperSlide>
             );
           })}

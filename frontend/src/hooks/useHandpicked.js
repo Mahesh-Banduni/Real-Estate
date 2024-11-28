@@ -42,7 +42,6 @@ const useHandpicked = () => {
       let response = await axiosInstance.get(
         `http://localhost:8080/handpicked-properties?propertyPurpose=${handpickedFilter.propertyPurpose}&propertyType=${handpickedFilter.propertyType}&city=${handpickedFilter.city}`
       );
-      console.log(response);
       if (response?.statusText === "OK") {
         dispatch(handelFetchHandpickedProperties(response?.data?.data));
       }
@@ -66,7 +65,6 @@ const useHandpicked = () => {
       const response = await axios.get(
         `http://localhost:8080/cities-localities?city=${searchCity.city}`
       );
-      console.log(response);
 
       if (response?.statusText === "Created") {
         setCities(response?.data?.data);

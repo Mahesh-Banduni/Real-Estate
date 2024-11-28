@@ -4,6 +4,7 @@ import axios from "axios";
 
 // Create an Axios instance
 const axiosInstance = axios.create({
+  baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json", // Default headers (optional)
   },
@@ -14,6 +15,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     // Modify request config before sending, like adding auth token
     const token = localStorage.getItem("token"); // Example token
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

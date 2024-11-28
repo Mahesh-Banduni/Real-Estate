@@ -1,8 +1,21 @@
 import React from "react";
 
-const Button = ({ children, type, className, ...props }) => {
+const Button = ({ id, sendEnquiry, children, type, className, ...props }) => {
   return (
-    <button {...props} type={type} className={`${className} `}>
+    <button
+      onClick={
+        sendEnquiry
+          ? () => {
+              if (id) {
+                sendEnquiry(`${id}`);
+              }
+            }
+          : ""
+      }
+      {...props}
+      type={type}
+      className={`${className} `}
+    >
       {children}
     </button>
   );

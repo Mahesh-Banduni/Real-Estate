@@ -20,27 +20,13 @@ const useRegister = () => {
 
   const submitForm = async (data) => {
     setMessage("");
-    console.log(data);
 
     try {
       const response = await axios.post(
         "http://localhost:8080/users/register",
         data
       );
-      console.log(response);
-
-      // if (response?.statusText === "Created") {
-      //   console.log(data);
-
-      //   //dispatch(phoneNumber(data?.phone));
-      //   navigate("/");
-      // }
       if (response?.statusText === "Created") {
-        // dispatch(handelSetToken(response?.data?.data?.user));
-        // localStorage.setItem(
-        //   "token",
-        //   JSON.stringify(response?.data?.data?.token)
-        // );
         dispatch(phoneNumber(data?.phone));
         alert("User Register successfully");
         navigate("/otp");

@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import { Button } from "../index";
 import ResidentialFlatProperties from "./ResidentialFlatProperties";
 import ResidentialPlotProperties from "./ResidentialPlotProperty";
 import ResidentialHouseProperties from "./ResidentialHouseProperty";
 import CommercialShowroomProperties from "./CommercialShowroomProperty";
+import useProperties from "../../hooks/useProperties";
 
-const Property = ({ item }) => {
+const Property = ({ item, wishlistProperties }) => {
+  console.log(wishlistProperties);
+
+  const { sendEnquiry } = useProperties();
   const [markFavorite, setMarkFavorite] = useState(false);
-  const data = useSelector((store) => store.authReducer.wishlist);
 
   useEffect(() => {
-    const findValue = data.find((element) => {
+    const findValue = wishlistProperties?.find((element) => {
       return element?._id === item?._id;
     });
     if (findValue) {
       setMarkFavorite(true);
     }
-  }, []);
+  }, [wishlistProperties]);
   return (
     <div className=" border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-2 max-sm:grid-rows-property-card ">
       {/* property images */}
@@ -30,9 +32,6 @@ const Property = ({ item }) => {
             src={item?.images?.[0] || "default-image.jpg"}
             alt="property"
           />
-          <span className="absolute z-10 text-xs top-[0.8rem] left-[0.8rem] bg-[#42423E] px-3 py-[0.4rem] text-white max-lg:hidden">
-            {item?.images?.length || 0}+ Images
-          </span>
         </div>
       </div>
 
@@ -68,7 +67,11 @@ const Property = ({ item }) => {
           </span>
         </div>
         <div className="flex flex-col gap-2">
-          <Button className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg">
+          <Button
+            id={item._id}
+            sendEnquiry={sendEnquiry}
+            className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg"
+          >
             send enquiry
           </Button>
           <Link

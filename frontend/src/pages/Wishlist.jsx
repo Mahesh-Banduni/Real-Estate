@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import PropertyTypeList from "../components/home/PropertyTypeList";
-import { Button, Input } from "../components";
-import { location, upDownArrow } from "../utils/icons";
+import { useNavigate } from "react-router-dom";
+import { upDownArrow } from "../utils/icons";
 import useWishlist from "../hooks/useWishlist";
 import { ListProperty, Loader } from "../components";
 import {
@@ -11,6 +9,7 @@ import {
   handlePriceHighToLowW,
   handleMostRecentW,
 } from "../store/slice";
+
 const Wishlist = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -94,7 +93,7 @@ const Wishlist = () => {
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">
             {data.length} results | Properties.
           </p>
-          <ListProperty propertiesList={data} />
+          <ListProperty wishlistProperties={data} propertiesList={data} />
         </div>
       )}
     </>

@@ -10,8 +10,8 @@ const ProfilePage = () => {
   // Check for token in localStorage
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
+    const userProfile = JSON.parse(localStorage.getItem("realEstateUser"));
+    if (!userProfile) {
       navigate("/signin", { state: { from: location.pathname } }); // Redirect to login page if token is not present
     }
   }, [navigate, location]);
@@ -44,7 +44,7 @@ const ProfilePage = () => {
             handelInputChange={handelInputChange}
             label="Contact"
             name={"phone"}
-            value={user?.phone}
+            value={user?.contact}
           />
           <ProfileInput
             handelInputChange={handelInputChange}

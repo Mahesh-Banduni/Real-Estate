@@ -2,9 +2,6 @@ import React from "react";
 
 const PropertyTypeList = React.memo(
   ({ text, property, handelChangePropertyType, name }) => {
-    console.log(text);
-    console.log(property);
-
     return (
       <li
         className={`${

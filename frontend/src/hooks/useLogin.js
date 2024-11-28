@@ -21,7 +21,6 @@ const useLogin = () => {
   } = useForm();
 
   const submitForm = async (data) => {
-    console.log(data);
     try {
       const response = await axios.post(
         "http://localhost:8080/userauth/login",
@@ -31,36 +30,8 @@ const useLogin = () => {
           password: data.password,
         }
       );
-      console.log(response);
 
-      // Extracting data according to the response structure
-      // const responseData = response?.data?.data;
-      // const user = responseData?.user;
-      //const token = responseData?.token;
-
-      // Logging the user and response data
-
-      // Checking for success instead of relying solely on statusText
-      // if (response?.data?.success) {
-      //   dispatch(handelSetToken(user));
-      //   localStorage.setItem("token", JSON.stringify(token));
-      //   alert("User login successfully");
-      //   navigate("/");
-      // }
-      // console.log(response?.data?.data?.user);
-      // console.log(response?.data?.data);
-
-      // if (response?.statusText === "OK") {
-      //   dispatch(handelSetToken(response?.data?.data?.user));
-      //   localStorage.setItem(
-      //     "token",
-      //     JSON.stringify(response?.data?.data?.token)
-      //   );
-      //   alert("User login successfully");
-      //   navigate("/");
-      // }
       if (response?.statusText === "OK") {
-        //console.log(data);
         dispatch(phoneNumber(data?.phone));
         navigate("/otp");
       }
@@ -69,7 +40,6 @@ const useLogin = () => {
       if (error?.status === 400) {
         alert(error?.response?.data?.error);
       }
-      // reset();
     }
   };
 

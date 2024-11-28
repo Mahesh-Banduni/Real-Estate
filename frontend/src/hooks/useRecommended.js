@@ -42,7 +42,7 @@ const useRecommended = () => {
       let response = await axiosInstance.get(
         `http://localhost:8080/recommended-properties?propertyPurpose=${recommendedFilter.propertyPurpose}&propertyType=${recommendedFilter.propertyType}&city=${recommendedFilter.city}`
       );
-      console.log(response);
+
       if (response?.statusText === "OK") {
         setRecommendedProperties(response?.data?.data);
         dispatch(handelFetchRecommendedProperty(response?.data?.data));
@@ -67,7 +67,6 @@ const useRecommended = () => {
       const response = await axios.get(
         `http://localhost:8080/cities-localities?city=${searchCity.city}`
       );
-      console.log(response);
 
       if (response?.statusText === "Created") {
         setCities(response?.data?.data);

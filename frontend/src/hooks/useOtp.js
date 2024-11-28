@@ -19,7 +19,7 @@ const useOtp = () => {
   } = useForm();
 
   const Phone = useSelector((store) => store?.authReducer?.phoneNumber);
-  console.log(Phone);
+
   const submitForm = async (data) => {
     setMessage("");
     try {
@@ -30,21 +30,20 @@ const useOtp = () => {
           otp: data.otp,
         }
       );
-      console.log(response);
-
-      /*if (response?.data?.success) {
-        const token = response?.data?.data?.token;
-        dispatch(handelSetToken(token));
-        alert("User registered Successfully");
-        navigate("/");
-      }*/
 
       if (response?.statusText === "OK") {
-        //dispatch(handelSetToken(response?.data?.token));
         dispatch(handelSetToken(response?.data?.data?.user));
         localStorage.setItem(
           "token",
           JSON.stringify(response?.data?.data?.token)
+        );
+        localStorage.setItem(
+          "realEstateUser",
+          JSON.stringify({
+            name: response?.data?.data?.user?.name,
+            contact: response?.data?.data?.user?.phone,
+            password: response?.data?.data?.user?.password,
+          })
         );
         alert("User Signin successfully");
         const redirectPath = location.state?.from || "/";

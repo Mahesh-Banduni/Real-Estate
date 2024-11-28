@@ -23,12 +23,7 @@ const NormalProperty = ({ property }) => {
     handelChangeInputField,
     filterCity,
     cities,
-    handelSelectFromCity,
-    handelChangeFromCityInputField,
-    fromCities,
-    filterFromCity,
   } = useProperties();
-  console.log(fromCities);
 
   // const { submitForm, handleSubmit, register, errors } = useProperties();
   return (

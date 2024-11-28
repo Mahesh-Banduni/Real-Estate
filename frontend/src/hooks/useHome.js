@@ -87,7 +87,6 @@ const useHome = () => {
         const response = await axiosInstance.get(
           "http://localhost:8080/all-auction-properties"
         );
-        console.log(response);
         if (response?.statusText === "OK") {
           setAuctionProperty(response?.data?.data);
         }
@@ -99,6 +98,25 @@ const useHome = () => {
     getAuctionProperties();
   }, []);
 
+  const sendQueryAuctionProperty = async (id) => {
+    let token = localStorage.getItem("token");
+    if (!token) {
+      navigator("/signin");
+    } else {
+      try {
+        const response = await axiosInstance.post("/auction-property-inquiry", {
+          propertyId: id,
+        });
+
+        if (response.statusText === "Created") {
+          alert(response?.data?.data?.message);
+        }
+      } catch (error) {
+        alert(error?.message);
+      }
+    }
+  };
+
   return {
     handelChangeInputField,
     filterCity,
@@ -107,6 +125,7 @@ const useHome = () => {
     filters,
     handelChangeDropdown,
     auctionProperty,
+    sendQueryAuctionProperty,
   };
 };
 

@@ -17,6 +17,9 @@ const Properties = () => {
   const { fetchWishlistProperties } = useWishlist();
   const dispatch = useDispatch();
   const data = useSelector((store) => store?.authReducer?.allProperties);
+  const wishlistProperties = useSelector(
+    (store) => store?.authReducer?.wishlist
+  );
 
   const {
     handelChangeInputField,
@@ -26,8 +29,6 @@ const Properties = () => {
     property,
     isLoading,
     handelSelectCity,
-    localities,
-    filters,
     handelChangeDropdown,
     message,
     propertyFilter,
@@ -241,7 +242,10 @@ const Properties = () => {
             {data.length} results | Property {`in Dehradun`} for Sale
           </p>
           {/*-------------------------- all properties------------------------------- */}
-          <ListProperty propertiesList={data} />
+          <ListProperty
+            wishlistProperties={wishlistProperties}
+            propertiesList={data}
+          />
         </div>
       )}
     </>
