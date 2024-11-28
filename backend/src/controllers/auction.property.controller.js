@@ -33,7 +33,7 @@ const getAllAuctionProperties = async (req, res, next) => {
     const sortBy = req.query.sortBy; // price or dateListed
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
     const auctionProperties = await auctionPropertyService.getAllAuctionProperties(filters, sortBy, sortOrder);
-    console.log(auctionProperties);
+    //console.log(auctionProperties);
     res.status(200).json({
       success: true,
       data: auctionProperties,

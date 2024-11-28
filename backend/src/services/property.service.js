@@ -10,7 +10,7 @@ const commercialShop = require('../models/model/commercial.shop.model.js');
 const commercialShowroom = require('../models/model/commercial.showroom.model.js');
 const commercialPlot = require('../models/model/commercial.plot.model.js');
 const {uploadImages}= require('../utils/upload.image.service.js');
-//const {uploadImages}= require('../utils/upload.photos.service.js');
+const {sendPropertyInquiryEmail}= require('../utils/email.service.utils.js');
 const {encrypt, decrypt} = require("../utils/encryption.decryption.utils.js");
 
 // // Upload images function for Cloudinary
@@ -217,12 +217,29 @@ const createProperty = async (userId, propertyData, files) => {
   return propertyNew;
 };
 
+const propertyInquiry = async (propertyId, userId) => {
+  const propertyDetails = await Property.findById(propertyId).populate('user', '_id name phone email');
+  if (!propertyDetails) {
+    throw new NotFoundError('Property not found');
+  }
+  const user = await User.findById(userId);
+  const userDetails={};
+  userDetails.queryUsername=user.name;
+  userDetails.queryUseremail=user.email;
+  userDetails.queryUserphone = user.phone;
+
+  const response = await sendPropertyInquiryEmail(propertyDetails, userDetails);
+
+  return response;
+}
+
 const searchProperty = async (filters, sortBy, sortOrder) => {
   const query = {};
 
   // Apply filters
   if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
   if (filters.propertyType) query.propertyType = filters.propertyType;
+  if (filters.propertyID) query.propertyID = filters.propertyID;
   if (filters.city) query.city = filters.city;
   if (filters.locality) query.locality = filters.locality;
   if (filters.ownership) query.ownership = filters.ownership;
@@ -251,7 +268,7 @@ const searchProperty = async (filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone').exec();
+  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone email').exec();
   
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found matching the criteria.');
@@ -473,7 +490,7 @@ const exchangeProperty = async (filters, sortBy, sortOrder) => {
 
 // Get Property by ID
 const getPropertyById = async (propertyId) => {
-  const property = await Property.findById(propertyId).populate('user', '_id name phone');
+  const property = await Property.findById(propertyId).populate('user', '_id name phone email');
   if (!property) {
     throw new NotFoundError('Property not found');
   }
@@ -657,53 +674,6 @@ const removeFavoriteProperty = async (userId, propertyId) => {
   return await user.save();
 };
 
-const inquiryUserProperty = async (userId, propertyId) => {
-  try {
-      const property = await Property.findById(propertyId);
-      if (!property) {
-        throw new NotFoundError('Property not found');
-      }
-    
-      const user = await User.findById(userId).populate(
-        {
-        path: 'ownedProperties',
-        model: 'Property'
-      }).populate('profile','email').exec();
-      
-      if (!user) {
-        throw new NotFoundError('User not found');
-      }
-
-
-    // Email content for the user
-    const userSubject = 'Your Property Inquiry';
-    const userContent = `
-      <p>Thank you for showing interest in our property!</p>
-      <p>Property ID: ${propertyId}</p>
-      <p>We will contact you shortly with more details.</p>
-    `;
-
-    // Email content for the admin
-    const adminEmail = 'admin@yourdomain.com'; // Replace with your admin email
-    const adminSubject = 'New Property Inquiry Received';
-    const adminContent = `
-      <p>A new property inquiry has been made.</p>
-      <p>User contact number: ${user.phone}</p>
-      <p>Property ID: ${propertyId}</p>
-    `;
-
-    // Send email to the user
-    await sendTransactionalEmail(user.email, userSubject, userContent);
-
-    // Send email to the admin
-    await sendTransactionalEmail(adminEmail, adminSubject, adminContent);
-
-    return{ message: 'Inquiry received and emails sent.' };
-  } catch (error) {
-    return{ error: error.message };
-  }
-}
-
 module.exports = {
   createProperty,
   searchProperty,
@@ -722,5 +692,6 @@ module.exports = {
   markRecommendedProperty,
   unmarkRecommendedProperty,
   addFavoriteProperty,
-  removeFavoriteProperty
+  removeFavoriteProperty,
+  propertyInquiry,
 };

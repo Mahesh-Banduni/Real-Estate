@@ -24,6 +24,11 @@ const propertyController = require('../controllers/property.controller.js');
  *           enum: ["Residential Plot/Land", "Residential Flat/Apartment", "Residential House","Residential Villa","Builder Floor Apartment","Penthouse","Studio Apartment","Commercial Office Space","IT Park/SEZ office","Commercial Shop","Commercial Showroom","Commercial Land","Warehouse/ Godown","Industrial Land","Industrial Building","Industrial Shed", "Agricultural Land","Farm House"]
  *         description: Type of property (e.g., Residential, Commercial)
  *       - in: query
+ *         name: propertyID
+ *         schema:
+ *           type: string
+ *         description: Property ID
+ *       - in: query
  *         name: city
  *         schema:
  *           type: string
@@ -118,6 +123,9 @@ const propertyController = require('../controllers/property.controller.js');
  *                   propertyType:
  *                     type: string
  *                     description: Type of property
+ *                   propertyID:
+ *                     type: string
+ *                     description: propertyID
  *                   city:
  *                     type: string
  *                     description: City of the property

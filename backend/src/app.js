@@ -18,6 +18,7 @@ const exchangePropertyRoutes = require("./routes/exchange.property.route.js");
 const ownedPropertyRoutes = require("./routes/owned.property.route.js");
 const favoritePropertyRoutes = require("./routes/favorite.property.route.js");
 const contactFormRoutes = require("./routes/contact.form.route");
+const propertyInquiry = require("./routes/property.inquiry.route.js");
 const citySearchRoutes = require("./routes/city.route.js");
 const auctionPropertyRoutes = require("./routes/auction.property.route.js");
 const allAuctionPropertyRoutes = require("./routes/all.auction.property.route.js");
@@ -99,7 +100,7 @@ app.use('/exchange-properties',exchangePropertyRoutes);
 app.use('/owned-properties',ownedPropertyRoutes);
 app.use('/favorite-properties',favoritePropertyRoutes);
 app.use('/all-auction-properties',allAuctionPropertyRoutes);
-
+app.use('/property-inquiry', propertyInquiry);
 app.use(errorHandler);
 
 // // Request Logger Middleware (using express-pino)

@@ -1,4 +1,5 @@
 const propertyService = require("../services/property.service.js");
+const logger = require("../configs/winston.config.js");
 
 // Controller for creating a new Property
 const createProperty = async (req, res, next) => {
@@ -24,9 +25,25 @@ const createProperty = async (req, res, next) => {
       data: property,
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
+
+const propertyInquiry = async (req, res, next) => {
+  try {
+    const userId= req.user.id;
+    const propertyId = req.body.propertyId;
+    const propertyInquiryResponse = await propertyService.propertyInquiry(propertyId, userId);
+    res.status(201).json({
+      success: true,
+      data: propertyInquiryResponse,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 // Controller for getting a Property by ID
 const getPropertyById = async (req, res, next) => {
@@ -87,6 +104,7 @@ const searchProperty = async (req, res, next) => {
     const filters = {
       propertyPurpose: req.query.propertyPurpose,
       propertyType: req.query.propertyType,
+      propertyID: req.query.propertyID,
       city: req.query.city,
       locality: req.query.locality,
       fromCity: req.query.fromCity,
@@ -424,6 +442,7 @@ const unmarkRecommendedProperty = async (req, res, next) => {
 module.exports = {
   createProperty,
   getPropertyById,
+  propertyInquiry,
   updateProperty,
   deleteProperty,
   searchProperty,
