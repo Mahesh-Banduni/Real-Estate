@@ -1,6 +1,7 @@
 const userService = require("../services/user.service.js");
 const auth = require("../middleware/auth.js");
 const logger = require("../configs/winston.config.js");
+const propertyService = require("../services/property.service.js");
 
 // Create a new user
 const createUser = async (req, res, next) => {
@@ -76,8 +77,8 @@ const deleteUser = async (req, res, next) => {
 // Add a property to favorites
 const addFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await userService.addFavoriteProperty(
-      req.body.userId,
+    const user = await propertyService.addFavoriteProperty(
+      req.user.id,
       req.body.propertyId
     );
     res.status(200).json({
@@ -85,6 +86,7 @@ const addFavoriteProperty = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -92,8 +94,8 @@ const addFavoriteProperty = async (req, res, next) => {
 // Remove a property from favorites
 const removeFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await userService.removeFavoriteProperty(
-      req.body.userId,
+    const user = await propertyService.removeFavoriteProperty(
+      req.user.id,
       req.body.propertyId
     );
     res.status(200).json({
@@ -101,6 +103,7 @@ const removeFavoriteProperty = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
