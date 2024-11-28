@@ -664,6 +664,11 @@ const addFavoriteProperty = async (userId, propertyId) => {
     throw new NotFoundError('User not found');
   }
 
+  // Check if the property already exists in favorites
+  if (user.favoriteProperties.includes(propertyId)) {
+    return { message: 'Property already in favorites' };
+  }
+
   user.favoriteProperties.push(propertyId);
   return await user.save();
 };
@@ -680,7 +685,15 @@ const removeFavoriteProperty = async (userId, propertyId) => {
     throw new NotFoundError('User not found');
   }
 
-  user.favoriteProperties = user.favoriteProperties.filter(fav => fav.toString() !== propertyId);
+  // Check if the property is not in favorites
+  if (!user.favoriteProperties.includes(propertyId)) {
+    return { message: 'Property not in favorites' };
+  }
+
+  // Filter out the property from favoriteProperties
+  user.favoriteProperties = user.favoriteProperties.filter(
+    (id) => id.toString() !== propertyId.toString()
+  );
   return await user.save();
 };
 
