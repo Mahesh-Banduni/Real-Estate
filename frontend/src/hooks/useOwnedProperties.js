@@ -6,11 +6,10 @@ import { handleFetchAllOwnedProperties } from "../store/slice";
 import { useLocation, useNavigate } from "react-router-dom";
 import OwnedProperties from "../pages/OwnedProperties";
 const useOwnedProperties = () => {
-  //const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [property, setProperty] = useState("Sale");
-  const [ownedProperties, setOwnedProperties] = useState([]);
+  const [property, setProperty] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [ownedFilter, setOwnedFilter] = useState({
@@ -55,16 +54,14 @@ const useOwnedProperties = () => {
           },
         }
       );
-      console.log(response);
+
       if (response.statusText === "OK") {
-        //setOwnedProperties(response?.data?.data);
         dispatch(handleFetchAllOwnedProperties(response?.data?.data));
-        //console.log("Second:"+response?.data?.data);
+
         navigate("/owned-properties");
       }
       setIsLoading(false);
     } catch (error) {
-      console.error(error);
       setMessage(error.response?.data?.error || "Failed to fetch properties.");
       setIsLoading(false);
     }
@@ -146,13 +143,8 @@ const useOwnedProperties = () => {
       ...prev,
       city: city,
     }));
-    console.log(ownedFilter);
   };
-  //   useEffect(() => {
-  //     let userData = JSON.parse(localStorage.getItem("token"));
-  //     setUser(userData);
-  //   }, []);
-  console.log(ownedProperty);
+
   return {
     handleChangePropertyType,
     property,
@@ -166,7 +158,6 @@ const useOwnedProperties = () => {
     handleDropdownChange,
     message,
     handleSetCity,
-    ownedProperties,
   };
 };
 export default useOwnedProperties;

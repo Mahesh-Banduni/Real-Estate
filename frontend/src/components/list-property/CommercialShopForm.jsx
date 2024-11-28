@@ -58,7 +58,7 @@ const CommercialShopForm = ({
                 <Dropdown
                   showCities={showCities}
                   handelToggleCityDropdown={handelToggleCityDropdown}
-                  className={"absolute -bottom-[11.5rem] rounded-md"}
+                  className={"absolute top-24 rounded-md"}
                   name={"city"}
                   array={cities}
                   method={setFormInputValue}
@@ -86,9 +86,7 @@ const CommercialShopForm = ({
                 <Dropdown
                   showCities={showCities}
                   handelToggleCityDropdown={handelToggleCityDropdown}
-                  className={
-                    "absolute max-md:text-base -bottom-[11.5rem] rounded-md"
-                  }
+                  className={"absolute max-md:text-base top-24 rounded-md"}
                   name={"city"}
                   array={cities}
                   method={setFormInputValue}

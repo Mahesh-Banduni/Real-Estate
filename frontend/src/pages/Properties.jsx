@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import PropertyTypeList from "../components/home/PropertyTypeList";
-import { Button, Input } from "../components";
+import { Input } from "../components";
 import { location, upDownArrow } from "../utils/icons";
 import useProperties from "../hooks/useProperties";
 import { ListProperty, Loader } from "../components/index";
@@ -11,8 +11,10 @@ import {
   handelPriceHighToLow,
   handelMostRecent,
 } from "../store/slice";
+import useWishlist from "../hooks/useWishlist";
 
 const Properties = () => {
+  const { fetchWishlistProperties } = useWishlist();
   const dispatch = useDispatch();
   const data = useSelector((store) => store?.authReducer?.allProperties);
 
@@ -30,7 +32,9 @@ const Properties = () => {
     message,
     propertyFilter,
   } = useProperties();
-
+  useEffect(() => {
+    fetchWishlistProperties();
+  }, []);
   return (
     <>
       {message ? (
@@ -121,10 +125,6 @@ const Properties = () => {
                     )}
                   </div>
                 )}
-
-                <Button className="text-white font-interMedium bg-primary-color py-2 px-5 max-sm:px-2 max-sm:py-1 max-sm:text-xs ">
-                  Search
-                </Button>
               </div>
 
               {/* property type select input */}

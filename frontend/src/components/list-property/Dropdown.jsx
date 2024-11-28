@@ -9,8 +9,6 @@ const Dropdown = ({
   className,
   handelToggleCityDropdown,
 }) => {
-  console.log(array);
-
   return (
     <div
       className={`h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color ${className} outline-none`}

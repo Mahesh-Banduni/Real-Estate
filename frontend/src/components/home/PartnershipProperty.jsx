@@ -9,12 +9,18 @@ import {
   Button,
   Heading,
   Paragraph,
+  PrimaryCards,
   SecondaryButton,
   TertiaryCard,
 } from "../index";
+import useHome from "../../hooks/useHome";
 import { partnershipPropertyImage } from "../../utils/icons";
+import AuctionPropertyCard from "./AuctionPropertyCard";
 
 const PartnershipProperty = () => {
+  const { auctionProperty } = useHome();
+  console.log(auctionProperty);
+
   return (
     <div className="w-11/12 mx-auto my-10 flex flex-col gap-5 max-sm:gap-2">
       <div className="flex flex-col gap-5 max-sm:items-center max-sm:gap-2">
@@ -29,7 +35,7 @@ const PartnershipProperty = () => {
             }
             className={"w-2/5 text-balance max-sm:w-full max-sm:text-center"}
           />
-          <SecondaryButton text={"view all"} />
+          <SecondaryButton link={"/auction"} text={"view all"} />
         </div>
       </div>
       <div className="my-5">
@@ -56,13 +62,13 @@ const PartnershipProperty = () => {
             },
           }}
         >
-          {/* {data?.map((item) => {
+          {auctionProperty?.map((item) => {
             return (
               <SwiperSlide key={item._id}>
-                <PrimaryCards item={item} />
+                <AuctionPropertyCard item={item} />
               </SwiperSlide>
             );
-          })} */}
+          })}
         </Swiper>
       </div>
     </div>

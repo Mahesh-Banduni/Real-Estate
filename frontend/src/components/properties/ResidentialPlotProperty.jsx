@@ -1,4 +1,6 @@
 import React from "react";
+import { IoHeartSharp } from "react-icons/io5";
+
 import { RxDimensions } from "react-icons/rx";
 import { AiOutlineColumnWidth } from "react-icons/ai";
 import { CgSidebarOpen } from "react-icons/cg";
@@ -13,7 +15,7 @@ import {
   superArea,
 } from "../../utils/icons";
 
-const ResidentialPlotProperties = ({ item }) => {
+const ResidentialPlotProperties = ({ item, markFavorite }) => {
   return (
     <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
       <div className="flex flex-col gap-1">
@@ -23,8 +25,11 @@ const ResidentialPlotProperties = ({ item }) => {
             className="normal-case text-xl max-lg:w-3/5 max-md:text-base"
           />
           <div className="flex items-center justify-center gap-2">
-            <img src={heart} alt="wishlist" />
-            {/* <img src={share} alt="share" /> */}
+            {markFavorite ? (
+              <IoHeartSharp className="w-6 h-6 text-red-500" />
+            ) : (
+              <img src={heart} alt="wishlist" />
+            )}
           </div>
         </div>
         <p className="font-interRegular text-[#8F90A6] text-sm max-lg:hidden max-xl:text-xs">

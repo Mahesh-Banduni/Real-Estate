@@ -40,7 +40,7 @@ export default {
       },
       gridTemplateRows: {
         "exchange-form-layout": "1fr 0.5fr 0.5fr 0.5fr",
-        "property-card": "0.5fr 0.5fr",
+        "property-card": "0.5fr",
       },
     },
   },

@@ -57,9 +57,7 @@ const CommercialPlotForm = ({
                 <Dropdown
                   showCities={showCities}
                   handelToggleCityDropdown={handelToggleCityDropdown}
-                  className={
-                    "absolute max-sm:text-sm -bottom-[11.5rem] rounded-md"
-                  }
+                  className={"absolute max-sm:text-sm top-24 rounded-md"}
                   name={"city"}
                   array={cities}
                   method={setFormInputValue}
@@ -87,9 +85,7 @@ const CommercialPlotForm = ({
                 <Dropdown
                   showCities={showCities}
                   handelToggleCityDropdown={handelToggleCityDropdown}
-                  className={
-                    "absolute max-sm:text-sm -bottom-[11.5rem] rounded-md"
-                  }
+                  className={"absolute max-sm:text-sm top-24 rounded-md"}
                   name={"city"}
                   array={cities}
                   method={setFormInputValue}

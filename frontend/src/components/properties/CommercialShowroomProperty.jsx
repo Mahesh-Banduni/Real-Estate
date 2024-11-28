@@ -1,4 +1,6 @@
 import React from "react";
+import { IoHeartSharp } from "react-icons/io5";
+
 import Heading from "../Heading";
 import {
   carpet,
@@ -10,7 +12,7 @@ import {
   superArea,
 } from "../../utils/icons";
 
-const CommercialShowroomProperties = ({ item }) => {
+const CommercialShowroomProperties = ({ item, markFavorite }) => {
   return (
     <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
       <div className="flex flex-col gap-1">
@@ -20,15 +22,22 @@ const CommercialShowroomProperties = ({ item }) => {
             className="normal-case text-xl max-lg:w-3/5 max-md:text-base"
           />
           <div className="flex items-center justify-center gap-2">
-            <img src={heart} alt="wishlist" />
-            {/* <img src={share} alt="share" /> */}
+            {markFavorite ? (
+              <IoHeartSharp className="w-6 h-6 text-red-500" />
+            ) : (
+              <img src={heart} alt="wishlist" />
+            )}
           </div>
         </div>
         <p className="font-interRegular text-[#8F90A6] text-sm max-lg:hidden max-xl:text-xs">
-  {` ${item?.propertyType} is available for Sale in ${item?.locality}, ${item?.city} for Rs. ${
-    item?.expectedPrice ? item.expectedPrice.toLocaleString("en-IN") : "N/A"
-  }`}
-</p>
+          {` ${item?.propertyType} is available for Sale in ${
+            item?.locality
+          }, ${item?.city} for Rs. ${
+            item?.expectedPrice
+              ? item.expectedPrice.toLocaleString("en-IN")
+              : "N/A"
+          }`}
+        </p>
       </div>
       <div className="grid grid-cols-3 grid-rows-2 bg-[#F5F5F5] gap-1 p-5 max-lg:hidden">
         <div className="flex items-center gap-2 justify-start border-r border-border-color">

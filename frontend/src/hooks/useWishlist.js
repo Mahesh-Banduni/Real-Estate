@@ -3,14 +3,11 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { handleFetchWishlistProperties } from "../store/slice";
-import { useLocation, useNavigate } from "react-router-dom";
-import OwnedProperties from "../pages/OwnedProperties";
+
 const useWishlist = () => {
-  //const [user, setUser] = useState({});
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [property, setProperty] = useState("Sale");
-  const [ownedProperties, setOwnedProperties] = useState([]);
+
+  const [property, setProperty] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [ownedFilter, setOwnedFilter] = useState({
@@ -21,18 +18,17 @@ const useWishlist = () => {
     maxPrice: "",
   });
   const [cities, setCities] = useState([]);
-  const [calling, setCalling] = useState(true);
   const [localities, setLocalities] = useState([]);
-  //const [searchCity, setSearchCity] = useState("");
   const [ownedProperty, setOwnedProperty] = useState({
     city: "",
   });
+
   const handleChangePropertyType = (name) => {
     setProperty(name);
   };
   //========================= Fetch owned properties ========================
   let token = localStorage.getItem("token");
-  const fetchOwnedProperties = useCallback(async () => {
+  const fetchWishlistProperties = async () => {
     setMessage("");
     try {
       setIsLoading(true);
@@ -55,22 +51,19 @@ const useWishlist = () => {
           },
         }
       );
-      console.log(response);
+
       if (response.statusText === "OK") {
-        //setOwnedProperties(response?.data?.data);
         dispatch(handleFetchWishlistProperties(response?.data?.data));
-        //console.log("Second:"+response?.data?.data);
-        navigate("/wishlist");
       }
       setIsLoading(false);
     } catch (error) {
-      console.error(error);
       setMessage(error.response?.data?.error || "Failed to fetch properties.");
       setIsLoading(false);
     }
-  }, [property, ownedFilter]);
+  };
+
   useEffect(() => {
-    fetchOwnedProperties();
+    fetchWishlistProperties();
   }, [property, ownedFilter]);
   //============================= Handle Input Field Changes ===========================
   const handleInputChange = (event) => {
@@ -146,13 +139,8 @@ const useWishlist = () => {
       ...prev,
       city: city,
     }));
-    console.log(ownedFilter);
   };
-  //   useEffect(() => {
-  //     let userData = JSON.parse(localStorage.getItem("token"));
-  //     setUser(userData);
-  //   }, []);
-  console.log(ownedProperty);
+
   return {
     handleChangePropertyType,
     property,
@@ -166,7 +154,7 @@ const useWishlist = () => {
     handleDropdownChange,
     message,
     handleSetCity,
-    ownedProperties,
+    fetchWishlistProperties,
   };
 };
 export default useWishlist;

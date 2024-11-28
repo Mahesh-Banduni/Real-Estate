@@ -18,6 +18,8 @@ const useHome = () => {
     city: "",
   });
 
+  const [auctionProperty, setAuctionProperty] = useState([]);
+
   const handelChangeInputField = (event) => {
     const { name, value } = event.target;
     setFilterCity((preValue) => {
@@ -80,8 +82,22 @@ const useHome = () => {
   }, [filterCity?.city]);
 
   useEffect(() => {
-    axiosInstance.get("");
-  });
+    const getAuctionProperties = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "http://localhost:8080/all-auction-properties"
+        );
+        console.log(response);
+        if (response?.statusText === "OK") {
+          setAuctionProperty(response?.data?.data);
+        }
+      } catch (error) {
+        console.log(error);
+        alert(error.message);
+      }
+    };
+    getAuctionProperties();
+  }, []);
 
   return {
     handelChangeInputField,
@@ -90,7 +106,7 @@ const useHome = () => {
     handelSelectCity,
     filters,
     handelChangeDropdown,
-    submitForm,
+    auctionProperty,
   };
 };
 

@@ -16,11 +16,14 @@ const authSlice = createSlice({
     wishlist: [],
     filters: {
       city: "",
-      locality: "",
       propertyType: "",
       propertyPurpose: "Sale",
       minPrice: "",
       maxPrice: "",
+    },
+    auctionPropertyFilters: {
+      city: "",
+      propertyType: "",
     },
   },
   reducers: {
@@ -83,8 +86,6 @@ const authSlice = createSlice({
       state.handpickedProperties = action.payload;
     },
     phoneNumber: (state, action) => {
-      console.log(action.payload);
-
       state.phoneNumber = action.payload;
     },
     handlePriceLowToHigh: (state, action) => {
@@ -111,6 +112,9 @@ const authSlice = createSlice({
         state.filters[action.payload.name] = action.payload.value;
       }
     },
+    handelUpdateAuctionFilters: (state, action) => {
+      state.auctionPropertyFilters[action.payload.name] = action.payload.value;
+    },
     handlePriceLowToHighW: (state, action) => {
       state.wishlist = state.wishlist.sort((a, b) => {
         return a.expectedPrice - b.expectedPrice;
@@ -129,15 +133,11 @@ const authSlice = createSlice({
   },
 });
 export const {
-  handlePriceLowToHighW,
-  handlePriceHighToLowW,
-  handleMostRecentW,
   handleFetchWishlistProperties,
   handelAddHandPickedProperty,
   handelFetchAllProperties,
   handleFetchAllOwnedProperties,
   handleFetchAllSearchProperties,
-  handleFetchWishlistProperties,
   handelSetToken,
   handelRemoveToken,
   handelPriceLowToHigh,
@@ -152,6 +152,7 @@ export const {
   handelUpdateFilters,
   handlePriceLowToHighW,
   handlePriceHighToLowW,
-  handleMostRecentW
+  handleMostRecentW,
+  handelUpdateAuctionFilters,
 } = authSlice.actions;
 export default authSlice.reducer;

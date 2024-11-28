@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { Button } from "../index";
 import ResidentialFlatProperties from "./ResidentialFlatProperties";
@@ -8,9 +9,19 @@ import ResidentialHouseProperties from "./ResidentialHouseProperty";
 import CommercialShowroomProperties from "./CommercialShowroomProperty";
 
 const Property = ({ item }) => {
+  const [markFavorite, setMarkFavorite] = useState(false);
+  const data = useSelector((store) => store.authReducer.wishlist);
 
+  useEffect(() => {
+    const findValue = data.find((element) => {
+      return element?._id === item?._id;
+    });
+    if (findValue) {
+      setMarkFavorite(true);
+    }
+  }, []);
   return (
-    <div className=" border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-1 max-sm:grid-rows-property-card ">
+    <div className=" border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-2 max-sm:grid-rows-property-card ">
       {/* property images */}
       <div className=" relative w-full p-2 max-lg:row-span-2 max-sm:row-span-1">
         <div className="w-full max-lg:h-full">
@@ -26,21 +37,24 @@ const Property = ({ item }) => {
       </div>
 
       {/* property features */}
-      <div className="py-2">
+      <div className="py-2 max-sm:hidden">
         {(item?.propertyType === "Residential Flat/Apartment" ||
           item?.propertyType === "Commercial Office Space") && (
-          <ResidentialFlatProperties item={item} />
+          <ResidentialFlatProperties markFavorite={markFavorite} item={item} />
         )}
         {(item?.propertyType === "Residential Plot/Land" ||
           item?.propertyType === "Commercial Plot/Land") && (
-          <ResidentialPlotProperties item={item} />
+          <ResidentialPlotProperties markFavorite={markFavorite} item={item} />
         )}
         {item?.propertyType === "Residential House" && (
-          <ResidentialHouseProperties item={item} />
+          <ResidentialHouseProperties markFavorite={markFavorite} item={item} />
         )}
         {(item?.propertyType === "Commercial Showroom" ||
           item?.propertyType === "Commercial Shop") && (
-          <CommercialShowroomProperties item={item} />
+          <CommercialShowroomProperties
+            markFavorite={markFavorite}
+            item={item}
+          />
         )}
       </div>
 
@@ -54,7 +68,7 @@ const Property = ({ item }) => {
           </span>
         </div>
         <div className="flex flex-col gap-2">
-        <Button className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg">
+          <Button className="w-full py-1 bg-primary-color text-white capitalize border border-primary-color font-interMedium text-lg">
             send enquiry
           </Button>
           <Link

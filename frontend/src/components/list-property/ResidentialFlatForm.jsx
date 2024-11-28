@@ -58,11 +58,11 @@ const ResidentialFlatForm = ({
                 }
               />
 
-              {showCities ? (
+              {showCities && cities.length > 0 ? (
                 <Dropdown
                   showCities={showCities}
                   handelToggleCityDropdown={handelToggleCityDropdown}
-                  className={"absolute -bottom-[11.5rem] rounded-md"}
+                  className={"absolute top-24 rounded-md"}
                   name={"city"}
                   array={cities}
                   method={setFormInputValue}
@@ -90,7 +90,7 @@ const ResidentialFlatForm = ({
                 <Dropdown
                   showCities={showCities}
                   handelToggleCityDropdown={handelToggleCityDropdown}
-                  className={"absolute -bottom-[11.5rem] rounded-md"}
+                  className={"absolute top-24 rounded-md"}
                   name={"city"}
                   array={cities}
                   method={setFormInputValue}
