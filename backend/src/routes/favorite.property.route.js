@@ -151,4 +151,62 @@ const { registerLimiter } = require('../middleware/rate.limitter.js');
  */
 router.get('/',auth, userController.favoriteProperties);
 
+/**
+ * @swagger
+ * /favorite-properties:
+ *   post:
+ *     summary: Add a property to user's favorites
+ *     description: Adds a property to the user's favorite properties list
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               propertyId:
+ *                 type: string
+ *                 description: PropertyId
+ *     responses:
+ *       200:
+ *         description: Property added to favorites successfully
+ *       404:
+ *         description: User or property not found
+ *       500:
+ *         description: Internal server error
+ */
+router.post('/', auth, userController.addFavoriteProperty);
+
+/**
+ * @swagger
+ * /favorite-properties:
+ *   delete:
+ *     summary: Remove a property from user's favorites
+ *     description: Removes a property from the user's favorite properties list
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               propertyId:
+ *                 type: string
+ *                 description: PropertyId
+ *     responses:
+ *       200:
+ *         description: Property removed from favorites successfully
+ *       404:
+ *         description: User or property not found
+ *       500:
+ *         description: Internal server error
+ */
+router.delete('/',auth, userController.removeFavoriteProperty);
+
 module.exports = router;
+
+

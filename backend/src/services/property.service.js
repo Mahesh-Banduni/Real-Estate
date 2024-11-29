@@ -211,7 +211,7 @@ const createProperty = async (userId, propertyData, files) => {
 
   catch(error)
   {
-    console.log(error);
+    next(error);
   }
 
   return propertyNew;
@@ -543,10 +543,10 @@ const deleteProperty = async (propertyId, userId) => {
 
   // Delete associated images from Cloudinary
   if (property.images && property.images.length > 0) {
-    console.log(property.images.length);
+    //console.log(property.images.length);
     await deleteImages(property.images);
   }
-  console.log(property.images);
+  //console.log(property.images);
 
   await Property.findByIdAndDelete(propertyId);
 
@@ -660,7 +660,7 @@ const addFavoriteProperty = async (userId, propertyId) => {
   }
 
   const user = await User.findById(userId);
-  if (!property) {
+  if (!user) {
     throw new NotFoundError('User not found');
   }
 
@@ -681,7 +681,7 @@ const removeFavoriteProperty = async (userId, propertyId) => {
   }
 
   const user = await User.findById(userId);
-  if (!property) {
+  if (!user) {
     throw new NotFoundError('User not found');
   }
 

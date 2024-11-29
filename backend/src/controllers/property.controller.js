@@ -1,8 +1,6 @@
 const propertyService = require("../services/property.service.js");
 const logger = require("../configs/winston.config.js");
 
-const logger = require("../configs/winston.config.js");
-
 // Controller for creating a new Property
 const createProperty = async (req, res, next) => {
   try {
@@ -27,7 +25,7 @@ const createProperty = async (req, res, next) => {
       data: property,
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     next(error);
   }
 };
@@ -95,7 +93,7 @@ const deleteProperty = async (req, res, next) => {
     );
     res.status(200).json({ message: "Property deleted successfully" });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     next(error);
   }
 };

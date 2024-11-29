@@ -23,7 +23,6 @@ const citySearchRoutes = require("./routes/city.route.js");
 const auctionPropertyRoutes = require("./routes/auction.property.route.js");
 const allAuctionPropertyRoutes = require("./routes/all.auction.property.route.js");
 const auctionPropertyInquiry = require("./routes/auction.property.inquiry.route.js");
-const { generalLimiter } = require('./middleware/rate.limitter.js');
 const { requestCounter } = require('./middleware/req.count.js');
 
 const { errorHandler } = require("./middleware/error.handler.js");
@@ -33,7 +32,6 @@ require('dotenv').config();
 
 connectDb();
 
-app.use(generalLimiter);
 app.use(requestCounter);
 
 app.use(compression());

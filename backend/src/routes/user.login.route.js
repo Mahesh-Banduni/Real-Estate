@@ -18,12 +18,12 @@ const { loginLimiter } = require('../middleware/rate.limitter.js');
  *           schema:
  *             type: object
  *             required:
- *               - phoneNumber
+ *               - email
  *               - password
  *             properties:
- *               phoneNumber:
+ *               email:
  *                 type: string
- *                 description: User's phone number
+ *                 description: User's email
  *               password:
  *                 type: string
  *                 description: User's password
@@ -50,12 +50,12 @@ router.post('/login',loginLimiter, userLoginController.loginUser);
  *           schema:
  *             type: object
  *             required:
- *               - phoneNumber
+ *               - email
  *               - otp
  *             properties:
- *               phoneNumber:
+ *               email:
  *                 type: string
- *                 description: Phone Number
+ *                 description: email
  *               otp:
  *                 type: string
  *                 description: OTP Verification

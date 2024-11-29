@@ -6,7 +6,7 @@ const {
   NotFoundError,
   BadRequestError,
 } = require("../errors/errors.js");
-const { sendOTP, verifyOTP } = require("../utils/otp.service.js");
+const { sendOTP, verifyOTP } = require("../utils/email.service.utils.js");
 const JWTToken = require("../utils/token.generation.service.js");
 const hashValue = require("../utils/hashing.service.js");
 const { encrypt, decrypt } = require("../utils/encryption.decryption.utils.js");
@@ -17,27 +17,29 @@ dotenv.config();
 
 // Create a new user
 const createUser = async (userData) => {
-  const ccode = "91";
-  const phone = ccode.concat(userData.phone);
+  // const ccode = "91";
+  // const phone = ccode.concat(userData.phone);
+  const email = userData.email;
 
-  const existingUser = await User.findOne({ phone });
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
-    throw new ConflictError("User with this phone number already exists");
+    throw new ConflictError("User with this email already exists");
   }
 
   const password = hashValue.hash(userData.password);
 
   const user = new User();
   user.name = userData.name;
-  user.phone = phone;
+  //user.phone = phone;
+  user.email = email;
   user.role = "User";
   user.password = password;
-  user.isVerified = true;
+  user.isVerified = false;
 
   await user.save();
   //const token = JWTToken.generateToken(user);
 
-  const response = await sendOTP(user.phone);
+  const response = await sendOTP(user.email);
 
   return { response, user }; // Return both user and token
 };
@@ -98,7 +100,7 @@ const updateUser = async (userId, updateData) => {
   // }
 
   const password = hashValue.hash(userData.password);
-
+  user.email = userData.email;
   user.phone = phone;
   user.password = password;
 
@@ -204,7 +206,7 @@ const ownedProperties = async (userId, filters, sortBy, sortOrder) => {
   
   // Query database with filters and sorting
   const filteredProperties = await Property.find(query).sort(sortCriteria).exec();
-  console.log(filteredProperties.length);
+  //console.log(filteredProperties.length);
   
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found');

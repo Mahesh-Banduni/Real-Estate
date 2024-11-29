@@ -5,7 +5,6 @@ const userLoginController = require('../controllers/user.login.controller.js');
 const auth = require("../middleware/auth.js");
 const { registerLimiter } = require('../middleware/rate.limitter.js');
 
-
 /**
  * @swagger
  * /users/register:
@@ -22,15 +21,15 @@ const { registerLimiter } = require('../middleware/rate.limitter.js');
  *             type: object
  *             required:
  *               - name
- *               - phone
+ *               - email
  *               - password
  *             properties:
  *               name:
  *                 type: string
  *                 description: User's name
- *               phone:
+ *               email:
  *                 type: string
- *                 description: User's phone number
+ *                 description: User's email
  *               password:
  *                 type: string
  *                 description: User's password
@@ -91,9 +90,9 @@ router.get('/:id', userController.getUserById);
  *                   name:
  *                     type: string
  *                     description: User's name
- *                   phone:
+ *                   email:
  *                     type: string
- *                     description: User's phone number
+ *                     description: User's email number
  *       500:
  *         description: Internal server error
  */
@@ -114,6 +113,9 @@ router.get('/', userController.getAllUsers);
  *           schema:
  *             type: object
  *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Updated user's email
  *               phone:
  *                 type: string
  *                 description: Updated user's phone
@@ -152,62 +154,6 @@ router.put('/:id',auth, userController.updateUser);
  *         description: User not found
  */
 router.delete('/:id', userController.deleteUser);
-
-/**
- * @swagger
- * /users/{id}/favorites/{propertyId}:
- *   post:
- *     summary: Add a property to user's favorites
- *     description: Adds a property to the user's favorite properties list
- *     tags:
- *       - Users
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               propertyId:
- *                 type: string
- *                 description: PropertyId
- *     responses:
- *       200:
- *         description: Property added to favorites successfully
- *       404:
- *         description: User or property not found
- *       500:
- *         description: Internal server error
- */
-router.post('/:id/favorites/:propertyId', auth, userController.addFavoriteProperty);
-
-/**
- * @swagger
- * /users/{id}/favorites/{propertyId}:
- *   delete:
- *     summary: Remove a property from user's favorites
- *     description: Removes a property from the user's favorite properties list
- *     tags:
- *       - Users
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               propertyId:
- *                 type: string
- *                 description: PropertyId
- *     responses:
- *       200:
- *         description: Property removed from favorites successfully
- *       404:
- *         description: User or property not found
- *       500:
- *         description: Internal server error
- */
-router.delete('/:id/favorites/:propertyId',auth, userController.removeFavoriteProperty);
 
 /**
  * @swagger
