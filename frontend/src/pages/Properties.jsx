@@ -32,6 +32,7 @@ const Properties = () => {
     handelChangeDropdown,
     message,
     propertyFilter,
+    handelClearFilters,
   } = useProperties();
   useEffect(() => {
     fetchWishlistProperties();
@@ -189,6 +190,12 @@ const Properties = () => {
                 className={`text-white bg-primary-color px-5 py-2 uppercase transition-all cursor-pointer max-sm:text-sm max-sm:px-2 max-sm:py-1 max-[450px]:text-xs max-[350px]:text-[0.65rem] max-[450px]:px-1`}
               >
                 properties
+              </button>
+              <button
+                onClick={handelClearFilters}
+                className={`text-white bg-red-500 px-5 py-2 uppercase transition-all cursor-pointer max-sm:text-sm max-sm:px-2 max-sm:py-1 max-[450px]:text-xs max-[350px]:text-[0.65rem] max-[450px]:px-1`}
+              >
+                Clear Filters
               </button>
             </div>
             <div className="dropdown dropdown-hover bg-transparent hover:bg-transparent m-0">

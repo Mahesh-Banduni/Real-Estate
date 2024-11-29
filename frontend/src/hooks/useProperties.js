@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-import { handelFetchAllProperties, handelUpdateFilters } from "../store/slice";
+import {
+  handelClearFilter,
+  handelFetchAllProperties,
+  handelUpdateFilters,
+} from "../store/slice";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../utils/axiosInstance";
 
@@ -96,16 +100,18 @@ const useProperties = () => {
   // -----------------throttling functionality on cites search-------------------------------
 
   const handelSearchCity = async () => {
-    try {
-      const response = await axiosInstance.get(
-        `/cities-localities?city=${filterCity?.city}`
-      );
+    if (filterCity?.city) {
+      try {
+        const response = await axiosInstance.get(
+          `/cities-localities?city=${filterCity?.city}`
+        );
 
-      if (response?.statusText === "Created") {
-        setCities(response?.data?.data);
+        if (response?.statusText === "Created") {
+          setCities(response?.data?.data);
+        }
+      } catch (error) {
+        console.log(`city search error: ${error?.message}`);
       }
-    } catch (error) {
-      console.log(`city search error: ${error?.message}`);
     }
   };
 
@@ -156,6 +162,12 @@ const useProperties = () => {
     }
   };
 
+  //--------------------- handel clear filters -------------------------
+  const handelClearFilters = () => {
+    setProperty("Sale");
+    dispatch(handelClearFilter());
+  };
+
   return {
     handelChangePropertyType,
     property,
@@ -171,6 +183,7 @@ const useProperties = () => {
     handelChangeFromCityInputField,
     filterFromCity,
     sendEnquiry,
+    handelClearFilters,
   };
 };
 

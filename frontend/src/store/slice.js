@@ -130,6 +130,15 @@ const authSlice = createSlice({
         (a, b) => new Date(a.dateListed) - new Date(b.dateListed)
       );
     },
+    handelClearFilter: (state) => {
+      state.filters = {
+        city: "",
+        propertyType: "",
+        propertyPurpose: "Sale",
+        minPrice: "",
+        maxPrice: "",
+      };
+    },
   },
 });
 export const {
@@ -154,5 +163,6 @@ export const {
   handlePriceHighToLowW,
   handleMostRecentW,
   handelUpdateAuctionFilters,
+  handelClearFilter,
 } = authSlice.actions;
 export default authSlice.reducer;

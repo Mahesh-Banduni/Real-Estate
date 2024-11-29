@@ -9,8 +9,6 @@ import CommercialShowroomProperties from "./CommercialShowroomProperty";
 import useProperties from "../../hooks/useProperties";
 
 const Property = ({ item, wishlistProperties }) => {
-  console.log(wishlistProperties);
-
   const { sendEnquiry } = useProperties();
   const [markFavorite, setMarkFavorite] = useState(false);
 
