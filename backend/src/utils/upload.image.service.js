@@ -14,7 +14,7 @@ const uploadImages = async (files) => {
     try {
       const result = await new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
-          { resource_type: 'image',upload_preset: 'righttimeproperty'}, 
+          { resource_type: 'image',upload_preset: process.env.CLOUDINARY_FOLDER_NAME}, 
           (error, result) => {
             if (error) {
               reject(error);
