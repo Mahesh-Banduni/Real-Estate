@@ -9,10 +9,16 @@ const userSchema = new mongoose.Schema({
   },
   isVerified: { type: Boolean, default: false},
   role: {type: String, enum: ["User","Agent","Admin"], default: 'User'},
-  phone: { type: String, required: true, minlength: 12, maxlength: 12 },
+  phone: { type: String, minlength: 12, maxlength: 12 },
   profile: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "UserProfile",
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    match: /^\S+@\S+\.\S+$/,
   },
   favoriteProperties: [{
     type: mongoose.Schema.Types.ObjectId,

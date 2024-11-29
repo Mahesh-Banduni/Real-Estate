@@ -3,8 +3,8 @@ const userLoginService = require("../services/user.login.service.js");
 // Login a user
 const loginUser = async (req, res, next) => {
     try {
-      const { phoneNumber, password } = req.body;
-      const { response, user} = await userLoginService.loginUser(phoneNumber, password);
+      const { email, password } = req.body;
+      const { response, user} = await userLoginService.loginUser(email, password);
       // Send back the user data and the token
       res.status(200).json({
           success: true,
@@ -27,7 +27,7 @@ const verifyLoginOTP = async (req, res, next) => {
       data: { response, token, user },
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     next(error);
   }
 };

@@ -7,7 +7,7 @@ const {sendAuctionPropertyInquiryEmail}= require('../utils/email.service.utils.j
 // Create a new auction property
 const createAuctionProperty = async (userId, auctionPropertyData, file) => {
   const user = await userService.getUserById(userId);
-  console.log(user);
+  //console.log(user);
   const imageURL = await uploadImage(file);
   // Ensure the user has the 'admin' role
   if (user.role !== 'Admin') {
@@ -130,7 +130,7 @@ const auctionPropertyInquiry = async (propertyId, userId) => {
   if (!propertyDetails) {
     throw new NotFoundError('Auction Property not found');
   }
-  const user = await User.findById(userId);
+  const user = await userService.getUserById(userId);
   const userDetails={};
   userDetails.queryUsername=user.name;
   userDetails.queryUseremail=user.email;

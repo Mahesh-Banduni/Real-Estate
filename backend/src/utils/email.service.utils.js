@@ -1,8 +1,8 @@
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
-// Temporary in-memory storage for OTPs
-//global.otpStorage = {};
+//Temporary in-memory storage for OTPs
+global.otpStorage = {};
 
 // Nodemailer configuration for SMTP
 const transporter = nodemailer.createTransport({
@@ -15,60 +15,60 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// // Generate a random 6-digit OTP
-// const generateOTP = () => crypto.randomInt(100000, 999999).toString();
+// Generate a random 6-digit OTP
+const generateOTP = () => crypto.randomInt(100000, 999999).toString();
 
-// // Function to send OTP via email and store it temporarily
-// const sendOTP = async (email) => {
-//   const otp = generateOTP();
-//   const expiryTime = Date.now() + 180 * 60 * 1000; // OTP valid for 180 minutes
+// Function to send OTP via email and store it temporarily
+const sendOTP = async (email) => {
+  const otp = generateOTP();
+  const expiryTime = Date.now() + 180 * 60 * 1000; // OTP valid for 10 minutes
 
-//   // Store OTP and expiry in memory
-//   global.otpStorage[email] = { otp, expiry: expiryTime };
-//   console.log(otpStorage);
+  // Store OTP and expiry in memory
+  global.otpStorage[email] = { otp, expiry: expiryTime };
+  //console.log(global.otpStorage);
 
-//   // Email content
-//   const mailOptions = {
-//     from: '"Propertymela" <pgoyal_realestate@propertymela.in>', // Sender's email
-//     to: email,
-//     subject: 'Your OTP Code',
-//     text: `Your OTP is ${otp}. It is valid for 5 minutes.`,
-//   };
+  // Email content
+  const mailOptions = {
+    from: '"Propertymela" <pgoyal_realestate@propertymela.in>', // Sender's email
+    to: email,
+    subject: 'Your OTP Code',
+    text: `Your OTP is ${otp}. It is valid for 10 minutes.`,
+  };
 
-//   try {
-//     await transporter.sendMail(mailOptions);
-//     console.log(`OTP sent to ${email}`);
-//     return { success: true, message: 'OTP sent successfully.' };
-//   } catch (error) {
-//     console.error('Error sending OTP:', error);
-//     return { success: false, message: 'Failed to send OTP.' };
-//   }
-// };
+  try {
+    await transporter.sendMail(mailOptions);
+    //console.log(`OTP sent to ${email}`);
+    return { success: true, message: 'OTP sent successfully.' };
+  } catch (error) {
+    console.error('Error sending OTP:', error);
+    return { success: false, message: 'Failed to send OTP.' };
+  }
+};
 
-// // Function to verify OTP
-// const verifyOTP = (email, userInputOtp) => {
-//   console.log(otpStorage);
-//   const storedData = global.otpStorage[email];
-//   if (!storedData) {
-//     return { success: false, message: 'No OTP found for this email.' };
-//   }
+// Function to verify OTP
+const verifyOTP = (email, userInputOtp) => {
+  //console.log(global.otpStorage);
+  const storedData = global.otpStorage[email];
+  if (!storedData) {
+    return { success: false, message: 'No OTP found for this email.' };
+  }
 
-//   const { otp, expiry } = storedData;
+  const { otp, expiry } = storedData;
 
-//   // Check for expiry
-//   if (Date.now() > expiry) {
-//     delete global.otpStorage[email]; // Clean up expired OTP
-//     return { success: false, message: 'OTP has expired.' };
-//   }
+  // Check for expiry
+  if (Date.now() > expiry) {
+    delete global.otpStorage[email]; // Clean up expired OTP
+    return { success: false, message: 'OTP has expired.' };
+  }
 
-//   // Validate OTP
-//   if (otp === userInputOtp) {
-//     delete global.otpStorage[email]; // OTP verified and cleared
-//     return { success: true, message: 'OTP verified successfully.' };
-//   }
+  // Validate OTP
+  if (otp === userInputOtp) {
+    delete global.otpStorage[email]; // OTP verified and cleared
+    return { success: true, message: 'OTP verified successfully.' };
+  }
 
-//   return { success: false, message: 'Invalid OTP.' };
-// };
+  return { success: false, message: 'Invalid OTP.' };
+};
 
 // Function to handle property inquiry
 const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
@@ -148,13 +148,12 @@ const sendAuctionPropertyInquiryEmail = async (propertyDetails, userDetails) => 
   const mailOptions = {
     from: `"Auction Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
     to: process.env.ADMIN_EMAIL, // Admin's email
-    subject: `New Inquiry for Auction Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+    subject: `New Inquiry for Auction Property: ${propertyType} for sale in ${city} `,
     html: `
       <h2>New Auction Property Inquiry</h2>
       <p><strong>Property ID:</strong> ${propertyID}</p>
       <p><strong>Bank name:</strong> ${bankName}</p>
       <p><strong>Property Type:</strong> ${propertyType}</p>
-      <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
       <p><strong>Property Area:</strong> ${propertyArea} ${propertyAreaUnit}</p>
       <p><strong>Reserve Price:</strong> ₹${reservePrice}</p>
       <p><strong>EMD Amount:</strong> ₹${emdAmount}</p>
@@ -182,4 +181,4 @@ const sendAuctionPropertyInquiryEmail = async (propertyDetails, userDetails) => 
 };
 
 //module.exports = { sendOTP, verifyOTP };
-module.exports ={sendContactUsEmail, sendPropertyInquiryEmail, sendAuctionPropertyInquiryEmail};
+module.exports ={sendContactUsEmail, sendPropertyInquiryEmail, sendAuctionPropertyInquiryEmail, sendOTP, verifyOTP};

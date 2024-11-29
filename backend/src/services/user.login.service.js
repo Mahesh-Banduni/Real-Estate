@@ -1,6 +1,6 @@
 const User = require("../models/user.model.js");
 const JWTToken = require("../utils/token.generation.service.js");
-const { sendOTP, verifyOTP } = require("../utils/otp.service.js");
+const { sendOTP, verifyOTP } = require("../utils/email.service.utils.js");
 const hashValue = require("../utils/hashing.service.js");
 const {
   ConflictError,
@@ -10,15 +10,15 @@ const {
 const crypto = require("crypto");
 
 // Login a user and issue a JWT token
-const loginUser = async (phoneNumber, password) => {
-  const ccode = "91";
-  //console.log(phoneNumber);
-  const phone = ccode.concat(phoneNumber);
-  const user = await User.findOne({ phone });
+const loginUser = async (email, password) => {
+  // const ccode = "91";
+  // //console.log(phoneNumber);
+  // const phone = ccode.concat(phoneNumber);
+  const user = await User.findOne({ email });
   //console.log(phone);
 
   if (!user) {
-    throw new NotFoundError("No user exist with this phone number");
+    throw new NotFoundError("No user exist with this email address");
   }
 
   const hashPassword = hashValue.hash(password);
@@ -28,27 +28,26 @@ const loginUser = async (phoneNumber, password) => {
     throw new BadRequestError("Incorrect password");
   }
 
-  // Send OTP
-  const response = await sendOTP(user.phone);
-  //const token = JWTToken.generateToken(user);
+  const response = await sendOTP(user.email);
   return { response };
 };
 
-const verifyLoginOTP = async (phoneNumber, otp) => {
-  const ccode = "91";
-  const phone = ccode.concat(phoneNumber);
-  const response = await verifyOTP(phone, otp);
-  const user = await User.findOne({ phone });
+const verifyLoginOTP = async (email, otp) => {
+  // const ccode = "91";
+  // const phone = ccode.concat(phoneNumber);
+  
+  const response = await verifyOTP(email, otp);
+  const user = await User.findOne({ email });
   // Generate JWT token after user creation
 
   if (response.success) {
     // Generate JWT token after user creation
-    const user = await User.findOne({ phone });
+    const user = await User.findOne({ email });
     const token = JWTToken.generateToken(user);
 
     user.isVerified = true;
     await user.save();
-    return { response, token };
+    return { response, token, user };
   }
 
   return { response };
@@ -61,18 +60,17 @@ const logoutUser = async (req) => {
   return { message: "User logged out successfully" };
 };
 
-const forgetPassword = async (phoneNumber) => {
+const forgetPassword = async (email) => {
   // Fetch the user by userId
-  const ccode = "91";
-  const phone = ccode.concat(phoneNumber);
+  // const ccode = "91";
+  // const phone = ccode.concat(phoneNumber);
 
-  const user = await User.findOne({ phone });
+  const user = await User.findOne({ email });
   if (!user) {
     throw new NotFoundError("User not found");
   }
 
-  const response = await sendOTP(user.phone);
-
+  const response = await sendOTP(user.email);
   return { response, user }; // Return both user and token
 };
 
