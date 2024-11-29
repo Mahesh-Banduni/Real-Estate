@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { phoneNumber } from "../store/slice";
 import { useDispatch } from "react-redux";
 import { handelSetToken } from "../store/slice";
+import axiosInstance from "../utils/axiosInstance";
 
 const useRegister = () => {
   const dispatch = useDispatch();
@@ -22,13 +23,10 @@ const useRegister = () => {
     setMessage("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/register",
-        data
-      );
+      const response = await axiosInstance.post("/users/register", data);
+
       if (response?.statusText === "Created") {
-        dispatch(phoneNumber(data?.phone));
-        alert("User Register successfully");
+        alert("Otp send Successfully please check your email");
         navigate("/otp");
       }
     } catch (message) {

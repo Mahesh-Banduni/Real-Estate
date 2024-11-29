@@ -17,7 +17,6 @@ const UploadPhotos = ({
       />
       <input
         multiple
-        value={formInputValue[name]}
         name={name}
         onChange={handelChangeFormInputFields}
         type="file"

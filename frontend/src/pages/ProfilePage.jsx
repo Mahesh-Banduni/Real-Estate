@@ -24,15 +24,14 @@ const ProfilePage = () => {
       <div className="w-full flex flex-col">
         <div>
           <img
-            className="w-48 h-48 border rounded-full "
+            className="w-48 h-48 border rounded-full max-md:w-36 max-md:h-36 "
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
             alt=" profile photo "
           />
         </div>
         <form
           onSubmit={handelSubmitForm}
-          className="flex flex-col gap-2 border-2 p-10 rounded-md mt-2  "
-          action=""
+          className="flex flex-col gap-2 border-2 p-10 rounded-md mt-2 max-md:p-5  "
         >
           <ProfileInput
             handelInputChange={handelInputChange}
@@ -42,9 +41,9 @@ const ProfilePage = () => {
           />
           <ProfileInput
             handelInputChange={handelInputChange}
-            label="Contact"
-            name={"phone"}
-            value={user?.contact}
+            label="Email"
+            name={"email"}
+            value={user?.email}
           />
           <ProfileInput
             handelInputChange={handelInputChange}

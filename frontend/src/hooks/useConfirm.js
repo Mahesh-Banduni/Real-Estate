@@ -1,15 +1,11 @@
 import { useState } from "react";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-
-import { phoneNumber } from "../store/slice";
-
-import { handelSetToken } from "../store/slice";
 import axiosInstance from "../utils/axiosInstance";
 
-const useLogin = () => {
+const useConfirm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
@@ -20,22 +16,28 @@ const useLogin = () => {
     reset,
     watch,
   } = useForm();
-  const submitForm = async (data) => {
-    try {
-      const response = await axiosInstance.post("/userauth/login", data);
 
-      if (response?.statusText === "OK") {
-        alert("OTP sent successfully. Please check you email");
-        navigate("/otp");
+  const submitForm = async (data) => {
+    setMessage("");
+    console.log(data);
+
+    try {
+      const response = await axiosInstance.put("/reset-password", data);
+      console.log(response);
+
+      if (response?.data?.success === true) {
+        alert(response?.data?.data);
+        localStorage.removeItem("token");
+        localStorage.removeItem("forgot");
+        navigate("/signin");
       }
-    } catch (error) {
-      console.log(error);
-      if (error?.status === 400) {
-        alert(error?.response?.data?.error);
-      }
-      if (error?.status === 404) {
-        alert(error?.response?.data?.error);
-      }
+    } catch (message) {
+      console.log(message);
+
+      console.log(`confirm password form error ${message.message}`);
+      setMessage(message.message);
+      alert(message.message);
+      reset();
     }
   };
 
@@ -58,4 +60,4 @@ const useLogin = () => {
   };
 };
 
-export default useLogin;
+export default useConfirm;

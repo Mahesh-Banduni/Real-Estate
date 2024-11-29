@@ -1,28 +1,42 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import axiosInstance from "../utils/axiosInstance";
 
 const useProfile = () => {
   const [user, setUser] = useState({});
   const [inputValue, setInputValue] = useState({
-    phone: "",
+    email: "",
     password: "",
   });
 
   const handelSubmitForm = async (event) => {
     event.preventDefault();
+    console.log(user.id);
+    console.log(inputValue);
 
     try {
-      const response = await axios.put(
-        `http://localhost:8080/users/${user._id}`,
-        inputValue
-      );
+      const response = await axiosInstance.put(`/users/update`, inputValue);
+      console.log(response);
+
       if (response.statusText === "OK") {
-        localStorage.setItem("token", JSON.stringify(response?.data?.data));
-        alert("Your password and contact update successfully!");
+        localStorage.setItem(
+          "realEstateUser",
+          JSON.stringify({
+            name: response?.data?.data?.name,
+            email: response?.data?.data?.email,
+            password: response?.data?.data?.password,
+            id: response?.data?.data?._id,
+          })
+        );
+        alert("Your email and password update successfully!");
       }
     } catch (error) {
       console.log(error);
+      if (error.status === 500) {
+        alert(error?.response?.data?.error);
+      } else {
+        alert(error?.response?.data?.error[0]);
+      }
     }
   };
   const handelInputChange = (event) => {

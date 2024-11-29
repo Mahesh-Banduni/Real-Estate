@@ -22,6 +22,10 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage.jsx"));
 const OwnedProperties = lazy(() => import("./pages/OwnedProperties.jsx"));
 const OtpPage = lazy(() => import("./pages/OtpPage.jsx"));
 const Auction = lazy(() => import("./pages/AuctionProperty.jsx"));
+const Forgot = lazy(() => import("./pages/ForgotPassword.jsx"));
+const Confirm = lazy(() => import("./pages/ConfirmPassword.jsx"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyAndPolicy.jsx"));
+const About = lazy(() => import("./pages/About.jsx"));
 
 const routes = createBrowserRouter([
   {
@@ -133,6 +137,38 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <Auction />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/forgot",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Forgot />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/confirm",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Confirm />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/privacy",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <PrivacyPolicy />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/about",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <About />
           </Suspense>
         ),
       },

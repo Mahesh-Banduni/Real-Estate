@@ -20,7 +20,7 @@ const CommercialShowroomProperties = ({ item, markFavorite }) => {
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between max-lg:justify-center max-lg:gap-2">
           <Heading
-            text={`${item?.propertyType} for sale in ${item?.locality} , ${item?.city}`}
+            text={`${item?.propertyType} for sale in ${item?.city}`}
             className="normal-case text-xl max-lg:w-3/5 max-md:text-base"
           />
           <div className="flex items-center justify-center gap-2">

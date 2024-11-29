@@ -20,8 +20,8 @@ const SignIn = () => {
   } = useLogin();
 
   return (
-    <div className="w-11/12 mx-auto my-10 grid grid-rows-1 grid-cols-2 place-content-center h-screen ">
-      <div className="flex flex-col gap-5 place-content-center w-4/5 m-auto">
+    <div className="w-11/12 mx-auto my-10 grid grid-rows-1 grid-cols-2 place-content-center h-screen max-md:h-auto max-md:gap-5 max-md:grid-cols-1 max-md:grid-rows-2">
+      <div className="flex flex-col gap-5 place-content-center w-4/5 m-auto max-md:row-span-2 max-md:order-2">
         <div className="flex items-center gap-5">
           <Heading text="namaste" className="text-primary-color" />
           <PiHandsPrayingLight className="text-5xl text-primary-color" />
@@ -35,21 +35,20 @@ const SignIn = () => {
           className="flex flex-col gap-5"
         >
           <Input
-            label={"mobile number"}
-            placeholder={"1234567890"}
-            type={"number"}
-            className={"bg-transparent py-2 px-2 capitalize"}
-            {...register("phone", {
+            className={"bg-transparent py-2 px-2 w-full"}
+            label={"Email"}
+            type={"email"}
+            placeholder="Enter your e-mail"
+            {...register("email", {
               required: true,
-              validate: {
-                minLength: (value) =>
-                  value.length >= 10 ||
-                  "mobile number must be at least 10 characters",
+              pattern: {
+                value: /^[a-zA-Z0-9. _%-]+@[a-zA-Z0-9. -]+\.[a-zA-Z]{2,4}$/,
+                message: "Please enter a valid email address",
               },
             })}
           />
-          {errors.mobileNumber && (
-            <p className="error-message">{errors?.mobileNumber?.message}</p>
+          {errors.email && (
+            <p className="error-message">{errors?.email?.message}</p>
           )}
           <Input
             label={"password"}
@@ -74,13 +73,13 @@ const SignIn = () => {
                   "Password must contain at least one special character",
               },
             })}
-            className={"bg-transparent py-2 px-2 capitalize"}
+            className={"bg-transparent py-2 px-2 w-full"}
           />
           {errors.password && (
             <p className="error-message">{errors?.password?.message}</p>
           )}
           <Link
-            to="#"
+            to="/forgot"
             className="text-blue-500 font-interMedium capitalize text-end"
           >
             Forgot password?
@@ -104,8 +103,8 @@ const SignIn = () => {
           </button>
         </div> */}
       </div>
-      <div className="place-content-center ">
-        <img className="w-full h-[100%] " src={home} alt="home" />
+      <div className="place-content-center max-md:order-1 max-md:flex max-md:items-center max-md:justify-center ">
+        <img className="w-full h-[100%] max-md:w-4/5 " src={home} alt="home" />
       </div>
     </div>
   );
