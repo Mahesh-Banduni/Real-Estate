@@ -26,6 +26,8 @@ const Forgot = lazy(() => import("./pages/ForgotPassword.jsx"));
 const Confirm = lazy(() => import("./pages/ConfirmPassword.jsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyAndPolicy.jsx"));
 const About = lazy(() => import("./pages/About.jsx"));
+const Disclaimer = lazy(() => import("./pages/Disclaimer.jsx"));
+const TermsAndCondition = lazy(() => import("./pages/TermsAndConditions.jsx"));
 
 const routes = createBrowserRouter([
   {
@@ -169,6 +171,22 @@ const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/disclaimer",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Disclaimer />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/termsandconditions",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <TermsAndCondition />
           </Suspense>
         ),
       },

@@ -11,7 +11,7 @@ const Dropdown = ({
 }) => {
   return (
     <div
-      className={`h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color ${className} outline-none`}
+      className={`h-[30vh] bg-white overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color ${className} outline-none`}
     >
       <ul
         className={`w-full bg-white font-interRegular text-sm flex flex-col h-full`}

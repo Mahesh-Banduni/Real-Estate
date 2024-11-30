@@ -16,7 +16,7 @@ const ContactForm = () => {
               label={"Full name"}
               type="text"
               placeholder={"Enter your name here"}
-              className={"bg-transparent py-[0.35rem] px-2 capitalize "}
+              className={"bg-transparent py-[0.35rem] px-2 "}
               {...register("fullName", {
                 required: true,
               })}
@@ -30,7 +30,7 @@ const ContactForm = () => {
               label={"mobile number"}
               type="number"
               placeholder={"Enter your name here"}
-              className={"bg-transparent py-[0.35rem] px-2 capitalize "}
+              className={"bg-transparent py-[0.35rem] px-2 "}
               {...register("phone", {
                 required: true,
                 validate: {
@@ -49,7 +49,7 @@ const ContactForm = () => {
               label={"Email address"}
               type="email"
               placeholder={"Enter your email here"}
-              className={"bg-transparent py-[0.35rem] px-2 capitalize "}
+              className={"bg-transparent py-[0.35rem] px-2 "}
               {...register("email", {
                 required: true,
                 pattern: {
@@ -72,7 +72,7 @@ const ContactForm = () => {
           </label>
           <textarea
             {...register("message", { required: true })}
-            className="bg-[#F2F2F2] w-full mt-3 capitalize p-5 outline-none"
+            className="bg-[#F2F2F2] w-full mt-3 p-5 outline-none"
             name="message"
             id="message"
             cols="30"

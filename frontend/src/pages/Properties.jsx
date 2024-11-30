@@ -17,6 +17,7 @@ const Properties = () => {
   const { fetchWishlistProperties } = useWishlist();
   const dispatch = useDispatch();
   const data = useSelector((store) => store?.authReducer?.allProperties);
+
   const wishlistProperties = useSelector(
     (store) => store?.authReducer?.wishlist
   );
@@ -33,10 +34,13 @@ const Properties = () => {
     message,
     propertyFilter,
     handelClearFilters,
+    toggle,
   } = useProperties();
+
   useEffect(() => {
     fetchWishlistProperties();
   }, []);
+
   return (
     <>
       {message ? (
@@ -100,9 +104,9 @@ const Properties = () => {
                       type={"text"}
                       placeholder={"Please enter your location"}
                     />
-                    {cities.length > 0 ? (
+                    {cities?.length > 0 && toggle ? (
                       <div
-                        className={`absolute h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
+                        className={`absolute bg-white h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
                       >
                         <ul
                           className={`w-full bg-white font-interRegular text-sm flex flex-col h-full`}
@@ -246,7 +250,8 @@ const Properties = () => {
           <hr />
           {/*--------------------------------------- total properties length ------------------------------- */}
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">
-            {data.length} results | Property {`in Dehradun`} for Sale
+            {data.length} results | {propertyFilter?.city}  Property for{" "}
+            {property}
           </p>
           {/*-------------------------- all properties------------------------------- */}
           <ListProperty

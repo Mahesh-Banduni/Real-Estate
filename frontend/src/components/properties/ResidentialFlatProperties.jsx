@@ -19,7 +19,7 @@ const ResidentialFlatProperties = ({ item, markFavorite }) => {
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between max-lg:justify-center max-lg:gap-2">
           <Heading
-            text={`${item?.propertyType} for sale in ${item?.city}`}
+            text={`${item?.propertyType} for ${item?.propertyPurpose} in ${item?.city}`}
             className="normal-case text-xl max-lg:w-3/5 max-md:text-base"
           />
           <div className="flex items-center justify-center gap-2">
@@ -45,8 +45,9 @@ const ResidentialFlatProperties = ({ item, markFavorite }) => {
         <p className="font-interRegular text-[#8F90A6] text-sm max-lg:hidden max-xl:text-xs">
           {` ${item?.propertyType} is available for ${
             item?.propertyPurpose
-          } in ${item?.locality},
-          ${item?.city} for Rs. ${item?.expectedPrice.toLocaleString("en-IN")}`}
+          } in ${item?.city} for Rs. ${
+            item?.expectedPrice && item.expectedPrice.toLocaleString("en-IN")
+          }`}
         </p>
       </div>
       <div className="grid grid-cols-3 grid-rows-2 bg-[#F5F5F5] gap-1 p-5 max-lg:hidden">

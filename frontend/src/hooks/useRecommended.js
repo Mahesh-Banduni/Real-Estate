@@ -2,7 +2,6 @@ import axiosInstance from "../utils/axiosInstance";
 import { useCallback, useEffect, useState } from "react";
 import { handelFetchRecommendedProperty } from "../store/slice";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 
 const useRecommended = () => {
   const dispatch = useDispatch();
@@ -11,7 +10,6 @@ const useRecommended = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [recommendedFilter, setRecommendedFilter] = useState({
-    propertyPurpose: "",
     propertyType: "",
     city: "",
   });
@@ -40,7 +38,7 @@ const useRecommended = () => {
     try {
       setIsLoading(true);
       let response = await axiosInstance.get(
-        `http://localhost:8080/recommended-properties?propertyPurpose=${recommendedFilter.propertyPurpose}&propertyType=${recommendedFilter.propertyType}&city=${recommendedFilter.city}`
+        `/recommended-properties?propertyPurpose=${property}&propertyType=${recommendedFilter.propertyType}&city=${recommendedFilter.city}`
       );
 
       if (response?.statusText === "OK") {
@@ -54,25 +52,27 @@ const useRecommended = () => {
         setMessage(error?.response?.data?.error);
       }
     }
-  }, [recommendedFilter]);
+  }, [recommendedFilter, property]);
 
   useEffect(() => {
     fetchProperties();
-  }, [recommendedFilter]);
+  }, [recommendedFilter, property]);
 
   // -----------------throttling functionality on cites search-------------------------------
 
   const handelSearchCity = useCallback(async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/cities-localities?city=${searchCity.city}`
-      );
+    if (searchCity.city) {
+      try {
+        const response = await axiosInstance.get(
+          `/cities-localities?city=${searchCity.city}`
+        );
 
-      if (response?.statusText === "Created") {
-        setCities(response?.data?.data);
+        if (response?.statusText === "Created") {
+          setCities(response?.data?.data);
+        }
+      } catch (error) {
+        console.log(`city search error: ${error?.message}`);
       }
-    } catch (error) {
-      console.log(`city search error: ${error?.message}`);
     }
   }, [searchCity]);
 

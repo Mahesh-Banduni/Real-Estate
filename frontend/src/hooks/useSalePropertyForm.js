@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { handleFetchAllSearchProperties } from "../store/slice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axiosInstance from "../utils/axiosInstance";
 
 const useSalePropertyForm = () => {
   const [formErrorMessage, setFormErrorMessage] = useState("");
@@ -22,8 +22,8 @@ const useSalePropertyForm = () => {
   const submitForm = async (filters) => {
     setFormErrorMessage("");
     try {
-      const response = await axios.get(
-        `http://localhost:8080/search-properties?propertyPurpose=Sale&propertyType=${filters.propertyType}&city=${filters.city}`,
+      const response = await axiosInstance.get(
+        `/search-properties?propertyPurpose=Sale&propertyType=${filters.propertyType}&city=${filters.city}`,
         data
       );
 

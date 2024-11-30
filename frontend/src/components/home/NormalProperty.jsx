@@ -52,7 +52,7 @@ const NormalProperty = ({ property }) => {
             />
             {cities.length > 0 && (
               <div
-                className={`absolute h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
+                className={`absolute bg-white h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
               >
                 <ul
                   className={`w-full bg-white font-interRegular text-sm flex flex-col h-full`}
@@ -90,7 +90,7 @@ const NormalProperty = ({ property }) => {
             />
             {cities.length > 0 && (
               <div
-                className={`absolute h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
+                className={`absolute bg-white h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
               >
                 <ul
                   className={`w-full bg-white font-interRegular text-sm flex flex-col h-full`}

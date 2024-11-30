@@ -139,6 +139,21 @@ const authSlice = createSlice({
         maxPrice: "",
       };
     },
+    handelRecommendedLowToHigh: (state, action) => {
+      state.recommendedProperties = state.recommendedProperties.sort((a, b) => {
+        return a.expectedPrice - b.expectedPrice;
+      });
+    },
+    handelRecommendedHighToLow: (state, action) => {
+      state.recommendedProperties = state.recommendedProperties.sort((a, b) => {
+        return b.expectedPrice - a.expectedPrice;
+      });
+    },
+    handelRecommendedMostRecent: (state, action) => {
+      state.recommendedProperties = state.recommendedProperties.sort((a, b) => {
+        return new Date(a.dateListed) - new Date(b.dateListed);
+      });
+    },
   },
 });
 export const {
@@ -164,5 +179,8 @@ export const {
   handleMostRecentW,
   handelUpdateAuctionFilters,
   handelClearFilter,
+  handelRecommendedHighToLow,
+  handelRecommendedLowToHigh,
+  handelRecommendedMostRecent,
 } = authSlice.actions;
 export default authSlice.reducer;

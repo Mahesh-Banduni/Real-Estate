@@ -1,6 +1,4 @@
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-
 import {
   handelClearFilter,
   handelFetchAllProperties,
@@ -19,7 +17,6 @@ const useProperties = () => {
   const [message, setMessage] = useState("");
   const [localities, setLocalities] = useState([]);
   const [cities, setCities] = useState([]);
-
   const [filterCity, setFilterCity] = useState({
     city: "",
   });
@@ -101,6 +98,7 @@ const useProperties = () => {
 
   const handelSearchCity = async () => {
     if (filterCity?.city) {
+      setToggle(true);
       try {
         const response = await axiosInstance.get(
           `/cities-localities?city=${filterCity?.city}`
@@ -128,8 +126,8 @@ const useProperties = () => {
   //----------------------Select City handel----------------------------------
 
   const handelSelectCity = (city) => {
+    setToggle(false);
     dispatch(handelUpdateFilters({ name: "city", value: city.name }));
-    setLocalities(city?.localities);
     setFilterCity({
       city: city.name,
     });
@@ -184,6 +182,7 @@ const useProperties = () => {
     filterFromCity,
     sendEnquiry,
     handelClearFilters,
+    toggle,
   };
 };
 

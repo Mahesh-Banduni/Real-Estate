@@ -11,12 +11,9 @@ const useProfile = () => {
 
   const handelSubmitForm = async (event) => {
     event.preventDefault();
-    console.log(user.id);
-    console.log(inputValue);
 
     try {
       const response = await axiosInstance.put(`/users/update`, inputValue);
-      console.log(response);
 
       if (response.statusText === "OK") {
         localStorage.setItem(

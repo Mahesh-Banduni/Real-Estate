@@ -18,14 +18,13 @@ import contactBg from "/images/contactBg.svg";
 import office from "/images/office.svg";
 import facebook from "/images/facebook.svg";
 import instagram from "/images/instagram.svg";
-import youtube from "/images/instagram.svg";
+import youtube from "/images/youtube.svg";
 import filter from "/images/filter.svg";
 import upDownArrow from "/images/arrows-down-up.svg";
 import propertyImage from "/images/propertyImage.svg";
 import facing from "/images/facing.svg";
 import floor from "/images/floor.svg";
 import furnishing from "/images/furnishing.svg";
-
 import share from "/images/share.svg";
 import status from "/images/status.svg";
 import superArea from "/images/superArea.svg";

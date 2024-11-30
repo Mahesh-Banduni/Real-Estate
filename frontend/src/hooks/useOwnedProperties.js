@@ -1,10 +1,9 @@
 import axiosInstance from "../utils/axiosInstance";
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { handleFetchAllOwnedProperties } from "../store/slice";
-import { useLocation, useNavigate } from "react-router-dom";
-import OwnedProperties from "../pages/OwnedProperties";
+import { useNavigate } from "react-router-dom";
+
 const useOwnedProperties = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,25 +34,16 @@ const useOwnedProperties = () => {
     setMessage("");
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(
-        `http://localhost:8080/owned-properties/`,
-        {
-          params: {
-            propertyPurpose: property,
-            propertyType: ownedFilter.propertyType,
-            city: ownedFilter.city,
-            locality: ownedFilter.locality,
-            minPrice: ownedFilter.minPrice,
-            maxPrice: ownedFilter.maxPrice,
-          },
+      const response = await axiosInstance.get(`/owned-properties/`, {
+        params: {
+          propertyPurpose: property,
+          propertyType: ownedFilter.propertyType,
+          city: ownedFilter.city,
+          locality: ownedFilter.locality,
+          minPrice: ownedFilter.minPrice,
+          maxPrice: ownedFilter.maxPrice,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      });
 
       if (response.statusText === "OK") {
         dispatch(handleFetchAllOwnedProperties(response?.data?.data));
@@ -81,21 +71,20 @@ const useOwnedProperties = () => {
   };
   //============================= Search Cities with Throttling ===========================
   const handleSearchCity = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/cities-localities`,
-        {
+    if (ownedProperty.city) {
+      try {
+        const response = await axiosInstance.get(`/cities-localities`, {
           params: {
             city: ownedProperty.city,
-            localities: ownedProperty.locality,
+            localities: ownedProperty?.locality,
           },
+        });
+        if (response?.statusText === "Created") {
+          setCities(response?.data?.data);
         }
-      );
-      if (response?.statusText === "Created") {
-        setCities(response?.data?.data);
+      } catch (error) {
+        console.log(`City search error: ${error.message}`);
       }
-    } catch (error) {
-      console.log(`City search error: ${error.message}`);
     }
   };
   useEffect(() => {

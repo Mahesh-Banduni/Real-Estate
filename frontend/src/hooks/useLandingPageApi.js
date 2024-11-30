@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 
 import { handelAddHandPickedProperty } from "../store/slice";
+import axiosInstance from "../utils/axiosInstance";
 
 const useLandingPageApi = () => {
   const dispatch = useDispatch();
@@ -14,9 +14,7 @@ const useLandingPageApi = () => {
     setMessage("");
     setLoading(true);
     try {
-      const response = await axios.get(
-        "http://localhost:8080/handpicked-properties"
-      );
+      const response = await axiosInstance.get("/handpicked-properties");
       if (response?.statusText) {
         dispatch(handelAddHandPickedProperty(response?.data));
       }

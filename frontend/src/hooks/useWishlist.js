@@ -1,5 +1,4 @@
 import axiosInstance from "../utils/axiosInstance";
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { handleFetchWishlistProperties } from "../store/slice";
@@ -7,7 +6,7 @@ import { handleFetchWishlistProperties } from "../store/slice";
 const useWishlist = () => {
   const dispatch = useDispatch();
 
-  const [property, setProperty] = useState("");
+  const [property, setProperty] = useState(" ");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [ownedFilter, setOwnedFilter] = useState({
@@ -31,7 +30,7 @@ const useWishlist = () => {
     setMessage("");
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(`/favorite-properties/`, {
+      const response = await axiosInstance.get(`/favorite-properties`, {
         params: {
           propertyPurpose: property,
           propertyType: ownedFilter.propertyType,
@@ -41,7 +40,6 @@ const useWishlist = () => {
           maxPrice: ownedFilter.maxPrice,
         },
       });
-      console.log(response);
 
       if (response.statusText === "OK") {
         dispatch(handleFetchWishlistProperties(response?.data?.data));
@@ -68,21 +66,19 @@ const useWishlist = () => {
   };
   //============================= Search Cities with Throttling ===========================
   const handleSearchCity = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/cities-localities`,
-        {
+    if (ownedProperty.city) {
+      try {
+        const response = await axiosInstance.get(`/cities-localities`, {
           params: {
             city: ownedProperty.city,
-            localities: ownedProperty.locality,
           },
+        });
+        if (response?.statusText === "Created") {
+          setCities(response?.data?.data);
         }
-      );
-      if (response?.statusText === "Created") {
-        setCities(response?.data?.data);
+      } catch (error) {
+        console.log(`City search error: ${error.message}`);
       }
-    } catch (error) {
-      console.log(`City search error: ${error.message}`);
     }
   };
   useEffect(() => {
@@ -134,12 +130,9 @@ const useWishlist = () => {
 
   const markFavoriteProperty = async (id) => {
     try {
-      const response = await axiosInstance.post(
-        `http://localhost:8080/favorite-properties`,
-        {
-          propertyId: `${id}`,
-        }
-      );
+      const response = await axiosInstance.post(`/favorite-properties`, {
+        propertyId: `${id}`,
+      });
       if (response.statusText === "OK") {
         fetchWishlistProperties();
       }
@@ -155,7 +148,6 @@ const useWishlist = () => {
           propertyId: id,
         },
       });
-      console.log(response);
 
       if (response.statusText === "OK") {
         fetchWishlistProperties();

@@ -30,13 +30,21 @@ const Contact = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5 max-sm:flex-row">
-          <SocialMediaLinks
+          {/* <SocialMediaLinks
             to="#"
             pic={contactOnFacebook}
             className={" px-3"}
+          /> */}
+          <SocialMediaLinks
+            to="https://www.instagram.com/goyal_property_mela/?hl=en"
+            pic={contactOnInstagram}
+            className={""}
           />
-          <SocialMediaLinks to="#" pic={contactOnInstagram} className={""} />
-          <SocialMediaLinks to="#" pic={twitter} className={""} />
+          <SocialMediaLinks
+            to="https://x.com/PropertyMela_"
+            pic={twitter}
+            className={""}
+          />
         </div>
       </div>
       <ContactForm />

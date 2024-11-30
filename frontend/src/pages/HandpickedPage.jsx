@@ -163,7 +163,7 @@ const HandpickedPage = () => {
                 properties
               </button>
             </div>
-            <div className="dropdown dropdown-hover bg-transparent hover:bg-transparent m-0">
+            {/* <div className="dropdown dropdown-hover bg-transparent hover:bg-transparent m-0">
               <div
                 tabIndex={0}
                 role="button"
@@ -206,11 +206,12 @@ const HandpickedPage = () => {
                   <p className="max-sm:text-xs capitalize">Most Recent</p>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
           <hr />
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">
-            {data.length} results | Property {`in Dehradun`} for Sale
+            {data.length} results | {handpickedFilter?.city}  Property for{" "}
+            {property}
           </p>
           <ListProperty propertiesList={data} />
         </div>

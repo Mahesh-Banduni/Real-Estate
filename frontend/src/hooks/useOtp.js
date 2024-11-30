@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { handelSetToken } from "../store/slice";

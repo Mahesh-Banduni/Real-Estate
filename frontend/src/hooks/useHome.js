@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
@@ -59,15 +58,17 @@ const useHome = () => {
   // -----------------throttling functionality on cites search-------------------------------
 
   const handelSearchCity = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/cities-localities?city=${filterCity?.city}`
-      );
-      if (response?.statusText === "Created") {
-        setCities(response?.data?.data);
+    if (filterCity.city) {
+      try {
+        const response = await axiosInstance.get(
+          `/cities-localities?city=${filterCity?.city}`
+        );
+        if (response?.statusText === "Created") {
+          setCities(response?.data?.data);
+        }
+      } catch (error) {
+        console.log(`city search error: ${error?.message}`);
       }
-    } catch (error) {
-      console.log(`city search error: ${error?.message}`);
     }
   };
 
@@ -84,9 +85,7 @@ const useHome = () => {
   useEffect(() => {
     const getAuctionProperties = async () => {
       try {
-        const response = await axiosInstance.get(
-          "http://localhost:8080/all-auction-properties"
-        );
+        const response = await axiosInstance.get("/all-auction-properties");
         if (response?.statusText === "OK") {
           setAuctionProperty(response?.data?.data);
         }

@@ -10,7 +10,7 @@ const Button = ({ id, sendEnquiry, children, type, className, ...props }) => {
                 sendEnquiry(`${id}`);
               }
             }
-          : ""
+          : () => {}
       }
       {...props}
       type={type}

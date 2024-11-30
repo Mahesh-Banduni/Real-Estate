@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import axiosInstance from "../utils/axiosInstance";
 
 const useContact = () => {
   const [message, setMessage] = useState("");
@@ -14,10 +14,7 @@ const useContact = () => {
   const submitForm = async (data) => {
     setMessage("");
     try {
-      const response = await axios.post(
-        "http://localhost:8080/contact-forms",
-        data
-      );
+      const response = await axiosInstance.post("/contact-forms", data);
 
       if (response?.statusText === "Created") {
         alert(`Your contact form is submitted out team will connect you soon`);

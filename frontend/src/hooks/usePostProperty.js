@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
 import { handelRemoveToken } from "../store/slice";
+import axiosInstance from "../utils/axiosInstance";
 
 const usePostProperty = () => {
   const dispatch = useDispatch();
@@ -162,24 +162,11 @@ const usePostProperty = () => {
       }
     }
 
-    //=================get the token from localStorage=====================
-
-    let token = JSON.parse(localStorage.getItem("token"));
-
     const postPropertyHandler = async () => {
       setLoading(true);
 
       try {
-        const response = await axios.post(
-          "http://localhost:8080/properties",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axiosInstance.post("/properties", formData);
         if (response.statusText === "Created") {
           alert("Property is posted successfully");
           setFormInputValue(initialState);
@@ -216,8 +203,6 @@ const usePostProperty = () => {
           alert("Please enter all the required fields.");
           return;
         } else {
-          console.log("this is tyring to posting property");
-
           postPropertyHandler();
         }
         break;
@@ -236,7 +221,6 @@ const usePostProperty = () => {
           !city ||
           !expectedPrice
         ) {
-          console.log(`Residential Plot/Land => entered`);
           alert(`Please filled all the fields`);
         } else {
           postPropertyHandler();
@@ -350,18 +334,20 @@ const usePostProperty = () => {
   //================throttling functionality on cites search============================
 
   const handelSearchCity = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/cities-localities?city=${formInputValue?.city}`
-      );
-      if (response?.statusText === "Created") {
-        let cities = response?.data?.data?.map((item) => {
-          return item.name;
-        });
-        setCities(cities);
+    if (formInputValue.city) {
+      try {
+        const response = await axiosInstance.get(
+          `/cities-localities?city=${formInputValue?.city}`
+        );
+        if (response?.statusText === "Created") {
+          let cities = response?.data?.data?.map((item) => {
+            return item.name;
+          });
+          setCities(cities);
+        }
+      } catch (error) {
+        console.log(`city search error: ${error?.message}`);
       }
-    } catch (error) {
-      console.log(`city search error: ${error?.message}`);
     }
   };
 
@@ -380,19 +366,21 @@ const usePostProperty = () => {
   //===============throttling functionality on locality search===============================
 
   const handelSearchLocality = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/cities-localities?city=${formInputValue?.city}&locality=${formInputValue.locality}`
-      );
+    if (formInputValue.city && formInputValue.locality) {
+      try {
+        const response = await axiosInstance.get(
+          `/cities-localities?city=${formInputValue?.city}&locality=${formInputValue.locality}`
+        );
 
-      if (response?.statusText === "Created") {
-        let localities = response?.data?.data[0]?.localities?.map((item) => {
-          return item.name;
-        });
-        setLocalities(localities);
+        if (response?.statusText === "Created") {
+          let localities = response?.data?.data[0]?.localities?.map((item) => {
+            return item.name;
+          });
+          setLocalities(localities);
+        }
+      } catch (error) {
+        console.log(`locality search error: ${error?.message}`);
       }
-    } catch (error) {
-      console.log(`locality search error: ${error?.message}`);
     }
   };
 

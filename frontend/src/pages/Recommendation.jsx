@@ -2,15 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import PropertyTypeList from "../components/home/PropertyTypeList";
-import { Button, Input } from "../components";
+import { Input } from "../components";
 import { location, upDownArrow } from "../utils/icons";
-import useProperties from "../hooks/useProperties";
 import useRecommended from "../hooks/useRecommended";
 import { ListProperty, Loader } from "../components/index";
 import {
-  handelPriceLowToHigh,
-  handelPriceHighToLow,
-  handelMostRecent,
+  handelRecommendedMostRecent,
+  handelRecommendedHighToLow,
+  handelRecommendedLowToHigh,
 } from "../store/slice";
 
 const Recommendation = () => {
@@ -56,14 +55,14 @@ const Recommendation = () => {
                 <PropertyTypeList
                   handelChangePropertyType={handelChangePropertyType}
                   property={property}
-                  text="Exchange Property"
-                  name="Exchange Property"
+                  text="Exchange"
+                  name="Exchange"
                 />
                 <PropertyTypeList
                   handelChangePropertyType={handelChangePropertyType}
                   property={property}
-                  text="Partnership Property"
-                  name="Partnership Property"
+                  text="Partnership"
+                  name="Partnership"
                 />
               </ul>
             </div>
@@ -185,7 +184,7 @@ const Recommendation = () => {
               >
                 <li
                   onClick={() => {
-                    dispatch(handelPriceLowToHigh());
+                    dispatch(handelRecommendedLowToHigh());
                   }}
                 >
                   <p className="max-sm:text-xs capitalize">
@@ -194,7 +193,7 @@ const Recommendation = () => {
                 </li>
                 <li
                   onClick={() => {
-                    dispatch(handelPriceHighToLow());
+                    dispatch(handelRecommendedHighToLow());
                   }}
                 >
                   <p className="max-sm:text-xs capitalize">
@@ -203,7 +202,7 @@ const Recommendation = () => {
                 </li>
                 <li
                   onClick={() => {
-                    dispatch(handelMostRecent());
+                    dispatch(handelRecommendedMostRecent());
                   }}
                 >
                   <p className="max-sm:text-xs capitalize">Most Recent</p>
@@ -213,7 +212,8 @@ const Recommendation = () => {
           </div>
           <hr />
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">
-            {data.length} results | Property {`in Dehradun`} for Sale
+            {data.length} results | {recommendedFilter?.city}  Property for{" "}
+            {property}
           </p>
           <ListProperty propertiesList={data} />
         </div>

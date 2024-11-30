@@ -10,7 +10,6 @@ const useHandpicked = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [handpickedFilter, setHandpickedFilter] = useState({
-    propertyPurpose: "",
     propertyType: "",
     city: "",
   });
@@ -35,12 +34,12 @@ const useHandpicked = () => {
   };
 
   // -----------------------fetch handpicked properties ----------------
-  const fetchProperties = async () => {
+  const fetchProperties = useCallback(async () => {
     setMessage("");
     try {
       setIsLoading(true);
       let response = await axiosInstance.get(
-        `http://localhost:8080/handpicked-properties?propertyPurpose=${handpickedFilter.propertyPurpose}&propertyType=${handpickedFilter.propertyType}&city=${handpickedFilter.city}`
+        `/handpicked-properties?propertyPurpose=${property}&propertyType=${handpickedFilter?.propertyType}&city=${handpickedFilter?.city}`
       );
       if (response?.statusText === "OK") {
         dispatch(handelFetchHandpickedProperties(response?.data?.data));
@@ -52,25 +51,27 @@ const useHandpicked = () => {
         setMessage(error?.response?.data?.error);
       }
     }
-  };
+  }, [handpickedFilter, property]);
 
   useEffect(() => {
     fetchProperties();
-  }, [handpickedFilter]);
+  }, [handpickedFilter, property]);
 
   // -----------------throttling functionality on cites search-------------------------------
 
   const handelSearchCity = useCallback(async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/cities-localities?city=${searchCity.city}`
-      );
+    if (searchCity.city) {
+      try {
+        const response = await axiosInstance.get(
+          `/cities-localities?city=${searchCity.city}`
+        );
 
-      if (response?.statusText === "Created") {
-        setCities(response?.data?.data);
+        if (response?.statusText === "Created") {
+          setCities(response?.data?.data);
+        }
+      } catch (error) {
+        console.log(`city search error: ${error?.message}`);
       }
-    } catch (error) {
-      console.log(`city search error: ${error?.message}`);
     }
   }, [searchCity]);
 
