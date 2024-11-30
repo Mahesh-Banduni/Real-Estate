@@ -122,9 +122,6 @@ const useWishlist = () => {
   };
 
   const markFavoriteProperty = async (id) => {
-    console.log("mark favorite");
-    console.log(id);
-
     try {
       const response = await axiosInstance.post(`/favorite-properties`, {
         propertyId: id,
