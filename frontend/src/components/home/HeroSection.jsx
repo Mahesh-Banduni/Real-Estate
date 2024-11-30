@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { heroSectionBackground } from "../../utils/icons";
 import PropertyTypeList from "./PropertyTypeList";
 import PropertyType from "./PropertyType";
-import RecentSearch from "./RecentSearch";
 import { useDispatch } from "react-redux";
 import { handelUpdateFilters } from "../../store/slice";
 
@@ -15,7 +14,6 @@ const HeroSection = () => {
     setProperty(name);
   };
 
-  let searchHistory = ["land in dehradun", "properties in delhi"];
   return (
     <div
       style={{ backgroundImage: `url(${heroSectionBackground})` }}
@@ -54,12 +52,6 @@ const HeroSection = () => {
           </ul>
         </div>
         <PropertyType property={property} />
-        <div className="flex items-center gap-5 mt-5 text-[#8F90A6] text-base max-sm:hidden ">
-          Recent Searches:
-          {searchHistory?.map((item, index) => {
-            return <RecentSearch key={index} text={item} />;
-          })}
-        </div>
       </div>
     </div>
   );

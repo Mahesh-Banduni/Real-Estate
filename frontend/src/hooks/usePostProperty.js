@@ -170,6 +170,7 @@ const usePostProperty = () => {
         if (response.statusText === "Created") {
           alert("Property is posted successfully");
           setFormInputValue(initialState);
+          navigate("/properties");
         }
       } catch (error) {
         if (error.status === 401) {

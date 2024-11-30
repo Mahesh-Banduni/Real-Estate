@@ -30,22 +30,15 @@ const useWishlist = () => {
     setMessage("");
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get(`/favorite-properties`, {
-        params: {
-          propertyPurpose: property,
-          propertyType: ownedFilter.propertyType,
-          city: ownedFilter.city,
-          locality: ownedFilter.locality,
-          minPrice: ownedFilter.minPrice,
-          maxPrice: ownedFilter.maxPrice,
-        },
-      });
+      const response = await axiosInstance.get(`/favorite-properties`);
+      console.log(response);
 
       if (response.statusText === "OK") {
         dispatch(handleFetchWishlistProperties(response?.data?.data));
       }
       setIsLoading(false);
     } catch (error) {
+      console.log(error);
       setMessage(error.response?.data?.error || "Failed to fetch properties.");
       setIsLoading(false);
     }
@@ -129,9 +122,12 @@ const useWishlist = () => {
   };
 
   const markFavoriteProperty = async (id) => {
+    console.log("mark favorite");
+    console.log(id);
+
     try {
       const response = await axiosInstance.post(`/favorite-properties`, {
-        propertyId: `${id}`,
+        propertyId: id,
       });
       if (response.statusText === "OK") {
         fetchWishlistProperties();

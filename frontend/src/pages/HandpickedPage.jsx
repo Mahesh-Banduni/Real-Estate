@@ -7,9 +7,9 @@ import { location, upDownArrow } from "../utils/icons";
 import useHandpicked from "../hooks/useHandpicked";
 import { ListProperty, Loader } from "../components/index";
 import {
-  handelPriceLowToHigh,
-  handelPriceHighToLow,
-  handelMostRecent,
+  handelHandpickedLowToHigh,
+  handelHandpickedHighToLow,
+  handelHandpickedMostRecent,
 } from "../store/slice";
 
 const HandpickedPage = () => {
@@ -64,8 +64,8 @@ const HandpickedPage = () => {
                 />
               </ul>
             </div>
-            <div className="flex gap-5 items-center justify-start w-full">
-              <div className="flex w-1/3">
+            <div className="flex gap-5 items-center justify-start w-full max-sm:flex-col max-sm:items-start max-sm:justify-start">
+              <div className="flex w-1/3 max-md:w-2/5">
                 {property === "exchange property" ? (
                   <div className="flex items-center gap-2">
                     <Input
@@ -128,7 +128,7 @@ const HandpickedPage = () => {
                 value={handpickedFilter?.propertyType}
                 onChange={handelChangeInputFields}
                 name="propertyType"
-                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 max-[1120px]:w-full outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
+                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
               >
                 <option defaultValue="">Select Property Type</option>
 
@@ -163,7 +163,7 @@ const HandpickedPage = () => {
                 properties
               </button>
             </div>
-            {/* <div className="dropdown dropdown-hover bg-transparent hover:bg-transparent m-0">
+            <div className="dropdown dropdown-hover bg-transparent hover:bg-transparent m-0">
               <div
                 tabIndex={0}
                 role="button"
@@ -182,7 +182,7 @@ const HandpickedPage = () => {
               >
                 <li
                   onClick={() => {
-                    dispatch(handelPriceLowToHigh());
+                    dispatch(handelHandpickedLowToHigh());
                   }}
                 >
                   <p className="max-sm:text-xs capitalize">
@@ -191,7 +191,7 @@ const HandpickedPage = () => {
                 </li>
                 <li
                   onClick={() => {
-                    dispatch(handelPriceHighToLow());
+                    dispatch(handelHandpickedHighToLow());
                   }}
                 >
                   <p className="max-sm:text-xs capitalize">
@@ -200,13 +200,13 @@ const HandpickedPage = () => {
                 </li>
                 <li
                   onClick={() => {
-                    dispatch(handelMostRecent());
+                    dispatch(handelHandpickedMostRecent());
                   }}
                 >
                   <p className="max-sm:text-xs capitalize">Most Recent</p>
                 </li>
               </ul>
-            </div> */}
+            </div>
           </div>
           <hr />
           <p className="text-[#8F90A6] text-lg font-interRegular py-2 max-sm:text-sm">

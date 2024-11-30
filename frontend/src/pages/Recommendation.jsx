@@ -66,8 +66,8 @@ const Recommendation = () => {
                 />
               </ul>
             </div>
-            <div className="flex gap-5 items-center justify-start w-full">
-              <div className="flex w-1/3">
+            <div className="flex gap-5 items-center justify-start w-full max-sm:flex-col max-sm:items-start max-sm:justify-start">
+              <div className="flex w-1/3 max-md:w-2/5 ">
                 {property === "exchange property" ? (
                   <div className="flex items-center gap-2 w-full">
                     <Input
@@ -130,7 +130,7 @@ const Recommendation = () => {
                 value={recommendedFilter?.propertyType}
                 onChange={handelChangeInputFields}
                 name="propertyType"
-                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 max-[1120px]:w-full outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
+                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
               >
                 <option defaultValue="">Select Property Type</option>
 
