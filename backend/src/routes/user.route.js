@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/user.controller.js');
-const userLoginController = require('../controllers/user.login.controller.js');
+const userController = require("../controllers/user.controller.js");
+const userLoginController = require("../controllers/user.login.controller.js");
 const auth = require("../middleware/auth.js");
-const { registerLimiter } = require('../middleware/rate.limitter.js');
+const { registerLimiter } = require("../middleware/rate.limitter.js");
 
 /**
  * @swagger
@@ -41,7 +41,7 @@ const { registerLimiter } = require('../middleware/rate.limitter.js');
  *       400:
  *         description: Bad request
  */
-router.post('/register',registerLimiter, userController.createUser);
+router.post("/register", registerLimiter, userController.createUser);
 
 /**
  * @swagger
@@ -64,7 +64,7 @@ router.post('/register',registerLimiter, userController.createUser);
  *       404:
  *         description: User not found
  */
-router.get('/:id', userController.getUserById);
+router.get("/:id", userController.getUserById);
 
 /**
  * @swagger
@@ -96,11 +96,11 @@ router.get('/:id', userController.getUserById);
  *       500:
  *         description: Internal server error
  */
-router.get('/', userController.getAllUsers);
+router.get("/", userController.getAllUsers);
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/update:
  *   put:
  *     summary: Update user by ID
  *     description: Update a user's information by their ID
@@ -116,9 +116,6 @@ router.get('/', userController.getAllUsers);
  *               email:
  *                 type: string
  *                 description: Updated user's email
- *               phone:
- *                 type: string
- *                 description: Updated user's phone
  *               password:
  *                 type: string
  *                 description: Updated user's password
@@ -130,7 +127,7 @@ router.get('/', userController.getAllUsers);
  *       404:
  *         description: User not found
  */
-router.put('/:id',auth, userController.updateUser);
+router.put("/update", auth, userController.updateUser);
 
 /**
  * @swagger
@@ -153,7 +150,7 @@ router.put('/:id',auth, userController.updateUser);
  *       404:
  *         description: User not found
  */
-router.delete('/:id', userController.deleteUser);
+router.delete("/:id", userController.deleteUser);
 
 /**
  * @swagger
@@ -194,44 +191,6 @@ router.delete('/:id', userController.deleteUser);
  *       404:
  *         description: User not found
  */
-router.put('/:id/change-password', userController.changePassword);
-
-/**
- * @swagger
- * /users/{id}/reset-password:
- *   put:
- *     summary: Reset User Password
- *     description: Reset user's password
- *     tags:
- *       - Users
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: User ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               newPassword:
- *                 type: string
- *                 description: Reset user's new password
- *               confirmNewPassword:
- *                 type: string
- *                 description: Reset user's confirm new password
- *     responses:
- *       200:
- *         description: User password has been reset successfully
- *       400:
- *         description: Bad request
- *       404:
- *         description: User not found
- */
-router.put('/:id/reset-password', userController.resetPassword);
+router.put("/:id/change-password", userController.changePassword);
 
 module.exports = router;

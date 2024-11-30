@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
-const cors = require('cors');
-const helmet = require('helmet');
+const cors = require("cors");
+const helmet = require("helmet");
 // const expressPino = require('express-pino-logger');
 // const logger = require('./configs/winston.config.js');
-const crypto = require('crypto');
+const crypto = require("crypto");
 const compression = require("compression");
 const connectDb = require("./configs/mongodb.connection.config.js");
 const userRoutes = require("./routes/user.route");
 const userAuthRoutes = require("./routes/user.login.route.js");
-const userProfileRoutes= require("./routes/user.profile.route");
+const userProfileRoutes = require("./routes/user.profile.route");
 const propertyRoutes = require("./routes/property.route.js");
 const searchPropertyRoutes = require("./routes/search.property.route.js");
 const handpickedPropertyRoutes = require("./routes/handpicked.property.route.js");
@@ -23,12 +23,12 @@ const citySearchRoutes = require("./routes/city.route.js");
 const auctionPropertyRoutes = require("./routes/auction.property.route.js");
 const allAuctionPropertyRoutes = require("./routes/all.auction.property.route.js");
 const auctionPropertyInquiry = require("./routes/auction.property.inquiry.route.js");
-const { requestCounter } = require('./middleware/req.count.js');
-
+const { requestCounter } = require("./middleware/req.count.js");
+const resetPasswordRoutes = require("./routes/reset.password.route.js");
 const { errorHandler } = require("./middleware/error.handler.js");
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./swagger');
-require('dotenv').config();
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
+require("dotenv").config();
 
 connectDb();
 
@@ -36,15 +36,20 @@ app.use(requestCounter);
 
 app.use(compression());
 
-app.use(cors({
-      origin: [`http://${process.env.ORIGIN}:${process.env.ORIGIN_PORT}`,'192.168.137.159:8080'],
-      methods: ['GET', 'POST', 'PUT','PATCH','DELETE'], // Restrict methods
-      allowedHeaders: ['Content-Type', 'Authorization'], 
-}));
+app.use(
+  cors({
+    origin: [
+      `http://${process.env.ORIGIN}:${process.env.ORIGIN_PORT}`,
+      "192.168.137.159:8080",
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Restrict methods
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // Middleware to generate a CSP nonce
 app.use((req, res, next) => {
-  res.locals.cspNonce = crypto.randomBytes(32).toString('base64'); // Use 32 bytes for better performance while retaining good randomness
+  res.locals.cspNonce = crypto.randomBytes(32).toString("base64"); // Use 32 bytes for better performance while retaining good randomness
   next();
 });
 
@@ -56,7 +61,7 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.cspNonce}'`], // Proper function-based nonce usage
-        styleSrc: ["'self'",  (req, res) => `'nonce-${res.locals.cspNonce}'`], // Avoid 'unsafe-inline' when possible
+        styleSrc: ["'self'", (req, res) => `'nonce-${res.locals.cspNonce}'`], // Avoid 'unsafe-inline' when possible
         imgSrc: ["'self'", "data:"],
         objectSrc: ["'none'"],
         fontSrc: ["'self'"],
@@ -78,29 +83,30 @@ app.use(
     },
     xContentTypeOptions: true,
     dnsPrefetchControl: { allow: false },
-    frameguard: { action: 'deny' }, // Correcting usage (consistent terminology)
+    frameguard: { action: "deny" }, // Correcting usage (consistent terminology)
     originAgentCluster: true,
   })
 );
 
 app.use(express.json());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use('/users', userRoutes); 
-app.use('/user-profiles', userProfileRoutes);
-app.use('/userauth', userAuthRoutes);
-app.use('/properties', propertyRoutes);
-app.use('/search-properties',searchPropertyRoutes);
-app.use('/handpicked-properties',handpickedPropertyRoutes);
-app.use('/recommended-properties',recommendedPropertyRoutes);
-app.use('/contact-forms',contactFormRoutes);
-app.use('/cities-localities',citySearchRoutes);
-app.use('/auction-properties',auctionPropertyRoutes);
-app.use('/exchange-properties',exchangePropertyRoutes);
-app.use('/owned-properties',ownedPropertyRoutes);
-app.use('/favorite-properties',favoritePropertyRoutes);
-app.use('/all-auction-properties',allAuctionPropertyRoutes);
-app.use('/property-inquiry', propertyInquiry);
-app.use('/auction-property-inquiry', auctionPropertyInquiry);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/users", userRoutes);
+app.use("/user-profiles", userProfileRoutes);
+app.use("/userauth", userAuthRoutes);
+app.use("/properties", propertyRoutes);
+app.use("/search-properties", searchPropertyRoutes);
+app.use("/handpicked-properties", handpickedPropertyRoutes);
+app.use("/recommended-properties", recommendedPropertyRoutes);
+app.use("/contact-forms", contactFormRoutes);
+app.use("/cities-localities", citySearchRoutes);
+app.use("/auction-properties", auctionPropertyRoutes);
+app.use("/exchange-properties", exchangePropertyRoutes);
+app.use("/owned-properties", ownedPropertyRoutes);
+app.use("/favorite-properties", favoritePropertyRoutes);
+app.use("/all-auction-properties", allAuctionPropertyRoutes);
+app.use("/property-inquiry", propertyInquiry);
+app.use("/auction-property-inquiry", auctionPropertyInquiry);
+app.use("/reset-password", resetPasswordRoutes);
 app.use(errorHandler);
 
 // // Request Logger Middleware (using express-pino)
@@ -129,5 +135,7 @@ app.use(errorHandler);
 
 app.listen(process.env.SOURCE_PORT, () => {
   console.log(`App is listening at port ${process.env.SOURCE_PORT}`);
-  console.log(`Swagger Docs available at http://${process.env.SOURCE}:${process.env.SOURCE_PORT}/api-docs`);
+  console.log(
+    `Swagger Docs available at http://${process.env.SOURCE}:${process.env.SOURCE_PORT}/api-docs`
+  );
 });

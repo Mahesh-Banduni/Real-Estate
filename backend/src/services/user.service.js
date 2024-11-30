@@ -91,17 +91,23 @@ const updateUser = async (userId, updateData) => {
   // } else {
   //   throw new BadRequestError('Name is required to update');
   // }
-  const ccode = "91";
-  const phone = ccode.concat(updateData.phone);
+  // const ccode = "91";
+  // const phone = ccode.concat(updateData.phone);
 
   // const existingUser = await User.findOne({ phone });
   // if (existingUser) {
   //   throw new ConflictError("User with this phone number already exists");
   // }
+  const email = updateData.email;
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    throw new ConflictError("User with this email already exists");
+  }
 
-  const password = hashValue.hash(userData.password);
-  user.email = userData.email;
-  user.phone = phone;
+  const password = hashValue.hash(updateData.password);
+  user.email = email;
+
+  //user.phone = phone;
   user.password = password;
 
   await user.save();
@@ -182,12 +188,14 @@ const ownedProperties = async (userId, filters, sortBy, sortOrder) => {
   if (filters.ownership) query.ownership = filters.ownership;
   if (filters.fromCity) query.fromCity = filters.fromCity;
   if (filters.toCity) query.toCity = filters.toCity;
-  if (filters.fromCityLocality) query.fromCityLocality = filters.fromCityLocality;
+  if (filters.fromCityLocality)
+    query.fromCityLocality = filters.fromCityLocality;
   if (filters.toCityLocality) query.toCityLocality = filters.toCityLocality;
-  if (filters.isHandpickedProperty) query.isHandpickedProperty = filters.isHandpickedProperty;
-  if (filters.isRecommendedProperty) query.isRecommendedProperty = filters.isRecommendedProperty;
+  if (filters.isHandpickedProperty)
+    query.isHandpickedProperty = filters.isHandpickedProperty;
+  if (filters.isRecommendedProperty)
+    query.isRecommendedProperty = filters.isRecommendedProperty;
   if (filters.propertyStatus) query.propertyStatus = filters.propertyStatus;
-
 
   // Budget filter (minPrice and maxPrice)
   if (filters.minPrice || filters.maxPrice) {
@@ -198,18 +206,20 @@ const ownedProperties = async (userId, filters, sortBy, sortOrder) => {
 
   // Define sorting
   let sortCriteria = {};
-  if (sortBy === 'price') {
+  if (sortBy === "price") {
     sortCriteria.expectedPrice = sortOrder; // 1 for ascending, -1 for descending
-  } else if (sortBy === 'dateListed') {
-      sortCriteria.dateListed = sortOrder; // 1 for ascending, -1 for descending (most recent first)
+  } else if (sortBy === "dateListed") {
+    sortCriteria.dateListed = sortOrder; // 1 for ascending, -1 for descending (most recent first)
   }
-  
+
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).exec();
+  const filteredProperties = await Property.find(query)
+    .sort(sortCriteria)
+    .exec();
   //console.log(filteredProperties.length);
-  
+
   if (!filteredProperties || filteredProperties.length === 0) {
-    throw new NotFoundError('No properties found');
+    throw new NotFoundError("No properties found");
   }
   // const filteredPropertiesResponse = encrypt(JSON.stringify(filteredProperties), process.env.ENCRYPTION_KEY);
   // return filteredPropertiesResponse;
@@ -225,7 +235,7 @@ const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
   // const property = await Property.findById(propertyId).populate('user', '_id name phone');
 
   //const query = { user: userId };
-  const query={};
+  const query = {};
 
   // Apply filters
   if (filters.propertyPurpose) query.propertyPurpose = filters.propertyPurpose;
@@ -235,12 +245,14 @@ const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
   if (filters.ownership) query.ownership = filters.ownership;
   if (filters.fromCity) query.fromCity = filters.fromCity;
   if (filters.toCity) query.toCity = filters.toCity;
-  if (filters.fromCityLocality) query.fromCityLocality = filters.fromCityLocality;
+  if (filters.fromCityLocality)
+    query.fromCityLocality = filters.fromCityLocality;
   if (filters.toCityLocality) query.toCityLocality = filters.toCityLocality;
-  if (filters.isHandpickedProperty) query.isHandpickedProperty = filters.isHandpickedProperty;
-  if (filters.isRecommendedProperty) query.isRecommendedProperty = filters.isRecommendedProperty;
+  if (filters.isHandpickedProperty)
+    query.isHandpickedProperty = filters.isHandpickedProperty;
+  if (filters.isRecommendedProperty)
+    query.isRecommendedProperty = filters.isRecommendedProperty;
   if (filters.propertyStatus) query.propertyStatus = filters.propertyStatus;
-
 
   // Budget filter (minPrice and maxPrice)
   if (filters.minPrice || filters.maxPrice) {
@@ -251,30 +263,29 @@ const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
 
   // Define sorting
   let sortCriteria = {};
-  if (sortBy === 'price') {
+  if (sortBy === "price") {
     sortCriteria.expectedPrice = sortOrder; // 1 for ascending, -1 for descending
-  } else if (sortBy === 'dateListed') {
-      sortCriteria.dateListed = sortOrder; // 1 for ascending, -1 for descending (most recent first)
+  } else if (sortBy === "dateListed") {
+    sortCriteria.dateListed = sortOrder; // 1 for ascending, -1 for descending (most recent first)
   }
-  
+
   // Query database with filters and sorting
   //const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', 'favoriteProperties').exec();
   const user = await User.findById(userId).populate({
-    path: 'favoriteProperties', // Field to populate
-    model: 'Property', // Target model
+    path: "favoriteProperties", // Field to populate
+    model: "Property", // Target model
     match: query, // Apply filters
   });
 
   //console.log(user.favoriteProperties.length);
-  
+
   if (user.favoriteProperties.length === 0) {
-    throw new NotFoundError('No properties found');
+    throw new NotFoundError("No properties found");
   }
   // const filteredPropertiesResponse = encrypt(JSON.stringify(filteredProperties), process.env.ENCRYPTION_KEY);
   // return filteredPropertiesResponse;
   return user;
 };
-
 
 module.exports = {
   createUser,
@@ -285,5 +296,5 @@ module.exports = {
   changePassword,
   resetPassword,
   ownedProperties,
-  favoriteProperties
+  favoriteProperties,
 };

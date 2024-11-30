@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userLoginController = require('../controllers/user.login.controller.js');
-const { loginLimiter } = require('../middleware/rate.limitter.js');
+const userLoginController = require("../controllers/user.login.controller.js");
+const { loginLimiter } = require("../middleware/rate.limitter.js");
 
 /**
  * @swagger
@@ -33,7 +33,7 @@ const { loginLimiter } = require('../middleware/rate.limitter.js');
  *       401:
  *         description: Unauthorized (Invalid credentials)
  */
-router.post('/login',loginLimiter, userLoginController.loginUser);
+router.post("/login", loginLimiter, userLoginController.loginUser);
 
 /**
  * @swagger
@@ -65,7 +65,7 @@ router.post('/login',loginLimiter, userLoginController.loginUser);
  *       401:
  *         description: Unauthorized (Invalid OTP)
  */
-router.post('/verify-otp', userLoginController.verifyLoginOTP);
+router.post("/verify-otp", userLoginController.verifyLoginOTP);
 
 /**
  * @swagger
@@ -79,7 +79,7 @@ router.post('/verify-otp', userLoginController.verifyLoginOTP);
  *       200:
  *         description: Logout successful
  */
-router.post('/logout', userLoginController.logoutUser);
+router.post("/logout", userLoginController.logoutUser);
 
 /**
  * @swagger
@@ -96,7 +96,7 @@ router.post('/logout', userLoginController.logoutUser);
  *           schema:
  *             type: object
  *             properties:
- *               phoneNumber:
+ *               email:
  *                 type: string
  *                 description: User Phone Number
  *     responses:
@@ -107,6 +107,6 @@ router.post('/logout', userLoginController.logoutUser);
  *       404:
  *         description: User not found
  */
-router.post('/forget-password', userLoginController.forgetPassword);
+router.post("/forget-password", userLoginController.forgetPassword);
 
 module.exports = router;

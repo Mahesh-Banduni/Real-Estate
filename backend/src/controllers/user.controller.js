@@ -11,8 +11,8 @@ const createUser = async (req, res, next) => {
       "User id:" + `${user._id}` + " has been registered successfully"
     );
     res.status(201).json({
-        success: true,
-        data: {response}
+      success: true,
+      data: { response },
     });
   } catch (error) {
     console.log(error);
@@ -51,13 +51,14 @@ const updateUser = async (req, res, next) => {
   try {
     const updatedUser = await userService.updateUser(req.user.id, req.body);
     logger.info(
-      "User id:" + `${user._id}` + " has updated his data successfully"
+      "User id:" + `${updatedUser._id}` + " has updated his data successfully"
     );
     res.status(200).json({
       success: true,
       data: updatedUser,
     });
   } catch (error) {
+    //console.log(error);
     next(error);
   }
 };
@@ -127,7 +128,7 @@ const changePassword = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
   try {
     const response = await userService.resetPassword(
-      req.params.id,
+      req.user.id,
       req.body.newPassword,
       req.body.confirmNewPassword
     );
@@ -162,7 +163,7 @@ const ownedProperties = async (req, res, next) => {
     // Access sorting parameters from the query
     const sortBy = req.query.sortBy; // price or dateListed
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
-    const userId= req.user.id;
+    const userId = req.user.id;
     //console.log(userId);
 
     const properties = await userService.ownedProperties(
@@ -201,7 +202,7 @@ const favoriteProperties = async (req, res, next) => {
     // Access sorting parameters from the query
     const sortBy = req.query.sortBy; // price or dateListed
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1; // 'desc' for descending, 'asc' or default for ascending
-    const userId= req.user.id;
+    const userId = req.user.id;
     //console.log(userId);
 
     const user = await userService.favoriteProperties(
@@ -230,5 +231,5 @@ module.exports = {
   changePassword,
   resetPassword,
   ownedProperties,
-  favoriteProperties
+  favoriteProperties,
 };
