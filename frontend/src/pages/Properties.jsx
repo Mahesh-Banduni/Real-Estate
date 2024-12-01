@@ -76,69 +76,51 @@ const Properties = () => {
               />
             </ul>
             {/*---------------------- filters---------------------------- */}
-            <div className="flex gap-5 items-center justify-start w-full">
-              <div className="flex w-fit max-xl:w-[20rem]">
-                {property === "exchange property" ? (
-                  <div className="flex items-center gap-2">
-                    <Input
-                      className={"bg-transparent p-2 w-full max-sm:py-1"}
-                      icon={location}
-                      type={"text"}
-                      placeholder={"From City"}
-                    />
-                    <Input
-                      className={"bg-transparent p-2 w-full max-sm:py-1"}
-                      icon={location}
-                      type={"text"}
-                      placeholder={"To City"}
-                    />
-                  </div>
-                ) : (
-                  <div className="relative w-full ">
-                    <Input
-                      value={filterCity}
-                      name="city"
-                      handelChangeInputField={handelChangeInputField}
-                      className={"bg-transparent p-2 w-full max-sm:py-1"}
-                      icon={location}
-                      type={"text"}
-                      placeholder={"Please enter your location"}
-                    />
-                    {cities?.length > 0 && toggle ? (
-                      <div
-                        className={`absolute bg-white h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
+            <div className="flex gap-5 items-center justify-start w-full max-md:flex-col max-md:items-start max-md:justify-center max-md:w-2/5 max-sm:w-3/4 ">
+              <div className="flex w-fit max-xl:w-[20rem] max-md:w-full">
+                <div className="relative w-full ">
+                  <Input
+                    value={filterCity}
+                    name="city"
+                    handelChangeInputField={handelChangeInputField}
+                    className={"bg-transparent p-2 w-full max-sm:py-1"}
+                    icon={location}
+                    type={"text"}
+                    placeholder={"Please enter your location"}
+                  />
+                  {cities?.length > 0 && toggle ? (
+                    <div
+                      className={`absolute bg-white h-[30vh] overflow-auto shadow-lg shadow-slate-600 z-20 w-52 border-2 border-primary-color outline-none`}
+                    >
+                      <ul
+                        className={`w-full bg-white font-interRegular text-sm flex flex-col h-full`}
                       >
-                        <ul
-                          className={`w-full bg-white font-interRegular text-sm flex flex-col h-full`}
-                        >
-                          {cities?.map((item, index) => {
-                            return (
-                              <li
-                                onClick={() => {
-                                  handelSelectCity(item);
-                                }}
-                                className="w-full cursor-pointer border-b-2 p-3 border-primary-color transition-all text-slate-800 hover:bg-gray-200"
-                                key={index}
-                              >
-                                {item?.name}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                )}
+                        {cities?.map((item, index) => {
+                          return (
+                            <li
+                              onClick={() => {
+                                handelSelectCity(item);
+                              }}
+                              className="w-full cursor-pointer border-b-2 p-3 border-primary-color transition-all text-slate-800 hover:bg-gray-200"
+                              key={index}
+                            >
+                              {item?.name}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
-
               {/* property type select input */}
               <select
                 value={propertyFilter?.propertyType}
                 onChange={handelChangeDropdown}
                 name="propertyType"
-                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm `}
+                className={`rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none active:border-none active:outline-none hover:outline-none max-sm:text-sm max-md:w-full `}
               >
                 <option defaultValue=" ">Select Property Type</option>
 
@@ -171,7 +153,7 @@ const Properties = () => {
                 }
                 onChange={handelChangeDropdown}
                 name="priceRange"
-                className="rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none hover:outline-none max-sm:text-sm"
+                className="rounded-none w-fit text-[#4B4B4B] border border-primary-color py-2 px-1 outline-none hover:outline-none max-sm:text-sm max-md:w-full"
               >
                 <option value="">Select Price Range</option>
                 <option value="0-2500000">Under Rs 25 Lakh</option>
@@ -188,7 +170,7 @@ const Properties = () => {
           </div>
           <hr />
           {/*------------------------------- properties button ----------------------------- */}
-          <div className=" pt-2 flex items-center justify-between max-[450px]:justify-center max-[450px]:gap-[0.15rem] ">
+          <div className=" pt-2 flex items-center justify-between ">
             <div className=" flex items-center gap-5 tracking-wider max-sm:tracking-normal max-sm:gap-2 max-[450px]:gap-1 ">
               <button
                 className={`text-white bg-primary-color px-5 py-2 uppercase transition-all cursor-pointer max-sm:text-sm max-sm:px-2 max-sm:py-1 max-[450px]:text-xs max-[350px]:text-[0.65rem] max-[450px]:px-1`}
