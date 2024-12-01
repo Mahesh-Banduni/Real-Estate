@@ -53,14 +53,14 @@ const HandpickedPage = () => {
                 <PropertyTypeList
                   handelChangePropertyType={handelChangePropertyType}
                   property={property}
-                  text="Exchange Property"
-                  name="Exchange Property"
+                  text="Exchange"
+                  name="Exchange"
                 />
                 <PropertyTypeList
                   handelChangePropertyType={handelChangePropertyType}
                   property={property}
-                  text="Partnership Property"
-                  name="Partnership Property"
+                  text="Partnership"
+                  name="Partnership"
                 />
               </ul>
             </div>

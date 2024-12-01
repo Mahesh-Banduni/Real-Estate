@@ -31,7 +31,6 @@ const useWishlist = () => {
     try {
       setIsLoading(true);
       const response = await axiosInstance.get(`/favorite-properties`);
-      console.log(response);
 
       if (response.statusText === "OK") {
         dispatch(handleFetchWishlistProperties(response?.data?.data));

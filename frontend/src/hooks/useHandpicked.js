@@ -27,6 +27,7 @@ const useHandpicked = () => {
   //--------------------------change input field----------------------
   const handelChangeInputFields = (event) => {
     const { name, value } = event.target;
+
     setHandpickedFilter((preValue) => ({
       ...preValue,
       [name]: value,
