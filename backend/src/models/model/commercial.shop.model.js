@@ -326,8 +326,8 @@ const commercialShopSchema = new mongoose.Schema({
     carpetArea: { type: Number},
     carpetAreaUnit: { type:String, enum:["Sq-ft","Sq-yrd","Sq-m","Acre","Bigha","Hectare","Marla","Kanal","Biswa1","Biswa2","Ground","Aankadam","Rood","Chatak","Kottah","Marla","Cent","Perch","Guntha","Are","Kuncham","Katha","Gaj","Killa"]},
     entranceWidth: { type: Number},
-    entranceWidthUnit: {type:String, enum:["ft","meters"]},
-       
+    entranceWidthUnit: {type:String},
+       //, enum:["ft","meters"]
     //Transaction Type & Property Avialability
     possessionStatus: {type: String, //enum: ["Ready To Move", "Under Construction"]
     },
