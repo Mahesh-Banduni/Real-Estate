@@ -111,7 +111,7 @@ const Header = () => {
           </div>
           <Link to={"#"}>
             <img
-              className="w-16 h-16 max-sm:w-12 max-sm:h-12"
+              className="w-16 h-16 max-sm:w-12 max-sm:h-12 rounded-full"
               src={logo}
               alt="logo"
             />

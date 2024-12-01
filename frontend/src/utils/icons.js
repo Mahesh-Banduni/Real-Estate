@@ -37,7 +37,7 @@ import home from "/images/Home.svg";
 import namaste from "/images/Namaste.svg";
 import google from "/images/Google.svg";
 import facebookLogin from "/images/loginThroughFacebook.svg";
-import logo from "/images/lo-gu.svg";
+import logo from "/images/realEstateLogo.png";
 import listProperty from "/images/listProperty.svg";
 import computer from "/images/computer.svg";
 import heart from "/images/heart_outline.svg";
