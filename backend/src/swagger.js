@@ -10,7 +10,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: `http://${process.env.SOURCE}:${process.env.SOURCE_PORT}`,  // Update this with your app's base URL
+      url: `http://${process.env.SOURCE}:${process.env.SOURCE_PORT}/api/`,  // Update this with your app's base URL
       //description: 'Local server',
     },
   ],
