@@ -20,9 +20,10 @@ const HeroSection = () => {
       className={`bg-cover bg-center bg-no-repeat my-10 w-11/12 mx-auto max-sm:w-[96%] `}
     >
       <div className="px-12 py-14 max-md:px-6 max-md:py-7 max-sm:px-4">
-        <div className="w-2/5 max-md:w-11/12 flex flex-col gap-4">
-          <h1 className=" text-5xl max-sm:text-3xl font-interSemiBold max-sm:text-center">
-            Easy way to find a perfect
+        <div className="w-1/2 max-md:w-11/12 flex flex-col gap-4">
+          <h1 className="text-5xl max-md:text-3xl max-sm:text-2xl font-interSemiBold max-sm:text-center">
+            Easy way to find a perfect{" "}
+            <span className="text-primary-color"> Property </span>
           </h1>
           <p className="text-xl max-sm:text-base text-[#585981] font-interRegular max-sm:text-center">
             We provide a complete service for the sale, purchase or sharing

@@ -1,5 +1,6 @@
 import React from "react";
 import { IoHeartSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 import Heading from "../Heading";
 import {
@@ -18,23 +19,25 @@ const ResidentialFlatProperties = ({ item, markFavorite }) => {
     <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between max-lg:justify-center max-lg:gap-2">
-          <Heading
-            text={`${item?.propertyType} for ${item?.propertyPurpose} in ${item?.city}`}
-            className="normal-case text-xl max-lg:w-3/5 max-md:text-base"
-          />
-          <div className="flex items-center justify-center gap-2">
+          <Link>
+            <Heading
+              text={`${item?.propertyType} for ${item?.propertyPurpose} in ${item?.city}`}
+              className="normal-case text-xl max-lg:w-3/5 max-md:text-base"
+            />
+          </Link>
+          <div className="z-20 flex items-center justify-center gap-2">
             {markFavorite ? (
               <IoHeartSharp
-                onClick={() => {
-                  unMarkFavoriteProperty(item._id);
+                onClick={(event) => {
+                  unMarkFavoriteProperty(event, item._id);
                 }}
                 className="w-6 h-6 text-red-500 cursor-pointer"
               />
             ) : (
               <img
                 className="cursor-pointer"
-                onClick={() => {
-                  markFavoriteProperty(item._id);
+                onClick={(event) => {
+                  markFavoriteProperty(event, item._id);
                 }}
                 src={heart}
                 alt="wishlist"

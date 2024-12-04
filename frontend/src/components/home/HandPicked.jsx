@@ -43,11 +43,20 @@ const HandPicked = () => {
           loop={true}
           pagination={false}
           breakpoints={{
-            1000: {
+            1280: {
               slidesPerView: 3.5,
             },
-            720: {
-              slidesPerView: 2.2,
+            1150: {
+              slidesPerView: 3.2,
+            },
+            1000: {
+              slidesPerView: 3,
+            },
+            820: {
+              slidesPerView: 2.5,
+            },
+            600: {
+              slidesPerView: 2.1,
             },
             470: {
               slidesPerView: 1.7,

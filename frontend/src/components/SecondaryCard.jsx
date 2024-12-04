@@ -18,7 +18,7 @@ const SecondaryCard = ({ pic, text }) => {
       to={"/properties"}
       className="flex items-center justify-center flex-col gap-5"
     >
-      <img src={pic} alt="city" />
+      <img className="w-[18rem]" src={pic} alt="city" />
       <h1 className="text-[#000000] font-interMedium uppercase"> {text} </h1>
     </div>
   );

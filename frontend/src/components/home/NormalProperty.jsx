@@ -43,9 +43,7 @@ const NormalProperty = ({ property }) => {
               label={"from City"}
               name="city"
               handelChangeInputField={handelChangeInputField}
-              className={
-                "bg-transparent py-3 px-2 rounded-md w-full max-sm:py-1"
-              }
+              className={"bg-transparent py-3 px-2 rounded-md w-full"}
               icon={location}
               type={"text"}
               placeholder={"Please enter your location"}
@@ -81,9 +79,7 @@ const NormalProperty = ({ property }) => {
               label={"Enter City"}
               name="city"
               handelChangeInputField={handelChangeInputField}
-              className={
-                "bg-transparent py-3 px-2 rounded-md w-full max-sm:py-1"
-              }
+              className={"bg-transparent py-3 px-2 rounded-md w-full"}
               icon={location}
               type={"text"}
               placeholder={"Please enter your location"}

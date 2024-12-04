@@ -26,16 +26,16 @@ const ResidentialHouseProperties = ({ item, markFavorite }) => {
           <div className="flex items-center justify-center gap-2">
             {markFavorite ? (
               <IoHeartSharp
-                onClick={() => {
-                  unMarkFavoriteProperty(item._id);
+                onClick={(event) => {
+                  unMarkFavoriteProperty(event, item._id);
                 }}
                 className="w-6 h-6 text-red-500 cursor-pointer"
               />
             ) : (
               <img
                 className="cursor-pointer"
-                onClick={() => {
-                  markFavoriteProperty(item._id);
+                onClick={(event) => {
+                  markFavoriteProperty(event, item._id);
                 }}
                 src={heart}
                 alt="wishlist"

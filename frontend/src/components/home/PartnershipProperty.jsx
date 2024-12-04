@@ -26,7 +26,10 @@ const PartnershipProperty = () => {
         <Button className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]">
           Auction property
         </Button>
-        <Heading className="max-sm:text-center" text="Auction Properties" />
+        <Heading
+          className="max-sm:text-center max-sm:text-xl"
+          text="Auction Properties"
+        />
         <div className="flex items-end justify-between max-sm:flex-col max-sm:items-center max-sm:gap-2 ">
           <Paragraph
             text={
@@ -44,11 +47,20 @@ const PartnershipProperty = () => {
           loop={true}
           pagination={false}
           breakpoints={{
-            1000: {
+            1280: {
               slidesPerView: 3.5,
             },
-            720: {
-              slidesPerView: 2.2,
+            1150: {
+              slidesPerView: 3.2,
+            },
+            1000: {
+              slidesPerView: 3,
+            },
+            820: {
+              slidesPerView: 2.5,
+            },
+            600: {
+              slidesPerView: 2.1,
             },
             470: {
               slidesPerView: 1.7,

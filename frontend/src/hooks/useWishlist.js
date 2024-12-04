@@ -1,11 +1,12 @@
 import axiosInstance from "../utils/axiosInstance";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { handleFetchWishlistProperties } from "../store/slice";
+import { useNavigate } from "react-router-dom";
 
 const useWishlist = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [property, setProperty] = useState(" ");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -82,6 +83,7 @@ const useWishlist = () => {
     };
   }, [ownedProperty?.city]);
   //============================= Handle City Selection ===========================
+
   const handleSelectCity = (city) => {
     setLocalities(city?.localities);
     setOwnedProperty({
@@ -120,20 +122,29 @@ const useWishlist = () => {
     }));
   };
 
-  const markFavoriteProperty = async (id) => {
-    try {
-      const response = await axiosInstance.post(`/favorite-properties`, {
-        propertyId: id,
-      });
-      if (response.statusText === "OK") {
-        fetchWishlistProperties();
+  const markFavoriteProperty = async (event, id) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const response = await axiosInstance.post(`/favorite-properties`, {
+          propertyId: id,
+        });
+        if (response.statusText === "OK") {
+          fetchWishlistProperties();
+        }
+      } catch (error) {
+        console.log(error);
+        alert(`${error?.response?.data?.error}`);
       }
-    } catch (error) {
-      console.log(error);
-      alert(`${error?.response?.data?.error}`);
+    } else {
+      navigate("/signin");
     }
   };
-  const unMarkFavoriteProperty = async (id) => {
+  const unMarkFavoriteProperty = async (event, id) => {
+    event.stopPropagation();
+    event.preventDefault();
     try {
       const response = await axiosInstance.delete(`/favorite-properties`, {
         data: {
@@ -143,7 +154,7 @@ const useWishlist = () => {
 
       if (response.statusText === "OK") {
         fetchWishlistProperties();
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (error) {
       console.log(error);

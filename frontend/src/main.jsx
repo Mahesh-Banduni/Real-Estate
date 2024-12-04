@@ -123,7 +123,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/singleProperty",
+        path: "/singleProperty/:id",
         element: <SinglePropertyPage />,
       },
       {

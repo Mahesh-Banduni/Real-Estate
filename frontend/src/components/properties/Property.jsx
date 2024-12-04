@@ -21,7 +21,10 @@ const Property = ({ item, wishlistProperties }) => {
     }
   }, [wishlistProperties]);
   return (
-    <div className=" border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-2 max-sm:grid-rows-property-card ">
+    <Link
+      to={`/singleProperty/${item._id}`}
+      className="hover:shadow-lg hover:shadow-gray-500 transition-all border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-2 max-sm:grid-rows-property-card "
+    >
       {/* property images */}
       <div className=" relative w-full p-2 max-lg:row-span-2 max-sm:row-span-1">
         <div className="w-full max-lg:h-full">
@@ -80,7 +83,7 @@ const Property = ({ item, wishlistProperties }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

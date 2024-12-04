@@ -109,9 +109,9 @@ const Header = () => {
               </li>
             </ul>
           </div>
-          <Link to={"#"}>
+          <Link to={"/"}>
             <img
-              className="w-16 h-16 max-sm:w-12 max-sm:h-12 rounded-full"
+              className="w-64 h-16 max-sm:h-12 max-xl:w-24 max-xl:h-12 max-lg:w-52 max-sm:w-32 max-[450px]:w-16 max-[450px]:h-10 max-[380px]:w-24 max-[380px]:h-8 "
               src={logo}
               alt="logo"
             />

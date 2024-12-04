@@ -1,4 +1,5 @@
 import React from "react";
+import useSingleProperty from "../hooks/useSingleProperty";
 
 import {
   facing,
@@ -14,6 +15,9 @@ import { Heading, Paragraph } from "../components/index";
 import { Link } from "react-router-dom";
 
 const SinglePropertyPage = () => {
+  const { id } = useSingleProperty();
+  console.log(id);
+
   let constantValue = {
     price: "Rs 4000 Lac",
     rate: "@ 30,000 per sq.ft.",
