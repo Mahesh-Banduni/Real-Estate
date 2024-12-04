@@ -268,7 +268,7 @@ const searchProperty = async (filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone email').exec();
+  const filteredProperties = await Property.find(query).sort(sortCriteria).select('-user').exec();
   
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found matching the criteria.');
@@ -312,7 +312,7 @@ const handpickedProperty = async (filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone').exec();
+  const filteredProperties = await Property.find(query).sort(sortCriteria).select('-user').exec();
 
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found matching the criteria.');
@@ -354,7 +354,7 @@ const recommendedProperty = async (filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone').exec();
+  const filteredProperties = await Property.find(query).sort(sortCriteria).select('-user').exec();
 
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found matching the criteria.');
@@ -396,7 +396,7 @@ const saleProperty = async (filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone').exec();
+  const filteredProperties = await Property.find(query).sort(sortCriteria).select('-user').exec();
 
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found matching the criteria.');
@@ -438,7 +438,7 @@ const partnershipProperty = async (filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone').exec();
+  const filteredProperties = await Property.find(query).sort(sortCriteria).select('-user').exec();
 
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found matching the criteria.');
@@ -480,7 +480,7 @@ const exchangeProperty = async (filters, sortBy, sortOrder) => {
   }
   
   // Query database with filters and sorting
-  const filteredProperties = await Property.find(query).sort(sortCriteria).populate('user', '_id name phone').exec();
+  const filteredProperties = await Property.find(query).sort(sortCriteria).select('-user').exec();
 
   if (!filteredProperties || filteredProperties.length === 0) {
     throw new NotFoundError('No properties found matching the criteria.');
