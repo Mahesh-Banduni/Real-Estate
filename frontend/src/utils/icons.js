@@ -23,6 +23,7 @@ import facebook from "/images/facebook.svg";
 import instagram from "/images/instagram.svg";
 import youtube from "/images/youtube.svg";
 import filter from "/images/filter.svg";
+import contactSideImage from "/images/contactSideImage.png";
 import upDownArrow from "/images/arrows-down-up.svg";
 import propertyImage from "/images/propertyImage.svg";
 import facing from "/images/facing.svg";
@@ -109,4 +110,5 @@ export {
   section5,
   section6,
   frame3,
+  contactSideImage,
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import AnimationButton from "../AnimatedButton";
-import { arrow, logo } from "../../utils/icons";
+import { arrow } from "../../utils/icons";
 import DropdownButton from "./DropdownButton";
 
 const Dropdowns = () => {

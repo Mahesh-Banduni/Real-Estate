@@ -5,16 +5,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import {
-  Button,
-  Heading,
-  Paragraph,
-  PrimaryCards,
-  SecondaryButton,
-  TertiaryCard,
-} from "../index";
+import { Button, Heading, Paragraph, SecondaryButton } from "../index";
 import useHome from "../../hooks/useHome";
-import { partnershipPropertyImage } from "../../utils/icons";
 import AuctionPropertyCard from "./AuctionPropertyCard";
 
 const PartnershipProperty = () => {

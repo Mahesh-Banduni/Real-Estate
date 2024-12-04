@@ -1,18 +1,11 @@
 import React from "react";
-import { CiLocationOn } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-
-import useSalePropertyForm from "../../hooks/useProperties";
-//import { Input, SelectInput } from "../index";
-import { searchButton } from "../../utils/icons";
-
-import PropertyTypeList from "./PropertyTypeList";
-import { Button, Heading, Input, SellPropertyTypeForm } from "../";
-import { SelectInput } from "../index";
-import { location, upDownArrow } from "../../utils/icons";
-import useProperties from "../../hooks/useProperties";
 import { useSelector } from "react-redux";
-import store from "../../store/Store";
+
+import { searchButton } from "../../utils/icons";
+import { Heading, Input } from "../index";
+import { location } from "../../utils/icons";
+import useProperties from "../../hooks/useProperties";
 
 const NormalProperty = ({ property }) => {
   const navigate = useNavigate();
@@ -25,7 +18,6 @@ const NormalProperty = ({ property }) => {
     cities,
   } = useProperties();
 
-  // const { submitForm, handleSubmit, register, errors } = useProperties();
   return (
     <div className="bg-[#ffffff] px-5 py-2 inline-block max-[1120px]:flex">
       <form

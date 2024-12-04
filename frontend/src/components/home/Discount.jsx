@@ -1,9 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Button, Heading, Paragraph, SecondaryButton } from "../index";
 import {
   discountBackground,
-  discountGridImage,
   section,
   section3,
   section4,
@@ -11,7 +11,6 @@ import {
   section6,
   section2,
 } from "../../utils/icons";
-import { Link } from "react-router-dom";
 
 const Discount = () => {
   return (
@@ -56,7 +55,7 @@ const Discount = () => {
             <Button text="get the offers" />
           </div>
         </div>
-        <div className="w-[48%] grid grid-rows-2 grid-cols-3 place-content-center gap-2 max-md:w-full ">
+        <div className="w-[48%] grid grid-rows-2 grid-cols-3 place-content-center gap-2 max-md:w-full max-sm:grid-cols-2 max-sm:grid-rows-3 ">
           <img
             className="w-[12rem] rounded-xl h-[10rem]"
             src={section}

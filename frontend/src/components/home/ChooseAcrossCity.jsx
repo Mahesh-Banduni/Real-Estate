@@ -17,7 +17,7 @@ const ChooseAcrossCity = () => {
       </Button>
       <Heading
         className="max-md:text-center max-md:text-xl"
-        text="CHOOSE ACROSS CITIES"
+        text="Choose Across Cities"
       />
       <div className="flex items-end justify-between max-md:flex-col max-md:items-center max-md:gap-2 ">
         <Paragraph
