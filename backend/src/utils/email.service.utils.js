@@ -77,12 +77,12 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     if(propertyDetails.propertyType=="Residential Flat/Apartment"){
       const { queryUsername, queryUseremail, queryUserphone} = userDetails;
       const { user } = propertyDetails;
-      const { propertyID, propertyType, propertyPurpose, expectedPrice, city, address, description, bedrooms, balconies, floorNumber, totalFloor, furnished, bathrooms, floorsAllowed, carpetArea, carpetAreaUnit, superArea, superAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, residentialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, numberOfFlatsInSociety, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, description, bedrooms, balconies, floorNumber, totalFloor, furnished, bathrooms, floorsAllowed, carpetArea, carpetAreaUnit, superArea, superAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, projectSocietyName, residentialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
   
       // Email content to send to admin
   const mailOptions1 = {
     from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
-    to: process.env.ADMIN_EMAIL, // Admin's email
+    to: process.env.ADMIN_EMAIL, // Admin's email toLocaleString()
     subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
     html: `
       <h2>New Property Inquiry</h2>
@@ -91,7 +91,11 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
       <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
       <p><strong>Price:</strong> ₹${expectedPrice}</p>
       <p><strong>City:</strong> ${city}</p>
+      <p><strong>Project/Society Name:</strong> ${projectSocietyName}</p>
       <p><strong>Address:</strong> ${address}</p>
+      <p><strong>Availability:</strong> ${isAvailable}</p>
+      <p><strong>Property Status:</strong> ${propertyStatus}</p>
+      <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
       <br>
       <h3>Property Details</h3>
       <p><strong>Bedrooms:</strong> ${bedrooms}</p>
@@ -101,6 +105,7 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
       <p><strong>Furnished:</strong> ${furnished}</p>
       <p><strong>Bathrooms:</strong> ${bathrooms}</p>
       <p><strong>Floors Allowed:</strong> ${floorsAllowed}</p>
+      <p><strong>Number of Flats in Society:</strong> ${numberOfFlatsInSociety}</p>
       <br>
       <h3>Property Area Details</h3>
       <p><strong>Carpet Area:</strong> ${carpetArea} ${carpetAreaUnit}</p>
@@ -121,6 +126,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
       <p><strong>Overlooking:</strong> ${overlooking}</p>
       <p><strong>Facing:</strong> ${facing}</p>
       <p><strong>Property Description:</strong> ${description}</p>
+      <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+      <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+      <p><strong>Property Images:</strong> ${images}</p>
       <br>
       <h3>Owner Details</h3>
       <p><strong>Name:</strong> ${user.name}</p>
@@ -143,7 +151,7 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     else if(propertyDetails.propertyType=="Residential House"){
       const { queryUsername, queryUseremail, queryUserphone} = userDetails;
       const { user } = propertyDetails;
-      const { propertyID, propertyType, propertyPurpose, expectedPrice, city, address, description, bedrooms, balconies, floorNumber, totalFloor, furnished, bathrooms, floorsAllowed, openSides, facingRoadWidth, facingRoadWidthUnit, cornerPlot, carpetArea, carpetAreaUnit, superArea, superAreaUnit, plotArea, plotAreaUnit, lengthDimension, widthDimension, dimensionUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, residentialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, projectSocietyName, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed,  city, address, description, bedrooms, balconies, floorNumber, totalFloor, furnished, bathrooms, floorsAllowed, openSides, facingRoadWidth, facingRoadWidthUnit, cornerPlot, carpetArea, carpetAreaUnit, superArea, superAreaUnit, plotArea, plotAreaUnit, lengthDimension, widthDimension, dimensionUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, residentialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
   
       const mailOptions2 = {
         from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
@@ -157,6 +165,10 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Price:</strong> ₹${expectedPrice}</p>
           <p><strong>City:</strong> ${city}</p>
           <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Project/Society name:</strong> ${projectSocietyName}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
           <br>
           <h3>Property Details</h3>
           <p><strong>Bedrooms:</strong> ${bedrooms}</p>
@@ -192,6 +204,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Overlooking:</strong> ${overlooking}</p>
           <p><strong>Facing:</strong> ${facing}</p>
           <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
           <br>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${user.name}</p>
@@ -213,7 +228,7 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     else if(propertyDetails.propertyType=="Residential Plot/Land"){
       const { queryUsername, queryUseremail, queryUserphone} = userDetails;
       const { user } = propertyDetails;
-      const { propertyID, propertyType, propertyPurpose, expectedPrice, city, address, projectSocietyName, description, openSides, facingRoadWidth, facingRoadWidthUnit, boundaryWall, gatedColony, anyConstructionDone, cornerPlot, plotArea, plotAreaUnit,lengthDimension, widthDimension, dimensionUnit, ownership, transactionType, bookingAmount, priceNegotiable, landAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, projectSocietyName, description, openSides, facingRoadWidth, facingRoadWidthUnit, boundaryWall, gatedColony, anyConstructionDone, cornerPlot, plotArea, plotAreaUnit,lengthDimension, widthDimension, dimensionUnit, ownership, transactionType, bookingAmount, priceNegotiable, landAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
   
       const mailOptions3 = {
         
@@ -229,6 +244,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>City:</strong> ${city}</p>
           <p><strong>Project/Society Name :</strong> ${projectSocietyName}</p>
           <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
           <br>
           <h3>Property Details</h3>
           <p><strong>Open Sides:</strong> ${openSides}</p>
@@ -257,6 +275,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Overlooking:</strong> ${overlooking}</p>
           <p><strong>Facing:</strong> ${facing}</p>
           <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
           <br>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${user.name}</p>
@@ -277,7 +298,7 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     else if(propertyDetails.propertyType=="Commercial Office Space"){
       const { queryUsername, queryUseremail, queryUserphone} = userDetails;
       const { user } = propertyDetails;
-      const { propertyID, propertyType, propertyPurpose, expectedPrice, city, address, buildingComplexName, landZone, idealForOfficeBusinesses, floorNumber, totalFloor, furnished, bathrooms, description, personalWashroom, pantryCafeteria, carpetArea, carpetAreaUnit, currentlyLeasedOut, superArea, superAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, buildingComplexName, landZone, idealForBusinesses, floorNumber, totalFloor, furnished, bathrooms, description, personalWashroom, pantryCafeteria, carpetArea, carpetAreaUnit, currentlyLeasedOut, superArea, superAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
       const mailOptions4 = {
         from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
         to: process.env.ADMIN_EMAIL, // Admin's email
@@ -292,7 +313,10 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Building/Complex Name :</strong> ${buildingComplexName}</p>
           <p><strong>Address:</strong> ${address}</p>
           <p><strong>Land Zone:</strong> ${landZone}</p>
-          <p><strong>Ideal for Office Businesses:</strong> ${idealForOfficeBusinesses}</p>
+          <p><strong>Ideal for Office Businesses:</strong> ${idealForBusinesses}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
           <br>
           <h3>Property Details</h3>
           <p><strong>Floor Number:</strong> ${floorNumber}</p>
@@ -322,6 +346,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Overlooking:</strong> ${overlooking}</p>
           <p><strong>Facing:</strong> ${facing}</p>
           <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
           <br>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${user.name}</p>
@@ -343,7 +370,7 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     else if(propertyDetails.propertyType=="Commercial Showroom"){
       const { queryUsername, queryUseremail, queryUserphone} = userDetails;
       const { user } = propertyDetails;
-      const { propertyID, propertyType, propertyPurpose, expectedPrice, city, address, projectMarketName,landZone, currentlyLeasedOut, description, nearbyBusinesses, entranceWidth, entranceWidthUnit, floorNumber, totalFloor, furnished, personalWashroom, pantryCafeteria, mainRoadFacing, cornerPlot, carpetArea, carpetAreaUnit, coveredArea, coveredAreaUnit, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed,  city, address, projectMarketName,landZone, currentlyLeasedOut, description, nearbyBusinesses, entranceWidth, entranceWidthUnit, floorNumber, totalFloor, furnished, personalWashroom, pantryCafeteria, mainRoadFacing, cornerPlot, carpetArea, carpetAreaUnit, coveredArea, coveredAreaUnit, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
 
       const mailOptions5 = {
         from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
@@ -360,6 +387,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Address:</strong> ${address}</p>
           <p><strong>Land Zone:</strong> ${landZone}</p>
           <p><strong>Nearby Businesses:</strong> ${nearbyBusinesses}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
           <br>
           <h3>Property Details</h3>
           <p><strong>Floor Number:</strong> ${floorNumber}</p>
@@ -392,6 +422,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Overlooking:</strong> ${overlooking}</p>
           <p><strong>Facing:</strong> ${facing}</p>
           <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
           <br>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${user.name}</p>
@@ -412,7 +445,7 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     else if(propertyDetails.propertyType=="Commercial Shop"){
       const { queryUsername, queryUseremail, queryUserphone} = userDetails;
       const { user } = propertyDetails;
-      const { propertyID, propertyType, propertyPurpose, expectedPrice, city, address, description, projectMarketName, landZone, nearbyBusinesses, entranceWidth, entranceWidthUnit, currentlyLeasedOut, floorNumber, totalFloor, furnished, personalWashroom, pantryCafeteria, mainRoadFacing, cornerPlot, carpetArea, carpetAreaUnit, coveredArea, coveredAreaUnit, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, description, projectMarketName, landZone, nearbyBusinesses, entranceWidth, entranceWidthUnit, currentlyLeasedOut, floorNumber, totalFloor, furnished, personalWashroom, pantryCafeteria, mainRoadFacing, cornerPlot, carpetArea, carpetAreaUnit, coveredArea, coveredAreaUnit, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
   
       const mailOptions6 = {
         from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
@@ -429,6 +462,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Address:</strong> ${address}</p>
           <p><strong>Land Zone:</strong> ${landZone}</p>
           <p><strong>Nearby Businesses:</strong> ${nearbyBusinesses}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
           <br>
           <h3>Property Details</h3>
           <p><strong>Floor Number:</strong> ${floorNumber}</p>
@@ -461,6 +497,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Overlooking:</strong> ${overlooking}</p>
           <p><strong>Facing:</strong> ${facing}</p>
           <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
           <br>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${user.name}</p>
@@ -482,7 +521,7 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     else if(propertyDetails.propertyType=="Commercial Land"){
       const { queryUsername, queryUseremail, queryUserphone} = userDetails;
       const { user } = propertyDetails;
-      const { propertyID, propertyType, propertyPurpose, expectedPrice, city, address, projectSocietyName,landZone, currentlyLeasedOut, description, lengthDimension, widthDimension, dimensionUnit, openSides, facingRoadWidth, facingRoadWidthUnit, boundaryWall, cornerPlot, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, projectSocietyName,landZone, currentlyLeasedOut, description, lengthDimension, widthDimension, dimensionUnit, openSides, facingRoadWidth, facingRoadWidthUnit, boundaryWall, cornerPlot, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
   
       const mailOptions7 = {
         from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
@@ -498,6 +537,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Project/Society Name :</strong> ${projectSocietyName}</p>
           <p><strong>Address:</strong> ${address}</p>
           <p><strong>Land Zone:</strong> ${landZone}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
           <br>
           <h3>Property Details</h3>
           <p><strong>Open Sides:</strong> ${openSides}</p>
@@ -526,6 +568,9 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
           <p><strong>Overlooking:</strong> ${overlooking}</p>
           <p><strong>Facing:</strong> ${facing}</p>
           <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
           <br>
           <h3>Owner Details</h3>
           <p><strong>Name:</strong> ${user.name}</p>

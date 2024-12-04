@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auctionPropertyInquiryController = require('../controllers/auction.property.controller.js');
 const auth= require("../middleware/auth.js");
+const { inquiryLimiter } = require("../middleware/rate.limitter.js");
+ 
 
 /**
  * @swagger
@@ -31,6 +33,6 @@ const auth= require("../middleware/auth.js");
  *       400:
  *         description: Bad request
  */
-router.post('/', auth, auctionPropertyInquiryController.auctionPropertyInquiry);
+router.post('/', inquiryLimiter, auth, auctionPropertyInquiryController.auctionPropertyInquiry);
 
 module.exports = router;
