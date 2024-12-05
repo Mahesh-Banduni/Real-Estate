@@ -5,6 +5,8 @@ import { handleFetchWishlistProperties } from "../store/slice";
 import { useNavigate } from "react-router-dom";
 
 const useWishlist = () => {
+  const token = localStorage.getItem("token");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [property, setProperty] = useState(" ");
@@ -28,19 +30,25 @@ const useWishlist = () => {
   };
   //========================= Fetch owned properties ========================
   const fetchWishlistProperties = async () => {
-    setMessage("");
-    try {
-      setIsLoading(true);
-      const response = await axiosInstance.get(`/favorite-properties`);
+    if (!token) {
+      navigate("/signin");
+    } else {
+      setMessage("");
+      try {
+        setIsLoading(true);
+        const response = await axiosInstance.get(`/favorite-properties`);
 
-      if (response.statusText === "OK") {
-        dispatch(handleFetchWishlistProperties(response?.data?.data));
+        if (response.statusText === "OK") {
+          dispatch(handleFetchWishlistProperties(response?.data?.data));
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setMessage(
+          error.response?.data?.error || "Failed to fetch properties."
+        );
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setMessage(error.response?.data?.error || "Failed to fetch properties.");
-      setIsLoading(false);
     }
   };
 
@@ -154,7 +162,7 @@ const useWishlist = () => {
 
       if (response.statusText === "OK") {
         fetchWishlistProperties();
-        // window.location.reload();
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

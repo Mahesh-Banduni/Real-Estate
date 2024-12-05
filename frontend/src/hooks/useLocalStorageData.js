@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
 const useLocalStorageData = () => {
-  const [localData, setLocalData] = useState({});
+  const [token, setToken] = useState("");
   useEffect(() => {
-    const localStorageData = JSON.parse(localStorage.getItem("token"));
-    setLocalData(localStorageData);
+    const localStorageData = localStorage.getItem("token");
+    console.log(localStorageData);
+
+    setToken(localStorageData);
   }, []);
   return {
-    localData,
+    token,
   };
 };
 
