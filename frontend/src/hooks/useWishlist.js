@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const useWishlist = () => {
   const token = localStorage.getItem("token");
-  console.log(token);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

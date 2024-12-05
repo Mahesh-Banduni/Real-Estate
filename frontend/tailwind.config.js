@@ -45,9 +45,6 @@ export default {
         "large-screen": "auto auto",
         "footer-small-screen": "0.6fr 0.9fr 1fr",
       },
-      gridColumn: {
-        span3: 1 / 3,
-      },
     },
   },
   plugins: [require("daisyui")],

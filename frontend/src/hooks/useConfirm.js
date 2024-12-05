@@ -19,7 +19,6 @@ const useConfirm = () => {
 
   const submitForm = async (data) => {
     setMessage("");
-    console.log(data);
 
     try {
       const response = await axiosInstance.put("/reset-password", data);
