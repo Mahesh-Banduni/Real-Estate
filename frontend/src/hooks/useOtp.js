@@ -34,10 +34,12 @@ const useOtp = () => {
           navigate("/confirm");
         } else {
           dispatch(handelSetToken(response?.data?.data?.user));
+
           localStorage.setItem(
             "token",
             JSON.stringify(response?.data?.data?.token)
           );
+
           localStorage.setItem(
             "realEstateUser",
             JSON.stringify({

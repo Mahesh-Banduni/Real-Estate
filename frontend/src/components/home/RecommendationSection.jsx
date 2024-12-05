@@ -12,12 +12,10 @@ import {
   SecondaryButton,
   PrimaryCards,
 } from "../index";
-import { recommend } from "../../utils/icons";
 import useRecommended from "../../hooks/useRecommended";
 
 const RecommendationSection = () => {
   const { recommendedProperties } = useRecommended();
-  console.log(recommendedProperties);
 
   return (
     <div className="w-11/12 mx-auto my-10 max-sm:pt-0 flex flex-col gap-5 max-sm:gap-2 ">
@@ -25,7 +23,10 @@ const RecommendationSection = () => {
         <Button className="uppercase font-interMedium bg-tertiary-color text-primary-color px-[1.3rem] py-[0.6rem] text-lg w-fit max-sm:text-sm  max-sm:px-[0.8rem] max-sm:py-[0.3rem]">
           discover
         </Button>
-        <Heading className="max-sm:text-center" text="Best Recommendation" />
+        <Heading
+          className="max-sm:text-center max-sm:text-xl"
+          text="Best Recommendation"
+        />
         <div className="flex items-end justify-between max-sm:flex-col max-sm:gap-2 max-sm:items-center">
           <Paragraph
             text={
@@ -45,11 +46,20 @@ const RecommendationSection = () => {
           loop={true}
           pagination={false}
           breakpoints={{
-            1000: {
+            1280: {
               slidesPerView: 3.5,
             },
-            720: {
-              slidesPerView: 2.2,
+            1150: {
+              slidesPerView: 3.2,
+            },
+            1000: {
+              slidesPerView: 3,
+            },
+            820: {
+              slidesPerView: 2.5,
+            },
+            600: {
+              slidesPerView: 2.1,
             },
             470: {
               slidesPerView: 1.7,

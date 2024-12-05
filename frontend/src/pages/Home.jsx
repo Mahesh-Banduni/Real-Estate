@@ -9,8 +9,13 @@ import {
   PartnershipProperty,
   ContactSection,
 } from "../components";
+import useHandpicked from "../hooks/useHandpicked";
 
 const Home = () => {
+  const { fetchProperties } = useHandpicked();
+  useEffect(() => {
+    fetchProperties();
+  }, []);
   return (
     <React.Fragment>
       <HeroSection />

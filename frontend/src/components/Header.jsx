@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 const Header = () => {
   const dispatch = useDispatch();
   const token = useSelector((store) => store?.authReducer?.token);
+  console.log(token);
+
   const navigate = useNavigate(); // Instantiate navigate function
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token from localStorage
@@ -25,7 +27,11 @@ const Header = () => {
       <div className="navbar bg-base-100 w-11/12 m-auto h-[12vh] max-sm:h-[8vh] flex items-center justify-between">
         <div className="navbar-start w-fit">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost lg:hidden max-sm:px-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -109,9 +115,9 @@ const Header = () => {
               </li>
             </ul>
           </div>
-          <Link to={"#"}>
+          <Link to={"/"}>
             <img
-              className="w-16 h-16 max-sm:w-12 max-sm:h-12 rounded-full"
+              className="w-64 h-16 max-sm:h-12 max-xl:w-24 max-xl:h-12 max-lg:w-52 max-sm:w-32 max-[450px]:w-16 max-[450px]:h-10 max-[380px]:w-24 max-[380px]:h-8 "
               src={logo}
               alt="logo"
             />
@@ -192,7 +198,7 @@ const Header = () => {
               <NavLinks to="/signin" text="Login" />
             </div>
           ) : (
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-5 items-center max-sm:gap-2">
               <Link to="/wishlist" className="flex flex-col items-center">
                 <img className="w-5" src={heart} alt="" />
               </Link>
@@ -202,7 +208,7 @@ const Header = () => {
                   role="button"
                   className="btn m-1 flex flex-col items-center bg-transparent border-none shadow-none"
                 >
-                  <img src={profile} alt="" />
+                  <img src={profile} alt="profile" />
                 </div>
                 <ul
                   tabIndex={0}

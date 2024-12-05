@@ -6,19 +6,12 @@ import { RxDimensions } from "react-icons/rx";
 
 import Heading from "../Heading";
 import useWishlist from "../../hooks/useWishlist";
-import {
-  facing,
-  floor,
-  furnishing,
-  heart,
-  status,
-  superArea,
-} from "../../utils/icons";
+import { facing, heart, superArea } from "../../utils/icons";
 
 const ResidentialPlotProperties = ({ item, markFavorite }) => {
   const { markFavoriteProperty, unMarkFavoriteProperty } = useWishlist();
   return (
-    <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
+    <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-xl:gap-1">
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between max-lg:justify-center max-lg:gap-2">
           <Heading
@@ -28,16 +21,16 @@ const ResidentialPlotProperties = ({ item, markFavorite }) => {
           <div className="flex items-center justify-center gap-2">
             {markFavorite ? (
               <IoHeartSharp
-                onClick={() => {
-                  unMarkFavoriteProperty(item._id);
+                onClick={(event) => {
+                  unMarkFavoriteProperty(event, item._id);
                 }}
                 className="w-6 h-6 text-red-500 cursor-pointer"
               />
             ) : (
               <img
                 className="cursor-pointer"
-                onClick={() => {
-                  markFavoriteProperty(item._id);
+                onClick={(event) => {
+                  markFavoriteProperty(event, item._id);
                 }}
                 src={heart}
                 alt="wishlist"

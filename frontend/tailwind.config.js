@@ -37,10 +37,16 @@ export default {
       gridTemplateColumns: {
         "list-card": "0.7fr 1.6fr 0.7fr",
         "property-type-form": "1fr 1fr 1fr 0.2fr",
+        "large-screen": "auto auto",
       },
       gridTemplateRows: {
         "exchange-form-layout": "1fr 0.5fr 0.5fr 0.5fr",
         "property-card": "0.5fr",
+        "large-screen": "auto auto",
+        "footer-small-screen": "0.6fr 0.9fr 1fr",
+      },
+      gridColumn: {
+        span3: 1 / 3,
       },
     },
   },

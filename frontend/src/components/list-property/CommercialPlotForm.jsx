@@ -19,15 +19,10 @@ const CommercialPlotForm = ({
   handelChangeFormInputFields,
   formInputValue,
   cities,
-  localities,
   setFormInputValue,
 }) => {
-  const {
-    showCities,
-    showLocalities,
-    handelToggleCityDropdown,
-    handelToggleLocalityDropdown,
-  } = usePostProperty();
+  const { showCities, handelToggleCityDropdown, handelToggleLocalityDropdown } =
+    usePostProperty();
 
   return (
     <div>

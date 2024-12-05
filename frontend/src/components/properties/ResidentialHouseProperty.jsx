@@ -16,7 +16,7 @@ import useWishlist from "../../hooks/useWishlist";
 const ResidentialHouseProperties = ({ item, markFavorite }) => {
   const { markFavoriteProperty, unMarkFavoriteProperty } = useWishlist();
   return (
-    <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
+    <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-xl:gap-1">
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between max-lg:justify-center max-lg:gap-2">
           <Heading
@@ -26,16 +26,16 @@ const ResidentialHouseProperties = ({ item, markFavorite }) => {
           <div className="flex items-center justify-center gap-2">
             {markFavorite ? (
               <IoHeartSharp
-                onClick={() => {
-                  unMarkFavoriteProperty(item._id);
+                onClick={(event) => {
+                  unMarkFavoriteProperty(event, item._id);
                 }}
                 className="w-6 h-6 text-red-500 cursor-pointer"
               />
             ) : (
               <img
                 className="cursor-pointer"
-                onClick={() => {
-                  markFavoriteProperty(item._id);
+                onClick={(event) => {
+                  markFavoriteProperty(event, item._id);
                 }}
                 src={heart}
                 alt="wishlist"
@@ -88,19 +88,6 @@ const ResidentialHouseProperties = ({ item, markFavorite }) => {
             </span>
           </div>
         </div>
-        {/* <div className="flex items-center gap-3 justify-start border-r border-border-color">
-            <div>
-              <img src={transaction} alt={"super area"} />
-            </div>
-            <div className="flex flex-col">
-              <span className="uppercase text-sm text-[#8F90A6] font-interRegular">
-                transaction
-              </span>
-              <span className="text-sm capitalize text-[#110229] font-interMedium">
-                resale
-              </span>
-            </div>
-          </div> */}
         <div className="flex items-center gap-3 justify-start border-r border-border-color">
           <img src={furnishing} alt={"super area"} />
 
