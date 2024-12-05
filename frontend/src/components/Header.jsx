@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 const Header = () => {
   const dispatch = useDispatch();
   const token = useSelector((store) => store?.authReducer?.token);
-  console.log(token);
 
   const navigate = useNavigate(); // Instantiate navigate function
   const handleLogout = () => {
