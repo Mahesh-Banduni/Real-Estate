@@ -40,7 +40,7 @@ const sendOTP = async (email) => {
     //console.log(`OTP sent to ${email}`);
     return { success: true, message: 'OTP sent successfully.' };
   } catch (error) {
-    console.error('Error sending OTP:', error);
+    //console.error('Error sending OTP:', error);
     return { success: false, message: 'Failed to send OTP.' };
   }
 };
@@ -72,14 +72,17 @@ const verifyOTP = (email, userInputOtp) => {
 
 // Function to handle property inquiry
 const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
-  const { queryUsername, queryUseremail, queryUserphone} = userDetails;
-  const { propertyID, propertyType, propertyPurpose, expectedPrice, city} = propertyDetails;
-  const { user } = propertyDetails;
 
-  // Email content to send to admin
-  const mailOptions = {
+  try {
+    if(propertyDetails.propertyType=="Residential Flat/Apartment"){
+      const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+      const { user } = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, numberOfFlatsInSociety, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, description, bedrooms, balconies, floorNumber, totalFloor, furnished, bathrooms, floorsAllowed, carpetArea, carpetAreaUnit, superArea, superAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, projectSocietyName, residentialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+  
+      // Email content to send to admin
+  const mailOptions1 = {
     from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
-    to: process.env.ADMIN_EMAIL, // Admin's email
+    to: process.env.ADMIN_EMAIL, // Admin's email toLocaleString()
     subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
     html: `
       <h2>New Property Inquiry</h2>
@@ -88,6 +91,44 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
       <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
       <p><strong>Price:</strong> ₹${expectedPrice}</p>
       <p><strong>City:</strong> ${city}</p>
+      <p><strong>Project/Society Name:</strong> ${projectSocietyName}</p>
+      <p><strong>Address:</strong> ${address}</p>
+      <p><strong>Availability:</strong> ${isAvailable}</p>
+      <p><strong>Property Status:</strong> ${propertyStatus}</p>
+      <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
+      <br>
+      <h3>Property Details</h3>
+      <p><strong>Bedrooms:</strong> ${bedrooms}</p>
+      <p><strong>Balconies:</strong> ${balconies}</p>
+      <p><strong>Floor Number:</strong> ${floorNumber}</p>
+      <p><strong>Total Floor:</strong> ${totalFloor}</p>
+      <p><strong>Furnished:</strong> ${furnished}</p>
+      <p><strong>Bathrooms:</strong> ${bathrooms}</p>
+      <p><strong>Floors Allowed:</strong> ${floorsAllowed}</p>
+      <p><strong>Number of Flats in Society:</strong> ${numberOfFlatsInSociety}</p>
+      <br>
+      <h3>Property Area Details</h3>
+      <p><strong>Carpet Area:</strong> ${carpetArea} ${carpetAreaUnit}</p>
+      <p><strong>Super Area:</strong> ${superArea} ${superAreaUnit}</p>
+      <br>
+      <h3>Property Ownership Details</h3>
+      <p><strong>Possession Status:</strong> ${possessionStatus}</p>
+      <p><strong>Ownership:</strong> ${ownership}</p>
+      <p><strong>Transaction Type:<strong> ${transactionType}</p> 
+      <br>
+      <h3>Property Price Details</h3>
+      <p><strong>Booking Amount:</strong> ₹${bookingAmount}</p>
+      <p><strong>Price Negotiable:</strong> ${priceNegotiable}</p>
+      <br>
+      <h3>Property Other Details</h3>
+      <p><strong>Residential Amenities:</strong> ${residentialAmenities}</p>
+      <p><strong>Location Advantages:</strong> ${locationAdvantages}</p>
+      <p><strong>Overlooking:</strong> ${overlooking}</p>
+      <p><strong>Facing:</strong> ${facing}</p>
+      <p><strong>Property Description:</strong> ${description}</p>
+      <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+      <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+      <p><strong>Property Images:</strong> ${images}</p>
       <br>
       <h3>Owner Details</h3>
       <p><strong>Name:</strong> ${user.name}</p>
@@ -102,12 +143,454 @@ const sendPropertyInquiryEmail = async (propertyDetails, userDetails) => {
     `,
   };
 
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log('Inquiry email sent to admin.');
+      //await transporter.sendMail(mailOptions1);
+    await transporter.sendMail(mailOptions1);
+    //console.log('Inquiry email sent to admin. '+mailOptions1);
     return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+    }
+    else if(propertyDetails.propertyType=="Residential House"){
+      const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+      const { user } = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, projectSocietyName, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed,  city, address, description, bedrooms, balconies, floorNumber, totalFloor, furnished, bathrooms, floorsAllowed, openSides, facingRoadWidth, facingRoadWidthUnit, cornerPlot, carpetArea, carpetAreaUnit, superArea, superAreaUnit, plotArea, plotAreaUnit, lengthDimension, widthDimension, dimensionUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, residentialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+  
+      const mailOptions2 = {
+        from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+        to: process.env.ADMIN_EMAIL, // Admin's email
+        subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+        html: `
+          <h2>New Property Inquiry</h2>
+          <p><strong>Property ID:</strong> ${propertyID}</p>
+          <p><strong>Property Type:</strong> ${propertyType}</p>
+          <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+          <p><strong>Price:</strong> ₹${expectedPrice}</p>
+          <p><strong>City:</strong> ${city}</p>
+          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Project/Society name:</strong> ${projectSocietyName}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
+          <br>
+          <h3>Property Details</h3>
+          <p><strong>Bedrooms:</strong> ${bedrooms}</p>
+          <p><strong>Balconies:</strong> ${balconies}</p>
+          <p><strong>Floor Number:</strong> ${floorNumber}</p>
+          <p><strong>Total Floor:</strong> ${totalFloor}</p>
+          <p><strong>Furnished:</strong> ${furnished}</p>
+          <p><strong>Bathrooms:</strong> ${bathrooms}</p>
+          <p><strong>Floors Allowed:</strong> ${floorsAllowed}</p>
+          <p><strong>Open Sides:</strong> ${openSides}</p>
+          <p><strong>Facing Road Width:</strong> ${facingRoadWidth} ${facingRoadWidthUnit}</p>
+          <br>
+          <h3>Property Area Details</h3>
+          <p><strong>Plot Area:</strong> ${plotArea} ${plotAreaUnit}</p>
+          <p><strong>Length Dimension:</strong> ${lengthDimension} ${dimensionUnit}</p>
+          <p><strong>Width Dimension:</strong> ${widthDimension} ${dimensionUnit}</p>
+          <p><strong>Carpet Area:</strong> ${carpetArea} ${carpetAreaUnit}</p>
+          <p><strong>Super Area:</strong> ${superArea} ${superAreaUnit}</p>
+          <p><strong>Corner Plot:</strong> ${cornerPlot}</p>
+          <br>
+          <h3>Property Ownership Details</h3>
+          <p><strong>Possession Status:</strong> ${possessionStatus}</p>
+          <p><strong>Ownership:</strong> ${ownership}</p>
+          <p><strong>Transaction Type:<strong> ${transactionType}</p> 
+          <br>
+          <h3>Property Price Details</h3>
+          <p><strong>Booking Amount:</strong> ₹${bookingAmount}</p>
+          <p><strong>Price Negotiable:</strong> ${priceNegotiable}</p>
+          <br>
+          <h3>Property Other Details</h3>
+          <p><strong>Residential Amenities:</strong> ${residentialAmenities}</p>
+          <p><strong>Location Advantages:</strong> ${locationAdvantages}</p>
+          <p><strong>Overlooking:</strong> ${overlooking}</p>
+          <p><strong>Facing:</strong> ${facing}</p>
+          <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
+          <br>
+          <h3>Owner Details</h3>
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <br>
+          <h3>Inquiry User Details</h3>
+          <p><strong>Name:</strong> ${queryUsername}</p>
+          <p><strong>Email:</strong> ${queryUseremail}</p>
+          <p><strong>Phone:</strong> ${queryUserphone}</p>
+          <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+        `,
+      };
+    
+      await transporter.sendMail(mailOptions2);
+      //console.log('Inquiry email sent to admin. '+mailOptions2);
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+    }
+    else if(propertyDetails.propertyType=="Residential Plot/Land"){
+      const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+      const { user } = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, projectSocietyName, description, openSides, facingRoadWidth, facingRoadWidthUnit, boundaryWall, gatedColony, anyConstructionDone, cornerPlot, plotArea, plotAreaUnit,lengthDimension, widthDimension, dimensionUnit, ownership, transactionType, bookingAmount, priceNegotiable, landAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+  
+      const mailOptions3 = {
+        
+        from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+        to: process.env.ADMIN_EMAIL, // Admin's email
+        subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+        html: `
+          <h2>New Property Inquiry</h2>
+          <p><strong>Property ID:</strong> ${propertyID}</p>
+          <p><strong>Property Type:</strong> ${propertyType}</p>
+          <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+          <p><strong>Price:</strong> ₹${expectedPrice}</p>
+          <p><strong>City:</strong> ${city}</p>
+          <p><strong>Project/Society Name :</strong> ${projectSocietyName}</p>
+          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
+          <br>
+          <h3>Property Details</h3>
+          <p><strong>Open Sides:</strong> ${openSides}</p>
+          <p><strong>Facing Road Width:</strong> ${facingRoadWidth} ${facingRoadWidthUnit}</p>
+          <p><strong>Boundary Wall:</strong> ${boundaryWall}</p>
+          <p><strong>Gated Colony:</strong> ${gatedColony}</p>
+          <p><strong>Any Construction Done:</strong> ${anyConstructionDone}</p>
+          <br>
+          <h3>Property Area Details</h3>
+          <p><strong>Plot Area:</strong> ${plotArea} ${plotAreaUnit}</p>
+          <p><strong>Length Dimension:</strong> ${lengthDimension} ${dimensionUnit}</p>
+          <p><strong>Width Dimension:</strong> ${widthDimension} ${dimensionUnit}</p>
+          <p><strong>Corner Plot:</strong> ${cornerPlot}</p>
+          <br>
+          <h3>Property Ownership Details</h3>
+          <p><strong>Ownership:</strong> ${ownership}</p>
+          <p><strong>Transaction Type:<strong> ${transactionType}</p> 
+          <br>
+          <h3>Property Price Details</h3>
+          <p><strong>Booking Amount:</strong> ₹${bookingAmount}</p>
+          <p><strong>Price Negotiable:</strong> ${priceNegotiable}</p>
+          <br>
+          <h3>Property Other Details</h3>
+          <p><strong>Land Amenities:</strong> ${landAmenities}</p>
+          <p><strong>Location Advantages:</strong> ${locationAdvantages}</p>
+          <p><strong>Overlooking:</strong> ${overlooking}</p>
+          <p><strong>Facing:</strong> ${facing}</p>
+          <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
+          <br>
+          <h3>Owner Details</h3>
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <br>
+          <h3>Inquiry User Details</h3>
+          <p><strong>Name:</strong> ${queryUsername}</p>
+          <p><strong>Email:</strong> ${queryUseremail}</p>
+          <p><strong>Phone:</strong> ${queryUserphone}</p>
+          <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+        `,
+      };
+      await transporter.sendMail(mailOptions3);
+      //console.log('Inquiry email sent to admin. '+mailOptions3);
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+    }
+    else if(propertyDetails.propertyType=="Commercial Office Space"){
+      const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+      const { user } = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, buildingComplexName, landZone, idealForBusinesses, floorNumber, totalFloor, furnished, bathrooms, description, personalWashroom, pantryCafeteria, carpetArea, carpetAreaUnit, currentlyLeasedOut, superArea, superAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+      const mailOptions4 = {
+        from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+        to: process.env.ADMIN_EMAIL, // Admin's email
+        subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+        html: `
+          <h2>New Property Inquiry</h2>
+          <p><strong>Property ID:</strong> ${propertyID}</p>
+          <p><strong>Property Type:</strong> ${propertyType}</p>
+          <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+          <p><strong>Price:</strong> ₹${expectedPrice}</p>
+          <p><strong>City:</strong> ${city}</p>
+          <p><strong>Building/Complex Name :</strong> ${buildingComplexName}</p>
+          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Land Zone:</strong> ${landZone}</p>
+          <p><strong>Ideal for Office Businesses:</strong> ${idealForBusinesses}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
+          <br>
+          <h3>Property Details</h3>
+          <p><strong>Floor Number:</strong> ${floorNumber}</p>
+          <p><strong>Total Floor:</strong> ${totalFloor}</p>
+          <p><strong>Furnished:</strong> ${furnished}</p>
+          <p><strong>Bathrooms:</strong> ${bathrooms}</p>
+          <p><strong>Personal Washroom:</strong> ${personalWashroom}</p>
+          <p><strong>Pantry Cafeteria:</strong> ${pantryCafeteria}</p>
+          <br>
+          <h3>Property Area Details</h3>
+          <p><strong>Carpet Area:</strong> ${carpetArea} ${carpetAreaUnit}</p>
+          <p><strong>Super Area:</strong> ${superArea} ${superAreaUnit}</p>
+          <br>
+          <h3>Property Ownership Details</h3>
+          <p><strong>Possession Status:</strong> ${possessionStatus}</p>
+          <p><strong>Ownership:</strong> ${ownership}</p>
+          <p><strong>Transaction Type:</strong> ${transactionType}</p> 
+          <p><strong>Currently Leased Out:</strong> ${currentlyLeasedOut}</p>
+          <br>
+          <h3>Property Price Details</h3>
+          <p><strong>Booking Amount:</strong> ₹${bookingAmount}</p>
+          <p><strong>Price Negotiable:</strong> ${priceNegotiable}</p>
+          <br>
+          <h3>Property Other Details</h3>
+          <p><strong>Commercial Amenities:</strong> ${commercialAmenities}</p>
+          <p><strong>Location Advantages:</strong> ${locationAdvantages}</p>
+          <p><strong>Overlooking:</strong> ${overlooking}</p>
+          <p><strong>Facing:</strong> ${facing}</p>
+          <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
+          <br>
+          <h3>Owner Details</h3>
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <br>
+          <h3>Inquiry User Details</h3>
+          <p><strong>Name:</strong> ${queryUsername}</p>
+          <p><strong>Email:</strong> ${queryUseremail}</p>
+          <p><strong>Phone:</strong> ${queryUserphone}</p>
+          <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+        `,
+      };
+      
+      await transporter.sendMail(mailOptions4);
+      //console.log('Inquiry email sent to admin. '+mailOptions4);
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+    }
+    else if(propertyDetails.propertyType=="Commercial Showroom"){
+      const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+      const { user } = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed,  city, address, projectMarketName,landZone, currentlyLeasedOut, description, nearbyBusinesses, entranceWidth, entranceWidthUnit, floorNumber, totalFloor, furnished, personalWashroom, pantryCafeteria, mainRoadFacing, cornerPlot, carpetArea, carpetAreaUnit, coveredArea, coveredAreaUnit, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+
+      const mailOptions5 = {
+        from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+        to: process.env.ADMIN_EMAIL, // Admin's email
+        subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+        html: `
+          <h2>New Property Inquiry</h2>
+          <p><strong>Property ID:</strong> ${propertyID}</p>
+          <p><strong>Property Type:</strong> ${propertyType}</p>
+          <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+          <p><strong>Price:</strong> ₹${expectedPrice}</p>
+          <p><strong>City:</strong> ${city}</p>
+          <p><strong>Project/Market Name :</strong> ${projectMarketName}</p>
+          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Land Zone:</strong> ${landZone}</p>
+          <p><strong>Nearby Businesses:</strong> ${nearbyBusinesses}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
+          <br>
+          <h3>Property Details</h3>
+          <p><strong>Floor Number:</strong> ${floorNumber}</p>
+          <p><strong>Total Floor:</strong> ${totalFloor}</p>
+          <p><strong>Furnished:</strong> ${furnished}</p>
+          <p><strong>Personal Washroom:</strong> ${personalWashroom}</p>
+          <p><strong>Pantry Cafeteria:</strong> ${pantryCafeteria}</p>
+          <p><strong>Corner Plot:</strong> ${cornerPlot}</p>
+          <p><strong>Main Road Facing:</strong> ${mainRoadFacing}</p>
+          <br>
+          <h3>Property Area Details</h3>
+          <p><strong>Covered Area:</strong> ${coveredArea} ${coveredAreaUnit}</p>
+          <p><strong>Plot Area:</strong> ${plotArea} ${plotAreaUnit}</p>
+          <p><strong>Carpet Area:</strong> ${carpetArea} ${carpetAreaUnit}</p>
+          <p><strong>Entrance Width:</strong> ${entranceWidth} ${entranceWidthUnit}</p>
+          <br>
+          <h3>Property Ownership Details</h3>
+          <p><strong>Possession Status:</strong> ${possessionStatus}</p>
+          <p><strong>Ownership:</strong> ${ownership}</p>
+          <p><strong>Transaction Type:</strong> ${transactionType}</p> 
+          <p><strong>Currently Leased Out:</strong> ${currentlyLeasedOut}</p>
+          <br>
+          <h3>Property Price Details</h3>
+          <p><strong>Booking Amount:</strong> ₹${bookingAmount}</p>
+          <p><strong>Price Negotiable:</strong> ${priceNegotiable}</p>
+          <br>
+          <h3>Property Other Details</h3>
+          <p><strong>Commercial Amenities:</strong> ${commercialAmenities}</p>
+          <p><strong>Location Advantages:</strong> ${locationAdvantages}</p>
+          <p><strong>Overlooking:</strong> ${overlooking}</p>
+          <p><strong>Facing:</strong> ${facing}</p>
+          <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
+          <br>
+          <h3>Owner Details</h3>
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <br>
+          <h3>Inquiry User Details</h3>
+          <p><strong>Name:</strong> ${queryUsername}</p>
+          <p><strong>Email:</strong> ${queryUseremail}</p>
+          <p><strong>Phone:</strong> ${queryUserphone}</p>
+          <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+        `,
+      };
+      await transporter.sendMail(mailOptions5);
+      //console.log('Inquiry email sent to admin. '+mailOptions5);
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+    }
+    else if(propertyDetails.propertyType=="Commercial Shop"){
+      const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+      const { user } = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, description, projectMarketName, landZone, nearbyBusinesses, entranceWidth, entranceWidthUnit, currentlyLeasedOut, floorNumber, totalFloor, furnished, personalWashroom, pantryCafeteria, mainRoadFacing, cornerPlot, carpetArea, carpetAreaUnit, coveredArea, coveredAreaUnit, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+  
+      const mailOptions6 = {
+        from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+        to: process.env.ADMIN_EMAIL, // Admin's email
+        subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+        html: `
+          <h2>New Property Inquiry</h2>
+          <p><strong>Property ID:</strong> ${propertyID}</p>
+          <p><strong>Property Type:</strong> ${propertyType}</p>
+          <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+          <p><strong>Price:</strong> ₹${expectedPrice}</p>
+          <p><strong>City:</strong> ${city}</p>
+          <p><strong>Project/Market Name :</strong> ${projectMarketName}</p>
+          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Land Zone:</strong> ${landZone}</p>
+          <p><strong>Nearby Businesses:</strong> ${nearbyBusinesses}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
+          <br>
+          <h3>Property Details</h3>
+          <p><strong>Floor Number:</strong> ${floorNumber}</p>
+          <p><strong>Total Floor:</strong> ${totalFloor}</p>
+          <p><strong>Furnished:</strong> ${furnished}</p>
+          <p><strong>Personal Washroom:</strong> ${personalWashroom}</p>
+          <p><strong>Pantry Cafeteria:</strong> ${pantryCafeteria}</p>
+          <p><strong>Corner Plot:</strong> ${cornerPlot}</p>
+          <p><strong>Main Road Facing:</strong> ${mainRoadFacing}</p>
+          <br>
+          <h3>Property Area Details</h3>
+          <p><strong>Covered Area:</strong> ${coveredArea} ${coveredAreaUnit}</p>
+          <p><strong>Plot Area:</strong> ${plotArea} ${plotAreaUnit}</p>
+          <p><strong>Carpet Area:</strong> ${carpetArea} ${carpetAreaUnit}</p>
+          <p><strong>Entrance Width:</strong> ${entranceWidth} ${entranceWidthUnit}</p>
+          <br>
+          <h3>Property Ownership Details</h3>
+          <p><strong>Possession Status:</strong> ${possessionStatus}</p>
+          <p><strong>Ownership:</strong> ${ownership}</p>
+          <p><strong>Transaction Type:</strong> ${transactionType}</p> 
+          <p><strong>Currently Leased Out:</strong> ${currentlyLeasedOut}</p>
+          <br>
+          <h3>Property Price Details</h3>
+          <p><strong>Booking Amount:</strong> ₹${bookingAmount}</p>
+          <p><strong>Price Negotiable:</strong> ${priceNegotiable}</p>
+          <br>
+          <h3>Property Other Details</h3>
+          <p><strong>Commercial Amenities:</strong> ${commercialAmenities}</p>
+          <p><strong>Location Advantages:</strong> ${locationAdvantages}</p>
+          <p><strong>Overlooking:</strong> ${overlooking}</p>
+          <p><strong>Facing:</strong> ${facing}</p>
+          <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
+          <br>
+          <h3>Owner Details</h3>
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <br>
+          <h3>Inquiry User Details</h3>
+          <p><strong>Name:</strong> ${queryUsername}</p>
+          <p><strong>Email:</strong> ${queryUseremail}</p>
+          <p><strong>Phone:</strong> ${queryUserphone}</p>
+          <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+        `,
+      };
+      
+      await transporter.sendMail(mailOptions6);
+      //console.log('Inquiry email sent to admin. '+mailOptions6);
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+    }
+    else if(propertyDetails.propertyType=="Commercial Land"){
+      const { queryUsername, queryUseremail, queryUserphone} = userDetails;
+      const { user } = propertyDetails;
+      const { propertyID, propertyType, propertyPurpose, expectedPrice, isAvailable, propertyStatus, isHandpickedProperty, isRecommendedProperty, images, dateListed, city, address, projectSocietyName,landZone, currentlyLeasedOut, description, lengthDimension, widthDimension, dimensionUnit, openSides, facingRoadWidth, facingRoadWidthUnit, boundaryWall, cornerPlot, plotArea, plotAreaUnit, possessionStatus, ownership, transactionType, bookingAmount, priceNegotiable, commercialAmenities, locationAdvantages, facing, overlooking} = propertyDetails;
+  
+      const mailOptions7 = {
+        from: `"Property Inquiry" <pgoyal_realestate@propertymela.in>`, // Sender email
+        to: process.env.ADMIN_EMAIL, // Admin's email
+        subject: `New Inquiry for Property: ${propertyType} for ${propertyPurpose} in ${city}, `,
+        html: `
+          <h2>New Property Inquiry</h2>
+          <p><strong>Property ID:</strong> ${propertyID}</p>
+          <p><strong>Property Type:</strong> ${propertyType}</p>
+          <p><strong>Property Purpose:</strong> ${propertyPurpose}</p>
+          <p><strong>Price:</strong> ₹${expectedPrice}</p>
+          <p><strong>City:</strong> ${city}</p>
+          <p><strong>Project/Society Name :</strong> ${projectSocietyName}</p>
+          <p><strong>Address:</strong> ${address}</p>
+          <p><strong>Land Zone:</strong> ${landZone}</p>
+          <p><strong>Availability:</strong> ${isAvailable}</p>
+          <p><strong>Property Status:</strong> ${propertyStatus}</p>
+          <p><strong>Listed on date:</strong> ${dateListed.toLocaleString()}</p>
+          <br>
+          <h3>Property Details</h3>
+          <p><strong>Open Sides:</strong> ${openSides}</p>
+          <p><strong>Facing Road Width:</strong> ${facingRoadWidth} ${facingRoadWidthUnit}</p>
+          <p><strong>Boundary Wall:</strong> ${boundaryWall}</p>
+          <br>
+          <h3>Property Area Details</h3>
+          <p><strong>Plot Area:</strong> ${plotArea} ${plotAreaUnit}</p>
+          <p><strong>Length Dimension:</strong> ${lengthDimension} ${dimensionUnit}</p>
+          <p><strong>Width Dimension:</strong> ${widthDimension} ${dimensionUnit}</p>
+          <p><strong>Corner Plot:</strong> ${cornerPlot}</p>
+          <br>
+          <h3>Property Ownership Details</h3>
+          <p><strong>possession Status:</strong> ${possessionStatus}</p>
+          <p><strong>Ownership:</strong> ${ownership}</p>
+          <p><strong>Transaction Type:<strong> ${transactionType}</p>
+          <p><strong>Currently Leased Out:<strong> ${currentlyLeasedOut}</p> 
+          <br>
+          <h3>Property Price Details</h3>
+          <p><strong>Booking Amount:</strong> ₹${bookingAmount}</p>
+          <p><strong>Price Negotiable:</strong> ${priceNegotiable}</p>
+          <br>
+          <h3>Property Other Details</h3>
+          <p><strong>Commercial Amenities:</strong> ${commercialAmenities}</p>
+          <p><strong>Location Advantages:</strong> ${locationAdvantages}</p>
+          <p><strong>Overlooking:</strong> ${overlooking}</p>
+          <p><strong>Facing:</strong> ${facing}</p>
+          <p><strong>Property Description:</strong> ${description}</p>
+          <p><strong>Recommended Property:</strong> ${isRecommendedProperty}</p>
+          <p><strong>Handpicked Property:</strong> ${isHandpickedProperty}</p>
+          <p><strong>Property Images:</strong> ${images}</p>
+          <br>
+          <h3>Owner Details</h3>
+          <p><strong>Name:</strong> ${user.name}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Phone:</strong> ${user.phone}</p>
+          <br>
+          <h3>Inquiry User Details</h3>
+          <p><strong>Name:</strong> ${queryUsername}</p>
+          <p><strong>Email:</strong> ${queryUseremail}</p>
+          <p><strong>Phone:</strong> ${queryUserphone}</p>
+          <p><strong>Message:</strong> I am interested in this property. Please contact me for more details.</p>
+        `,
+      };
+      await transporter.sendMail(mailOptions7);
+      //console.log('Inquiry email sent to admin. '+mailOptions7);
+    return { success: true, message: 'Thankyou for showing interest in the property. Our team will contact you soon.' };
+    }
+    
   } catch (error) {
-    console.error('Error sending inquiry email:', error);
+    //console.log('Error sending inquiry email:', error);
     return { success: false, message: 'Failed to send inquiry.' };
   }
 };
@@ -131,10 +614,10 @@ const sendContactUsEmail = async (userDetails) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    ll.log('Contact Us inquiry email sent to admin.');
+    //ll.log('Contact Us inquiry email sent to admin.');
     return { success: true, message: 'Thankyou. Your message has been sent to our team. We will contact you soon.' };
   } catch (error) {
-    console.error('Error sending Contact Us inquiry email:', error);
+    //console.error('Error sending Contact Us inquiry email:', error);
     return { success: false, message: 'Failed to send inquiry.' };
   }
 };

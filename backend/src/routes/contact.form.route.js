@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const contactFormController = require('../controllers/contact.form.controller.js');
+const { contactLimiter } = require("../middleware/rate.limitter.js");
+
 
 /**
  * @swagger
@@ -41,6 +43,6 @@ const contactFormController = require('../controllers/contact.form.controller.js
  *       400:
  *         description: Bad request
  */
-router.post('/', contactFormController.createContactForm);
+router.post('/',contactLimiter, contactFormController.createContactForm);
 
 module.exports = router;
