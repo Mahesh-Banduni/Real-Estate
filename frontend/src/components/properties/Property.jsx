@@ -19,7 +19,7 @@ const Property = ({ item, wishlistProperties }) => {
     if (findValue) {
       setMarkFavorite(true);
     }
-  }, [wishlistProperties]);
+  }, [wishlistProperties, wishlistProperties.length]);
   return (
     <Link
       to={`/singleProperty/${item._id}`}
