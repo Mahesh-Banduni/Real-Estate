@@ -51,3 +51,6 @@ input[type="number"] {
   background-color: black;
   width: 45%;
 }
+/* .item3 {
+  grid-column: 1 / 3;
+} */

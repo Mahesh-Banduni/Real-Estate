@@ -6,7 +6,7 @@ const PrimaryCards = ({ item }) => {
     <div className="border border-border-color p-3 w-fit flex flex-col gap-2 justify-center overflow-hidden">
       <div className="max-sm:w-full">
         <img
-          className="w-[20rem] h-[15rem] max-xl:w-full max-xl:h-[10rem]"
+          className="w-[25rem] h-[15rem] max-xl:h-[10rem]"
           src={item?.images?.[0] || "default-image.jpg"} // Provide a fallback for images
           alt="property images"
         />

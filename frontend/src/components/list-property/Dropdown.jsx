@@ -1,7 +1,5 @@
 import React from "react";
 
-import usePostProperty from "../../hooks/usePostProperty";
-
 const Dropdown = ({
   array,
   method,

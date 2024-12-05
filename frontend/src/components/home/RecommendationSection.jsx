@@ -16,7 +16,6 @@ import useRecommended from "../../hooks/useRecommended";
 
 const RecommendationSection = () => {
   const { recommendedProperties } = useRecommended();
-  console.log(recommendedProperties);
 
   return (
     <div className="w-11/12 mx-auto my-10 max-sm:pt-0 flex flex-col gap-5 max-sm:gap-2 ">

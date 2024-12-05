@@ -23,13 +23,13 @@ const Property = ({ item, wishlistProperties }) => {
   return (
     <Link
       to={`/singleProperty/${item._id}`}
-      className="hover:shadow-lg hover:shadow-gray-500 transition-all border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-2 max-lg:grid-rows-2 max-sm:grid-cols-2 max-sm:grid-rows-property-card "
+      className="hover:shadow-lg hover:shadow-gray-500 transition-all border-2 border-primary-color max-lg:grid-flow-col grid grid-cols-list-card grid-rows-1 gap-5 max-lg:gap-2 max-lg:grid-cols-large-screen max-lg:grid-rows-large-screen "
     >
       {/* property images */}
-      <div className=" relative w-full p-2 max-lg:row-span-2 max-sm:row-span-1">
+      <div className=" w-full p-2">
         <div className="w-full max-lg:h-full">
           <img
-            className="w-full h-48"
+            className="w-full h-48 max-lg:h-[15rem]"
             src={item?.images?.[0] || "default-image.jpg"}
             alt="property"
           />
@@ -37,7 +37,7 @@ const Property = ({ item, wishlistProperties }) => {
       </div>
 
       {/* property features */}
-      <div className="py-2 max-sm:hidden">
+      <div className="py-2">
         {(item?.propertyType === "Residential Flat/Apartment" ||
           item?.propertyType === "Commercial Office Space") && (
           <ResidentialFlatProperties markFavorite={markFavorite} item={item} />
@@ -59,11 +59,11 @@ const Property = ({ item, wishlistProperties }) => {
       </div>
 
       {/* property price */}
-      <div className=" w-full bg-price-card flex flex-col justify-between py-5 px-2 max-xl:mb-2 box-border max-lg:justify-start max-lg:h-fit max-lg:gap-5 ">
+      <div className="max-lg:col-start-1 max-lg:col-end-3 max-lg:row-start-2 w-full bg-price-card flex flex-col justify-between py-5 px-2 max-xl:mb-2 box-border max-lg:justify-start max-lg:h-fit max-lg:gap-5 ">
         <div className="text-center">
           <span className="text-2xl font-interSemiBold capitalize">
             {item?.expectedPrice
-              ? `Rs. ${item.expectedPrice.toLocaleString("en-IN")}`
+              ? `Rs. ${Number(item?.expectedPrice).toLocaleString("en-IN")}`
               : "N/A"}
           </span>
         </div>

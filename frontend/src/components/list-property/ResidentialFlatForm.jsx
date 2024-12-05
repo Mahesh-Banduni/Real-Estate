@@ -15,22 +15,15 @@ import {
   Heading,
   ListPropertyInput,
   ListPropertySelectInput,
-  TotalFlats,
 } from "../index";
 
 const ResidentialFlatForm = ({
   handelChangeFormInputFields,
   formInputValue,
   cities,
-  localities,
   setFormInputValue,
 }) => {
-  const {
-    showCities,
-    showLocalities,
-    handelToggleCityDropdown,
-    handelToggleLocalityDropdown,
-  } = usePostProperty();
+  const { showCities, handelToggleCityDropdown } = usePostProperty();
 
   const totalFloors = Array.from({ length: 250 }, (_, i) => i + 1);
 

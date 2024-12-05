@@ -20,15 +20,9 @@ const CommercialShowroomForm = ({
   handelChangeFormInputFields,
   formInputValue,
   cities,
-  localities,
   setFormInputValue,
 }) => {
-  const {
-    showCities,
-    handelToggleCityDropdown,
-    handelToggleLocalityDropdown,
-    showLocalities,
-  } = usePostProperty();
+  const { showCities, handelToggleCityDropdown } = usePostProperty();
 
   const totalFloors = Array.from({ length: 250 }, (_, i) => i + 1);
 

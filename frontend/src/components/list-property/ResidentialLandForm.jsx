@@ -20,15 +20,9 @@ const ResidentialLandForm = ({
   handelChangeFormInputFields,
   formInputValue,
   cities,
-  localities,
   setFormInputValue,
 }) => {
-  const {
-    showCities,
-    showLocalities,
-    handelToggleCityDropdown,
-    handelToggleLocalityDropdown,
-  } = usePostProperty();
+  const { showCities, handelToggleCityDropdown } = usePostProperty();
   return (
     <React.Fragment>
       {/* property location */}

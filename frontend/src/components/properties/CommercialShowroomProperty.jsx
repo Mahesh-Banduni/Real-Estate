@@ -16,7 +16,7 @@ import useWishlist from "../../hooks/useWishlist";
 const CommercialShowroomProperties = ({ item, markFavorite }) => {
   const { markFavoriteProperty, unMarkFavoriteProperty } = useWishlist();
   return (
-    <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-sm:hidden max-xl:gap-1">
+    <div className=" w-full h-[90%] my-auto flex flex-col gap-2 max-lg:justify-center max-xl:gap-1">
       <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between max-lg:justify-center max-lg:gap-2">
           <Heading

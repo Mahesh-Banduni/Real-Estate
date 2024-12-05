@@ -17,7 +17,9 @@ const useContact = () => {
       const response = await axiosInstance.post("/contact-forms", data);
 
       if (response?.statusText === "Created") {
-        alert(`Your contact form is submitted out team will connect you soon`);
+        alert(
+          `Your contact form is submitted successfully. Our team will connect you soon`
+        );
         reset();
       } else if (!response.data?.isSuccess) {
         alert(`${response.data?.message}`);

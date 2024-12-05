@@ -127,6 +127,7 @@ const useHandpicked = () => {
     handelChangeCity,
     searchCity,
     handpickedFilter,
+    fetchProperties,
   };
 };
 

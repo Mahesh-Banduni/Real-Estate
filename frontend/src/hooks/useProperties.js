@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../utils/axiosInstance";
 
 const useProperties = () => {
-  const propertyFilter = useSelector((store) => store.authReducer.filters);
+  const propertyFilter = useSelector((store) => store?.authReducer?.filters);
   const dispatch = useDispatch();
 
   //========================== states ======================
