@@ -275,6 +275,7 @@ const favoriteProperties = async (userId, filters, sortBy, sortOrder) => {
     path: "favoriteProperties", // Field to populate
     model: "Property", // Target model
     match: query, // Apply filters
+    select: '-user'
   });
 
   //console.log(user.favoriteProperties.length);

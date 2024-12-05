@@ -39,7 +39,8 @@ app.use(compression());
 app.use(
   cors({
     origin: [
-      `http://${process.env.ORIGIN}:${process.env.ORIGIN_PORT}`,
+      `http://${process.env.ORIGIN}`,
+      `https://${process.env.ORIGIN}`,
       "192.168.137.159:8080",
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Restrict methods
@@ -89,24 +90,24 @@ app.use(
 );
 
 app.use(express.json());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/users", userRoutes);
-app.use("/user-profiles", userProfileRoutes);
-app.use("/userauth", userAuthRoutes);
-app.use("/properties", propertyRoutes);
-app.use("/search-properties", searchPropertyRoutes);
-app.use("/handpicked-properties", handpickedPropertyRoutes);
-app.use("/recommended-properties", recommendedPropertyRoutes);
-app.use("/contact-forms", contactFormRoutes);
-app.use("/cities-localities", citySearchRoutes);
-app.use("/auction-properties", auctionPropertyRoutes);
-app.use("/exchange-properties", exchangePropertyRoutes);
-app.use("/owned-properties", ownedPropertyRoutes);
-app.use("/favorite-properties", favoritePropertyRoutes);
-app.use("/all-auction-properties", allAuctionPropertyRoutes);
-app.use("/property-inquiry", propertyInquiry);
-app.use("/auction-property-inquiry", auctionPropertyInquiry);
-app.use("/reset-password", resetPasswordRoutes);
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api/users", userRoutes);
+app.use("/api/user-profiles", userProfileRoutes);
+app.use("/api/userauth", userAuthRoutes);
+app.use("/api/properties", propertyRoutes);
+app.use("/api/search-properties", searchPropertyRoutes);
+app.use("/api/handpicked-properties", handpickedPropertyRoutes);
+app.use("/api/recommended-properties", recommendedPropertyRoutes);
+app.use("/api/contact-forms", contactFormRoutes);
+app.use("/api/cities-localities", citySearchRoutes);
+app.use("/api/auction-properties", auctionPropertyRoutes);
+app.use("/api/exchange-properties", exchangePropertyRoutes);
+app.use("/api/owned-properties", ownedPropertyRoutes);
+app.use("/api/favorite-properties", favoritePropertyRoutes);
+app.use("/api/all-auction-properties", allAuctionPropertyRoutes);
+app.use("/api/property-inquiry", propertyInquiry);
+app.use("/api/auction-property-inquiry", auctionPropertyInquiry);
+app.use("/api/reset-password", resetPasswordRoutes);
 app.use(errorHandler);
 
 // // Request Logger Middleware (using express-pino)
@@ -136,6 +137,6 @@ app.use(errorHandler);
 app.listen(process.env.SOURCE_PORT, () => {
   console.log(`App is listening at port ${process.env.SOURCE_PORT}`);
   console.log(
-    `Swagger Docs available at http://${process.env.SOURCE}:${process.env.SOURCE_PORT}/api-docs`
+    `Swagger Docs available at http://${process.env.SOURCE}:${process.env.SOURCE_PORT}/api/api-docs`
   );
 });

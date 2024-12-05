@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const propertyInquiryController = require('../controllers/property.controller.js');
 const auth= require("../middleware/auth.js");
+const { inquiryLimiter } = require("../middleware/rate.limitter.js");
+
 
 /**
  * @swagger
@@ -31,6 +33,6 @@ const auth= require("../middleware/auth.js");
  *       400:
  *         description: Bad request
  */
-router.post('/', auth, propertyInquiryController.propertyInquiry);
+router.post('/', inquiryLimiter, auth, propertyInquiryController.propertyInquiry);
 
 module.exports = router;
