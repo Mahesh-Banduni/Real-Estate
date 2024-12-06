@@ -565,6 +565,10 @@ const markHandpickedProperty = async (propertyId, userId) => {
   if (!property) {
     throw new NotFoundError('Property not found');
   }
+  // Check if the property already marked as Handpicked Property
+  if (property.isHandpickedProperty=='true') {
+    throw new ConflictError('Property already marked as Handpicked Property');
+  }
 
   property.isHandpickedProperty = true;
   return await property.save();
@@ -580,6 +584,10 @@ const unmarkHandpickedProperty = async (propertyId, userId) => {
   const property = await Property.findById(propertyId);
   if (!property) {
     throw new NotFoundError('Property not found');
+  }
+  // Check if the property already unmarked as Handpicked Property
+  if (property.isHandpickedProperty=='false') {
+    throw new ConflictError('Property already unmarked as Handpicked Property');
   }
 
   property.isHandpickedProperty = false;
@@ -598,6 +606,10 @@ const markApprovedProperty = async (propertyId, userId) => {
   if (!property) {
     throw new NotFoundError('Property not found');
   }
+  // Check if the property already marked as Approved Property
+  if (property.propertyStatus=='Approved') {
+    throw new ConflictError('Property already marked as Approved Property');
+  }
 
   property.propertyStatus = "Approved";
   return await property.save();
@@ -613,6 +625,10 @@ const unmarkApprovedProperty = async (propertyId, userId) => {
   const property = await Property.findById(propertyId);
   if (!property) {
     throw new NotFoundError('Property not found');
+  }
+  // Check if the property already marked for Approved Pending
+  if (property.propertyStatus=="Approval Pending") {
+    throw new ConflictError('Property already marked for Approved Pending');
   }
 
   property.propertyStatus = "Approval Pending";
@@ -632,6 +648,11 @@ const markRecommendedProperty = async (propertyId, userId) => {
     throw new NotFoundError('Property not found');
   }
 
+  // Check if the property already marked as Recommended Property
+  if (property.isRecommendedProperty=='true') {
+    throw new ConflictError('Property already marked as Recommended Property');
+  }
+
   property.isRecommendedProperty = true;
   return await property.save();
 };
@@ -646,6 +667,11 @@ const unmarkRecommendedProperty = async (propertyId, userId) => {
   const property = await Property.findById(propertyId);
   if (!property) {
     throw new NotFoundError('Property not found');
+  }
+
+  // Check if the property already unmarked as Recommended Property
+  if (property.isRecommendedProperty=='false') {
+    throw new ConflictError('Property already unmarked as Recommended Property');
   }
 
   property.isRecommendedProperty = false;
@@ -670,7 +696,9 @@ const addFavoriteProperty = async (userId, propertyId) => {
   }
 
   user.favoriteProperties.push(propertyId);
-  return await user.save();
+  await user.save();
+  
+  return property;
 };
 
 // Remove a property from favorites
@@ -694,7 +722,9 @@ const removeFavoriteProperty = async (userId, propertyId) => {
   user.favoriteProperties = user.favoriteProperties.filter(
     (id) => id.toString() !== propertyId.toString()
   );
-  return await user.save();
+  await user.save();
+
+  return property;
 };
 
 module.exports = {

@@ -83,10 +83,10 @@ const updateProperty = async (req, res, next) => {
 // Controller for deleting a Property by ID
 const deleteProperty = async (req, res, next) => {
   try {
-    await propertyService.deleteProperty(req.params.id, req.body.userId);
+    await propertyService.deleteProperty(req.params.id, req.user.id);
     logger.info(
       "User ID:" +
-        `${req.body.userId}` +
+        `${req.user.id}` +
         " has deleted property ID:" +
         `${req.params.id}` +
         " successfully"
@@ -325,11 +325,11 @@ const markHandpickedProperty = async (req, res, next) => {
   try {
     const property = await propertyService.markHandpickedProperty(
       req.params.id,
-      req.body.userId
+      req.user.id
     );
     logger.info(
       "User ID:" +
-        `${req.body.userId}` +
+        `${req.user.id}` +
         " has marked property ID:" +
         `${req.params.id}` +
         " as handpicked property"
@@ -346,14 +346,14 @@ const markHandpickedProperty = async (req, res, next) => {
 const unmarkHandpickedProperty = async (req, res, next) => {
   try {
     const property = await propertyService.unmarkHandpickedProperty(
-      req.params.propertyId,
-      req.body.userId
+      req.params.id,
+      req.user.id
     );
     logger.info(
       "User ID:" +
-        `${req.body.userId}` +
+        `${req.user.id}` +
         " has unmarked property ID:" +
-        `${req.params.propertyId}` +
+        `${req.params.id}` +
         " as handpicked property"
     );
     res.status(200).json({
@@ -369,11 +369,11 @@ const markApprovedProperty = async (req, res, next) => {
   try {
     const property = await propertyService.markApprovedProperty(
       req.params.id,
-      req.body.userId
+      req.user.id
     );
     logger.info(
       "User ID:" +
-        `${req.body.userId}` +
+        `${req.user.id}` +
         " has marked property ID:" +
         `${req.params.id}` +
         " as approved property"
@@ -390,14 +390,14 @@ const markApprovedProperty = async (req, res, next) => {
 const unmarkApprovedProperty = async (req, res, next) => {
   try {
     const property = await propertyService.unmarkApprovedProperty(
-      req.params.propertyId,
-      req.body.userId
+      req.params.id,
+      req.user.id
     );
     logger.info(
       "User ID:" +
-        `${req.body.userId}` +
+        `${req.user.id}` +
         " has unmarked property ID:" +
-        `${req.params.propertyId}` +
+        `${req.params.id}` +
         " as handpicked property"
     );
     res.status(200).json({
@@ -413,7 +413,14 @@ const markRecommendedProperty = async (req, res, next) => {
   try {
     const property = await propertyService.markRecommendedProperty(
       req.params.id,
-      req.body.userId
+      req.user.id
+    );
+    logger.info(
+      "User ID:" +
+        `${req.user.id}` +
+        " has marked property ID:" +
+        `${req.params.id}` +
+        " as recommended property"
     );
     res.status(200).json({
       success: true,
@@ -427,8 +434,15 @@ const markRecommendedProperty = async (req, res, next) => {
 const unmarkRecommendedProperty = async (req, res, next) => {
   try {
     const property = await propertyService.unmarkRecommendedProperty(
-      req.params.propertyId,
-      req.body.userId
+      req.params.id,
+      req.user.id
+    );
+    logger.info(
+      "User ID:" +
+        `${req.user.id}` +
+        " has marked property ID:" +
+        `${req.params.id}` +
+        " as recommended property"
     );
     res.status(200).json({
       success: true,

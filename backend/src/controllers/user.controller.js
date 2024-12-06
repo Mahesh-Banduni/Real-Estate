@@ -79,16 +79,16 @@ const deleteUser = async (req, res, next) => {
 // Add a property to favorites
 const addFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await propertyService.addFavoriteProperty(
+    const property = await propertyService.addFavoriteProperty(
       req.user.id,
       req.body.propertyId
     );
     res.status(200).json({
       success: true,
-      data: user,
+      data: property,
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     next(error);
   }
 };
@@ -96,16 +96,16 @@ const addFavoriteProperty = async (req, res, next) => {
 // Remove a property from favorites
 const removeFavoriteProperty = async (req, res, next) => {
   try {
-    const user = await propertyService.removeFavoriteProperty(
+    const property = await propertyService.removeFavoriteProperty(
       req.user.id,
       req.body.propertyId
     );
     res.status(200).json({
       success: true,
-      data: user,
+      data: property,
     });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     next(error);
   }
 };
