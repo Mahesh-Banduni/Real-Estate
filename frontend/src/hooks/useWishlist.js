@@ -30,9 +30,7 @@ const useWishlist = () => {
   };
   //========================= Fetch owned properties ========================
   const fetchWishlistProperties = async () => {
-    if (!token) {
-      navigate("/signin");
-    } else {
+    if (token) {
       setMessage("");
       try {
         setIsLoading(true);
