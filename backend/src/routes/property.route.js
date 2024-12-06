@@ -141,23 +141,13 @@ router.put("/:id", propertyController.updateProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User ID
  *     responses:
  *       200:
  *         description: Property deleted successfully
  *       404:
  *         description: Property not found
  */
-router.delete("/:id", propertyController.deleteProperty);
+router.delete("/:id",auth, propertyController.deleteProperty);
 
 /**
  * @swagger
@@ -174,23 +164,13 @@ router.delete("/:id", propertyController.deleteProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User ID
  *     responses:
  *       200:
  *         description: Property marked as handpicked
  *       400:
  *         description: Only admins can mark properties as handpicked
  */
-router.put("/:id/mark-handpicked", propertyController.markHandpickedProperty);
+router.put("/:id/mark-handpicked",auth, propertyController.markHandpickedProperty);
 
 /**
  * @swagger
@@ -207,16 +187,6 @@ router.put("/:id/mark-handpicked", propertyController.markHandpickedProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User ID
  *     responses:
  *       200:
  *         description: Property Unmarked as handpicked
@@ -224,7 +194,7 @@ router.put("/:id/mark-handpicked", propertyController.markHandpickedProperty);
  *         description: Only admins can Unmark properties as handpicked
  */
 router.put(
-  "/:id/unmark-handpicked",
+  "/:id/unmark-handpicked",auth,
   propertyController.unmarkHandpickedProperty
 );
 
@@ -243,23 +213,13 @@ router.put(
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User ID
  *     responses:
  *       200:
  *         description: Property marked as approved
  *       400:
  *         description: Only admins can mark properties as approved
  */
-router.put("/:id/mark-approved", propertyController.markApprovedProperty);
+router.put("/:id/mark-approved",auth, propertyController.markApprovedProperty);
 
 /**
  * @swagger
@@ -276,23 +236,13 @@ router.put("/:id/mark-approved", propertyController.markApprovedProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User ID
  *     responses:
  *       200:
  *         description: Property marked as approval pending
  *       400:
  *         description: Only admins can mark properties as approval pending
  */
-router.put("/:id/unmark-approved", propertyController.unmarkApprovedProperty);
+router.put("/:id/unmark-approved",auth, propertyController.unmarkApprovedProperty);
 
 /**
  * @swagger
@@ -309,23 +259,13 @@ router.put("/:id/unmark-approved", propertyController.unmarkApprovedProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User ID
  *     responses:
  *       200:
  *         description: Property marked as recommended
  *       400:
  *         description: Only admins can mark properties as recommended
  */
-router.put("/:id/mark-recommended", propertyController.markRecommendedProperty);
+router.put("/:id/mark-recommended",auth, propertyController.markRecommendedProperty);
 
 /**
  * @swagger
@@ -342,16 +282,6 @@ router.put("/:id/mark-recommended", propertyController.markRecommendedProperty);
  *         schema:
  *           type: string
  *         description: Property ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: string
- *                 description: User ID
  *     responses:
  *       200:
  *         description: Property marked as not recommended
@@ -359,7 +289,7 @@ router.put("/:id/mark-recommended", propertyController.markRecommendedProperty);
  *         description: Only admins can mark properties as not recommended
  */
 router.put(
-  "/:id/unmark-recommended",
+  "/:id/unmark-recommended",auth,
   propertyController.unmarkRecommendedProperty
 );
 
