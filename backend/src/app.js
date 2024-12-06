@@ -38,11 +38,7 @@ app.use(compression());
 
 app.use(
   cors({
-    origin: [
-      `http://${process.env.ORIGIN}`,
-      `https://${process.env.ORIGIN}`,
-      "192.168.137.159:8080",
-    ],
+    origin: [process.env.ORIGIN, process.env.ORIGIN1],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Restrict methods
     allowedHeaders: ["Content-Type", "Authorization"],
   })

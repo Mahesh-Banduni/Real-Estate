@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 // /** @type {import('tailwindcss').Config} */
+=======
+// tailwind.config.js
+import daisyui from "daisyui";
+
+>>>>>>> 4725c025268b8261be408d3d7b8c169cf9c799d4
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -32,7 +38,6 @@ export default {
         interMedium: ["InterMedium"],
         interRegular: ["InterRegular"],
         interSemiBold: ["InterSemiBold"],
-        interRegular: ["InterRegular"],
       },
       gridTemplateColumns: {
         "list-card": "0.7fr 1.6fr 0.7fr",
@@ -47,5 +52,5 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [daisyui],
 };
